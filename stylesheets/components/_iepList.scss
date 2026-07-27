@@ -1,0 +1,80 @@
+// ==========================================================================
+// IEP 基本資料管理列表（iepBasicInfo.html）
+// 完成狀態頁籤（沿用共用 .tabs-nav 分段式頁籤，由 js/iep.js 篩選同一面板）
+// ＋填寫狀態徽章
+// ==========================================================================
+
+// --------------------------------------------------------------------------
+// 各狀態圖示配色（僅裝飾，狀態意義由文字表達）
+.iep-tab-icon--all {
+  color: $primary;
+}
+
+.iep-tab-icon--done {
+  color: $success;
+}
+
+.iep-tab-icon--undone {
+  color: $danger;
+}
+
+// 深金黃：白底上維持 CR >= 3:1（裝飾圖示），與 .iep-action-hint .bi 同色
+.iep-tab-icon--warn {
+  color: #B8860B;
+}
+
+// --------------------------------------------------------------------------
+// IEP 填寫狀態徽章（表格欄）
+// --------------------------------------------------------------------------
+.iep-status {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-weight: $font-weight-medium;
+  white-space: nowrap;
+
+  .bi {
+    flex-shrink: 0;
+  }
+
+  small {
+    font-size: .8125rem;
+  }
+}
+
+// 單列型（已完成／未完成／評量資料未填）圖示與文字同列
+.iep-status--done,
+.iep-status--undone,
+.iep-status--evalmissing {
+  flex-direction: row;
+  gap: 6px;
+}
+
+.iep-status--done {
+  color: $success;
+}
+
+.iep-status--undone {
+  color: $danger;
+}
+
+// 深金黃：白底上維持 CR >= 3:1，與 .iep-tab-icon--warn 同色
+.iep-status--evalmissing {
+  color: #B8860B;
+}
+
+.iep-status--unopened {
+  color: $grey-500;
+}
+
+.iep-status-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+// 狀態頁籤篩選時隱藏的列（覆蓋 < md 的 tr { display: block }）
+.data-table tbody tr.is-filtered-out {
+  display: none;
+}

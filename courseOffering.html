@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>開課作業 - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="維護與管理各學期開設課程，確保師資、教室與授課內容之正確性。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body>
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1">
+        <!-- 內頁 Banner：麵包屑＋標題＋CSS 裝飾＋插圖 -->
+        <section class="page-banner">
+            <!-- 裝飾層（純 CSS 繪製） -->
+            <div class="page-banner-deco" aria-hidden="true">
+                <span class="page-banner-halfcircle"></span>
+                <span class="page-banner-circle"></span>
+                <span class="page-banner-dots"></span>
+            </div>
+
+            <div class="container">
+                <nav class="page-banner-breadcrumb" aria-label="麵包屑導覽">
+                    <ol>
+                        <li>
+                            <a class="breadcrumb-home" href="index_AdminLogged.html" aria-label="首頁">
+                                <i class="bi bi-house-door" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">課務管理</a></li>
+                        <li><a href="#">開排課作業</a></li>
+                        <li aria-current="page">開課作業</li>
+                    </ol>
+                </nav>
+
+                <div class="page-banner-main">
+                    <div class="page-banner-text">
+                        <h1 class="page-banner-title">開課作業</h1>
+                        <p class="page-banner-desc">維護與管理各學期開設課程，確保師資、教室與授課內容之正確性。</p>
+                    </div>
+                    <!-- 右側人物插圖（純裝飾） -->
+                    <div class="page-banner-visual" aria-hidden="true">
+                        <img src="img/hero/login-hero/內頁人物背景.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 查詢與資料列表 -->
+        <section class="data-section">
+            <div class="container">
+                <div class="data-card">
+                    <!-- 查詢工具列（後端：查詢/匯出行為由後端接手） -->
+                    <form class="data-toolbar" action="#" method="get">
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterDept">部別</label>
+                            <select class="form-select" id="filterDept" name="filterDept">
+                                <option value="" selected>請選擇</option>
+                                <option value="1">國民小學</option>
+                                <option value="2">國民中學</option>
+                                <option value="3">高級職業部</option>
+                            </select>
+                        </div>
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterClassToggle">開課班級</label>
+                            <!-- 下拉搜尋選單通用元件（比照 teacherSubject.html），後端：選項為系統既有開課班級清單，動態產生 -->
+                            <div class="dropdown dropdown-search" data-dropdown-search>
+                                <button class="form-select text-start text-muted bg-white" type="button" id="filterClassToggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                    請選擇
+                                </button>
+                                <div class="dropdown-menu w-100 p-2" aria-labelledby="filterClassToggle">
+                                    <div class="dropdown-search-box">
+                                        <label class="sr-only" for="filterClassSearch">搜尋班級名稱</label>
+                                        <input type="search" class="form-control" id="filterClassSearch" placeholder="搜尋班級名稱" data-dropdown-search-input autocomplete="off">
+                                    </div>
+                                    <ul class="dropdown-search-list">
+                                        <li><button type="button" class="dropdown-search-item" data-value="1">國小低年級</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="2">國小中年級</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="3">國小高年級</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="4">國中一年級</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="5">高職一年甲班</button></li>
+                                    </ul>
+                                    <p class="dropdown-search-empty" data-dropdown-search-empty hidden>查無符合的班級</p>
+                                </div>
+                                <input type="hidden" name="filterClass" data-dropdown-search-value>
+                            </div>
+                        </div>
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterTeacherToggle">老師姓名</label>
+                            <!-- 下拉搜尋選單通用元件（比照 teacherSubject.html），後端：選項為系統既有教師清單，動態產生 -->
+                            <div class="dropdown dropdown-search" data-dropdown-search>
+                                <button class="form-select text-start text-muted bg-white" type="button" id="filterTeacherToggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                    請選擇
+                                </button>
+                                <div class="dropdown-menu w-100 p-2" aria-labelledby="filterTeacherToggle">
+                                    <div class="dropdown-search-box">
+                                        <label class="sr-only" for="filterTeacherSearch">搜尋教師姓名</label>
+                                        <input type="search" class="form-control" id="filterTeacherSearch" placeholder="搜尋教師姓名" data-dropdown-search-input autocomplete="off">
+                                    </div>
+                                    <ul class="dropdown-search-list">
+                                        <li><button type="button" class="dropdown-search-item" data-value="1">黃富勝</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="2">鍾子敏</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="3">徐學強</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="4">王小明</button></li>
+                                    </ul>
+                                    <p class="dropdown-search-empty" data-dropdown-search-empty hidden>查無符合的教師</p>
+                                </div>
+                                <input type="hidden" name="filterTeacher" data-dropdown-search-value>
+                            </div>
+                        </div>
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterCourseCode">課程代碼</label>
+                            <input type="text" class="form-control" id="filterCourseCode" name="filterCourseCode" placeholder="請輸入課程代碼">
+                        </div>
+                        <div class="data-toolbar-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-search" aria-hidden="true"></i>查詢
+                            </button>
+                            <a class="btn btn-success" href="courseOffering_form.html">
+                                <i class="bi bi-plus-lg" aria-hidden="true"></i>新增
+                            </a>
+                            <button type="button" class="btn btn-export">
+                                <i class="bi bi-download" aria-hidden="true"></i>匯出
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- 後端：總筆數 -->
+                    <p class="data-total">總筆數：28</p>
+
+                    <table class="table data-table table-striped">
+                        <caption class="sr-only">開課作業課程列表</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">序號</th>
+                                <th scope="col">課程代碼</th>
+                                <th scope="col">課程名稱</th>
+                                <th scope="col">功能</th>
+                            </tr>
+                        </thead>
+                        <!-- 後端：以下列表資料為動態產生，示意 8 筆 -->
+                        <tbody>
+                            <tr>
+                                <td data-label="序號"><span class="cell-value">1</span></td>
+                                <td data-label="課程代碼"><span class="cell-value">1011001</span></td>
+                                <td data-label="課程名稱"><span class="cell-value cell-value--start">1002(語文)-張OO+李OO-國小部(分組班)教室(21/14/15/16/17)</span></td>
+                                <td data-label="功能">
+                                    <span class="cell-value">
+                                        <a class="btn btn-primary btn-edit" href="courseOffering_form.html" aria-label="編輯課程 1011001">
+                                            <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="序號"><span class="cell-value">2</span></td>
+                                <td data-label="課程代碼"><span class="cell-value">1011002</span></td>
+                                <td data-label="課程名稱"><span class="cell-value cell-value--start">1005(數學)-林OO-國小低年級教室(11/12/13)</span></td>
+                                <td data-label="功能">
+                                    <span class="cell-value">
+                                        <a class="btn btn-primary btn-edit" href="courseOffering_form.html" aria-label="編輯課程 1011002">
+                                            <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="序號"><span class="cell-value">3</span></td>
+                                <td data-label="課程代碼"><span class="cell-value">1021001</span></td>
+                                <td data-label="課程名稱"><span class="cell-value cell-value--start">2005(社會)-徐學強-國小中年級教室(41/42)</span></td>
+                                <td data-label="功能">
+                                    <span class="cell-value">
+                                        <a class="btn btn-primary btn-edit" href="courseOffering_form.html" aria-label="編輯課程 1021001">
+                                            <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="序號"><span class="cell-value">4</span></td>
+                                <td data-label="課程代碼"><span class="cell-value">1021002</span></td>
+                                <td data-label="課程名稱"><span class="cell-value cell-value--start">1017-5(特殊需求－功能性動作訓練)-黃富勝+鍾子敏-國小中年級教室(41)</span></td>
+                                <td data-label="功能">
+                                    <span class="cell-value">
+                                        <a class="btn btn-primary btn-edit" href="courseOffering_form.html" aria-label="編輯課程 1021002">
+                                            <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="序號"><span class="cell-value">5</span></td>
+                                <td data-label="課程代碼"><span class="cell-value">2011001</span></td>
+                                <td data-label="課程名稱"><span class="cell-value cell-value--start">2010(自然)-楊可量-國中一年級教室(51/52)</span></td>
+                                <td data-label="功能">
+                                    <span class="cell-value">
+                                        <a class="btn btn-primary btn-edit" href="courseOffering_form.html" aria-label="編輯課程 2011001">
+                                            <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="序號"><span class="cell-value">6</span></td>
+                                <td data-label="課程代碼"><span class="cell-value">2011002</span></td>
+                                <td data-label="課程名稱"><span class="cell-value cell-value--start">2015(藝術)-李小華-國中二年級教室(61)</span></td>
+                                <td data-label="功能">
+                                    <span class="cell-value">
+                                        <a class="btn btn-primary btn-edit" href="courseOffering_form.html" aria-label="編輯課程 2011002">
+                                            <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="序號"><span class="cell-value">7</span></td>
+                                <td data-label="課程代碼"><span class="cell-value">113200170</span></td>
+                                <td data-label="課程名稱"><span class="cell-value cell-value--start">3126(配送實作)-賴任庫-11年1班教室(35/36/37)</span></td>
+                                <td data-label="功能">
+                                    <span class="cell-value">
+                                        <a class="btn btn-primary btn-edit" href="courseOffering_form.html" aria-label="編輯課程 113200170">
+                                            <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="序號"><span class="cell-value">8</span></td>
+                                <td data-label="課程代碼"><span class="cell-value">113200171</span></td>
+                                <td data-label="課程名稱"><span class="cell-value cell-value--start">3130(家事處理實作)-卓OO-12年1班教室(38/39)</span></td>
+                                <td data-label="功能">
+                                    <span class="cell-value">
+                                        <a class="btn btn-primary btn-edit" href="courseOffering_form.html" aria-label="編輯課程 113200171">
+                                            <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- 後端：分頁為動態產生 -->
+                    <nav class="data-pagination" aria-label="分頁導覽">
+                        <ul class="pagination">
+                            <li class="page-item page-item--nav">
+                                <a class="page-link" href="#" aria-label="上一頁">
+                                    <i class="bi bi-chevron-double-left" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item page-item--nav">
+                                <a class="page-link" href="#" aria-label="下一頁">
+                                    <i class="bi bi-chevron-double-right" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>成績單 - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="依學期別、部別班級或學號查詢學生操行與學業成績，提供全校清冊、各班清冊及個人成績單下載。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body>
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1">
+        <!-- 內頁 Banner：麵包屑＋標題＋CSS 裝飾＋插圖 -->
+        <section class="page-banner">
+            <!-- 裝飾層（純 CSS 繪製） -->
+            <div class="page-banner-deco" aria-hidden="true">
+                <span class="page-banner-halfcircle"></span>
+                <span class="page-banner-circle"></span>
+                <span class="page-banner-dots"></span>
+            </div>
+
+            <div class="container">
+                <nav class="page-banner-breadcrumb" aria-label="麵包屑導覽">
+                    <ol>
+                        <li>
+                            <a class="breadcrumb-home" href="index_AdminLogged.html" aria-label="首頁">
+                                <i class="bi bi-house-door" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">各式報表列印</a></li>
+                        <li aria-current="page">成績單</li>
+                    </ol>
+                </nav>
+
+                <div class="page-banner-main">
+                    <div class="page-banner-text">
+                        <h1 class="page-banner-title">成績單</h1>
+                        <p class="page-banner-desc">依學期別、部別班級或學號查詢學生操行與學業成績，提供全校清冊、各班清冊及個人成績單下載。</p>
+                    </div>
+                    <!-- 右側人物插圖（純裝飾） -->
+                    <div class="page-banner-visual page-banner-visual--composed page-banner-visual--walkPerson" aria-hidden="true">
+                        <span class="banner-visual-blob"></span>
+                        <span class="banner-visual-window"></span>
+                        <img class="banner-visual-person" src="img/hero/characters/people-side-walk.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 報表篩選區：單一篩選面板＋3 顆下載按鈕（不分頁籤，三顆按鈕共用同一組篩選條件） -->
+        <section class="data-section">
+            <div class="container">
+                <div class="data-card">
+                    <!-- 後端：查詢/下載行為由後端接手，前端僅示意流程 -->
+                    <form class="report-filter-form" action="#" method="get" novalidate id="scoreSheetFilterPanel">
+                        <div class="report-filter-row">
+                            <div class="report-filter-field">
+                                <label class="form-label flex-row-center" for="scoreSheetSemester">學期別<span class="badge-required">必填</span></label>
+                                <select class="form-select" id="scoreSheetSemester" name="scoreSheetSemester">
+                                    <option value="1" selected>114學年度第2學期</option>
+                                    <option value="2">114學年度第1學期</option>
+                                    <option value="3">113學年度第2學期</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <fieldset>
+                            <legend class="form-legend">查詢方式<span class="badge-required">必填</span></legend>
+                            <div class="calc-mode-row">
+                                <!-- 方式一：依部別班級區間 -->
+                                <div class="calc-mode-option" id="scoreSheetModeClassOption">
+                                    <input class="form-check-input" type="radio" name="scoreSheetFilterMode" id="scoreSheetModeClass" value="class" checked>
+                                    <div class="calc-mode-body">
+                                        <label class="calc-mode-label" for="scoreSheetModeClass">依部別篩選班級區間</label>
+                                        <div class="calc-mode-fields" id="scoreSheetClassFields">
+                                            <label class="sr-only" for="scoreSheetDept">部別</label>
+                                            <select class="form-select" id="scoreSheetDept" name="scoreSheetDept">
+                                                <option value="" selected>請選擇部別</option>
+                                                <option value="1">幼兒部</option>
+                                                <option value="2">國小部</option>
+                                                <option value="3">國中部</option>
+                                                <option value="4">高職部</option>
+                                            </select>
+                                            <div class="date-range" role="group" aria-label="班級區間">
+                                                <label class="sr-only" for="scoreSheetClassStart">起始班級</label>
+                                                <select class="form-select" id="scoreSheetClassStart" name="scoreSheetClassStart">
+                                                    <option value="" selected>起始班級</option>
+                                                    <option value="1">幼兒部小班</option>
+                                                    <option value="2">國小低年級忠班</option>
+                                                    <option value="3">國小中年級孝班</option>
+                                                    <option value="4">國中一年級忠班</option>
+                                                    <option value="5">高職一年A班</option>
+                                                </select>
+                                                <span class="date-range-sep" aria-hidden="true">~</span>
+                                                <label class="sr-only" for="scoreSheetClassEnd">結束班級</label>
+                                                <select class="form-select" id="scoreSheetClassEnd" name="scoreSheetClassEnd">
+                                                    <option value="" selected>結束班級</option>
+                                                    <option value="1">幼兒部小班</option>
+                                                    <option value="2">國小低年級忠班</option>
+                                                    <option value="3">國小中年級孝班</option>
+                                                    <option value="4">國中一年級忠班</option>
+                                                    <option value="5">高職一年A班</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 方式二：依學號查詢 -->
+                                <div class="calc-mode-option is-inactive" id="scoreSheetModeStudentOption">
+                                    <input class="form-check-input" type="radio" name="scoreSheetFilterMode" id="scoreSheetModeStudent" value="student">
+                                    <div class="calc-mode-body">
+                                        <label class="calc-mode-label" for="scoreSheetModeStudent">依學號查詢</label>
+                                        <div class="calc-mode-fields" id="scoreSheetStudentFields">
+                                            <label class="sr-only" for="scoreSheetStudentId">學號</label>
+                                            <input type="text" class="form-control" id="scoreSheetStudentId" name="scoreSheetStudentId" placeholder="請輸入學生學號" disabled>
+                                            <button type="button" class="btn btn-outline-primary" id="scoreSheetStudentQueryBtn" disabled>
+                                                <i class="bi bi-search" aria-hidden="true"></i>查詢
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <!-- 下載按鈕區：三顆按鈕並列，各自獨立狀態徽章 -->
+                        <div class="report-filter-actions">
+                            <!-- 全校學生操行成績清冊：對應 header 導覽「操行成績單(A表)」，依賴德育成績結算 -->
+                            <div class="report-filter-action-group" id="conductRollAllGroup">
+                                <div class="report-status-inline" id="conductRollAllStatusInline">
+                                    <span class="report-status-badge" id="conductRollAllBadge"></span>
+                                    <span class="report-status-desc" id="conductRollAllDesc"></span>
+                                    <a href="#" class="report-status-action" id="conductRollAllAction" hidden>前往結算</a>
+                                </div>
+                                <button type="button" class="btn btn-export report-download-btn" data-report-key="conductRollAll" data-report-name="全校學生操行成績清冊" id="conductRollAllDownloadBtn">
+                                    <i class="bi bi-download" aria-hidden="true"></i>全校學生操行成績清冊
+                                </button>
+                            </div>
+
+                            <!-- 各班操行成績清冊：對應 header 導覽「操行成績單(B表)(獎學金用)」，依賴德育成績結算 -->
+                            <div class="report-filter-action-group" id="conductRollClassGroup">
+                                <div class="report-status-inline" id="conductRollClassStatusInline">
+                                    <span class="report-status-badge" id="conductRollClassBadge"></span>
+                                    <span class="report-status-desc" id="conductRollClassDesc"></span>
+                                    <a href="#" class="report-status-action" id="conductRollClassAction" hidden>前往結算</a>
+                                </div>
+                                <button type="button" class="btn btn-export report-download-btn" data-report-key="conductRollClass" data-report-name="各班操行成績清冊" id="conductRollClassDownloadBtn">
+                                    <i class="bi bi-download" aria-hidden="true"></i>各班操行成績清冊(獎學金用)
+                                </button>
+                            </div>
+
+                            <!-- 學生成績單：依賴學科成績結算 -->
+                            <div class="report-filter-action-group" id="studentScoreSheetGroup">
+                                <div class="report-status-inline" id="studentScoreSheetStatusInline">
+                                    <span class="report-status-badge" id="studentScoreSheetBadge"></span>
+                                    <span class="report-status-desc" id="studentScoreSheetDesc"></span>
+                                    <a href="#" class="report-status-action" id="studentScoreSheetAction" hidden>前往結算</a>
+                                </div>
+                                <button type="button" class="btn btn-export report-download-btn" data-report-key="studentScoreSheet" data-report-name="學生成績單" id="studentScoreSheetDownloadBtn">
+                                    <i class="bi bi-download" aria-hidden="true"></i>學生成績單
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 依網址錨點（#reportKey）定位並凸顯對應報表區塊：本頁不分頁籤（三顆下載按鈕共用同一篩選面板），
+         故 header 導覽連結（如 reportScoreSheet.html#studentScoreSheet）改為「捲動至＋短暫高亮」對應的
+         .report-filter-action-group，取代頁籤切換。涵蓋三種情境：初始渲染、hashchange（手動改網址列／
+         瀏覽器上一頁下一頁）、同頁點擊 header nav 連結（部分瀏覽器不會可靠觸發 hashchange，故另用點擊
+         事件代理），三者共用同一套定位邏輯 -->
+    <script>
+        (function () {
+            var validKeys = ['conductRollAll', 'conductRollClass', 'studentScoreSheet'];
+            var highlightTimer = null;
+
+            function prefersReducedMotion() {
+                return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            }
+
+            function focusGroup(key) {
+                var group = document.getElementById(key + 'Group');
+                if (!group) { return; }
+                group.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'center' });
+                group.classList.add('report-filter-action-group--highlight');
+                window.clearTimeout(highlightTimer);
+                highlightTimer = window.setTimeout(function () {
+                    group.classList.remove('report-filter-action-group--highlight');
+                }, 2000);
+            }
+
+            function focusFromHash() {
+                var key = window.location.hash.replace('#', '');
+                if (validKeys.indexOf(key) !== -1) { focusGroup(key); }
+            }
+
+            focusFromHash();
+            window.addEventListener('hashchange', focusFromHash);
+
+            document.addEventListener('click', function (e) {
+                var link = e.target.closest('a[href*="reportScoreSheet.html#"]');
+                if (!link) { return; }
+                var key = link.getAttribute('href').split('#')[1];
+                if (validKeys.indexOf(key) === -1) { return; }
+                window.setTimeout(function () { focusGroup(key); }, 0);
+            });
+        })();
+    </script>
+
+    <!-- 回饋 Modal（3 秒倒數自動關閉；圖示/色彩由 JS 依情境切換） -->
+    <div class="modal fade feedback-modal" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body feedback-body" role="status">
+                    <span class="feedback-icon" aria-hidden="true">
+                        <i class="bi bi-file-earmark-check"></i>
+                    </span>
+                    <h2 class="feedback-title" id="feedbackModalTitle">報表下載成功</h2>
+                    <p class="feedback-desc">報表已開始下載，請至瀏覽器下載紀錄查看。</p>
+                    <p class="feedback-countdown"><span class="feedback-countdown-num">3</span>秒後 自動關閉</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 手動關閉版回饋 Modal：報表狀態非「可下載」時的提示（內容由 JS 依狀態動態帶入） -->
+    <div class="modal fade feedback-modal" id="feedbackManualModal" tabindex="-1" aria-labelledby="feedbackManualModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body feedback-body" role="status">
+                    <span class="feedback-icon feedback-icon--danger" aria-hidden="true">
+                        <i class="bi bi-x-circle-fill"></i>
+                    </span>
+                    <h2 class="feedback-title" id="feedbackManualModalTitle">目前無法下載</h2>
+                    <p class="feedback-desc" id="feedbackManualModalDesc">來源資料尚未完成結算，請先完成結算後再重新下載。</p>
+                    <div class="data-modal-actions">
+                        <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">取消</button>
+                        <a href="#" class="btn btn-primary" id="feedbackManualModalAction">前往結算</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/report-dependency-config.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/dataModal.js"></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+// ==========================================================================
+// IEP 教育目標範本管理及套用（共享範本／個人範本）
+// 範本型態徽章、右側邊「套用範本至對象」Offcanvas 觸發鈕與面板加寬
+// ==========================================================================
+
+// 範本型態徽章：沿用 .status-badge 色彩邏輯（公開／私有）
+.status-badge--public {
+  background-color: rgba($success, .12);
+  color: $success;
+}
+
+.status-badge--private {
+  background-color: $grey-200;
+  color: $grey-500;
+}
+
+// 右側邊「套用範本至對象」直立分頁觸發鈕（比照 .scroll-top-btn 固定定位手法；配色與底部操作列的套用按鈕一致採綠色）
+.iep-side-tab-btn {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  writing-mode: vertical-rl;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 10px;
+  border: none;
+  border-radius: 12px 0 0 12px;
+  background-color: $success;
+  color: $white;
+  font-weight: $font-weight-medium;
+  z-index: $zindex-fixed - 10;
+  box-shadow: -2px 0 8px rgba(15, 23, 42, .15);
+
+  &:hover,
+  &:focus-visible {
+    background-color: darken($success, 8%);
+    color: $white;
+  }
+
+  @include media-breakpoint-down(lg) {
+    padding: 16px 8px;
+    font-size: .9375rem;
+  }
+}
+.iep-apply-offcanvas .offcanvas-body{
+  background-color: $grey-100;
+}
+.iep-apply-offcanvas.offcanvas-end{
+  width:auto;
+}
+// 套用範本至對象 Offcanvas：加大寬度以容納穿梭清單，桌機版靠右滑入
+.iep-apply-offcanvas {
+  width: 100%;
+
+  @include media-breakpoint-up(md) {
+    width: 680px;
+  }
+
+  @include media-breakpoint-up(lg) {
+    width: 780px;
+  }
+
+  @include media-breakpoint-up(xl) {
+    width: 880px;
+  }
+
+  @include media-breakpoint-up(xxl) {
+    width: 960px;
+  }
+
+  .offcanvas-header {
+    align-items: flex-start;
+    padding: 24px 24px 16px;
+    border-bottom: 1px solid $grey-300;
+  }
+
+  .offcanvas-title {
+    font-size: 1.5rem;
+    font-weight: $font-weight-bold;
+    color: $grey-600;
+  }
+
+  .offcanvas-body {
+    padding: 24px;
+  }
+}
+
+// 面板底部固定操作列（取消／確定範本套用）：與 offcanvas-header 同為 flex 子項，僅 offcanvas-body 捲動
+.iep-apply-footer {
+  flex-shrink: 0;
+  padding: 16px 24px;
+  border-top: 1px solid $grey-300;
+  background-color: $white;
+
+  .data-modal-actions {
+    margin-top: 0;
+  }
+}
+
+.iep-apply-desc {
+  color: $grey-500;
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .iep-apply-offcanvas {
+    transition: none;
+  }
+}

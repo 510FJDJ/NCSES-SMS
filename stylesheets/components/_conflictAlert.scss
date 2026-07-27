@@ -1,0 +1,80 @@
+// ==========================================================================
+// 學生出缺勤管理：檢視衝突／衝突資料異動與排除
+// 沿用 .special-alert（開課作業已建立）新增危險色變體；其餘為列表頁專用樣式
+// ==========================================================================
+
+// 衝突警示框（危險色變體，沿用 .special-alert 版型）
+.special-alert--danger {
+  border-color: $danger;
+  background-color: rgba($danger, .06);
+  color: $danger;
+}
+
+// 工具列分隔線（查詢/新增/刪除/匯出 與 檢視衝突/解除衝突 之間）
+.data-toolbar-divider {
+  width: 1px;
+  align-self: stretch;
+  background-color: $grey-300;
+  margin: 0 4px;
+}
+
+// 檢視衝突（切換鈕）：深色底，切換為啟用狀態時加上警示外框
+.btn-conflict-toggle {
+  background-color: $grey-600;
+  border-color: $grey-600;
+  color: $white;
+
+  &:hover,
+  &:focus-visible {
+    background-color: lighten($grey-600, 10%);
+    border-color: lighten($grey-600, 10%);
+    color: $white;
+  }
+
+  &[aria-pressed="true"] {
+    outline: 3px solid $warning;
+    outline-offset: 2px;
+  }
+}
+
+// 總筆數列：檢視衝突模式下附加的紅字說明
+.data-total-conflict-note {
+  color: $danger;
+  font-weight: $font-weight-medium;
+  margin-left: 4px;
+}
+
+// 序號欄的衝突警示圖示：僅檢視衝突模式顯示
+.conflict-flag {
+  display: none;
+  color: $danger;
+  margin-right: 4px;
+}
+
+.data-table-wrap.is-conflict-view .conflict-flag {
+  display: inline-block;
+}
+
+// 衝突原因欄文字
+.conflict-reason {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: $danger;
+  font-weight: $font-weight-medium;
+
+  .bi {
+    flex-shrink: 0;
+  }
+}
+
+// 衝突原因欄：預設隱藏，切換至檢視衝突模式才顯示
+// 加 !important 是因為 < md 斷點下 .data-table td 會被覆寫為 display:flex，需確保仍能隱藏
+.data-table-wrap:not(.is-conflict-view) .col-conflict {
+  display: none !important;
+}
+
+// 檢視衝突模式下，可見資料列（未被 hidden 屬性隱藏）以淡紅底標示
+.data-table-wrap.is-conflict-view tbody tr:not([hidden]) {
+  background-color: rgba($danger, .05);
+}

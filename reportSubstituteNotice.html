@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>代(兼)課通知單 - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="篩選部別與日期區間，選擇需開立通知單之代(兼)課教師，下載代課課程明細。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body>
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1">
+        <!-- 內頁 Banner：麵包屑＋標題＋CSS 裝飾＋插圖 -->
+        <section class="page-banner">
+            <!-- 裝飾層（純 CSS 繪製） -->
+            <div class="page-banner-deco" aria-hidden="true">
+                <span class="page-banner-halfcircle"></span>
+                <span class="page-banner-circle"></span>
+                <span class="page-banner-dots"></span>
+            </div>
+
+            <div class="container">
+                <nav class="page-banner-breadcrumb" aria-label="麵包屑導覽">
+                    <ol>
+                        <li>
+                            <a class="breadcrumb-home" href="index_AdminLogged.html" aria-label="首頁">
+                                <i class="bi bi-house-door" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">各式報表列印</a></li>
+                        <li><a href="#">代(兼)課相關報表</a></li>
+                        <li aria-current="page">代(兼)課通知單</li>
+                    </ol>
+                </nav>
+
+                <div class="page-banner-main">
+                    <div class="page-banner-text">
+                        <h1 class="page-banner-title">代(兼)課通知單</h1>
+                        <p class="page-banner-desc">篩選部別與日期區間，選擇需開立通知單之代(兼)課教師，下載代課課程明細。</p>
+                    </div>
+                    <!-- 右側人物插圖（純裝飾） -->
+                    <div class="page-banner-visual page-banner-visual--composed page-banner-visual--walkPerson" aria-hidden="true">
+                        <span class="banner-visual-blob"></span>
+                        <span class="banner-visual-window"></span>
+                        <img class="banner-visual-person" src="img/hero/characters/people-side-walk.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 篩選與教師選擇區 -->
+        <section class="data-section">
+            <div class="container">
+                <div class="data-card">
+                    <!-- 後端：教師名單依部別＋日期區間查詢帶入，前端僅示意連動過濾流程 -->
+                    <form class="report-filter-form" action="#" method="get" novalidate id="substNoticeFilterForm">
+                        <div class="report-filter-row">
+                            <div class="report-filter-field report-filter-field--wide">
+                                <span class="form-label flex-row-center" id="substNoticeDateLabel">日期區間<span class="badge-required">必填</span></span>
+                                <div class="date-range" role="group" aria-labelledby="substNoticeDateLabel">
+                                    <label class="sr-only" for="substNoticeDateStart">起始日期</label>
+                                    <input type="date" class="form-control" id="substNoticeDateStart" name="substNoticeDateStart">
+                                    <span class="date-range-sep" aria-hidden="true">~</span>
+                                    <label class="sr-only" for="substNoticeDateEnd">結束日期</label>
+                                    <input type="date" class="form-control" id="substNoticeDateEnd" name="substNoticeDateEnd">
+                                </div>
+                            </div>
+                            <div class="report-filter-field">
+                                <label class="form-label" for="substNoticeDept">部別</label>
+                                <select class="form-select" id="substNoticeDept" name="substNoticeDept">
+                                    <option value="" selected>全部部別</option>
+                                    <option value="1">幼兒部</option>
+                                    <option value="2">國小部</option>
+                                    <option value="3">國中部</option>
+                                    <option value="4">高職部</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- 教師選擇區：穿梭清單元件與樣式沿用 classPlacement.html 編班 Modal，
+                             右欄「尚未選擇教師」依部別＋日期區間連動過濾（data-dept / data-dates 為前端示意用，
+                             後端：實際名單由後端依查詢條件回傳） -->
+                        <div class="transfer">
+                            <div class="transfer-panel" data-transfer-panel="assigned">
+                                <div class="transfer-panel-head">
+                                    <h3 class="transfer-panel-title">已選擇教師<span class="transfer-count" data-transfer-count>0</span></h3>
+                                    <div class="transfer-search">
+                                        <label class="sr-only" for="substNoticeAssignedSearch">搜尋已選擇教師的姓名</label>
+                                        <input type="search" class="form-control" id="substNoticeAssignedSearch" placeholder="搜尋教師姓名" data-transfer-search>
+                                        <i class="bi bi-search" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                                <div class="transfer-box">
+                                    <div class="transfer-toolbar">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="substNoticeAssignedCheckAll" data-transfer-checkall>
+                                            <label class="form-check-label" for="substNoticeAssignedCheckAll">全選</label>
+                                        </div>
+                                        <span class="transfer-selected">已選擇 <span data-transfer-selected>0</span> 筆</span>
+                                    </div>
+                                    <!-- 後端：已選擇教師名單以教師編號提交，初始為空 -->
+                                    <ul class="transfer-list" id="substNoticeAssignedList"></ul>
+                                </div>
+                                <button type="button" class="btn transfer-bulk" data-transfer-action="remove-all">
+                                    全選移除<i class="bi bi-caret-right-fill" aria-hidden="true"></i>
+                                </button>
+                            </div>
+
+                            <div class="transfer-controls">
+                                <button type="button" class="btn btn-primary" data-transfer-action="remove" aria-label="將勾選的教師移出已選擇名單">
+                                    <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                                </button>
+                                <button type="button" class="btn btn-outline-primary" data-transfer-action="add" aria-label="將勾選的教師加入已選擇名單">
+                                    <i class="bi bi-chevron-left" aria-hidden="true"></i>
+                                </button>
+                            </div>
+
+                            <div class="transfer-panel" data-transfer-panel="unassigned">
+                                <div class="transfer-panel-head">
+                                    <h3 class="transfer-panel-title">尚未選擇教師</h3>
+                                    <div class="transfer-search">
+                                        <label class="sr-only" for="substNoticeUnassignedSearch">搜尋尚未選擇教師的姓名</label>
+                                        <input type="search" class="form-control" id="substNoticeUnassignedSearch" placeholder="搜尋教師姓名" data-transfer-search>
+                                        <i class="bi bi-search" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                                <div class="transfer-box">
+                                    <div class="transfer-toolbar">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="substNoticeUnassignedCheckAll" data-transfer-checkall>
+                                            <label class="form-check-label" for="substNoticeUnassignedCheckAll">全選</label>
+                                        </div>
+                                        <span class="transfer-selected">已選擇 <span data-transfer-selected>0</span> 筆</span>
+                                    </div>
+                                    <!-- 後端：教師名單為動態產生，data-dept／data-dates 標示部別與代課日期，僅供前端示意過濾 -->
+                                    <ul class="transfer-list" id="substNoticeUnassignedList">
+                                        <li data-dept="2" data-dates="2025-07-02,2025-07-10">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="substTeacher1" value="T1001">
+                                                <label class="form-check-label" for="substTeacher1">T1001 王OO(國小部)</label>
+                                            </div>
+                                        </li>
+                                        <li data-dept="2" data-dates="2025-07-05">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="substTeacher2" value="T1002">
+                                                <label class="form-check-label" for="substTeacher2">T1002 林OO(國小部)</label>
+                                            </div>
+                                        </li>
+                                        <li data-dept="3" data-dates="2025-07-03,2025-07-08">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="substTeacher3" value="T1003">
+                                                <label class="form-check-label" for="substTeacher3">T1003 陳OO(國中部)</label>
+                                            </div>
+                                        </li>
+                                        <li data-dept="3" data-dates="2025-07-15">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="substTeacher4" value="T1004">
+                                                <label class="form-check-label" for="substTeacher4">T1004 張OO(國中部)</label>
+                                            </div>
+                                        </li>
+                                        <li data-dept="4" data-dates="2025-07-01,2025-07-20">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="substTeacher5" value="T1005">
+                                                <label class="form-check-label" for="substTeacher5">T1005 黃OO(高職部)</label>
+                                            </div>
+                                        </li>
+                                        <li data-dept="4" data-dates="2025-07-12">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="substTeacher6" value="T1006">
+                                                <label class="form-check-label" for="substTeacher6">T1006 賴OO(高職部)</label>
+                                            </div>
+                                        </li>
+                                        <li data-dept="1" data-dates="2025-07-07">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="substTeacher7" value="T1007">
+                                                <label class="form-check-label" for="substTeacher7">T1007 李OO(幼兒部)</label>
+                                            </div>
+                                        </li>
+                                        <li data-dept="2" data-dates="2025-06-25">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="substTeacher8" value="T1008">
+                                                <label class="form-check-label" for="substTeacher8">T1008 周OO(國小部)</label>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <!-- 篩選後查無符合條件之代課教師時顯示 -->
+                                    <div class="report-status-inline" id="substNoticeEmptyMsg" hidden>
+                                        <span class="report-status-badge report-status--nodata">
+                                            <i class="bi bi-slash-circle" aria-hidden="true"></i>查無資料
+                                        </span>
+                                        <span class="report-status-desc">所選部別與日期區間內，查無代課紀錄之教師。</span>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn transfer-bulk" data-transfer-action="add-all">
+                                    <i class="bi bi-caret-left-fill" aria-hidden="true"></i>全選添加
+                                </button>
+                            </div>
+                        </div>
+
+                        <p class="data-modal-tip">
+                            <i class="bi bi-info-circle" aria-hidden="true"></i>
+                            小提醒：請先選擇部別與日期區間篩選教師，右欄名單會即時連動更新；勾選教師後使用中央按鈕移至「已選擇教師」，一位教師可能對應多筆代課紀錄，通知單將依教師分段列出。
+                        </p>
+
+                        <div class="report-filter-actions">
+                            <button type="button" class="btn btn-export report-download-btn" data-report-key="substituteNotice" data-report-name="代(兼)課通知單" id="substNoticeDownloadBtn">
+                                <i class="bi bi-download" aria-hidden="true"></i>代(兼)課通知單下載(Word)
+                            </button>
+                        </div>
+                        <span class="report-download-note text-center">系統將依所選教師分別列出代課時間與課程明細，產出 Word(.docx) 通知單。</span>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 回饋 Modal（3 秒倒數自動關閉；下載成功） -->
+    <div class="modal fade feedback-modal" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body feedback-body" role="status">
+                    <span class="feedback-icon" aria-hidden="true">
+                        <i class="bi bi-file-earmark-check"></i>
+                    </span>
+                    <h2 class="feedback-title" id="feedbackModalTitle">報表下載成功</h2>
+                    <p class="feedback-desc">報表已開始下載，請至瀏覽器下載紀錄查看。</p>
+                    <p class="feedback-countdown"><span class="feedback-countdown-num">3</span>秒後 自動關閉</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 手動關閉版回饋 Modal：尚未選擇教師時的提示（內容由 JS 動態帶入） -->
+    <div class="modal fade feedback-modal" id="feedbackManualModal" tabindex="-1" aria-labelledby="feedbackManualModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body feedback-body" role="status">
+                    <span class="feedback-icon feedback-icon--danger" aria-hidden="true">
+                        <i class="bi bi-x-circle-fill"></i>
+                    </span>
+                    <h2 class="feedback-title" id="feedbackManualModalTitle">目前無法下載</h2>
+                    <p class="feedback-desc" id="feedbackManualModalDesc">來源資料尚未完成結算，請先完成結算後再重新下載。</p>
+                    <div class="data-modal-actions">
+                        <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">取消</button>
+                        <a href="#" class="btn btn-primary" id="feedbackManualModalAction">前往結算</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/dataModal.js"></script>
+</body>
+</html>

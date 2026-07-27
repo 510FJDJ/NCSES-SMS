@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>教育目標範本詳情與指派 - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="檢視共享範本內容，並可指派套用至指定科目與學生對象。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body class="has-iep-action-bar">
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1">
+        <!-- 內頁 Banner：麵包屑＋標題＋CSS 裝飾＋插圖 -->
+        <section class="page-banner">
+            <!-- 裝飾層（純 CSS 繪製） -->
+            <div class="page-banner-deco" aria-hidden="true">
+                <span class="page-banner-halfcircle"></span>
+                <span class="page-banner-circle"></span>
+                <span class="page-banner-dots"></span>
+            </div>
+
+            <div class="container">
+                <!-- RWD：手機版麵包屑僅顯示最後兩項（_pageBanner.scss 控制），因已有返回列表按鈕 -->
+                <nav class="page-banner-breadcrumb" aria-label="麵包屑導覽">
+                    <ol>
+                        <li>
+                            <a class="breadcrumb-home" href="index_AdminLogged.html" aria-label="首頁">
+                                <i class="bi bi-house-door" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">IEP管理</a></li>
+                        <li><a href="#">IEP學年與學期教育目標</a></li>
+                        <li><a href="iepEduGoalTemplateShare.html">教育目標範本管理及套用(共享範本)</a></li>
+                        <li aria-current="page">詳情與指派</li>
+                    </ol>
+                </nav>
+
+                <div class="page-banner-main">
+                    <div class="page-banner-text">
+                        <h1 class="page-banner-title">教育目標範本詳情與指派</h1>
+                        <p class="page-banner-desc">檢視共享範本內容，並可指派套用至指定科目與學生對象。</p>
+                    </div>
+                    <!-- 右側人物插圖（純裝飾；背景以 CSS 繪製，角色圖可互換） -->
+                    <div class="page-banner-visual page-banner-visual--composed page-banner-visual--pointPerson" aria-hidden="true">
+                        <span class="banner-visual-blob"></span>
+                        <span class="banner-visual-window"></span>
+                        <img class="banner-visual-person" src="img/hero/characters/people-front-point.png" alt="">
+                    </div>
+                    <a class="btn-back" href="iepEduGoalTemplateShare.html">
+                        <i class="bi bi-chevron-left" aria-hidden="true"></i>返回列表
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 範本詳情（唯讀） -->
+        <section class="form-section-wrap">
+            <div class="container">
+                <!-- 範本資訊摘要列（後端：由範本資料帶入） -->
+                <div class="iep-student-bar">
+                    <div class="iep-student-name">
+                        <span>國小低年級語文教育目標範本A</span>
+                        <span class="status-badge status-badge--public">公開</span>
+                    </div>
+                    <dl class="iep-student-metas">
+                        <div class="iep-student-meta">
+                            <dt>建立教師：</dt>
+                            <dd id="templateTeacherName">T001 王小明</dd>
+                        </div>
+                        <div class="iep-student-meta">
+                            <dt>填表學期：</dt>
+                            <dd>113學年度第2學期</dd>
+                        </div>
+                        <div class="iep-student-meta">
+                            <dt>範本編號：</dt>
+                            <dd>TPL0001</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <div class="form-card">
+                    <p class="iep-tab-lead">以下為此共享範本之能力現況、學年目標、學期目標與評量明細表內容（唯讀）。如需修改，請點擊下方「另存個人副本」。</p>
+
+                    <section class="form-section">
+                        <h2 class="form-section-title">能力現況</h2>
+                        <label class="form-label" for="tplPresentLevel">能力現況描述</label>
+                        <div class="textarea-counter-wrap">
+                            <textarea class="form-control" id="tplPresentLevel" rows="4" maxlength="500" aria-describedby="tplPresentLevelCount" disabled>學生能理解簡單指令，能仿說單詞，惟主動表達與詞彙量仍有限，需持續加強口語表達與聽覺理解能力。</textarea>
+                            <span class="textarea-counter" id="tplPresentLevelCount" aria-live="polite">38 / 500</span>
+                        </div>
+                    </section>
+
+                    <section class="form-section">
+                        <h2 class="form-section-title">學年目標</h2>
+                        <label class="form-label" for="tplSyearTarget">學年目標</label>
+                        <div class="textarea-counter-wrap">
+                            <textarea class="form-control" id="tplSyearTarget" rows="5" maxlength="1000" aria-describedby="tplSyearTargetCount" disabled>1 能學會掌握聆聽的技巧並說出聆聽的內容。
+2 能學會正確的表達方式。
+3 能學會正確朗讀所授之每課課文內容。
+4 能學會運用所學到的標點符號。</textarea>
+                            <span class="textarea-counter" id="tplSyearTargetCount" aria-live="polite">65 / 1000</span>
+                        </div>
+                    </section>
+
+                    <section class="form-section">
+                        <h2 class="form-section-title">學期目標</h2>
+                        <label class="form-label" for="tplSemTarget">學期目標</label>
+                        <div class="textarea-counter-wrap">
+                            <textarea class="form-control" id="tplSemTarget" rows="4" maxlength="1000" aria-describedby="tplSemTargetCount" disabled>1-1 能正確指出生活中「在左邊」的東西或物品，正確率達80%以上即通過。</textarea>
+                            <span class="textarea-counter" id="tplSemTargetCount" aria-live="polite">39 / 1000</span>
+                        </div>
+                    </section>
+
+                    <section class="form-section">
+                        <h2 class="form-section-title">評量明細表</h2>
+                        <div class="data-table-wrap">
+                            <table class="table table-striped data-table data-table--wide iep-assess-table">
+                                <caption class="sr-only">學期目標評量明細表（唯讀）</caption>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">序號</th>
+                                        <th scope="col">教學日期區間</br>(開始~結束)</th>
+                                        <th scope="col">學期目標</th>
+                                        <th scope="col">評量項目設定</th>
+                                        <th scope="col">評量結果</th>
+                                        <th scope="col">教學決定</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td data-label="序號"><span class="cell-value">1</span></td>
+                                        <td data-label="教學日期區間">
+                                            <span class="cell-value cell-value--start">
+                                                <div class="date-range date-range--stack">
+                                                    <div class="date-range-item">
+                                                        <input type="date" class="form-control" value="2026-02-16" title="教學開始日期" aria-label="教學開始日期" disabled>
+                                                    </div>
+                                                    <span class="date-range-sep" aria-hidden="true">~</span>
+                                                    <div class="date-range-item">
+                                                        <input type="date" class="form-control" value="2026-02-27" title="教學結束日期" aria-label="教學結束日期" disabled>
+                                                    </div>
+                                                </div>
+                                            </span>
+                                        </td>
+                                        <td data-label="學期目標">
+                                            <span class="cell-value cell-value--start">
+                                                <label class="sr-only" for="tplEvalTarget1">學期目標</label>
+                                                <textarea class="form-control" id="tplEvalTarget1" rows="2" title="學期目標" aria-label="學期目標" disabled>1-1 能正確指出生活中「在左邊」的東西或物品，正確率達80%以上即通過。</textarea>
+                                            </span>
+                                        </td>
+                                        <td data-label="評量項目設定">
+                                            <span class="cell-value cell-value--start">
+                                                <div class="iep-eval-item-fields">
+                                                    <input type="date" class="form-control" title="評量日期" aria-label="評量日期" value="2026-02-27" disabled>
+                                                    <label class="sr-only" for="tplEvalMethod1">評量方式</label>
+                                                    <select class="form-select" id="tplEvalMethod1" title="評量方式" disabled>
+                                                        <option value="4" selected>4. 實作</option>
+                                                    </select>
+                                                    <label class="sr-only" for="tplEvalCriteria1">評量標準</label>
+                                                    <select class="form-select" id="tplEvalCriteria1" title="評量標準" disabled>
+                                                        <option value="A" selected>A 能獨立完成</option>
+                                                    </select>
+                                                </div>
+                                            </span>
+                                        </td>
+                                        <td data-label="評量結果">
+                                            <span class="cell-value">
+                                                <fieldset class="iep-eval-result">
+                                                    <legend class="sr-only">第1筆評量結果</legend>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="tplEvalResult1" id="tplEvalResultPass1" checked disabled>
+                                                        <label class="form-check-label" for="tplEvalResultPass1">＋已通過</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="tplEvalResult1" id="tplEvalResultFail1" disabled>
+                                                        <label class="form-check-label" for="tplEvalResultFail1">－未通過</label>
+                                                    </div>
+                                                </fieldset>
+                                            </span>
+                                        </td>
+                                        <td data-label="教學決定">
+                                            <span class="cell-value">
+                                                <div class="iep-eval-item">
+                                                    <label class="sr-only" for="tplEvalDecision1">教學決定</label>
+                                                    <select class="form-select" id="tplEvalDecision1" disabled>
+                                                        <option value="P" selected>P 通過</option>
+                                                    </select>
+                                                </div>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- 無障礙：不可僅以顏色表達代碼意義，另附文字圖例說明 -->
+                        <dl class="iep-eval-legend">
+                            <div class="iep-eval-legend-item">
+                                <dt>評量方式</dt>
+                                <dd>1. 觀察　2. 口頭　3. 指認　4. 實作　5. 書寫</dd>
+                            </div>
+                            <div class="iep-eval-legend-item">
+                                <dt>評量標準</dt>
+                                <dd>A 能獨立完成　B 能在直接口語提示下完成　C 能在間接口語提示下完成　D 能在手勢提示下完成　E 能在視覺提示下完成　F 能在示範動作下完成　G 能在部分身體提示下完成　H 能在完全身體提示下完成　I. 其他</dd>
+                            </div>
+                            <div class="iep-eval-legend-item">
+                                <dt>評量結果</dt>
+                                <dd>＋已通過　－未通過</dd>
+                            </div>
+                            <div class="iep-eval-legend-item">
+                                <dt>教學決定</dt>
+                                <dd>P：通過　C：繼續　G：重新評估</dd>
+                            </div>
+                        </dl>
+                    </section>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 右側邊固定觸發鈕：套用範本至對象（與底部操作列按鈕功能相同，供瀏覽中隨時開啟） -->
+    <button type="button" class="iep-side-tab-btn" data-bs-toggle="offcanvas" data-bs-target="#applyTemplateOffcanvas" aria-controls="applyTemplateOffcanvas">
+        <i class="bi bi-person-check" aria-hidden="true"></i>套用範本至對象<i class="bi bi-chevron-left"></i>
+    </button>
+
+    <!-- 套用範本至對象：右側滑出浮層面板（data-bs-scroll 保留主頁面可捲動、data-bs-backdrop 關閉遮罩，方便對照瀏覽範本內容） -->
+    <div class="offcanvas offcanvas-end iep-apply-offcanvas" tabindex="-1" id="applyTemplateOffcanvas" aria-labelledby="applyTemplateOffcanvasTitle" data-bs-scroll="true" data-bs-backdrop="false">
+        <div class="offcanvas-header">
+            <div>
+                 <h2 class="offcanvas-title" id="applyTemplateOffcanvasTitle">套用範本至對象</h2>
+                <p class="iep-apply-desc">選擇科目與學生，將此範本套用至指定對象。</p>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="關閉面板"></button>
+        </div>
+        <div class="offcanvas-body">
+            
+            <div class="flex-row-stretch gap-5 flex-wrap mb-3">
+                <div>
+                    <label class="form-label fs-5" for="applySubject">修課科目<span class="badge-required">必填</span></label>
+                    <select class="form-select" id="applySubject" name="applySubject" required>
+                        <option value="" selected>請選擇</option>
+                        <option value="101">101 語文</option>
+                        <option value="102">102 數學</option>
+                        <option value="103">103 生活</option>
+                        <option value="104">104 社會技巧</option>
+                    </select>
+                </div>
+                <fieldset>
+                <legend class="form-label fs-5">套用此範本項目勾選<span class="badge-required">必填</span></legend>
+                <div class="flex-row-center gap-4 flex-wrap">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="applyItems[]" id="applyItemPresent" value="present" checked>
+                        <label class="form-check-label" for="applyItemPresent">能力現況</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="applyItems[]" id="applyItemSyear" value="syear" checked>
+                        <label class="form-check-label" for="applyItemSyear">學年目標</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="applyItems[]" id="applyItemDetail" value="detail">
+                        <label class="form-check-label" for="applyItemDetail">學習目標明細</label>
+                    </div>
+                </div>
+            </fieldset>
+            </div>
+
+            
+
+            <!-- 穿梭清單：左＝修課學生、右＝尚未編班學生 -->
+            <div class="transfer">
+                <div class="transfer-panel" data-transfer-panel="assigned">
+                    <div class="transfer-panel-head">
+                        <h3 class="transfer-panel-title">修課學生<span class="transfer-count" data-transfer-count>6</span></h3>
+                        <div class="transfer-search">
+                            <label class="sr-only" for="applyAssignedSearch">搜尋修課學生的學號或姓名</label>
+                            <input type="search" class="form-control" id="applyAssignedSearch" placeholder="搜尋學號或姓名" data-transfer-search>
+                            <i class="bi bi-search" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="transfer-box">
+                        <div class="transfer-toolbar">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="applyAssignedCheckAll" data-transfer-checkall>
+                                <label class="form-check-label" for="applyAssignedCheckAll">全選</label>
+                            </div>
+                            <span class="transfer-selected">已選擇 <span data-transfer-selected>0</span> 筆</span>
+                        </div>
+                        <!-- 後端：學生名單為動態產生，勾選值以學號提交。
+                             data-subject-assigned：該生已修課的科目代碼清單（逗號分隔），
+                             切換「修課科目」時依此屬性連動搬移至修課學生／尚未編班學生面板。
+                             data-class：該生所屬班級（代碼+名稱），供確定套用後的回饋 Modal 統計套用班級清單 -->
+                        <ul class="transfer-list">
+                            <li data-subject-assigned="101,102,103" data-class="101 國小低年級">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="applyAssigned1" value="1011001">
+                                    <label class="form-check-label" for="applyAssigned1">1011001 楊OO</label>
+                                </div>
+                            </li>
+                            <li data-subject-assigned="101,103" data-class="101 國小低年級">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="applyAssigned2" value="1011002">
+                                    <label class="form-check-label" for="applyAssigned2">1011002 洪OO</label>
+                                </div>
+                            </li>
+                            <li data-subject-assigned="101,102,103,104" data-class="102 國小低年級">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="applyAssigned3" value="1021001">
+                                    <label class="form-check-label" for="applyAssigned3">1021001 林OO</label>
+                                </div>
+                            </li>
+                            <li data-subject-assigned="101,102,103,104" data-class="102 國小低年級">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="applyAssigned4" value="1021002">
+                                    <label class="form-check-label" for="applyAssigned4">1021002 周OO</label>
+                                </div>
+                            </li>
+                            <li data-subject-assigned="101,103,104" data-class="102 國小低年級">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="applyAssigned5" value="1021003">
+                                    <label class="form-check-label" for="applyAssigned5">1021003 蔡OO</label>
+                                </div>
+                            </li>
+                            <li data-subject-assigned="101,103" data-class="102 國小低年級">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="applyAssigned6" value="1021004">
+                                    <label class="form-check-label" for="applyAssigned6">1021004 政OO</label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <button type="button" class="btn transfer-bulk" data-transfer-action="remove-all">
+                        全選移除<i class="bi bi-caret-right-fill" aria-hidden="true"></i>
+                    </button>
+                </div>
+
+                <div class="transfer-controls">
+                    <button type="button" class="btn btn-primary" data-transfer-action="remove" aria-label="將勾選的修課學生移出套用對象">
+                        <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-primary" data-transfer-action="add" aria-label="將勾選的學生加入套用對象">
+                        <i class="bi bi-chevron-left" aria-hidden="true"></i>
+                    </button>
+                </div>
+
+                <div class="transfer-panel" data-transfer-panel="unassigned">
+                    <div class="transfer-panel-head">
+                        <h3 class="transfer-panel-title">尚未編班學生</h3>
+                        <div class="transfer-search">
+                            <label class="sr-only" for="applyUnassignedSearch">搜尋尚未編班學生的學號或姓名</label>
+                            <input type="search" class="form-control" id="applyUnassignedSearch" placeholder="搜尋學號或姓名" data-transfer-search>
+                            <i class="bi bi-search" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="transfer-box">
+                        <div class="transfer-toolbar">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="applyUnassignedCheckAll" data-transfer-checkall>
+                                <label class="form-check-label" for="applyUnassignedCheckAll">全選</label>
+                            </div>
+                            <span class="transfer-selected">已選擇 <span data-transfer-selected>0</span> 筆</span>
+                        </div>
+                        <!-- 後端：學生名單為動態產生，勾選值以學號提交。
+                             data-subject-assigned：該生已修課的科目代碼清單（逗號分隔），
+                             切換「修課科目」時依此屬性連動搬移至修課學生／尚未編班學生面板。
+                             data-class：該生所屬班級（代碼+名稱），供確定套用後的回饋 Modal 統計套用班級清單 -->
+                        <ul class="transfer-list">
+                            <li data-subject-assigned="102,103" data-class="103 國小低年級">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="applyUnassigned1" value="1031001">
+                                    <label class="form-check-label" for="applyUnassigned1">1031001 尤OO</label>
+                                </div>
+                            </li>
+                            <li data-subject-assigned="102,103" data-class="131 國中一年級">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="applyUnassigned2" value="1311001">
+                                    <label class="form-check-label" for="applyUnassigned2">1311001 利OO</label>
+                                </div>
+                            </li>
+                            <li data-subject-assigned="103,104" data-class="131 國中一年級">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="applyUnassigned3" value="1311002">
+                                    <label class="form-check-label" for="applyUnassigned3">1311002 潘OO</label>
+                                </div>
+                            </li>
+                            <li data-subject-assigned="103" data-class="131 國中一年級">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="applyUnassigned4" value="1311003">
+                                    <label class="form-check-label" for="applyUnassigned4">1311003 吳OO</label>
+                                </div>
+                            </li>
+                            <li data-subject-assigned="103,104" data-class="132 國中一年級">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="applyUnassigned5" value="1321001">
+                                    <label class="form-check-label" for="applyUnassigned5">1321001 鄭OO</label>
+                                </div>
+                            </li>
+                            <li data-subject-assigned="103" data-class="132 國中一年級">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="applyUnassigned6" value="1321002">
+                                    <label class="form-check-label" for="applyUnassigned6">1321002 許OO</label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <button type="button" class="btn transfer-bulk" data-transfer-action="add-all">
+                        <i class="bi bi-caret-left-fill" aria-hidden="true"></i>全選添加
+                    </button>
+                </div>
+            </div>
+
+            <p class="data-modal-tip">
+                <i class="bi bi-info-circle" aria-hidden="true"></i>
+                小提醒：可勾選學生後使用中央按鈕快速移動，也可使用全選功能一次處理多筆資料。
+            </p>
+        </div>
+        <!-- 固定於面板底部的操作按鈕：僅中間內容區捲動，避免使用者滑到底才看到 -->
+        <div class="iep-apply-footer">
+            <div class="data-modal-actions">
+                <button type="button" class="btn btn-cancel" data-bs-dismiss="offcanvas">取消</button>
+                <button type="button" class="btn btn-success" id="btnConfirmApplyTemplate">確定範本套用</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 固定於視窗底部的操作列 -->
+    <div class="iep-action-bar" role="region" aria-label="範本詳情操作列">
+        <div class="iep-action-hint">
+            <img src="img/icon/小提醒.svg" alt="" class="iep-action-hint-icon">
+            <p><strong>小提醒</strong><br>此為共享範本（唯讀）。若需修改內容請點擊「另存個人副本」</p>
+        </div>
+        <div class="iep-action-buttons">
+            <button type="button" class="btn btn-success" data-bs-toggle="offcanvas" data-bs-target="#applyTemplateOffcanvas" aria-controls="applyTemplateOffcanvas">
+                <i class="bi bi-person-check" aria-hidden="true"></i>套用範本至對象
+            </button>
+            <button type="button" class="btn btn-primary" id="eduGoalTemplateSaveCopyBtn">
+                <i class="bi bi-copy" aria-hidden="true"></i>另存個人副本
+            </button>
+        </div>
+        <a class="btn iep-action-cancel" href="iepEduGoalTemplateShare.html">取消</a>
+    </div>
+
+    <!-- 確定範本套用：手動關閉版回饋 Modal（帶出教師/科目/學生明細，導引前往教育目標資料管理） -->
+    <div class="modal fade feedback-modal" id="applyTemplateResultModal" tabindex="-1" aria-labelledby="applyTemplateResultModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body feedback-body" role="status">
+                    <span class="feedback-icon" aria-hidden="true">
+                        <i class="bi bi-send-check-fill"></i>
+                    </span>
+                    <h2 class="feedback-title" id="applyTemplateResultModalTitle">範本套用成功</h2>
+                    <p class="feedback-desc" id="applyResultDesc">您已將本範本套用至指定科目與學生對象。</p>
+                    <div class="data-modal-actions">
+                        <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">關閉</button>
+                        <a href="iepEduGoal.html" class="btn btn-primary">前往教育目標資料管理</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 另存個人副本：手動關閉版回饋 Modal（導引前往個人範本編輯頁） -->
+    <div class="modal fade feedback-modal" id="saveCopyModal" tabindex="-1" aria-labelledby="saveCopyModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body feedback-body" role="status">
+                    <span class="feedback-icon" aria-hidden="true">
+                        <i class="bi bi-copy"></i>
+                    </span>
+                    <h2 class="feedback-title" id="saveCopyModalTitle">另存個人副本成功</h2>
+                    <p class="feedback-desc">已將此範本另存為您的個人副本，您可至個人範本編輯頁進行內容編輯與調整。</p>
+                    <div class="data-modal-actions">
+                        <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">關閉</button>
+                        <a href="iepEduGoalTemplatePersonal_form.html" class="btn btn-primary">前往查看個人副本頁</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/iep.js"></script>
+</body>
+</html>

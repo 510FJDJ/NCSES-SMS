@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>德育成績計算作業 - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="系統依缺曠獎懲配分設定與德育成績加減分資料，自動結算本學期學生操行成績，並產出各類報表。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body>
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1">
+        <!-- 內頁 Banner：麵包屑＋標題＋CSS 裝飾＋插圖 -->
+        <section class="page-banner">
+            <!-- 裝飾層（純 CSS 繪製） -->
+            <div class="page-banner-deco" aria-hidden="true">
+                <span class="page-banner-halfcircle"></span>
+                <span class="page-banner-circle"></span>
+                <span class="page-banner-dots"></span>
+            </div>
+
+            <div class="container">
+                <nav class="page-banner-breadcrumb" aria-label="麵包屑導覽">
+                    <ol>
+                        <li>
+                            <a class="breadcrumb-home" href="index_AdminLogged.html" aria-label="首頁">
+                                <i class="bi bi-house-door" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">學務管理</a></li>
+                        <li><a href="#">德育成績作業</a></li>
+                        <li aria-current="page">德育成績計算作業</li>
+                    </ol>
+                </nav>
+
+                <div class="page-banner-main">
+                    <div class="page-banner-text">
+                        <h1 class="page-banner-title">德育成績計算作業</h1>
+                        <p class="page-banner-desc">系統將依「缺曠獎懲配分設定」與「德育成績加減分」資料，自動結算本學期學生操行成績，並產出各類報表。</p>
+                    </div>
+                    <!-- 右側人物插圖（純裝飾） -->
+                    <div class="page-banner-visual page-banner-visual--composed page-banner-visual--walkPerson" aria-hidden="true">
+                        <span class="banner-visual-blob"></span>
+                        <span class="banner-visual-window"></span>
+                        <img class="banner-visual-person" src="img/hero/characters/people-side-walk.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 結算作業區 -->
+        <section class="data-section">
+            <div class="container">
+                <div class="data-card">
+                    <div class="calc-action-grid">
+                        <div class="calc-action-info">
+                            <h2 class="data-modal-title">
+                                <i class="bi bi-lightbulb-fill text-warning" aria-hidden="true"></i>結算與印表須知
+                            </h2>
+                            <ul class="calc-notice-list">
+                                <li><i class="bi bi-check-circle-fill" aria-hidden="true"></i>系統將自動彙整全校學生本學期出缺勤紀錄與獎懲紀錄。</li>
+                                <li><i class="bi bi-check-circle-fill" aria-hidden="true"></i>依「缺曠獎懲配分設定」各部別標準，套用德育、群育加減分規則計算。</li>
+                                <li><i class="bi bi-check-circle-fill" aria-hidden="true"></i>結算完成後，方可下載名冊類報表、出缺勤統計表與獎懲紀錄表。</li>
+                                <li><i class="bi bi-check-circle-fill" aria-hidden="true"></i>若結算完成後仍有出缺勤或獎懲資料異動，請重新執行結算，以確保報表資料正確。</li>
+                                <li class="calc-notice-item--warning">
+                                    <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
+                                    <span><strong>學籍表警示</strong>：學生學籍表由「學科」與「操行」共同組成。兩端只要有資料更新，兩頁皆須重新點擊結算，否則學籍表將產生資料不同步之錯誤。本頁現地僅提供操行相關報表，完整學籍表請於兩端結算後，至「<a href="scoreCalc.html">成績管理 &gt; 學科成績結算作業</a>」下載最新定稿版。</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="calc-action-panel">
+                            <!-- 後端：結算對象學期與觸發邏輯由後端接手，前端僅示意流程 -->
+                            <form action="#" method="post" novalidate>
+                                <div class="calc-start-row">
+                                    <div class="calc-start-field">
+                                        <label class="form-label" for="calcSemester">學期別</label>
+                                        <select class="form-select" id="calcSemester" name="calcSemester">
+                                            <option value="1" selected>114學年度第2學期</option>
+                                            <option value="2">114學年度第1學期</option>
+                                            <option value="3">113學年度第2學期</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <button type="button" class="calc-cta-btn calc-cta-btn--primary mt-3" id="calcStartBtn">
+                                    <span class="calc-cta-main">
+                                        <i class="bi bi-play-circle-fill" aria-hidden="true"></i>開始結算
+                                    </span>
+                                    <span class="calc-cta-sub">一鍵整合・自動結算・立即完成</span>
+                                </button>
+                            </form>
+
+                            <!-- 狀態一：尚未結算（預設顯示） -->
+                            <div class="calc-status" id="calcStatusIdle" aria-live="polite">
+                                <p class="special-alert special-alert--warning">
+                                    <i class="bi bi-info-circle-fill" aria-hidden="true"></i>
+                                    尚未執行本學期結算，請確認學期別後點擊「開始結算」。
+                                </p>
+                            </div>
+
+                            <!-- 狀態二：結算進度，4 步驟，開始結算後由 JS 顯示並依序推進 -->
+                            <div class="calc-progress" id="calcProgress" hidden aria-live="polite">
+                                <div class="calc-progress-bar-wrap">
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-label="德育成績結算進度" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="calcProgressBarFill" style="width: 0%"></div>
+                                    </div>
+                                    <span class="calc-progress-percent" id="calcProgressPercent">0%</span>
+                                </div>
+                                <p class="calc-progress-status">
+                                    <img class="calc-progress-wait-icon" src="img/gif/wait.gif" alt="">
+                                    <span id="calcProgressText">正在為您結算德育成績，請稍候...</span>
+                                </p>
+                                <ol class="calc-steps">
+                                    <li class="calc-step">
+                                        <span class="calc-step-icon" aria-hidden="true"><i class="bi bi-circle"></i></span>
+                                        <span class="calc-step-text">
+                                            <span class="calc-step-label">讀取出缺勤資料</span>
+                                            <span class="calc-step-state">等待中</span>
+                                        </span>
+                                    </li>
+                                    <li class="calc-step">
+                                        <span class="calc-step-icon" aria-hidden="true"><i class="bi bi-circle"></i></span>
+                                        <span class="calc-step-text">
+                                            <span class="calc-step-label">讀取獎懲紀錄</span>
+                                            <span class="calc-step-state">等待中</span>
+                                        </span>
+                                    </li>
+                                    <li class="calc-step">
+                                        <span class="calc-step-icon" aria-hidden="true"><i class="bi bi-circle"></i></span>
+                                        <span class="calc-step-text">
+                                            <span class="calc-step-label">套用配分設定計算</span>
+                                            <span class="calc-step-state">等待中</span>
+                                        </span>
+                                    </li>
+                                    <li class="calc-step">
+                                        <span class="calc-step-icon" aria-hidden="true"><i class="bi bi-circle"></i></span>
+                                        <span class="calc-step-text">
+                                            <span class="calc-step-label">產出結算報表</span>
+                                            <span class="calc-step-state">等待中</span>
+                                        </span>
+                                    </li>
+                                </ol>
+                            </div>
+
+                            <!-- 狀態三：結算完成 -->
+                            <div class="calc-status" id="calcStatusComplete" hidden aria-live="polite">
+                                <p class="special-alert">
+                                    <i class="bi bi-check-circle-fill" aria-hidden="true"></i>
+                                    本學期德育成績已結算完成，您可至下方報表區下載相關報表。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 報表區：結算完成前鎖定並模糊呈現 -->
+                <div class="data-card calc-report-wrap mt-4">
+                    <h2 class="data-modal-title">結算報表</h2>
+                    <p class="calc-report-timestamp" id="calcReportTimestamp">尚未執行本學期結算。</p>
+
+                    <div class="calc-report-lock" id="calcReportLock">
+                        <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                        <p>尚未完成結算，請先於上方點擊「開始結算」按鈕。</p>
+                    </div>
+
+                    <div class="calc-report-content is-locked" id="calcReportContent" aria-hidden="true">
+                        <div class="tabs-nav" role="tablist" aria-label="德育成績結算報表頁籤">
+                            <button type="button" class="tabs-nav-btn is-active" role="tab" id="tab-roster" aria-selected="true" aria-controls="panel-roster" tabindex="0">名冊類報表</button>
+                            <button type="button" class="tabs-nav-btn" role="tab" id="tab-attendance" aria-selected="false" aria-controls="panel-attendance" tabindex="-1">出缺勤統計表</button>
+                            <button type="button" class="tabs-nav-btn" role="tab" id="tab-reward" aria-selected="false" aria-controls="panel-reward" tabindex="-1">獎懲紀錄表</button>
+                        </div>
+
+                        <div class="tabs-panel" role="tabpanel" id="panel-roster" aria-labelledby="tab-roster">
+                            <!-- 後端：查詢/下載行為由後端接手，前端僅示意流程 -->
+                            <form class="report-filter-form" action="#" method="get" novalidate>
+                                <div class="report-filter-row">
+                                    <div class="report-filter-field">
+                                        <label class="form-label flex-row-center" for="rosterSemester">學期別<span class="badge-required">必填</span></label>
+                                        <select class="form-select" id="rosterSemester" name="rosterSemester">
+                                            <option value="1" selected>114學年度第2學期</option>
+                                            <option value="2">114學年度第1學期</option>
+                                            <option value="3">113學年度第2學期</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <fieldset>
+                                    <legend class="form-legend">查詢方式<span class="badge-required">必填</span></legend>
+                                    <div class="calc-mode-row">
+                                        <!-- 方式一：依部別班級區間 -->
+                                        <div class="calc-mode-option" id="rosterModeClassOption">
+                                            <input class="form-check-input" type="radio" name="rosterFilterMode" id="rosterModeClass" value="class" checked>
+                                            <div class="calc-mode-body">
+                                                <label class="calc-mode-label" for="rosterModeClass">依部別班級區間</label>
+                                                <div class="calc-mode-fields" id="rosterClassFields">
+                                                    <label class="sr-only" for="rosterDept">部別</label>
+                                                    <select class="form-select" id="rosterDept" name="rosterDept">
+                                                        <option value="" selected>請選擇部別</option>
+                                                        <option value="1">幼兒部</option>
+                                                        <option value="2">國小部</option>
+                                                        <option value="3">國中部</option>
+                                                        <option value="4">高職部</option>
+                                                    </select>
+                                                    <div class="date-range" role="group" aria-label="班級區間">
+                                                        <label class="sr-only" for="rosterClassStart">起始班級</label>
+                                                        <select class="form-select" id="rosterClassStart" name="rosterClassStart">
+                                                            <option value="" selected>起始班級</option>
+                                                            <option value="1">幼兒部小班</option>
+                                                            <option value="2">國小低年級忠班</option>
+                                                            <option value="3">國小中年級孝班</option>
+                                                            <option value="4">國中一年級忠班</option>
+                                                            <option value="5">高職一年A班</option>
+                                                        </select>
+                                                        <span class="date-range-sep" aria-hidden="true">~</span>
+                                                        <label class="sr-only" for="rosterClassEnd">結束班級</label>
+                                                        <select class="form-select" id="rosterClassEnd" name="rosterClassEnd">
+                                                            <option value="" selected>結束班級</option>
+                                                            <option value="1">幼兒部小班</option>
+                                                            <option value="2">國小低年級忠班</option>
+                                                            <option value="3">國小中年級孝班</option>
+                                                            <option value="4">國中一年級忠班</option>
+                                                            <option value="5">高職一年A班</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- 方式二：依學號查詢 -->
+                                        <div class="calc-mode-option is-inactive" id="rosterModeStudentOption">
+                                            <input class="form-check-input" type="radio" name="rosterFilterMode" id="rosterModeStudent" value="student">
+                                            <div class="calc-mode-body">
+                                                <label class="calc-mode-label" for="rosterModeStudent">依學號查詢</label>
+                                                <div class="calc-mode-fields" id="rosterStudentFields">
+                                                    <label class="sr-only" for="rosterStudentId">學號</label>
+                                                    <input type="text" class="form-control" id="rosterStudentId" name="rosterStudentId" placeholder="請輸入學生學號" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <div class="report-filter-actions">
+                                    <button type="button" class="btn btn-export report-download-btn" data-report-name="全校學生操行成績清冊">
+                                        <i class="bi bi-download" aria-hidden="true"></i>下載全校學生操行成績清冊
+                                    </button>
+                                    <button type="button" class="btn btn-export report-download-btn" data-report-name="各班操行成績清冊">
+                                        <i class="bi bi-download" aria-hidden="true"></i>下載各班操行成績清冊
+                                    </button>
+                                    <button type="button" class="btn btn-export report-download-btn" data-report-name="個人學籍表" data-report-check="roster">
+                                        <i class="bi bi-download" aria-hidden="true"></i>下載個人學籍表
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="tabs-panel" role="tabpanel" id="panel-attendance" aria-labelledby="tab-attendance" hidden>
+                            <!-- 後端：查詢/下載行為由後端接手，前端僅示意流程 -->
+                            <form class="report-filter-form" action="#" method="get" novalidate>
+                                <div class="report-filter-row">
+                                    <div class="report-filter-field">
+                                        <label class="form-label flex-row-center" for="attFilterDept">部別<span class="badge-required">必填</span></label>
+                                        <select class="form-select" id="attFilterDept" name="attFilterDept">
+                                            <option value="" selected>請選擇</option>
+                                            <option value="1">幼兒部</option>
+                                            <option value="2">國小部</option>
+                                            <option value="3">國中部</option>
+                                            <option value="4">高職部</option>
+                                        </select>
+                                    </div>
+                                    <div class="report-filter-field report-filter-field--wide">
+                                        <span class="form-label flex-row-center" id="attClassRangeLabel">班級區間<span class="badge-required">必填</span></span>
+                                        <div class="date-range" role="group" aria-labelledby="attClassRangeLabel">
+                                            <label class="sr-only" for="attClassStart">起始班級</label>
+                                            <select class="form-select" id="attClassStart" name="attClassStart">
+                                                <option value="" selected>請選擇</option>
+                                                <option value="1">幼兒部小班</option>
+                                                <option value="2">國小低年級忠班</option>
+                                                <option value="3">國小中年級孝班</option>
+                                                <option value="4">國中一年級忠班</option>
+                                                <option value="5">高職一年A班</option>
+                                            </select>
+                                            <span class="date-range-sep" aria-hidden="true">~</span>
+                                            <label class="sr-only" for="attClassEnd">結束班級</label>
+                                            <select class="form-select" id="attClassEnd" name="attClassEnd">
+                                                <option value="" selected>請選擇</option>
+                                                <option value="1">幼兒部小班</option>
+                                                <option value="2">國小低年級忠班</option>
+                                                <option value="3">國小中年級孝班</option>
+                                                <option value="4">國中一年級忠班</option>
+                                                <option value="5">高職一年A班</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="report-filter-row">
+                                    <div class="report-filter-field report-filter-field--wide">
+                                        <span class="form-label flex-row-center" id="attDateRangeLabel">日期區間<span class="badge-required">必填</span></span>
+                                        <div class="date-range" role="group" aria-labelledby="attDateRangeLabel">
+                                            <label class="sr-only" for="attDateStart">起始日期</label>
+                                            <input type="date" class="form-control" id="attDateStart" name="attDateStart">
+                                            <span class="date-range-sep" aria-hidden="true">~</span>
+                                            <label class="sr-only" for="attDateEnd">結束日期</label>
+                                            <input type="date" class="form-control" id="attDateEnd" name="attDateEnd">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="report-filter-row">
+                                    <div class="report-filter-field report-filter-field--wide">
+                                        <fieldset>
+                                            <legend class="form-legend">報表種類<span class="badge-required">必填</span></legend>
+                                            <div class="form-radio-row">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="attReportType" id="attTypeSummary" value="summary" checked>
+                                                    <label class="form-check-label" for="attTypeSummary">統計表</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="attReportType" id="attTypeDetail" value="detail">
+                                                    <label class="form-check-label" for="attTypeDetail">明細表</label>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="report-filter-field report-filter-field--wide">
+                                        <fieldset>
+                                            <legend class="form-legend">是否含假日<span class="badge-required">必填</span></legend>
+                                            <div class="form-radio-row">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="attIncludeHoliday" id="attHolidayYes" value="yes">
+                                                    <label class="form-check-label" for="attHolidayYes">是</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="attIncludeHoliday" id="attHolidayNo" value="no" checked>
+                                                    <label class="form-check-label" for="attHolidayNo">否</label>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+                                <div class="report-filter-actions">
+                                    <button type="button" class="btn btn-export report-download-btn" data-report-name="出缺勤統計表">
+                                        <i class="bi bi-download" aria-hidden="true"></i>下載出缺勤統計表
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="tabs-panel" role="tabpanel" id="panel-reward" aria-labelledby="tab-reward" hidden>
+                            <!-- 後端：查詢/下載行為由後端接手，前端僅示意流程 -->
+                            <form class="report-filter-form" action="#" method="get" novalidate>
+                                <div class="report-filter-row">
+                                    <div class="report-filter-field">
+                                        <label class="form-label flex-row-center" for="rewardFilterDept">部別<span class="badge-required">必填</span></label>
+                                        <select class="form-select" id="rewardFilterDept" name="rewardFilterDept">
+                                            <option value="" selected>請選擇</option>
+                                            <option value="1">幼兒部</option>
+                                            <option value="2">國小部</option>
+                                            <option value="3">國中部</option>
+                                            <option value="4">高職部</option>
+                                        </select>
+                                    </div>
+                                    <div class="report-filter-field report-filter-field--wide">
+                                        <span class="form-label flex-row-center" id="rewardClassRangeLabel">班級區間<span class="badge-required">必填</span></span>
+                                        <div class="date-range" role="group" aria-labelledby="rewardClassRangeLabel">
+                                            <label class="sr-only" for="rewardClassStart">起始班級</label>
+                                            <select class="form-select" id="rewardClassStart" name="rewardClassStart">
+                                                <option value="" selected>請選擇</option>
+                                                <option value="1">幼兒部小班</option>
+                                                <option value="2">國小低年級忠班</option>
+                                                <option value="3">國小中年級孝班</option>
+                                                <option value="4">國中一年級忠班</option>
+                                                <option value="5">高職一年A班</option>
+                                            </select>
+                                            <span class="date-range-sep" aria-hidden="true">~</span>
+                                            <label class="sr-only" for="rewardClassEnd">結束班級</label>
+                                            <select class="form-select" id="rewardClassEnd" name="rewardClassEnd">
+                                                <option value="" selected>請選擇</option>
+                                                <option value="1">幼兒部小班</option>
+                                                <option value="2">國小低年級忠班</option>
+                                                <option value="3">國小中年級孝班</option>
+                                                <option value="4">國中一年級忠班</option>
+                                                <option value="5">高職一年A班</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="report-filter-row">
+                                    <div class="report-filter-field report-filter-field--wide">
+                                        <span class="form-label flex-row-center" id="rewardDateRangeLabel">日期區間<span class="badge-required">必填</span></span>
+                                        <div class="date-range" role="group" aria-labelledby="rewardDateRangeLabel">
+                                            <label class="sr-only" for="rewardDateStart">起始日期</label>
+                                            <input type="date" class="form-control" id="rewardDateStart" name="rewardDateStart">
+                                            <span class="date-range-sep" aria-hidden="true">~</span>
+                                            <label class="sr-only" for="rewardDateEnd">結束日期</label>
+                                            <input type="date" class="form-control" id="rewardDateEnd" name="rewardDateEnd">
+                                        </div>
+                                    </div>
+                                    <div class="report-filter-field report-filter-field--wide">
+                                        <fieldset>
+                                            <legend class="form-legend">報表種類<span class="badge-required">必填</span></legend>
+                                            <div class="form-radio-row">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="rewardReportType" id="rewardTypeSummary" value="summary" checked>
+                                                    <label class="form-check-label" for="rewardTypeSummary">彙總表</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="rewardReportType" id="rewardTypeDetail" value="detail">
+                                                    <label class="form-check-label" for="rewardTypeDetail">明細表</label>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+                                <div class="report-filter-actions">
+                                    <button type="button" class="btn btn-export report-download-btn" data-report-name="學期獎懲紀錄表">
+                                        <i class="bi bi-download" aria-hidden="true"></i>下載學期獎懲紀錄表
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 回饋 Modal（3 秒倒數自動關閉；圖示/色彩由 JS 依情境切換） -->
+    <div class="modal fade feedback-modal" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body feedback-body" role="status">
+                    <span class="feedback-icon" aria-hidden="true">
+                        <i class="bi bi-file-earmark-check"></i>
+                    </span>
+                    <h2 class="feedback-title" id="feedbackModalTitle">德育成績結算完成</h2>
+                    <p class="feedback-desc">本學期學生操行成績已結算完成，您可至下方報表區下載相關報表。</p>
+                    <p class="feedback-countdown"><span class="feedback-countdown-num">3</span>秒後 自動關閉</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 手動關閉版回饋 Modal：無法產生學籍表錯誤提示 -->
+    <div class="modal fade feedback-modal" id="feedbackManualModal" tabindex="-1" aria-labelledby="feedbackManualModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body feedback-body" role="status">
+                    <span class="feedback-icon feedback-icon--danger" aria-hidden="true">
+                        <i class="bi bi-x-circle-fill"></i>
+                    </span>
+                    <h2 class="feedback-title" id="feedbackManualModalTitle">無法產生學籍表！</h2>
+                    <p class="feedback-desc">偵測到該生學科成績資料於本學期尚有異動，但尚未執行「學科成績結算」，故無法產出完整學籍表，請先完成學科成績結算後再重新下載。</p>
+                    <div class="data-modal-actions">
+                        <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">取消</button>
+                        <a href="scoreCalc.html" class="btn btn-primary">帶我前往學科結算</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/report-dependency-config.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/tabs.js"></script>
+    <script src="js/dataModal.js"></script>
+</body>
+</html>

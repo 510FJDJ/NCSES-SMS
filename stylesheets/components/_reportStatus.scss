@@ -1,0 +1,185 @@
+// ==========================================================================
+// 報表狀態徽章（.report-status-badge）與 header 導覽精簡版（.report-nav-badge）
+// 四態：可下載 / 待結算 / 需重算 / 無資料，搭配 js/report-dependency-config.js
+// ==========================================================================
+
+@mixin report-status-colors($bg, $fg) {
+  background-color: $bg;
+  color: $fg;
+}
+
+// --------------------------------------------------------------------------
+// 頁內完整版（頁籤內容區使用）
+// --------------------------------------------------------------------------
+.report-status-inline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.report-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 14px;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: $font-weight-medium;
+
+  .bi {
+    font-size: 0.875rem;
+  }
+
+  &.report-status--available {
+    @include report-status-colors(rgba($success, 0.12), $success);
+  }
+  &.report-status--pending {
+    @include report-status-colors(rgba($warning, 0.18), darken($warning, 25%));
+  }
+  &.report-status--recalc {
+    @include report-status-colors(rgba($danger, 0.12), $danger);
+  }
+  &.report-status--nodata {
+    @include report-status-colors($grey-200, $grey-500);
+  }
+}
+
+.report-status-desc {
+  font-size: 0.9375rem;
+  color: $grey-500;
+}
+
+.report-status-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  border-radius: $border-radius;
+  border: 1px solid $primary;
+  background-color: $white;
+  color: $primary;
+  font-size: 0.875rem;
+  font-weight: $font-weight-medium;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color .15s ease, color .15s ease;
+
+  &:hover,
+  &:focus-visible {
+    background-color: $primary;
+    color: $white;
+  }
+}
+
+.report-download-note {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.8125rem;
+  color: $grey-500;
+}
+
+// 下載按鈕＋補充說明成對出現時的包裹容器（例如：匯出按鈕旁註明與頁籤一 PDF 的差異）
+.report-filter-action-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 8px;
+  margin: -8px;
+  border-radius: $border-radius;
+  transition: background-color .4s ease;
+
+  // 從 header 導覽以錨點（如 #studentScoreSheet）進入本頁時，短暫凸顯對應區塊
+  &--highlight {
+    background-color: rgba($primary, 0.08);
+  }
+}
+
+// --------------------------------------------------------------------------
+// header 導覽精簡版（下拉選單 / 手機 accordion 項目旁）
+// --------------------------------------------------------------------------
+.dropdown-item-report {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.dropdown-item-report-badge-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.report-nav-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.6875rem;
+  font-weight: $font-weight-bold;
+  white-space: nowrap;
+
+  .bi {
+    font-size: 0.6875rem;
+  }
+
+  &.report-status--available {
+    @include report-status-colors(rgba($success, 0.14), $success);
+  }
+  &.report-status--pending {
+    @include report-status-colors(rgba($warning, 0.2), darken($warning, 25%));
+  }
+  &.report-status--recalc {
+    @include report-status-colors(rgba($danger, 0.14), $danger);
+  }
+  &.report-status--nodata {
+    @include report-status-colors($grey-200, $grey-500);
+  }
+
+  // 待結算／需重算時，徽章本身亦可點擊前往結算頁（與旁邊的 .report-nav-action 導向同一頁）
+  &.report-nav-badge--actionable {
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: 0.15rem solid var(--color-focus);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+  }
+}
+
+// 「前往結算」捷徑：圓形小按鈕，僅於 待結算／需重算 時出現
+.report-nav-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 0;
+  background-color: $primary;
+  color: $white;
+  font-size: 0.6875rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color .15s ease;
+
+  &:hover,
+  &:focus-visible {
+    background-color: darken($primary, 10%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .report-status-action,
+  .report-nav-action,
+  .report-filter-action-group {
+    transition: none;
+  }
+}

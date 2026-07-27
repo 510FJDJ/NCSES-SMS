@@ -1,0 +1,2023 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>增強物調查表明細 - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="維護與管理個案學生之增強物偏好調查，建立個別化行為正向引導與獎勵制度之依據。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body class="has-iep-action-bar">
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1">
+        <!-- 內頁 Banner：麵包屑＋標題＋返回列表按鈕 -->
+        <section class="page-banner">
+            <!-- 裝飾層（純 CSS 繪製） -->
+            <div class="page-banner-deco" aria-hidden="true">
+                <span class="page-banner-halfcircle"></span>
+                <span class="page-banner-circle"></span>
+                <span class="page-banner-dots"></span>
+            </div>
+
+            <div class="container">
+                <nav class="page-banner-breadcrumb" aria-label="麵包屑導覽">
+                    <ol>
+                        <li>
+                            <a class="breadcrumb-home" href="index_AdminLogged.html" aria-label="首頁">
+                                <i class="bi bi-house-door" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">IEP管理</a></li>
+                        <li><a href="#">IEP行為介入計畫方案</a></li>
+                        <li><a href="iepReinforcerSurvey.html">增強物調查表</a></li>
+                        <li aria-current="page">編輯</li>
+                    </ol>
+                </nav>
+
+                <div class="page-banner-main">
+                    <div class="page-banner-text">
+                        <h1 class="page-banner-title">增強物調查表明細</h1>
+                        <p class="page-banner-desc">維護與管理個案學生之增強物偏好調查，建立個別化行為正向引導與獎勵制度之依據。</p>
+                    </div>
+                    <!-- 右側人物插圖（純裝飾；背景以 CSS 繪製，角色圖可互換） -->
+                    <div class="page-banner-visual page-banner-visual--composed page-banner-visual--pointPerson" aria-hidden="true">
+                        <span class="banner-visual-blob"></span>
+                        <span class="banner-visual-window"></span>
+                        <img class="banner-visual-person" src="img/hero/characters/people-front-point.png" alt="">
+                    </div>
+                    <a class="btn-back" href="iepReinforcerSurvey.html">
+                        <i class="bi bi-chevron-left" aria-hidden="true"></i>返回列表
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- IEP 明細表單 -->
+        <section class="form-section-wrap">
+            <div class="container">
+                <!-- 學生資訊摘要列（後端：由學生資料帶入） -->
+                <div class="iep-student-bar">
+                    <div class="iep-student-name">
+                        <span>王小明</span>
+                        <span class="iep-student-dept-badge">國小部</span>
+                    </div>
+                    <dl class="iep-student-metas">
+                        <div class="iep-student-meta">
+                            <dt>班級：</dt>
+                            <dd>101國小低年級</dd>
+                        </div>
+                        <div class="iep-student-meta">
+                            <dt>填寫日期：</dt>
+                            <dd>2026/07/25</dd>
+                        </div>
+                        <div class="iep-student-meta">
+                            <dt>填表學期：</dt>
+                            <dd>113學年度第2學期</dd>
+                        </div>
+                        <div class="iep-student-meta">
+                            <dt>單號：</dt>
+                            <dd>202502120001</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <!-- 後端：表單送出目標與驗證由後端接手 -->
+                <form class="form-card" id="iepForm" action="#" method="post" novalidate>
+                    <!-- 填表人 -->
+                    <section class="form-section" aria-label="填表資訊">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label" for="fillerName">填表人</label>
+                                <input type="text" class="form-control" id="fillerName" name="fillerName" placeholder="請輸入姓名" value="王OO">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ============================================================
+                         增強物偏好評估：左側類別頁籤／右側評估表格
+                    ============================================================ -->
+                    <section class="form-section" aria-labelledby="reinforcerSecTitle">
+                        <h2 class="form-section-title" id="reinforcerSecTitle">
+                            <i class="bi bi-star" aria-hidden="true"></i>增強物偏好評估
+                        </h2>
+
+                        <div class="iep-reinforcer-layout">
+                            <div class="tabs-nav tabs-nav--vertical" role="tablist" aria-label="增強物類別頁籤" id="reinforcerTabs">
+                                <button type="button" class="tabs-nav-btn is-active" role="tab" id="tab-reinforcer-food" aria-selected="true" aria-controls="panel-reinforcer-food" tabindex="0">
+                                    <i class="bi bi-egg-fried" aria-hidden="true"></i>食物
+                                </button>
+                                <button type="button" class="tabs-nav-btn" role="tab" id="tab-reinforcer-drink" aria-selected="false" aria-controls="panel-reinforcer-drink" tabindex="-1">
+                                    <i class="bi bi-cup-straw" aria-hidden="true"></i>飲料
+                                </button>
+                                <button type="button" class="tabs-nav-btn" role="tab" id="tab-reinforcer-stuff" aria-selected="false" aria-controls="panel-reinforcer-stuff" tabindex="-1">
+                                    <i class="bi bi-box-seam" aria-hidden="true"></i>東西
+                                </button>
+                                <button type="button" class="tabs-nav-btn" role="tab" id="tab-reinforcer-physical" aria-selected="false" aria-controls="panel-reinforcer-physical" tabindex="-1">
+                                    <i class="bi bi-puzzle" aria-hidden="true"></i>體能和益智活動
+                                </button>
+                                <button type="button" class="tabs-nav-btn" role="tab" id="tab-reinforcer-entertainment" aria-selected="false" aria-controls="panel-reinforcer-entertainment" tabindex="-1">
+                                    <i class="bi bi-controller" aria-hidden="true"></i>娛樂活動
+                                </button>
+                                <button type="button" class="tabs-nav-btn" role="tab" id="tab-reinforcer-outdoor" aria-selected="false" aria-controls="panel-reinforcer-outdoor" tabindex="-1">
+                                    <i class="bi bi-tree" aria-hidden="true"></i>戶外活動
+                                </button>
+                                <button type="button" class="tabs-nav-btn" role="tab" id="tab-reinforcer-chores" aria-selected="false" aria-controls="panel-reinforcer-chores" tabindex="-1">
+                                    <i class="bi bi-house-gear" aria-hidden="true"></i>家務
+                                </button>
+                                <button type="button" class="tabs-nav-btn" role="tab" id="tab-reinforcer-rights" aria-selected="false" aria-controls="panel-reinforcer-rights" tabindex="-1">
+                                    <i class="bi bi-shield-check" aria-hidden="true"></i>權力和義務
+                                </button>
+                                <button type="button" class="tabs-nav-btn" role="tab" id="tab-reinforcer-social" aria-selected="false" aria-controls="panel-reinforcer-social" tabindex="-1">
+                                    <i class="bi bi-people" aria-hidden="true"></i>交誼活動
+                                </button>
+                                <button type="button" class="tabs-nav-btn" role="tab" id="tab-reinforcer-education" aria-selected="false" aria-controls="panel-reinforcer-education" tabindex="-1">
+                                    <i class="bi bi-mortarboard" aria-hidden="true"></i>教育活動
+                                </button>
+                                <button type="button" class="tabs-nav-btn" role="tab" id="tab-reinforcer-grooming" aria-selected="false" aria-controls="panel-reinforcer-grooming" tabindex="-1">
+                                    <i class="bi bi-brush" aria-hidden="true"></i>外表修飾
+                                </button>
+                                <button type="button" class="tabs-nav-btn" role="tab" id="tab-reinforcer-leisure" aria-selected="false" aria-controls="panel-reinforcer-leisure" tabindex="-1">
+                                    <i class="bi bi-flower2" aria-hidden="true"></i>休閒活動
+                                </button>
+                            </div>
+
+                            <div class="iep-reinforcer-panels w-100">
+                                <div class="tabs-panel" role="tabpanel" id="panel-reinforcer-food" aria-labelledby="tab-reinforcer-food">
+                                    <h3 class="iep-reinforcer-panel-title">偏好評估表格-食物</h3>
+                                    <div class="table-responsive iep-reinforcer-table-wrap">
+                                        <table class="table table-striped iep-reinforcer-table">
+                                            <caption class="sr-only">食物類增強物偏好調查表</caption>
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" class="iep-reinforcer-th-check">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkAllFood" data-check-all aria-label="全選食物類項目">
+                                                            <label class="form-check-label" for="checkAllFood">全選</label>
+                                                        </div>
+                                                    </th>
+                                                    <th scope="col">序號</th>
+                                                    <th scope="col">可能的增強物</th>
+                                                    <th scope="col">描述</th>
+                                                    <th scope="col">調查結果</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkFood1" data-check-row aria-label="勾選項目一">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">1</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">餅乾(哪一種)</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescFood1">餅乾(哪一種)描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescFood1" name="reinforcerDescFood1" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">餅乾(哪一種)調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultFood1" id="reinforcerResultFood1VeryLike" value="veryLike" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultFood1VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultFood1" id="reinforcerResultFood1LikeSome" value="likeSome">
+                                                                    <label class="form-check-label" for="reinforcerResultFood1LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultFood1" id="reinforcerResultFood1Neutral" value="neutral">
+                                                                    <label class="form-check-label" for="reinforcerResultFood1Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultFood1" id="reinforcerResultFood1Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultFood1Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultFood1" id="reinforcerResultFood1Unknown" value="unknown">
+                                                                    <label class="form-check-label" for="reinforcerResultFood1Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkFood2" data-check-row aria-label="勾選項目二">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">2</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">蛋糕(哪一種)</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescFood2">蛋糕(哪一種)描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescFood2" name="reinforcerDescFood2" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">蛋糕(哪一種)調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultFood2" id="reinforcerResultFood2VeryLike" value="veryLike">
+                                                                    <label class="form-check-label" for="reinforcerResultFood2VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultFood2" id="reinforcerResultFood2LikeSome" value="likeSome" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultFood2LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultFood2" id="reinforcerResultFood2Neutral" value="neutral">
+                                                                    <label class="form-check-label" for="reinforcerResultFood2Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultFood2" id="reinforcerResultFood2Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultFood2Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultFood2" id="reinforcerResultFood2Unknown" value="unknown">
+                                                                    <label class="form-check-label" for="reinforcerResultFood2Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkFood3" data-check-row aria-label="勾選項目三">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">3</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">麵包(哪一種)</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescFood3">麵包(哪一種)描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescFood3" name="reinforcerDescFood3" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">麵包(哪一種)調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultFood3" id="reinforcerResultFood3VeryLike" value="veryLike">
+                                                                    <label class="form-check-label" for="reinforcerResultFood3VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultFood3" id="reinforcerResultFood3LikeSome" value="likeSome">
+                                                                    <label class="form-check-label" for="reinforcerResultFood3LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultFood3" id="reinforcerResultFood3Neutral" value="neutral" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultFood3Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultFood3" id="reinforcerResultFood3Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultFood3Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultFood3" id="reinforcerResultFood3Unknown" value="unknown">
+                                                                    <label class="form-check-label" for="reinforcerResultFood3Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="tabs-panel" role="tabpanel" id="panel-reinforcer-drink" aria-labelledby="tab-reinforcer-drink" hidden>
+                                    <h3 class="iep-reinforcer-panel-title">偏好評估表格-飲料</h3>
+                                    <div class="table-responsive iep-reinforcer-table-wrap">
+                                        <table class="table table-striped iep-reinforcer-table">
+                                            <caption class="sr-only">飲料類增強物偏好調查表</caption>
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" class="iep-reinforcer-th-check">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkAllDrink" data-check-all aria-label="全選飲料類項目">
+                                                            <label class="form-check-label" for="checkAllDrink">全選</label>
+                                                        </div>
+                                                    </th>
+                                                    <th scope="col">序號</th>
+                                                    <th scope="col">可能的增強物</th>
+                                                    <th scope="col">描述</th>
+                                                    <th scope="col">調查結果</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkDrink1" data-check-row aria-label="勾選項目一">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">1</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目一</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescDrink1">項目一描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescDrink1" name="reinforcerDescDrink1" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目一調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultDrink1" id="reinforcerResultDrink1VeryLike" value="veryLike">
+                                                                    <label class="form-check-label" for="reinforcerResultDrink1VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultDrink1" id="reinforcerResultDrink1LikeSome" value="likeSome">
+                                                                    <label class="form-check-label" for="reinforcerResultDrink1LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultDrink1" id="reinforcerResultDrink1Neutral" value="neutral">
+                                                                    <label class="form-check-label" for="reinforcerResultDrink1Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultDrink1" id="reinforcerResultDrink1Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultDrink1Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultDrink1" id="reinforcerResultDrink1Unknown" value="unknown" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultDrink1Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkDrink2" data-check-row aria-label="勾選項目二">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">2</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目二</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescDrink2">項目二描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescDrink2" name="reinforcerDescDrink2" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目二調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultDrink2" id="reinforcerResultDrink2VeryLike" value="veryLike">
+                                                                    <label class="form-check-label" for="reinforcerResultDrink2VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultDrink2" id="reinforcerResultDrink2LikeSome" value="likeSome">
+                                                                    <label class="form-check-label" for="reinforcerResultDrink2LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultDrink2" id="reinforcerResultDrink2Neutral" value="neutral">
+                                                                    <label class="form-check-label" for="reinforcerResultDrink2Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultDrink2" id="reinforcerResultDrink2Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultDrink2Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultDrink2" id="reinforcerResultDrink2Unknown" value="unknown" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultDrink2Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkDrink3" data-check-row aria-label="勾選項目三">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">3</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目三</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescDrink3">項目三描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescDrink3" name="reinforcerDescDrink3" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目三調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultDrink3" id="reinforcerResultDrink3VeryLike" value="veryLike">
+                                                                    <label class="form-check-label" for="reinforcerResultDrink3VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultDrink3" id="reinforcerResultDrink3LikeSome" value="likeSome">
+                                                                    <label class="form-check-label" for="reinforcerResultDrink3LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultDrink3" id="reinforcerResultDrink3Neutral" value="neutral">
+                                                                    <label class="form-check-label" for="reinforcerResultDrink3Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultDrink3" id="reinforcerResultDrink3Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultDrink3Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultDrink3" id="reinforcerResultDrink3Unknown" value="unknown" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultDrink3Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="tabs-panel" role="tabpanel" id="panel-reinforcer-stuff" aria-labelledby="tab-reinforcer-stuff" hidden>
+                                    <h3 class="iep-reinforcer-panel-title">偏好評估表格-東西</h3>
+                                    <div class="table-responsive iep-reinforcer-table-wrap">
+                                        <table class="table table-striped iep-reinforcer-table">
+                                            <caption class="sr-only">東西類增強物偏好調查表</caption>
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" class="iep-reinforcer-th-check">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkAllStuff" data-check-all aria-label="全選東西類項目">
+                                                            <label class="form-check-label" for="checkAllStuff">全選</label>
+                                                        </div>
+                                                    </th>
+                                                    <th scope="col">序號</th>
+                                                    <th scope="col">可能的增強物</th>
+                                                    <th scope="col">描述</th>
+                                                    <th scope="col">調查結果</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkStuff1" data-check-row aria-label="勾選項目一">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">1</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目一</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescStuff1">項目一描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescStuff1" name="reinforcerDescStuff1" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目一調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultStuff1" id="reinforcerResultStuff1VeryLike" value="veryLike">
+                                                                    <label class="form-check-label" for="reinforcerResultStuff1VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultStuff1" id="reinforcerResultStuff1LikeSome" value="likeSome">
+                                                                    <label class="form-check-label" for="reinforcerResultStuff1LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultStuff1" id="reinforcerResultStuff1Neutral" value="neutral" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultStuff1Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultStuff1" id="reinforcerResultStuff1Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultStuff1Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultStuff1" id="reinforcerResultStuff1Unknown" value="unknown">
+                                                                    <label class="form-check-label" for="reinforcerResultStuff1Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkStuff2" data-check-row aria-label="勾選項目二">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">2</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目二</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescStuff2">項目二描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescStuff2" name="reinforcerDescStuff2" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目二調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultStuff2" id="reinforcerResultStuff2VeryLike" value="veryLike">
+                                                                    <label class="form-check-label" for="reinforcerResultStuff2VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultStuff2" id="reinforcerResultStuff2LikeSome" value="likeSome">
+                                                                    <label class="form-check-label" for="reinforcerResultStuff2LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultStuff2" id="reinforcerResultStuff2Neutral" value="neutral" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultStuff2Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultStuff2" id="reinforcerResultStuff2Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultStuff2Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultStuff2" id="reinforcerResultStuff2Unknown" value="unknown">
+                                                                    <label class="form-check-label" for="reinforcerResultStuff2Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkStuff3" data-check-row aria-label="勾選項目三">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">3</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目三</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescStuff3">項目三描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescStuff3" name="reinforcerDescStuff3" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目三調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultStuff3" id="reinforcerResultStuff3VeryLike" value="veryLike">
+                                                                    <label class="form-check-label" for="reinforcerResultStuff3VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultStuff3" id="reinforcerResultStuff3LikeSome" value="likeSome">
+                                                                    <label class="form-check-label" for="reinforcerResultStuff3LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultStuff3" id="reinforcerResultStuff3Neutral" value="neutral" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultStuff3Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultStuff3" id="reinforcerResultStuff3Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultStuff3Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultStuff3" id="reinforcerResultStuff3Unknown" value="unknown">
+                                                                    <label class="form-check-label" for="reinforcerResultStuff3Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="tabs-panel" role="tabpanel" id="panel-reinforcer-physical" aria-labelledby="tab-reinforcer-physical" hidden>
+                                    <h3 class="iep-reinforcer-panel-title">偏好評估表格-體能和益智活動</h3>
+                                    <div class="table-responsive iep-reinforcer-table-wrap">
+                                        <table class="table table-striped iep-reinforcer-table">
+                                            <caption class="sr-only">體能和益智活動類增強物偏好調查表</caption>
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" class="iep-reinforcer-th-check">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkAllPhysical" data-check-all aria-label="全選體能和益智活動類項目">
+                                                            <label class="form-check-label" for="checkAllPhysical">全選</label>
+                                                        </div>
+                                                    </th>
+                                                    <th scope="col">序號</th>
+                                                    <th scope="col">可能的增強物</th>
+                                                    <th scope="col">描述</th>
+                                                    <th scope="col">調查結果</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkPhysical1" data-check-row aria-label="勾選項目一">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">1</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目一</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescPhysical1">項目一描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescPhysical1" name="reinforcerDescPhysical1" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目一調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultPhysical1" id="reinforcerResultPhysical1VeryLike" value="veryLike">
+                                                                    <label class="form-check-label" for="reinforcerResultPhysical1VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultPhysical1" id="reinforcerResultPhysical1LikeSome" value="likeSome">
+                                                                    <label class="form-check-label" for="reinforcerResultPhysical1LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultPhysical1" id="reinforcerResultPhysical1Neutral" value="neutral">
+                                                                    <label class="form-check-label" for="reinforcerResultPhysical1Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultPhysical1" id="reinforcerResultPhysical1Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultPhysical1Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultPhysical1" id="reinforcerResultPhysical1Unknown" value="unknown" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultPhysical1Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkPhysical2" data-check-row aria-label="勾選項目二">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">2</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目二</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescPhysical2">項目二描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescPhysical2" name="reinforcerDescPhysical2" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目二調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultPhysical2" id="reinforcerResultPhysical2VeryLike" value="veryLike">
+                                                                    <label class="form-check-label" for="reinforcerResultPhysical2VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultPhysical2" id="reinforcerResultPhysical2LikeSome" value="likeSome">
+                                                                    <label class="form-check-label" for="reinforcerResultPhysical2LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultPhysical2" id="reinforcerResultPhysical2Neutral" value="neutral">
+                                                                    <label class="form-check-label" for="reinforcerResultPhysical2Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultPhysical2" id="reinforcerResultPhysical2Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultPhysical2Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultPhysical2" id="reinforcerResultPhysical2Unknown" value="unknown" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultPhysical2Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkPhysical3" data-check-row aria-label="勾選項目三">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">3</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目三</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescPhysical3">項目三描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescPhysical3" name="reinforcerDescPhysical3" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目三調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultPhysical3" id="reinforcerResultPhysical3VeryLike" value="veryLike">
+                                                                    <label class="form-check-label" for="reinforcerResultPhysical3VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultPhysical3" id="reinforcerResultPhysical3LikeSome" value="likeSome">
+                                                                    <label class="form-check-label" for="reinforcerResultPhysical3LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultPhysical3" id="reinforcerResultPhysical3Neutral" value="neutral">
+                                                                    <label class="form-check-label" for="reinforcerResultPhysical3Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultPhysical3" id="reinforcerResultPhysical3Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultPhysical3Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultPhysical3" id="reinforcerResultPhysical3Unknown" value="unknown" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultPhysical3Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="tabs-panel" role="tabpanel" id="panel-reinforcer-entertainment" aria-labelledby="tab-reinforcer-entertainment" hidden>
+                                    <h3 class="iep-reinforcer-panel-title">偏好評估表格-娛樂活動</h3>
+                                    <div class="table-responsive iep-reinforcer-table-wrap">
+                                        <table class="table table-striped iep-reinforcer-table">
+                                            <caption class="sr-only">娛樂活動類增強物偏好調查表</caption>
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" class="iep-reinforcer-th-check">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkAllEntertainment" data-check-all aria-label="全選娛樂活動類項目">
+                                                            <label class="form-check-label" for="checkAllEntertainment">全選</label>
+                                                        </div>
+                                                    </th>
+                                                    <th scope="col">序號</th>
+                                                    <th scope="col">可能的增強物</th>
+                                                    <th scope="col">描述</th>
+                                                    <th scope="col">調查結果</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkEntertainment1" data-check-row aria-label="勾選項目一">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">1</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目一</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescEntertainment1">項目一描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescEntertainment1" name="reinforcerDescEntertainment1" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目一調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultEntertainment1" id="reinforcerResultEntertainment1VeryLike" value="veryLike" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultEntertainment1VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultEntertainment1" id="reinforcerResultEntertainment1LikeSome" value="likeSome">
+                                                                    <label class="form-check-label" for="reinforcerResultEntertainment1LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultEntertainment1" id="reinforcerResultEntertainment1Neutral" value="neutral">
+                                                                    <label class="form-check-label" for="reinforcerResultEntertainment1Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultEntertainment1" id="reinforcerResultEntertainment1Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultEntertainment1Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultEntertainment1" id="reinforcerResultEntertainment1Unknown" value="unknown">
+                                                                    <label class="form-check-label" for="reinforcerResultEntertainment1Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkEntertainment2" data-check-row aria-label="勾選項目二">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">2</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目二</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescEntertainment2">項目二描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescEntertainment2" name="reinforcerDescEntertainment2" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目二調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultEntertainment2" id="reinforcerResultEntertainment2VeryLike" value="veryLike" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultEntertainment2VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultEntertainment2" id="reinforcerResultEntertainment2LikeSome" value="likeSome">
+                                                                    <label class="form-check-label" for="reinforcerResultEntertainment2LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultEntertainment2" id="reinforcerResultEntertainment2Neutral" value="neutral">
+                                                                    <label class="form-check-label" for="reinforcerResultEntertainment2Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultEntertainment2" id="reinforcerResultEntertainment2Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultEntertainment2Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultEntertainment2" id="reinforcerResultEntertainment2Unknown" value="unknown">
+                                                                    <label class="form-check-label" for="reinforcerResultEntertainment2Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkEntertainment3" data-check-row aria-label="勾選項目三">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">3</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目三</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescEntertainment3">項目三描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescEntertainment3" name="reinforcerDescEntertainment3" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目三調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultEntertainment3" id="reinforcerResultEntertainment3VeryLike" value="veryLike" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultEntertainment3VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultEntertainment3" id="reinforcerResultEntertainment3LikeSome" value="likeSome">
+                                                                    <label class="form-check-label" for="reinforcerResultEntertainment3LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultEntertainment3" id="reinforcerResultEntertainment3Neutral" value="neutral">
+                                                                    <label class="form-check-label" for="reinforcerResultEntertainment3Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultEntertainment3" id="reinforcerResultEntertainment3Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultEntertainment3Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultEntertainment3" id="reinforcerResultEntertainment3Unknown" value="unknown">
+                                                                    <label class="form-check-label" for="reinforcerResultEntertainment3Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="tabs-panel" role="tabpanel" id="panel-reinforcer-outdoor" aria-labelledby="tab-reinforcer-outdoor" hidden>
+                                    <h3 class="iep-reinforcer-panel-title">偏好評估表格-戶外活動</h3>
+                                    <div class="table-responsive iep-reinforcer-table-wrap">
+                                        <table class="table table-striped iep-reinforcer-table">
+                                            <caption class="sr-only">戶外活動類增強物偏好調查表</caption>
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" class="iep-reinforcer-th-check">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkAllOutdoor" data-check-all aria-label="全選戶外活動類項目">
+                                                            <label class="form-check-label" for="checkAllOutdoor">全選</label>
+                                                        </div>
+                                                    </th>
+                                                    <th scope="col">序號</th>
+                                                    <th scope="col">可能的增強物</th>
+                                                    <th scope="col">描述</th>
+                                                    <th scope="col">調查結果</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkOutdoor1" data-check-row aria-label="勾選項目一">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">1</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目一</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescOutdoor1">項目一描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescOutdoor1" name="reinforcerDescOutdoor1" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目一調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultOutdoor1" id="reinforcerResultOutdoor1VeryLike" value="veryLike">
+                                                                    <label class="form-check-label" for="reinforcerResultOutdoor1VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultOutdoor1" id="reinforcerResultOutdoor1LikeSome" value="likeSome" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultOutdoor1LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultOutdoor1" id="reinforcerResultOutdoor1Neutral" value="neutral">
+                                                                    <label class="form-check-label" for="reinforcerResultOutdoor1Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultOutdoor1" id="reinforcerResultOutdoor1Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultOutdoor1Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultOutdoor1" id="reinforcerResultOutdoor1Unknown" value="unknown">
+                                                                    <label class="form-check-label" for="reinforcerResultOutdoor1Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkOutdoor2" data-check-row aria-label="勾選項目二">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">2</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目二</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescOutdoor2">項目二描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescOutdoor2" name="reinforcerDescOutdoor2" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目二調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultOutdoor2" id="reinforcerResultOutdoor2VeryLike" value="veryLike">
+                                                                    <label class="form-check-label" for="reinforcerResultOutdoor2VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultOutdoor2" id="reinforcerResultOutdoor2LikeSome" value="likeSome" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultOutdoor2LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultOutdoor2" id="reinforcerResultOutdoor2Neutral" value="neutral">
+                                                                    <label class="form-check-label" for="reinforcerResultOutdoor2Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultOutdoor2" id="reinforcerResultOutdoor2Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultOutdoor2Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultOutdoor2" id="reinforcerResultOutdoor2Unknown" value="unknown">
+                                                                    <label class="form-check-label" for="reinforcerResultOutdoor2Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkOutdoor3" data-check-row aria-label="勾選項目三">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">3</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目三</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescOutdoor3">項目三描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescOutdoor3" name="reinforcerDescOutdoor3" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目三調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultOutdoor3" id="reinforcerResultOutdoor3VeryLike" value="veryLike">
+                                                                    <label class="form-check-label" for="reinforcerResultOutdoor3VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultOutdoor3" id="reinforcerResultOutdoor3LikeSome" value="likeSome" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultOutdoor3LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultOutdoor3" id="reinforcerResultOutdoor3Neutral" value="neutral">
+                                                                    <label class="form-check-label" for="reinforcerResultOutdoor3Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultOutdoor3" id="reinforcerResultOutdoor3Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultOutdoor3Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultOutdoor3" id="reinforcerResultOutdoor3Unknown" value="unknown">
+                                                                    <label class="form-check-label" for="reinforcerResultOutdoor3Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="tabs-panel" role="tabpanel" id="panel-reinforcer-chores" aria-labelledby="tab-reinforcer-chores" hidden>
+                                    <h3 class="iep-reinforcer-panel-title">偏好評估表格-家務</h3>
+                                    <div class="table-responsive iep-reinforcer-table-wrap">
+                                        <table class="table table-striped iep-reinforcer-table">
+                                            <caption class="sr-only">家務類增強物偏好調查表</caption>
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" class="iep-reinforcer-th-check">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkAllChores" data-check-all aria-label="全選家務類項目">
+                                                            <label class="form-check-label" for="checkAllChores">全選</label>
+                                                        </div>
+                                                    </th>
+                                                    <th scope="col">序號</th>
+                                                    <th scope="col">可能的增強物</th>
+                                                    <th scope="col">描述</th>
+                                                    <th scope="col">調查結果</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkChores1" data-check-row aria-label="勾選項目一">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">1</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目一</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescChores1">項目一描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescChores1" name="reinforcerDescChores1" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目一調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultChores1" id="reinforcerResultChores1VeryLike" value="veryLike">
+                                                                    <label class="form-check-label" for="reinforcerResultChores1VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultChores1" id="reinforcerResultChores1LikeSome" value="likeSome">
+                                                                    <label class="form-check-label" for="reinforcerResultChores1LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultChores1" id="reinforcerResultChores1Neutral" value="neutral">
+                                                                    <label class="form-check-label" for="reinforcerResultChores1Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultChores1" id="reinforcerResultChores1Dislike" value="dislike" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultChores1Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultChores1" id="reinforcerResultChores1Unknown" value="unknown">
+                                                                    <label class="form-check-label" for="reinforcerResultChores1Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkChores2" data-check-row aria-label="勾選項目二">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">2</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目二</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescChores2">項目二描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescChores2" name="reinforcerDescChores2" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目二調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultChores2" id="reinforcerResultChores2VeryLike" value="veryLike">
+                                                                    <label class="form-check-label" for="reinforcerResultChores2VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultChores2" id="reinforcerResultChores2LikeSome" value="likeSome">
+                                                                    <label class="form-check-label" for="reinforcerResultChores2LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultChores2" id="reinforcerResultChores2Neutral" value="neutral">
+                                                                    <label class="form-check-label" for="reinforcerResultChores2Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultChores2" id="reinforcerResultChores2Dislike" value="dislike" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultChores2Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultChores2" id="reinforcerResultChores2Unknown" value="unknown">
+                                                                    <label class="form-check-label" for="reinforcerResultChores2Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkChores3" data-check-row aria-label="勾選項目三">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">3</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目三</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescChores3">項目三描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescChores3" name="reinforcerDescChores3" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目三調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultChores3" id="reinforcerResultChores3VeryLike" value="veryLike">
+                                                                    <label class="form-check-label" for="reinforcerResultChores3VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultChores3" id="reinforcerResultChores3LikeSome" value="likeSome">
+                                                                    <label class="form-check-label" for="reinforcerResultChores3LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultChores3" id="reinforcerResultChores3Neutral" value="neutral">
+                                                                    <label class="form-check-label" for="reinforcerResultChores3Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultChores3" id="reinforcerResultChores3Dislike" value="dislike" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultChores3Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultChores3" id="reinforcerResultChores3Unknown" value="unknown">
+                                                                    <label class="form-check-label" for="reinforcerResultChores3Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="tabs-panel" role="tabpanel" id="panel-reinforcer-rights" aria-labelledby="tab-reinforcer-rights" hidden>
+                                    <h3 class="iep-reinforcer-panel-title">偏好評估表格-權力和義務</h3>
+                                    <div class="table-responsive iep-reinforcer-table-wrap">
+                                        <table class="table table-striped iep-reinforcer-table">
+                                            <caption class="sr-only">權力和義務類增強物偏好調查表</caption>
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" class="iep-reinforcer-th-check">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkAllRights" data-check-all aria-label="全選權力和義務類項目">
+                                                            <label class="form-check-label" for="checkAllRights">全選</label>
+                                                        </div>
+                                                    </th>
+                                                    <th scope="col">序號</th>
+                                                    <th scope="col">可能的增強物</th>
+                                                    <th scope="col">描述</th>
+                                                    <th scope="col">調查結果</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkRights1" data-check-row aria-label="勾選項目一">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">1</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目一</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescRights1">項目一描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescRights1" name="reinforcerDescRights1" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目一調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultRights1" id="reinforcerResultRights1VeryLike" value="veryLike">
+                                                                    <label class="form-check-label" for="reinforcerResultRights1VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultRights1" id="reinforcerResultRights1LikeSome" value="likeSome">
+                                                                    <label class="form-check-label" for="reinforcerResultRights1LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultRights1" id="reinforcerResultRights1Neutral" value="neutral" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultRights1Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultRights1" id="reinforcerResultRights1Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultRights1Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultRights1" id="reinforcerResultRights1Unknown" value="unknown">
+                                                                    <label class="form-check-label" for="reinforcerResultRights1Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkRights2" data-check-row aria-label="勾選項目二">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">2</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目二</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescRights2">項目二描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescRights2" name="reinforcerDescRights2" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目二調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultRights2" id="reinforcerResultRights2VeryLike" value="veryLike">
+                                                                    <label class="form-check-label" for="reinforcerResultRights2VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultRights2" id="reinforcerResultRights2LikeSome" value="likeSome">
+                                                                    <label class="form-check-label" for="reinforcerResultRights2LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultRights2" id="reinforcerResultRights2Neutral" value="neutral" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultRights2Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultRights2" id="reinforcerResultRights2Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultRights2Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultRights2" id="reinforcerResultRights2Unknown" value="unknown">
+                                                                    <label class="form-check-label" for="reinforcerResultRights2Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkRights3" data-check-row aria-label="勾選項目三">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">3</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目三</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescRights3">項目三描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescRights3" name="reinforcerDescRights3" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目三調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultRights3" id="reinforcerResultRights3VeryLike" value="veryLike">
+                                                                    <label class="form-check-label" for="reinforcerResultRights3VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultRights3" id="reinforcerResultRights3LikeSome" value="likeSome">
+                                                                    <label class="form-check-label" for="reinforcerResultRights3LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultRights3" id="reinforcerResultRights3Neutral" value="neutral" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultRights3Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultRights3" id="reinforcerResultRights3Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultRights3Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultRights3" id="reinforcerResultRights3Unknown" value="unknown">
+                                                                    <label class="form-check-label" for="reinforcerResultRights3Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="tabs-panel" role="tabpanel" id="panel-reinforcer-social" aria-labelledby="tab-reinforcer-social" hidden>
+                                    <h3 class="iep-reinforcer-panel-title">偏好評估表格-交誼活動</h3>
+                                    <div class="table-responsive iep-reinforcer-table-wrap">
+                                        <table class="table table-striped iep-reinforcer-table">
+                                            <caption class="sr-only">交誼活動類增強物偏好調查表</caption>
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" class="iep-reinforcer-th-check">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkAllSocial" data-check-all aria-label="全選交誼活動類項目">
+                                                            <label class="form-check-label" for="checkAllSocial">全選</label>
+                                                        </div>
+                                                    </th>
+                                                    <th scope="col">序號</th>
+                                                    <th scope="col">可能的增強物</th>
+                                                    <th scope="col">描述</th>
+                                                    <th scope="col">調查結果</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkSocial1" data-check-row aria-label="勾選項目一">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">1</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目一</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescSocial1">項目一描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescSocial1" name="reinforcerDescSocial1" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目一調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultSocial1" id="reinforcerResultSocial1VeryLike" value="veryLike" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultSocial1VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultSocial1" id="reinforcerResultSocial1LikeSome" value="likeSome">
+                                                                    <label class="form-check-label" for="reinforcerResultSocial1LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultSocial1" id="reinforcerResultSocial1Neutral" value="neutral">
+                                                                    <label class="form-check-label" for="reinforcerResultSocial1Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultSocial1" id="reinforcerResultSocial1Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultSocial1Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultSocial1" id="reinforcerResultSocial1Unknown" value="unknown">
+                                                                    <label class="form-check-label" for="reinforcerResultSocial1Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkSocial2" data-check-row aria-label="勾選項目二">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">2</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目二</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescSocial2">項目二描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescSocial2" name="reinforcerDescSocial2" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目二調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultSocial2" id="reinforcerResultSocial2VeryLike" value="veryLike" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultSocial2VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultSocial2" id="reinforcerResultSocial2LikeSome" value="likeSome">
+                                                                    <label class="form-check-label" for="reinforcerResultSocial2LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultSocial2" id="reinforcerResultSocial2Neutral" value="neutral">
+                                                                    <label class="form-check-label" for="reinforcerResultSocial2Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultSocial2" id="reinforcerResultSocial2Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultSocial2Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultSocial2" id="reinforcerResultSocial2Unknown" value="unknown">
+                                                                    <label class="form-check-label" for="reinforcerResultSocial2Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkSocial3" data-check-row aria-label="勾選項目三">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">3</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目三</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescSocial3">項目三描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescSocial3" name="reinforcerDescSocial3" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目三調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultSocial3" id="reinforcerResultSocial3VeryLike" value="veryLike" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultSocial3VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultSocial3" id="reinforcerResultSocial3LikeSome" value="likeSome">
+                                                                    <label class="form-check-label" for="reinforcerResultSocial3LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultSocial3" id="reinforcerResultSocial3Neutral" value="neutral">
+                                                                    <label class="form-check-label" for="reinforcerResultSocial3Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultSocial3" id="reinforcerResultSocial3Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultSocial3Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultSocial3" id="reinforcerResultSocial3Unknown" value="unknown">
+                                                                    <label class="form-check-label" for="reinforcerResultSocial3Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="tabs-panel" role="tabpanel" id="panel-reinforcer-education" aria-labelledby="tab-reinforcer-education" hidden>
+                                    <h3 class="iep-reinforcer-panel-title">偏好評估表格-教育活動</h3>
+                                    <div class="table-responsive iep-reinforcer-table-wrap">
+                                        <table class="table table-striped iep-reinforcer-table">
+                                            <caption class="sr-only">教育活動類增強物偏好調查表</caption>
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" class="iep-reinforcer-th-check">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkAllEducation" data-check-all aria-label="全選教育活動類項目">
+                                                            <label class="form-check-label" for="checkAllEducation">全選</label>
+                                                        </div>
+                                                    </th>
+                                                    <th scope="col">序號</th>
+                                                    <th scope="col">可能的增強物</th>
+                                                    <th scope="col">描述</th>
+                                                    <th scope="col">調查結果</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkEducation1" data-check-row aria-label="勾選項目一">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">1</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目一</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescEducation1">項目一描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescEducation1" name="reinforcerDescEducation1" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目一調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultEducation1" id="reinforcerResultEducation1VeryLike" value="veryLike">
+                                                                    <label class="form-check-label" for="reinforcerResultEducation1VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultEducation1" id="reinforcerResultEducation1LikeSome" value="likeSome">
+                                                                    <label class="form-check-label" for="reinforcerResultEducation1LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultEducation1" id="reinforcerResultEducation1Neutral" value="neutral">
+                                                                    <label class="form-check-label" for="reinforcerResultEducation1Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultEducation1" id="reinforcerResultEducation1Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultEducation1Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultEducation1" id="reinforcerResultEducation1Unknown" value="unknown" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultEducation1Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkEducation2" data-check-row aria-label="勾選項目二">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">2</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目二</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescEducation2">項目二描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescEducation2" name="reinforcerDescEducation2" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目二調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultEducation2" id="reinforcerResultEducation2VeryLike" value="veryLike">
+                                                                    <label class="form-check-label" for="reinforcerResultEducation2VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultEducation2" id="reinforcerResultEducation2LikeSome" value="likeSome">
+                                                                    <label class="form-check-label" for="reinforcerResultEducation2LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultEducation2" id="reinforcerResultEducation2Neutral" value="neutral">
+                                                                    <label class="form-check-label" for="reinforcerResultEducation2Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultEducation2" id="reinforcerResultEducation2Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultEducation2Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultEducation2" id="reinforcerResultEducation2Unknown" value="unknown" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultEducation2Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkEducation3" data-check-row aria-label="勾選項目三">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">3</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目三</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescEducation3">項目三描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescEducation3" name="reinforcerDescEducation3" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目三調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultEducation3" id="reinforcerResultEducation3VeryLike" value="veryLike">
+                                                                    <label class="form-check-label" for="reinforcerResultEducation3VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultEducation3" id="reinforcerResultEducation3LikeSome" value="likeSome">
+                                                                    <label class="form-check-label" for="reinforcerResultEducation3LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultEducation3" id="reinforcerResultEducation3Neutral" value="neutral">
+                                                                    <label class="form-check-label" for="reinforcerResultEducation3Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultEducation3" id="reinforcerResultEducation3Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultEducation3Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultEducation3" id="reinforcerResultEducation3Unknown" value="unknown" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultEducation3Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="tabs-panel" role="tabpanel" id="panel-reinforcer-grooming" aria-labelledby="tab-reinforcer-grooming" hidden>
+                                    <h3 class="iep-reinforcer-panel-title">偏好評估表格-外表修飾</h3>
+                                    <div class="table-responsive iep-reinforcer-table-wrap">
+                                        <table class="table table-striped iep-reinforcer-table">
+                                            <caption class="sr-only">外表修飾類增強物偏好調查表</caption>
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" class="iep-reinforcer-th-check">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkAllGrooming" data-check-all aria-label="全選外表修飾類項目">
+                                                            <label class="form-check-label" for="checkAllGrooming">全選</label>
+                                                        </div>
+                                                    </th>
+                                                    <th scope="col">序號</th>
+                                                    <th scope="col">可能的增強物</th>
+                                                    <th scope="col">描述</th>
+                                                    <th scope="col">調查結果</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkGrooming1" data-check-row aria-label="勾選項目一">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">1</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目一</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescGrooming1">項目一描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescGrooming1" name="reinforcerDescGrooming1" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目一調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultGrooming1" id="reinforcerResultGrooming1VeryLike" value="veryLike">
+                                                                    <label class="form-check-label" for="reinforcerResultGrooming1VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultGrooming1" id="reinforcerResultGrooming1LikeSome" value="likeSome">
+                                                                    <label class="form-check-label" for="reinforcerResultGrooming1LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultGrooming1" id="reinforcerResultGrooming1Neutral" value="neutral">
+                                                                    <label class="form-check-label" for="reinforcerResultGrooming1Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultGrooming1" id="reinforcerResultGrooming1Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultGrooming1Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultGrooming1" id="reinforcerResultGrooming1Unknown" value="unknown" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultGrooming1Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkGrooming2" data-check-row aria-label="勾選項目二">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">2</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目二</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescGrooming2">項目二描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescGrooming2" name="reinforcerDescGrooming2" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目二調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultGrooming2" id="reinforcerResultGrooming2VeryLike" value="veryLike">
+                                                                    <label class="form-check-label" for="reinforcerResultGrooming2VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultGrooming2" id="reinforcerResultGrooming2LikeSome" value="likeSome">
+                                                                    <label class="form-check-label" for="reinforcerResultGrooming2LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultGrooming2" id="reinforcerResultGrooming2Neutral" value="neutral">
+                                                                    <label class="form-check-label" for="reinforcerResultGrooming2Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultGrooming2" id="reinforcerResultGrooming2Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultGrooming2Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultGrooming2" id="reinforcerResultGrooming2Unknown" value="unknown" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultGrooming2Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkGrooming3" data-check-row aria-label="勾選項目三">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">3</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目三</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescGrooming3">項目三描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescGrooming3" name="reinforcerDescGrooming3" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目三調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultGrooming3" id="reinforcerResultGrooming3VeryLike" value="veryLike">
+                                                                    <label class="form-check-label" for="reinforcerResultGrooming3VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultGrooming3" id="reinforcerResultGrooming3LikeSome" value="likeSome">
+                                                                    <label class="form-check-label" for="reinforcerResultGrooming3LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultGrooming3" id="reinforcerResultGrooming3Neutral" value="neutral">
+                                                                    <label class="form-check-label" for="reinforcerResultGrooming3Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultGrooming3" id="reinforcerResultGrooming3Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultGrooming3Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultGrooming3" id="reinforcerResultGrooming3Unknown" value="unknown" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultGrooming3Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="tabs-panel" role="tabpanel" id="panel-reinforcer-leisure" aria-labelledby="tab-reinforcer-leisure" hidden>
+                                    <h3 class="iep-reinforcer-panel-title">偏好評估表格-休閒活動</h3>
+                                    <div class="table-responsive iep-reinforcer-table-wrap">
+                                        <table class="table table-striped iep-reinforcer-table">
+                                            <caption class="sr-only">休閒活動類增強物偏好調查表</caption>
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" class="iep-reinforcer-th-check">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkAllLeisure" data-check-all aria-label="全選休閒活動類項目">
+                                                            <label class="form-check-label" for="checkAllLeisure">全選</label>
+                                                        </div>
+                                                    </th>
+                                                    <th scope="col">序號</th>
+                                                    <th scope="col">可能的增強物</th>
+                                                    <th scope="col">描述</th>
+                                                    <th scope="col">調查結果</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkLeisure1" data-check-row aria-label="勾選項目一">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">1</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目一</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescLeisure1">項目一描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescLeisure1" name="reinforcerDescLeisure1" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目一調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultLeisure1" id="reinforcerResultLeisure1VeryLike" value="veryLike" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultLeisure1VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultLeisure1" id="reinforcerResultLeisure1LikeSome" value="likeSome">
+                                                                    <label class="form-check-label" for="reinforcerResultLeisure1LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultLeisure1" id="reinforcerResultLeisure1Neutral" value="neutral">
+                                                                    <label class="form-check-label" for="reinforcerResultLeisure1Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultLeisure1" id="reinforcerResultLeisure1Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultLeisure1Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultLeisure1" id="reinforcerResultLeisure1Unknown" value="unknown">
+                                                                    <label class="form-check-label" for="reinforcerResultLeisure1Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkLeisure2" data-check-row aria-label="勾選項目二">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">2</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目二</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescLeisure2">項目二描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescLeisure2" name="reinforcerDescLeisure2" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目二調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultLeisure2" id="reinforcerResultLeisure2VeryLike" value="veryLike" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultLeisure2VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultLeisure2" id="reinforcerResultLeisure2LikeSome" value="likeSome">
+                                                                    <label class="form-check-label" for="reinforcerResultLeisure2LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultLeisure2" id="reinforcerResultLeisure2Neutral" value="neutral">
+                                                                    <label class="form-check-label" for="reinforcerResultLeisure2Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultLeisure2" id="reinforcerResultLeisure2Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultLeisure2Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultLeisure2" id="reinforcerResultLeisure2Unknown" value="unknown">
+                                                                    <label class="form-check-label" for="reinforcerResultLeisure2Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td data-label="全選">
+                                                        <span class="cell-value">
+                                                            <input class="form-check-input" type="checkbox" id="checkLeisure3" data-check-row aria-label="勾選項目三">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="序號"><span class="cell-value">3</span></td>
+                                                    <td data-label="可能的增強物"><span class="cell-value">項目三</span></td>
+                                                    <td data-label="描述">
+                                                        <span class="cell-value">
+                                                            <label class="sr-only" for="reinforcerDescLeisure3">項目三描述</label>
+                                                            <input type="text" class="form-control" id="reinforcerDescLeisure3" name="reinforcerDescLeisure3" placeholder="請說明">
+                                                        </span>
+                                                    </td>
+                                                    <td data-label="調查結果">
+                                                        <span class="cell-value">
+                                                            <fieldset class="iep-rating-group">
+                                                                <legend class="sr-only">項目三調查結果</legend>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultLeisure3" id="reinforcerResultLeisure3VeryLike" value="veryLike" checked>
+                                                                    <label class="form-check-label" for="reinforcerResultLeisure3VeryLike">很喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultLeisure3" id="reinforcerResultLeisure3LikeSome" value="likeSome">
+                                                                    <label class="form-check-label" for="reinforcerResultLeisure3LikeSome">有點喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultLeisure3" id="reinforcerResultLeisure3Neutral" value="neutral">
+                                                                    <label class="form-check-label" for="reinforcerResultLeisure3Neutral">可有可無</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultLeisure3" id="reinforcerResultLeisure3Dislike" value="dislike">
+                                                                    <label class="form-check-label" for="reinforcerResultLeisure3Dislike">不喜歡</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="reinforcerResultLeisure3" id="reinforcerResultLeisure3Unknown" value="unknown">
+                                                                    <label class="form-check-label" for="reinforcerResultLeisure3Unknown">不知道</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- 固定於視窗底部的表單操作列（後端：儲存與報表產出由後端接手） -->
+    <div class="iep-action-bar" role="region" aria-label="IEP 表單操作列">
+        <div class="iep-action-hint">
+            <img src="img/icon/小提醒.svg" alt="" class="iep-action-hint-icon">
+            <p><strong>小提醒</strong><br>表單完成後請記得儲存修改資料歐!</p>
+        </div>
+        <div class="iep-action-buttons">
+            <button type="button" class="btn btn-outline-danger" id="reinforcerSurveyClearBtn">
+                <i class="bi bi-trash3" aria-hidden="true"></i>清除勾選調查結果
+            </button>
+            <button type="button" class="btn btn-success" id="reinforcerSurveySaveBtn">
+                <i class="bi bi-floppy" aria-hidden="true"></i>儲存修改資料
+            </button>
+            <button type="button" class="btn btn-primary" id="reinforcerSurveyExportBtn">
+                <i class="bi bi-download" aria-hidden="true"></i>產生並匯出報表
+            </button>
+        </div>
+        <a class="btn iep-action-cancel" href="iepReinforcerSurvey.html">取消</a>
+    </div>
+
+    <!-- 回饋 Modal（3 秒倒數自動關閉；圖示/色彩由 JS 依情境切換） -->
+    <div class="modal fade feedback-modal" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body feedback-body" role="status">
+                    <span class="feedback-icon" aria-hidden="true">
+                        <i class="bi bi-file-earmark-check"></i>
+                    </span>
+                    <h2 class="feedback-title" id="feedbackModalTitle">儲存成功</h2>
+                    <p class="feedback-desc">您的 IEP 表單內容已儲存。</p>
+                    <p class="feedback-countdown"><span class="feedback-countdown-num">3</span>秒後 自動關閉</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/tabs.js"></script>
+    <script src="js/iep.js"></script>
+</body>
+</html>

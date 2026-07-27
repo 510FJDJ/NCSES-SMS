@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>德育成績加減分輸入 - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="依班級登錄全班學生之德育、群育加減分與導師評語。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body>
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1">
+        <!-- 內頁 Banner：麵包屑＋標題＋CSS 裝飾＋插圖 -->
+        <section class="page-banner">
+            <!-- 裝飾層（純 CSS 繪製） -->
+            <div class="page-banner-deco" aria-hidden="true">
+                <span class="page-banner-halfcircle"></span>
+                <span class="page-banner-circle"></span>
+                <span class="page-banner-dots"></span>
+            </div>
+
+            <div class="container">
+                <nav class="page-banner-breadcrumb" aria-label="麵包屑導覽">
+                    <ol>
+                        <li>
+                            <a class="breadcrumb-home" href="index_AdminLogged.html" aria-label="首頁">
+                                <i class="bi bi-house-door" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">學務管理</a></li>
+                        <li><a href="#">德育成績作業</a></li>
+                        <li aria-current="page">德育成績加減分輸入</li>
+                    </ol>
+                </nav>
+
+                <div class="page-banner-main">
+                    <div class="page-banner-text">
+                        <h1 class="page-banner-title">德育成績加減分輸入</h1>
+                        <p class="page-banner-desc">依班級登錄全班學生之德育、群育加減分與導師評語，請注意各欄位之加減分限制。</p>
+                    </div>
+                    <!-- 右側人物插圖（純裝飾） -->
+                    <div class="page-banner-visual page-banner-visual--composed page-banner-visual--pointPerson" aria-hidden="true">
+                        <span class="banner-visual-blob"></span>
+                        <span class="banner-visual-window"></span>
+                        <img class="banner-visual-person" src="img/hero/characters/people-front-point.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 查詢與班級列表 -->
+        <section class="data-section">
+            <div class="container">
+                <div class="data-card">
+                    <!-- 查詢工具列（後端：查詢/匯出行為由後端接手） -->
+                    <form class="data-toolbar" action="#" method="get">
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterSemester">學期別</label>
+                            <select class="form-select" id="filterSemester" name="filterSemester">
+                                <option value="" selected>請選擇</option>
+                                <option value="1">114學年度第2學期</option>
+                                <option value="2">114學年度第1學期</option>
+                                <option value="3">113學年度第2學期</option>
+                            </select>
+                        </div>
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterDept">部別</label>
+                            <select class="form-select" id="filterDept" name="filterDept">
+                                <option value="" selected>請選擇</option>
+                                <option value="1">幼兒部</option>
+                                <option value="2">國小部</option>
+                                <option value="3">國中部</option>
+                                <option value="4">高職部</option>
+                            </select>
+                        </div>
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterClassToggle">班級</label>
+                            <!-- 下拉搜尋選單通用元件（比照 teacherSubject.html），後端：選項為系統既有班級清單，動態產生 -->
+                            <div class="dropdown dropdown-search" data-dropdown-search>
+                                <button class="form-select text-start text-muted bg-white" type="button" id="filterClassToggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                    請選擇
+                                </button>
+                                <div class="dropdown-menu w-100 p-2" aria-labelledby="filterClassToggle">
+                                    <div class="dropdown-search-box">
+                                        <label class="sr-only" for="filterClassSearch">搜尋班級名稱</label>
+                                        <input type="search" class="form-control" id="filterClassSearch" placeholder="搜尋班級名稱" data-dropdown-search-input autocomplete="off">
+                                    </div>
+                                    <ul class="dropdown-search-list">
+                                        <li><button type="button" class="dropdown-search-item" data-value="1">幼兒部小班</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="2">國小低年級忠班</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="3">國小中年級孝班</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="4">國中一年級忠班</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="5">高職一年A班</button></li>
+                                    </ul>
+                                    <p class="dropdown-search-empty" data-dropdown-search-empty hidden>查無符合的班級</p>
+                                </div>
+                                <input type="hidden" name="filterClass" data-dropdown-search-value>
+                            </div>
+                        </div>
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterTeacher">授課老師</label>
+                            <input type="text" class="form-control" id="filterTeacher" name="filterTeacher" placeholder="請輸入教師姓名">
+                        </div>
+                        <div class="data-toolbar-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-search" aria-hidden="true"></i>查詢
+                            </button>
+                            <button type="button" class="btn btn-export">
+                                <i class="bi bi-download" aria-hidden="true"></i>匯出
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- 後端：總筆數 -->
+                    <p class="data-total">總筆數：5</p>
+
+                    <div class="data-table-wrap" tabindex="0" role="region" aria-label="德育成績加減分輸入班級列表（可左右捲動）">
+                        <table class="table data-table data-table--wide table-striped">
+                            <caption class="sr-only">德育成績加減分輸入班級列表</caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">序號</th>
+                                    <th scope="col">班級代碼</th>
+                                    <th scope="col">班級名稱</th>
+                                    <th scope="col">部別</th>
+                                    <th scope="col">授課老師</th>
+                                    <th scope="col">學生人數</th>
+                                    <th scope="col">登錄狀態</th>
+                                    <th scope="col">功能</th>
+                                </tr>
+                            </thead>
+                            <!-- 後端：以下列表資料為動態產生，示意 5 筆班級 -->
+                            <tbody>
+                                <tr>
+                                    <td data-label="序號"><span class="cell-value">1</span></td>
+                                    <td data-label="班級代碼"><span class="cell-value">101</span></td>
+                                    <td data-label="班級名稱"><span class="cell-value">國小低年級忠班</span></td>
+                                    <td data-label="部別"><span class="cell-value">國小部</span></td>
+                                    <td data-label="授課老師"><span class="cell-value">1006 (李oo)</span></td>
+                                    <td data-label="學生人數"><span class="cell-value">4 人</span></td>
+                                    <td data-label="登錄狀態"><span class="cell-value"><span class="status-pill status-pill--done">已登錄</span></span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#moralScoreModal" data-class-name="101 (國小低年級忠班)" data-teacher-name="1006 (李oo)" aria-label="編輯 101 國小低年級忠班 德育成績">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                            </button>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="序號"><span class="cell-value">2</span></td>
+                                    <td data-label="班級代碼"><span class="cell-value">102</span></td>
+                                    <td data-label="班級名稱"><span class="cell-value">國小中年級孝班</span></td>
+                                    <td data-label="部別"><span class="cell-value">國小部</span></td>
+                                    <td data-label="授課老師"><span class="cell-value">1012 (陳oo)</span></td>
+                                    <td data-label="學生人數"><span class="cell-value">6 人</span></td>
+                                    <td data-label="登錄狀態"><span class="cell-value"><span class="status-pill status-pill--pending">未登錄</span></span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#moralScoreModal" data-class-name="102 (國小中年級孝班)" data-teacher-name="1012 (陳oo)" aria-label="編輯 102 國小中年級孝班 德育成績">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                            </button>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="序號"><span class="cell-value">3</span></td>
+                                    <td data-label="班級代碼"><span class="cell-value">201</span></td>
+                                    <td data-label="班級名稱"><span class="cell-value">國中一年級忠班</span></td>
+                                    <td data-label="部別"><span class="cell-value">國中部</span></td>
+                                    <td data-label="授課老師"><span class="cell-value">2003 (林oo)</span></td>
+                                    <td data-label="學生人數"><span class="cell-value">8 人</span></td>
+                                    <td data-label="登錄狀態"><span class="cell-value"><span class="status-pill status-pill--done">已登錄</span></span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#moralScoreModal" data-class-name="201 (國中一年級忠班)" data-teacher-name="2003 (林oo)" aria-label="編輯 201 國中一年級忠班 德育成績">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                            </button>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="序號"><span class="cell-value">4</span></td>
+                                    <td data-label="班級代碼"><span class="cell-value">301</span></td>
+                                    <td data-label="班級名稱"><span class="cell-value">高職一年A班</span></td>
+                                    <td data-label="部別"><span class="cell-value">高職部</span></td>
+                                    <td data-label="授課老師"><span class="cell-value">3001 (張oo)</span></td>
+                                    <td data-label="學生人數"><span class="cell-value">5 人</span></td>
+                                    <td data-label="登錄狀態"><span class="cell-value"><span class="status-pill status-pill--pending">未登錄</span></span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#moralScoreModal" data-class-name="301 (高職一年A班)" data-teacher-name="3001 (張oo)" aria-label="編輯 301 高職一年A班 德育成績">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                            </button>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="序號"><span class="cell-value">5</span></td>
+                                    <td data-label="班級代碼"><span class="cell-value">001</span></td>
+                                    <td data-label="班級名稱"><span class="cell-value">幼兒部小班</span></td>
+                                    <td data-label="部別"><span class="cell-value">幼兒部</span></td>
+                                    <td data-label="授課老師"><span class="cell-value">0002 (黃oo)</span></td>
+                                    <td data-label="學生人數"><span class="cell-value">3 人</span></td>
+                                    <td data-label="登錄狀態"><span class="cell-value"><span class="status-pill status-pill--done">已登錄</span></span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#moralScoreModal" data-class-name="001 (幼兒部小班)" data-teacher-name="0002 (黃oo)" aria-label="編輯 001 幼兒部小班 德育成績">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                            </button>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- 後端：分頁為動態產生 -->
+                    <nav class="data-pagination" aria-label="分頁導覽">
+                        <ul class="pagination">
+                            <li class="page-item page-item--nav">
+                                <a class="page-link" href="#" aria-label="上一頁">
+                                    <i class="bi bi-chevron-double-left" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item page-item--nav">
+                                <a class="page-link" href="#" aria-label="下一頁">
+                                    <i class="bi bi-chevron-double-right" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 編輯學生德育成績 Modal：靜態背景，避免點擊外部誤觸而遺失已輸入成績 -->
+    <div class="modal fade data-modal" id="moralScoreModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="moralScoreModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <h2 class="data-modal-title" id="moralScoreModalTitle">
+                            <span class="data-modal-title-text">編輯學生德育成績</span>
+                            <span class="badge-required">必填</span>
+                        </h2>
+                        <p class="data-modal-desc">登錄全班學生之德育、群育加減分與導師評語，請注意各欄位之加減分限制。</p>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉視窗"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- 後端：表單送出目標與驗證由後端接手 -->
+                    <form action="#" method="post" novalidate>
+                        <!-- 後端：班級與授課老師資訊由後端依所點選班級帶入 -->
+                        <p class="moral-info-bar">
+                            <span class="moral-class-info">班級資訊：101 (國小低年級)</span>
+                            <span class="moral-teacher-info">授課老師：1006 (李oo)</span>
+                        </p>
+
+                        <div class="moral-grid-wrap">
+                            <table class="table moral-grid-table table-striped">
+                                <caption class="sr-only">全班學生德育、群育加減分與評語登錄表</caption>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <span class="check-all-label">
+                                                <input class="form-check-input" type="checkbox" id="moralCheckAll" data-check-all>
+                                                <label for="moralCheckAll">全選</label>
+                                            </span>
+                                        </th>
+                                        <th scope="col">學號</th>
+                                        <th scope="col">座號</th>
+                                        <th scope="col">姓名</th>
+                                        <th scope="col">德育加減分</th>
+                                        <th scope="col">群育加減分</th>
+                                        <th scope="col">評語</th>
+                                    </tr>
+                                </thead>
+                                <!-- 後端：以下為班級學生名冊，動態產生 -->
+                                <tbody>
+                                    <tr>
+                                        <td><input class="form-check-input" type="checkbox" data-check-row aria-label="選取學號 1031001"></td>
+                                        <td>1031001</td>
+                                        <td>1</td>
+                                        <td>尤小華</td>
+                                        <td>
+                                            <label class="sr-only" for="moralDe1">尤小華 德育加減分</label>
+                                            <input type="number" class="form-control moral-score-input moral-input-de" id="moralDe1" name="moralDe[]" min="-7" max="7" step="1" placeholder="可輸入 -7 ~ +7" aria-describedby="moralDeHint">
+                                        </td>
+                                        <td>
+                                            <label class="sr-only" for="moralQun1">尤小華 群育加減分</label>
+                                            <input type="number" class="form-control moral-score-input moral-input-qun" id="moralQun1" name="moralQun[]" min="-10" max="10" step="1" placeholder="可輸入 -10 ~ +10" aria-describedby="moralQunHint">
+                                        </td>
+                                        <td>
+                                            <label class="sr-only" for="moralComment1">尤小華 評語</label>
+                                            <div class="textarea-counter-wrap">
+                                                <textarea class="form-control moral-input-comment" id="moralComment1" name="moralComment[]" placeholder="請輸入" maxlength="200" aria-describedby="moralComment1Count"></textarea>
+                                                <span class="textarea-counter" id="moralComment1Count" aria-live="polite">0 / 200</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><input class="form-check-input" type="checkbox" data-check-row aria-label="選取學號 1311001"></td>
+                                        <td>1311001</td>
+                                        <td>2</td>
+                                        <td>利小強</td>
+                                        <td>
+                                            <label class="sr-only" for="moralDe2">利小強 德育加減分</label>
+                                            <input type="number" class="form-control moral-score-input moral-input-de" id="moralDe2" name="moralDe[]" min="-7" max="7" step="1" placeholder="可輸入 -7 ~ +7">
+                                        </td>
+                                        <td>
+                                            <label class="sr-only" for="moralQun2">利小強 群育加減分</label>
+                                            <input type="number" class="form-control moral-score-input moral-input-qun" id="moralQun2" name="moralQun[]" min="-10" max="10" step="1" placeholder="可輸入 -10 ~ +10">
+                                        </td>
+                                        <td>
+                                            <label class="sr-only" for="moralComment2">利小強 評語</label>
+                                            <div class="textarea-counter-wrap">
+                                                <textarea class="form-control moral-input-comment" id="moralComment2" name="moralComment[]" placeholder="請輸入" maxlength="200" aria-describedby="moralComment2Count"></textarea>
+                                                <span class="textarea-counter" id="moralComment2Count" aria-live="polite">0 / 200</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><input class="form-check-input" type="checkbox" data-check-row aria-label="選取學號 1311002"></td>
+                                        <td>1311002</td>
+                                        <td>3</td>
+                                        <td>潘小美</td>
+                                        <td>
+                                            <label class="sr-only" for="moralDe3">潘小美 德育加減分</label>
+                                            <input type="number" class="form-control moral-score-input moral-input-de" id="moralDe3" name="moralDe[]" min="-7" max="7" step="1" placeholder="可輸入 -7 ~ +7">
+                                        </td>
+                                        <td>
+                                            <label class="sr-only" for="moralQun3">潘小美 群育加減分</label>
+                                            <input type="number" class="form-control moral-score-input moral-input-qun" id="moralQun3" name="moralQun[]" min="-10" max="10" step="1" placeholder="可輸入 -10 ~ +10">
+                                        </td>
+                                        <td>
+                                            <label class="sr-only" for="moralComment3">潘小美 評語</label>
+                                            <div class="textarea-counter-wrap">
+                                                <textarea class="form-control moral-input-comment" id="moralComment3" name="moralComment[]" placeholder="請輸入" maxlength="200" aria-describedby="moralComment3Count"></textarea>
+                                                <span class="textarea-counter" id="moralComment3Count" aria-live="polite">0 / 200</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><input class="form-check-input" type="checkbox" data-check-row aria-label="選取學號 1311003"></td>
+                                        <td>1311003</td>
+                                        <td>4</td>
+                                        <td>吳小芳</td>
+                                        <td>
+                                            <label class="sr-only" for="moralDe4">吳小芳 德育加減分</label>
+                                            <input type="number" class="form-control moral-score-input moral-input-de" id="moralDe4" name="moralDe[]" min="-7" max="7" step="1" placeholder="可輸入 -7 ~ +7">
+                                        </td>
+                                        <td>
+                                            <label class="sr-only" for="moralQun4">吳小芳 群育加減分</label>
+                                            <input type="number" class="form-control moral-score-input moral-input-qun" id="moralQun4" name="moralQun[]" min="-10" max="10" step="1" placeholder="可輸入 -10 ~ +10">
+                                        </td>
+                                        <td>
+                                            <label class="sr-only" for="moralComment4">吳小芳 評語</label>
+                                            <div class="textarea-counter-wrap">
+                                                <textarea class="form-control moral-input-comment" id="moralComment4" name="moralComment[]" placeholder="請輸入" maxlength="200" aria-describedby="moralComment4Count"></textarea>
+                                                <span class="textarea-counter" id="moralComment4Count" aria-live="polite">0 / 200</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="data-modal-tip">
+                            <i class="bi bi-lightbulb-fill" aria-hidden="true"></i>
+                            <div>
+                                <strong>評分規範提醒：</strong>
+                                <ul class="moral-tip-list">
+                                    <li id="moralDeHint">德育加減分：每位學生至多加減 7 分（可輸入範圍為 -7 至 +7）。</li>
+                                    <li id="moralQunHint">群育加減分：每位學生至多加減 10 分（可輸入範圍為 -10 至 +10）。</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="data-modal-actions">
+                            <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-outline-danger-soft" id="moralClearBtn">
+                                <i class="bi bi-trash3" aria-hidden="true"></i>清除勾選列成績資料
+                            </button>
+                            <button type="submit" class="btn btn-primary data-modal-submit">確定更新</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回饋 Modal（3 秒倒數自動關閉；圖示/色彩由 JS 依情境切換） -->
+    <div class="modal fade feedback-modal" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body feedback-body" role="status">
+                    <span class="feedback-icon" aria-hidden="true">
+                        <i class="bi bi-file-earmark-check"></i>
+                    </span>
+                    <h2 class="feedback-title" id="feedbackModalTitle">德育成績更新成功</h2>
+                    <p class="feedback-desc">你已更新此班級之德育、群育加減分與評語紀錄。</p>
+                    <p class="feedback-countdown"><span class="feedback-countdown-num">3</span>秒後 自動關閉</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/dataModal.js"></script>
+</body>
+</html>

@@ -1,0 +1,514 @@
+
+// Header 元件：訪客頂欄（手機板）＋ 總管理者頂欄（桌面雙列＋手機漢堡選單）
+
+// 共用：品牌頂欄（藍底白字，白底上 CR 7.7:1 合規）
+.site-header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  background: linear-gradient(100.67deg, #39A0D0 30.29%, #0079B2 112.18%);
+
+
+  @include media-breakpoint-up(lg) {
+    padding: 12px 48px;
+  }
+}
+
+.site-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: $white;
+  text-decoration: none;
+
+  &:hover {
+    color: $white;
+    text-decoration: none;
+  }
+
+  img {
+    border-radius: 50%;
+    background-color: $white;
+    flex-shrink: 0;
+  }
+}
+
+.site-brand-name {
+  font-size: 1.125rem;
+  font-weight: $font-weight-bold;
+  font-style: italic;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+// 漢堡選單／關閉按鈕：白底圓角方塊＋主色圖標
+.navbar-menu-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 10px;
+  background-color: $white;
+  color: $primary;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  transition: background-color .2s ease-in-out;
+
+  &:hover {
+    background-color: $grey-200;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 訪客選單（offcanvas-top，自動高度下拉片）
+// --------------------------------------------------------------------------
+.guest-menu {
+  height: auto !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: none;
+  border: 0;
+  box-shadow: none;
+  background-color: transparent;
+  overflow: hidden;
+  transform: translateY(-8px) !important;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .3s ease, transform .3s cubic-bezier(.2, .8, .2, 1), visibility .3s;
+
+  .offcanvas-header {
+    border-radius: 0;
+  }
+}
+
+.guest-menu.show,
+.guest-menu.showing {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0) !important;
+}
+
+.guest-menu-body {
+  padding: 16px;
+  background-color: $white;
+}
+
+.guest-menu + .offcanvas-backdrop {
+  display: none !important;
+}
+
+.guest-menu-link {
+  display: block;
+  width: 100%;
+  padding: 16px 8px;
+  color: $grey-600;
+  font-weight: $font-weight-medium;
+  border-bottom: 1px solid $grey-300;
+
+  &:hover {
+    color: $primary;
+    text-decoration: none;
+  }
+}
+
+.guest-menu-cta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 16px;
+  padding: 14px 24px;
+  background-color: $primary-100;
+  color: $white;
+  font-weight: $font-weight-medium;
+  border-radius: 12px;
+
+  &:hover {
+    background-color: shade-color($primary-100, 10%);
+    color: $white;
+    text-decoration: none;
+  }
+
+  .bi {
+    background-color: rgba($white, .25);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 總管理者：頂欄右側資訊（學年度／問候／登出）
+// --------------------------------------------------------------------------
+.header-meta {
+  align-items: center;
+  gap: 16px;
+  color: $white;
+}
+
+.header-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-meta-divider {
+  width: 1px;
+  height: 20px;
+  background-color: rgba($white, .5);
+}
+
+// 登出按鈕：暖黃底＋深色字（CR 約 9:1）
+.btn-logout {
+  padding: 8px 20px;
+  background-color: $warning;
+  color: $grey-600;
+  font-weight: $font-weight-medium;
+  border-radius: 8px;
+  transition: background-color .2s ease-in-out;
+
+  &:hover {
+    background-color: shade-color($warning, 12%);
+    color: $grey-600;
+    text-decoration: none;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 總管理者：桌面二級導覽列（白底，下拉選單）
+// --------------------------------------------------------------------------
+.header-admin-nav {
+  background-color: $white;
+  box-shadow: $box-shadow-sm;
+}
+
+.admin-nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+}
+
+.admin-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 20px;
+  border: 0;
+  background: transparent;
+  color: $grey-600;
+  letter-spacing: 0.1em;
+  border-bottom: 1px solid transparent;
+  transition: color .2s ease-in-out, border-color .2s ease-in-out;
+
+  &:hover,
+  &[aria-expanded="true"] {
+    color: $primary;
+    border-bottom-color: $primary;
+    text-decoration: none;
+  }
+}
+//下拉選單箭頭更改
+.dropdown-toggle::after {
+    border: 0 !important; 
+    
+    display: inline-block;
+    content: "\F4FE";
+    font-family: "bootstrap-icons" !important;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    vertical-align: middle;
+    color: $primary-100;
+    font-size: 1.125rem;
+    transition: transform 0.3s ease-in-out, content 0.15s ease-in-out;
+}
+
+.dropdown-toggle.show::after {
+    content: "\F2EA";
+    transform: rotate(180deg);
+}
+
+
+// 下拉選單：白底＋項目分隔線；hover 只變字色、背景不變
+.dropdown-menu {
+  background-color: $white;
+  .dropdown-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    letter-spacing: 0.1em;
+    border-bottom: 1px solid $grey-300;
+    transition: color .2s ease-in-out;
+  }
+
+  > li:last-child > .dropdown-item {
+    border-bottom: 0;
+  }
+}
+
+// 含第二層內容的群組項目：右側圓圈箭頭＋右手邊飛出選單
+.dropdown-submenu {
+  position: relative;
+
+  > .dropdown-subtoggle {
+    width: 100%;
+    text-align: left;
+
+    .bi {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border: 1px solid $primary-100;
+      border-radius: 50%;
+      background-color: $primary-100;
+      color: $white;
+      font-size: 0.75rem;
+      padding-left:2px;
+      transition: background-color .2s ease-in-out, color .2s ease-in-out;
+    }
+  }
+
+  // hover 或鍵盤聚焦（含焦點在第二層內）時：文字變藍、圓圈變白底藍框藍箭頭
+  &:hover > .dropdown-subtoggle,
+  &:focus-within > .dropdown-subtoggle {
+    color: $primary;
+
+    .bi {
+      background-color: $white;
+      color: $primary-100;
+    }
+  }
+
+  // 第二層選單：定位於該項目右手邊
+  > .dropdown-menu--sub {
+    top: -8px; // 抵銷選單上緣 padding，讓首項對齊觸發項目
+    left: 101%;
+    margin: 0;
+  }
+
+  // 右側空間不足時（由 js/main.js 量測判斷）：改往左手邊飛出
+  > .dropdown-menu--sub-flip {
+    left: auto;
+    right: 100%;
+  }
+
+  &:hover > .dropdown-menu--sub,
+  &:focus-within > .dropdown-menu--sub {
+    display: block;
+  }
+}
+
+// 桌面二級導覽列：滾動固定置頂（is-fixed）／向上滾動暫時收合（is-hidden）
+// 由 js/main.js 的 initAdminNavSticky 切換；回到頁面頂端時移除還原
+.header-admin-nav.is-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: $zindex-fixed;
+  box-shadow: $box-shadow;
+  animation: admin-nav-slide-down .25s ease-out;
+  transition: transform .25s ease-in-out;
+}
+
+.header-admin-nav.is-fixed.is-hidden {
+  transform: translateY(-100%);
+}
+
+@keyframes admin-nav-slide-down {
+  from {
+    transform: translateY(-100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+// --------------------------------------------------------------------------
+// 總管理者：手機板滿版選單（offcanvas + accordion）
+// --------------------------------------------------------------------------
+.admin-menu {
+  width: 100% !important;
+
+  .offcanvas-body {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    background-color: $white;
+  }
+}
+
+.admin-menu-greeting {
+  padding: 8px 8px 16px;
+  font-size: 1.25rem;
+  font-weight: $font-weight-bold;
+  color: $grey-600;
+  border-bottom: 2px dashed $grey-300;
+  margin-bottom: 8px;
+}
+
+.admin-menu-accordion {
+
+  // 第一層項目（含直接連結與 accordion 標題）
+  .admin-menu-toplink {
+    display: block;
+    width: 100%;
+    padding: 16px 8px;
+    color: $grey-600;
+    font-weight: $font-weight-medium;
+    border-bottom: 1px solid $grey-300;
+
+    &:hover {
+      color: $primary;
+      text-decoration: none;
+    }
+  }
+
+  .accordion-item {
+    border-bottom: 1px solid $grey-300;
+    background-color: transparent;
+  }
+
+  .accordion-button {
+    padding: 16px 8px;
+    font-size: 1rem;
+    font-weight: $font-weight-medium;
+    color: $grey-600;
+    background-color: transparent;
+    box-shadow: none;
+
+    // 以 ＋／－ 取代預設箭頭（對齊設計稿）
+    &::after {
+      content: "\F64D"; // bootstrap-icons: bi-plus-lg
+      font-family: "bootstrap-icons";
+      background-image: none;
+      width: auto;
+      height: auto;
+      color: $primary;
+      transition: none;
+    }
+
+    &:not(.collapsed) {
+      color: $primary;
+
+      &::after {
+        content: "\F63B"; // bootstrap-icons: bi-dash-lg
+        transform: none;
+      }
+    }
+  }
+
+  .accordion-body {
+    padding: 0 0 8px;
+    background-color: $grey-100;
+  }
+}
+
+// 第二層選單
+.admin-menu-sublist {
+  margin: 0;
+  padding: 0;
+
+  > li > a {
+    display: block;
+    width: 100%;
+    padding: 12px 24px;
+    color: $grey-600;
+
+    &:hover {
+      color: $primary;
+      text-decoration: none;
+    }
+  }
+}
+
+// 第二層中可再展開的群組（如：德育成績管理）
+.admin-menu-subtoggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 12px 24px;
+  border: 0;
+  background: transparent;
+  color: $primary;
+  font-weight: $font-weight-medium;
+  text-align: left;
+
+  .bi {
+    background-color: $primary;
+    color: $white;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    transition: transform .2s ease-in-out;
+  }
+
+  &[aria-expanded="true"] .bi {
+    transform: rotate(90deg);
+  }
+}
+
+// 第三層選單（灰底內縮）
+.admin-menu-sublist-nested {
+  margin: 0;
+  padding: 0;
+  background-color: $grey-200;
+
+  > li > a {
+    // display: block;
+    width: 100%;
+    padding: 12px 40px;
+    color: $grey-600;
+
+    &:hover {
+      color: $primary;
+      text-decoration: none;
+    }
+  }
+}
+
+// 手機選單底部登出鈕
+.admin-menu-logout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 12px 24px;
+  border: 1px solid $primary;
+  border-radius: 12px;
+  color: $primary;
+  font-weight: $font-weight-medium;
+
+  &:hover {
+    background-color: $primary;
+    color: $white;
+    text-decoration: none;
+  }
+}

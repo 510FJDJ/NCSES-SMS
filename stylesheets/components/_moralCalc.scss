@@ -1,0 +1,407 @@
+// ==========================================================================
+// 德育成績計算作業：結算說明卡、4 步驟結算動畫、報表區塊鎖定與報表篩選表單
+// ==========================================================================
+
+.calc-notice-list {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: $grey-600;
+  }
+
+  .bi {
+    flex-shrink: 0;
+    margin-top: 3px;
+    color: $success;
+  }
+}
+
+// 學籍表資料不同步警示項：沿用清單版型，圖示與文字改為警示色
+.calc-notice-item--warning .bi {
+  color: $danger;
+}
+
+// --------------------------------------------------------------------------
+// 結算作業區：左側說明／右側操作面板（雙欄）
+// --------------------------------------------------------------------------
+.calc-action-grid {
+  display: grid;
+  gap: 32px;
+  align-items: start;
+
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+.calc-action-panel {
+  padding-top: 24px;
+  border-top: 1px solid $grey-300;
+
+  @include media-breakpoint-up(lg) {
+    padding-top: 0;
+    padding-left: 32px;
+    border-top: 0;
+    border-left: 1px solid $grey-300;
+  }
+}
+
+.calc-start-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+.calc-start-field {
+  flex: 1 1 240px;
+  max-width: 320px;
+}
+
+// --------------------------------------------------------------------------
+// 一鍵結算 CTA（大按鈕；學科＝綠色、德育＝藍色，兩頁 UI 保持一致）
+// --------------------------------------------------------------------------
+.calc-cta-btn {
+  appearance: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  padding: 20px 24px;
+  border: 0;
+  border-radius: 12px;
+  color: $white;
+  cursor: pointer;
+  transition: background-color .15s ease;
+
+  &:disabled {
+    opacity: .85;
+    cursor: progress;
+  }
+}
+
+.calc-cta-btn--success {
+  background-color: $success;
+
+  &:hover:not(:disabled) {
+    background-color: darken($success, 5%);
+  }
+}
+
+.calc-cta-btn--primary {
+  background-color: $primary;
+
+  &:hover:not(:disabled) {
+    background-color: darken($primary, 5%);
+  }
+}
+
+.calc-cta-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.375rem;
+  font-weight: $font-weight-bold;
+
+  .bi {
+    font-size: 1.5rem;
+  }
+}
+
+.calc-cta-sub {
+  font-size: .9375rem;
+  opacity: .9;
+}
+
+// --------------------------------------------------------------------------
+// 結算狀態提示（沿用 .special-alert 版型：待命／完成）
+// --------------------------------------------------------------------------
+.calc-status {
+  margin-top: 20px;
+}
+
+.special-alert--warning {
+  border-color: $warning;
+  background-color: rgba($warning, .1);
+  color: #8A5A00;
+}
+
+// --------------------------------------------------------------------------
+// 結算進度（4 步驟＋進度條）
+// --------------------------------------------------------------------------
+.calc-progress {
+  margin-top: 20px;
+}
+
+.calc-progress-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.calc-progress-bar-wrap .progress {
+  flex: 1 1 auto;
+  height: 10px;
+}
+
+.calc-progress-percent {
+  flex-shrink: 0;
+  min-width: 3.5em;
+  text-align: right;
+  color: $primary;
+  font-weight: $font-weight-bold;
+}
+
+.calc-progress-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: $primary;
+  font-weight: $font-weight-medium;
+  margin-bottom: 20px;
+}
+
+.calc-progress-wait-icon {
+  width: 28px;
+  height: 28px;
+}
+
+.calc-steps {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+
+  @include media-breakpoint-up(sm) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.calc-step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid $grey-300;
+  border-radius: $border-radius;
+  background-color: $grey-100;
+}
+
+.calc-step-icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: $grey-200;
+  color: $grey-500;
+  font-size: 1.25rem;
+
+  img {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+.calc-step-text {
+  min-width: 0;
+}
+
+.calc-step-label {
+  display: block;
+  color: $grey-600;
+  font-weight: $font-weight-medium;
+}
+
+.calc-step-state {
+  display: block;
+  color: $grey-500;
+  font-size: 0.875rem;
+}
+
+.calc-step--active {
+  border-color: $primary;
+  background-color: rgba($primary, .06);
+
+  .calc-step-icon {
+    background-color: rgba($primary, .12);
+    color: $primary;
+  }
+
+  .calc-step-state {
+    color: $primary;
+  }
+}
+
+.calc-step--done {
+  .calc-step-icon {
+    background-color: rgba($success, .12);
+    color: $success;
+  }
+
+  .calc-step-state {
+    color: $success;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 報表區塊：結算完成前鎖定＋模糊，完成後解鎖
+// --------------------------------------------------------------------------
+.calc-report-wrap {
+  position: relative;
+  margin-top: 32px;
+}
+
+.calc-report-timestamp {
+  color: $grey-500;
+  margin-bottom: 16px;
+}
+
+.calc-report-lock {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+  padding: 24px;
+  background-color: rgba($white, .82);
+  border-radius: 16px;
+
+  .bi {
+    font-size: 2.25rem;
+    color: $grey-500;
+  }
+
+  p {
+    max-width: 320px;
+    color: $grey-600;
+    margin-bottom: 0;
+  }
+}
+
+.calc-report-content.is-locked {
+  filter: blur(4px);
+  pointer-events: none;
+  user-select: none;
+}
+
+// --------------------------------------------------------------------------
+// 報表篩選表單（各頁籤：篩選條件＋下載按鈕）
+// --------------------------------------------------------------------------
+.report-filter-form {
+  display: grid;
+  gap: 20px;
+}
+
+.report-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 20px;
+}
+
+.report-filter-field {
+  flex: 1 1 200px;
+  max-width: 280px;
+}
+
+.report-filter-field--wide {
+  flex: 1 1 320px;
+  max-width: 480px;
+}
+
+.report-filter-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:center;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 1px solid $grey-300;
+}
+
+// --------------------------------------------------------------------------
+// 下載/查詢方式雙欄選項（卡片式：radio＋標題＋欄位同卡，學科／德育共用）
+// --------------------------------------------------------------------------
+.calc-mode-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 40px;
+}
+
+.calc-mode-option {
+  flex: 1 1 320px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  > .form-check-input {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    margin: 0;
+
+    // 對齊選項標題下方的欄位列（標題行高＋label 下距）
+    margin-top: 36px;
+  }
+}
+
+.calc-mode-body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.calc-mode-label {
+  display: block;
+  font-weight: $font-weight-medium;
+  color: $grey-600;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+.calc-mode-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  > .form-select {
+    flex: 0 1 180px;
+  }
+
+  .date-range {
+    flex: 1 1 260px;
+  }
+
+  > .form-control {
+    flex: 1 1 260px;
+  }
+}
+
+// 未選取的方式：欄位停用並淡化（radio 本身保持全彩可切換）
+.calc-mode-option.is-inactive .calc-mode-fields {
+  opacity: .55;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .calc-step-icon,
+  .calc-report-content,
+  .calc-cta-btn,
+  .progress-bar {
+    transition: none;
+  }
+}

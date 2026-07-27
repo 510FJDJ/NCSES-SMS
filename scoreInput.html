@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>成績輸入 - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="維護與管理各學科班級之期考與平時成績，確保學期學業評量資料之正確與完整。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body>
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1">
+        <!-- 內頁 Banner：麵包屑＋標題＋CSS 裝飾＋插圖 -->
+        <section class="page-banner">
+            <!-- 裝飾層（純 CSS 繪製） -->
+            <div class="page-banner-deco" aria-hidden="true">
+                <span class="page-banner-halfcircle"></span>
+                <span class="page-banner-circle"></span>
+                <span class="page-banner-dots"></span>
+            </div>
+
+            <div class="container">
+                <nav class="page-banner-breadcrumb" aria-label="麵包屑導覽">
+                    <ol>
+                        <li>
+                            <a class="breadcrumb-home" href="index_AdminLogged.html" aria-label="首頁">
+                                <i class="bi bi-house-door" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">成績管理</a></li>
+                        <li aria-current="page">成績輸入</li>
+                    </ol>
+                </nav>
+
+                <div class="page-banner-main">
+                    <div class="page-banner-text">
+                        <h1 class="page-banner-title">成績輸入</h1>
+                        <p class="page-banner-desc">維護與管理各學科班級之期考與平時成績，確保學期學業評量資料之正確與完整。</p>
+                    </div>
+                    <!-- 右側人物插圖（純裝飾） -->
+                    <div class="page-banner-visual page-banner-visual--composed page-banner-visual--pointPerson" aria-hidden="true">
+                        <span class="banner-visual-blob"></span>
+                        <span class="banner-visual-window"></span>
+                        <img class="banner-visual-person" src="img/hero/characters/people-front-point.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 查詢與班級列表 -->
+        <section class="data-section">
+            <div class="container">
+                <div class="data-card">
+                    <!-- 查詢工具列（後端：查詢/匯出行為由後端接手） -->
+                    <form class="data-toolbar" action="#" method="get">
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterDept">部別</label>
+                            <select class="form-select" id="filterDept" name="filterDept">
+                                <option value="" selected>請選擇</option>
+                                <option value="1">幼兒部</option>
+                                <option value="2">國小部</option>
+                                <option value="3">國中部</option>
+                                <option value="4">高職部</option>
+                            </select>
+                        </div>
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterSubjectToggle">開課科目(代碼/名稱)</label>
+                            <!-- 下拉搜尋選單通用元件（比照 teacherSubject.html），後端：選項為系統既有開課科目清單，動態產生 -->
+                            <div class="dropdown dropdown-search" data-dropdown-search>
+                                <button class="form-select text-start text-muted bg-white" type="button" id="filterSubjectToggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                    請選擇
+                                </button>
+                                <div class="dropdown-menu w-100 p-2" aria-labelledby="filterSubjectToggle">
+                                    <div class="dropdown-search-box">
+                                        <label class="sr-only" for="filterSubjectSearch">搜尋科目代碼或名稱</label>
+                                        <input type="search" class="form-control" id="filterSubjectSearch" placeholder="搜尋科目代碼或名稱" data-dropdown-search-input autocomplete="off">
+                                    </div>
+                                    <ul class="dropdown-search-list">
+                                        <li><button type="button" class="dropdown-search-item" data-value="1">1001語文</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="2">2001數學</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="3">3001家事處理實作</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="4">4001配送實作</button></li>
+                                    </ul>
+                                    <p class="dropdown-search-empty" data-dropdown-search-empty hidden>查無符合的科目</p>
+                                </div>
+                                <input type="hidden" name="filterSubject" data-dropdown-search-value>
+                            </div>
+                        </div>
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterTeacherToggle">教師(代碼/姓名)</label>
+                            <!-- 下拉搜尋選單通用元件（比照 teacherSubject.html），後端：選項為系統既有教師清單，動態產生 -->
+                            <div class="dropdown dropdown-search" data-dropdown-search>
+                                <button class="form-select text-start text-muted bg-white" type="button" id="filterTeacherToggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                    請選擇
+                                </button>
+                                <div class="dropdown-menu w-100 p-2" aria-labelledby="filterTeacherToggle">
+                                    <div class="dropdown-search-box">
+                                        <label class="sr-only" for="filterTeacherSearch">搜尋教師代碼或姓名</label>
+                                        <input type="search" class="form-control" id="filterTeacherSearch" placeholder="搜尋教師代碼或姓名" data-dropdown-search-input autocomplete="off">
+                                    </div>
+                                    <ul class="dropdown-search-list">
+                                        <li><button type="button" class="dropdown-search-item" data-value="1">1006 (李oo)</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="2">1012 (陳oo)</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="3">2003 (林oo)</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="4">3001 (張oo)</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="5">0002 (黃oo)</button></li>
+                                    </ul>
+                                    <p class="dropdown-search-empty" data-dropdown-search-empty hidden>查無符合的教師</p>
+                                </div>
+                                <input type="hidden" name="filterTeacher" data-dropdown-search-value>
+                            </div>
+                        </div>
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterClassToggle">班級(代碼/名稱)</label>
+                            <!-- 下拉搜尋選單通用元件（比照 teacherSubject.html），後端：選項為系統既有班級清單，動態產生 -->
+                            <div class="dropdown dropdown-search" data-dropdown-search>
+                                <button class="form-select text-start text-muted bg-white" type="button" id="filterClassToggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                    請選擇
+                                </button>
+                                <div class="dropdown-menu w-100 p-2" aria-labelledby="filterClassToggle">
+                                    <div class="dropdown-search-box">
+                                        <label class="sr-only" for="filterClassSearch">搜尋班級代碼或名稱</label>
+                                        <input type="search" class="form-control" id="filterClassSearch" placeholder="搜尋班級代碼或名稱" data-dropdown-search-input autocomplete="off">
+                                    </div>
+                                    <ul class="dropdown-search-list">
+                                        <li><button type="button" class="dropdown-search-item" data-value="1">1001幼兒部小班</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="2">2001國小低年級忠班</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="3">3001國小中年級孝班</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="4">4001國中一年級忠班</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="5">5001高職一年A班</button></li>
+                                    </ul>
+                                    <p class="dropdown-search-empty" data-dropdown-search-empty hidden>查無符合的班級</p>
+                                </div>
+                                <input type="hidden" name="filterClass" data-dropdown-search-value>
+                            </div>
+                        </div>
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterSearch">搜尋</label>
+                            <input type="text" class="form-control" id="filterSearch" name="filterSearch" placeholder="搜尋代碼、導師、班級或科目">
+                        </div>
+                        <div class="data-toolbar-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-search" aria-hidden="true"></i>查詢
+                            </button>
+                            <button type="button" class="btn btn-export">
+                                <i class="bi bi-download" aria-hidden="true"></i>匯出
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- 後端：總筆數 -->
+                    <p class="data-total">總筆數：5</p>
+
+                    <div class="data-table-wrap" tabindex="0" role="region" aria-label="德育成績加減分輸入班級列表（可左右捲動）">
+                        <table class="table data-table data-table--wide table-striped">
+                            <caption class="sr-only">德育成績加減分輸入班級列表</caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">
+                                        <span class="check-all-label">
+                                            <input class="form-check-input" type="checkbox" id="checkAll" data-check-all>
+                                            <label for="checkAll">全選</label>
+                                        </span>
+                                    </th>
+                                    <th scope="col">序號</th>
+                                    <th scope="col">部別</th>
+                                    <th scope="col">科目代碼/名稱</th>
+                                    <th scope="col">教師代碼/名稱</th>
+                                    <th scope="col">班級代碼/名稱</th>
+                                    <th scope="col">功能</th>
+                                </tr>
+                            </thead>
+                            <!-- 後端：以下列表資料為動態產生，示意 5 筆班級 -->
+                            <tbody>
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取修課班級 2001 (語文)/101 (國小低年級)"></span></td>
+                                    <td data-label="序號"><span class="cell-value">1</span></td>
+                                    <td data-label="部別"><span class="cell-value">高級職業部</span></td>
+                                    <td data-label="科目代碼/名稱"><span class="cell-value">2001 (語文)</span></td>
+                                    <td data-label="教師代碼/名稱"><span class="cell-value">2001 (鍾OO)</span></td>
+                                    <td data-label="班級代碼/名稱"><span class="cell-value">101 (國小低年級)</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#scoreModal" data-class-name="101 (國小低年級)" data-teacher-name="2001 (鍾OO)" aria-label="編輯 101 國小低年級忠班 語文成績">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>成績登錄
+                                            </button>
+                                        </span>
+                                    </td>
+                                </tr>
+                               <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取修課班級 2001 (語文)/101 (國小低年級)"></span></td>
+                                    <td data-label="序號"><span class="cell-value">2</span></td>
+                                    <td data-label="部別"><span class="cell-value">高級職業部</span></td>
+                                    <td data-label="科目代碼/名稱"><span class="cell-value">2003 (健康與體育-體育)</span></td>
+                                    <td data-label="教師代碼/名稱"><span class="cell-value">2002 (張OO)</span></td>
+                                    <td data-label="班級代碼/名稱"><span class="cell-value">101 (國小低年級)</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#scoreModal" data-class-name="101 (國小低年級忠班)" data-teacher-name="2002 (張OO)" aria-label="編輯 101 國小低年級忠班 體育成績">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>成績登錄
+                                            </button>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取修課班級 2001 (語文)/101 (國小低年級)"></span></td>
+                                    <td data-label="序號"><span class="cell-value">3</span></td>
+                                    <td data-label="部別"><span class="cell-value">高級職業部</span></td>
+                                    <td data-label="科目代碼/名稱"><span class="cell-value">2008 (綜合活動)</span></td>
+                                    <td data-label="教師代碼/名稱"><span class="cell-value">2003 (陳OO)</span></td>
+                                    <td data-label="班級代碼/名稱"><span class="cell-value">103 (7年級)</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#scoreModal" data-class-name="103 (7年級)" data-teacher-name="2003 (陳OO)" aria-label="編輯 103 (7年級) 綜合活動成績">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>成績登錄
+                                            </button>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取修課班級 2001 (語文)/101 (國小低年級)"></span></td>
+                                    <td data-label="序號"><span class="cell-value">4</span></td>
+                                    <td data-label="部別"><span class="cell-value">國民中學</span></td>
+                                    <td data-label="科目代碼/名稱"><span class="cell-value">2009 (自然科學)</span></td>
+                                    <td data-label="教師代碼/名稱"><span class="cell-value">2003 (陳OO)</span></td>
+                                    <td data-label="班級代碼/名稱"><span class="cell-value">103 (8年級)</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#scoreModal" data-class-name="103 (8年級)" data-teacher-name="2003 (陳OO)" aria-label="編輯 103 (8年級) 自然科學成績">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>成績登錄
+                                            </button>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取修課班級 2001 (語文)/101 (國小低年級)"></span></td>
+                                    <td data-label="序號"><span class="cell-value">5</span></td>
+                                    <td data-label="部別"><span class="cell-value">國民中學</span></td>
+                                    <td data-label="科目代碼/名稱"><span class="cell-value">2010 (科技)</span></td>
+                                    <td data-label="教師代碼/名稱"><span class="cell-value">2006 (王OO)</span></td>
+                                    <td data-label="班級代碼/名稱"><span class="cell-value">201 (9年級)</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#scoreModal" data-class-name="201 (9年級)" data-teacher-name="2006 (王OO)" aria-label="編輯 201 (9年級) 科技成績">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>成績登錄
+                                            </button>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- 後端：分頁為動態產生 -->
+                    <nav class="data-pagination" aria-label="分頁導覽">
+                        <ul class="pagination">
+                            <li class="page-item page-item--nav">
+                                <a class="page-link" href="#" aria-label="上一頁">
+                                    <i class="bi bi-chevron-double-left" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item page-item--nav">
+                                <a class="page-link" href="#" aria-label="下一頁">
+                                    <i class="bi bi-chevron-double-right" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 編輯學生成績 Modal：靜態背景，避免點擊外部誤觸而遺失已輸入成績 -->
+    <div class="modal fade data-modal" id="scoreModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="scoreModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <h2 class="data-modal-title" id="scoreModalTitle">
+                            <span class="data-modal-title-text">編輯學生成績資料</span>
+                            <span class="badge-required">必填</span>
+                        </h2>
+                        <p class="data-modal-desc">登錄各年級修課學生之學期最終成績，完成後請務必點擊儲存以更新學籍檔案。</p>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉視窗"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- 後端：表單送出目標與驗證由後端接手 -->
+                    <form action="#" method="post" novalidate>
+                        <!-- 後端：班級與授課老師資訊由後端依所點選班級帶入 -->
+                        <p class="moral-info-bar">
+                            <span class="moral-subject-info">科目資訊：1002 (語文)</span>
+                            <span class="moral-class-info">班級資訊：101 (國小低年級)</span>
+                            <span class="moral-teacher-info">授課老師：1006 (李oo)</span>
+                        </p>
+                        <div class="mb-3">
+                            <label class="form-label" for="scoreType">成績類型</label>
+                            <select class="form-select" id="scoreType" name="scoreType">
+                                <option value="" selected>請選擇</option>
+                                <option value="1">平時成績</option>
+                                <option value="2">學期成績</option>
+                            </select>
+                        </div>
+                        <div class="moral-grid-wrap">
+                            <table class="table moral-grid-table table-striped">
+                                <caption class="sr-only">全班學生平時、學期分數。</caption>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <span class="check-all-label">
+                                                <input class="form-check-input" type="checkbox" id="scoreCheckAll" data-check-all>
+                                                <label for="scoreCheckAll">全選</label>
+                                            </span>
+                                        </th>
+                                        <th scope="col">學號</th>
+                                        <th scope="col">座號</th>
+                                        <th scope="col">姓名</th>
+                                        <th scope="col">成績</th>
+                                    </tr>
+                                </thead>
+                                <!-- 後端：以下為班級學生名冊，動態產生 -->
+                                <tbody>
+                                    <tr>
+                                        <td><input class="form-check-input" type="checkbox" data-check-row aria-label="選取學號 1031001"></td>
+                                        <td>1031001</td>
+                                        <td>1</td>
+                                        <td>尤小華</td>
+                                        <td>
+                                            <label class="sr-only" for="score1">尤小華 成績</label>
+                                            <input type="number" class="form-control score-input" id="score1" name="scores[]" min="0" max="100" step="1" placeholder="可輸入 0 ~ 100" aria-describedby="scoreHint">
+                                        </td>
+                                    </tr>
+                                            
+                                    <tr>
+                                        <td><input class="form-check-input" type="checkbox" data-check-row aria-label="選取學號 1311001"></td>
+                                        <td>1311001</td>
+                                        <td>2</td>
+                                        <td>利小強</td>
+                                        <td>
+                                            <label class="sr-only" for="score2">利小強 成績</label>
+                                            <input type="number" class="form-control score-input" id="score2" name="scores[]" min="0" max="100" step="1" placeholder="可輸入 0 ~ 100" aria-describedby="scoreHint">
+                                        </td>
+                                    </tr>
+                                        
+                                    <tr>
+                                        <td><input class="form-check-input" type="checkbox" data-check-row aria-label="選取學號 1311002"></td>
+                                        <td>1311002</td>
+                                        <td>3</td>
+                                        <td>潘小美</td>
+                                        <td>
+                                            <label class="sr-only" for="score3">潘小美 成績</label>
+                                            <input type="number" class="form-control score-input" id="score3" name="scores[]" min="0" max="100" step="1" placeholder="可輸入 0 ~ 100" aria-describedby="scoreHint">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><input class="form-check-input" type="checkbox" data-check-row aria-label="選取學號 1311003"></td>
+                                        <td>1311003</td>
+                                        <td>4</td>
+                                        <td>吳小芳</td>
+                                        <td>
+                                            <label class="sr-only" for="score4">吳小芳 成績</label>
+                                            <input type="number" class="form-control score-input" id="score4" name="scores[]" min="0" max="100" step="1" placeholder="可輸入 0 ~ 100" aria-describedby="scoreHint">
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                        <div class="data-modal-tip">
+                            <i class="bi bi-lightbulb-fill" aria-hidden="true"></i>
+                            <div>
+                                <strong>成績輸入規範提醒：</strong>
+                                <ul class="moral-tip-list">
+                                    <li id="scoreHint">成績可輸入範圍為 0 至 100 分（整數）。</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="data-modal-actions">
+                            <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-outline-danger-soft" id="scoreClearBtn">
+                                <i class="bi bi-trash3" aria-hidden="true"></i>清除勾選列成績資料
+                            </button>
+                            <button type="submit" class="btn btn-primary data-modal-submit">確定更新</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回饋 Modal（3 秒倒數自動關閉；圖示/色彩由 JS 依情境切換） -->
+    <div class="modal fade feedback-modal" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body feedback-body" role="status">
+                    <span class="feedback-icon" aria-hidden="true">
+                        <i class="bi bi-file-earmark-check"></i>
+                    </span>
+                    <h2 class="feedback-title" id="feedbackModalTitle">成績更新成功</h2>
+                    <p class="feedback-desc">你已更新此班級之平時、學期分數。</p>
+                    <p class="feedback-countdown"><span class="feedback-countdown-num">3</span>秒後 自動關閉</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/dataModal.js"></script>
+</body>
+</html>

@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>開課作業資料(新增) - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="設定新開設課程之各項基本資料與授課節次，並即時查閱課表排定狀態。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body>
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1">
+        <!-- 內頁 Banner：麵包屑＋標題＋返回列表按鈕 -->
+        <section class="page-banner">
+            <!-- 裝飾層（純 CSS 繪製） -->
+            <div class="page-banner-deco" aria-hidden="true">
+                <span class="page-banner-halfcircle"></span>
+                <span class="page-banner-circle"></span>
+                <span class="page-banner-dots"></span>
+            </div>
+
+            <div class="container">
+                <nav class="page-banner-breadcrumb" aria-label="麵包屑導覽">
+                    <ol>
+                        <li>
+                            <a class="breadcrumb-home" href="index_AdminLogged.html" aria-label="首頁">
+                                <i class="bi bi-house-door" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">課務管理</a></li>
+                        <li><a href="#">開排課作業</a></li>
+                        <li><a href="courseOffering.html">開課作業</a></li>
+                        <!-- 後端：編輯模式時此處為「編輯」 -->
+                        <li aria-current="page">新增</li>
+                    </ol>
+                </nav>
+
+                <div class="page-banner-main">
+                    <div class="page-banner-text">
+                        <!-- 後端：編輯模式時標題為「開課作業資料(編輯)」 -->
+                        <h1 class="page-banner-title">開課作業資料(新增)</h1>
+                        <p class="page-banner-desc">設定新開設課程之各項基本資料與授課節次，並即時查閱課表排定狀態。</p>
+                    </div>
+                    <!-- 右側人物插圖（純裝飾；背景以 CSS 繪製，角色圖可互換） -->
+                    <div class="page-banner-visual page-banner-visual--composed page-banner-visual--sitPerson" aria-hidden="true">
+                        <span class="banner-visual-blob"></span>
+                        <span class="banner-visual-window"></span>
+                        <img class="banner-visual-person" src="img/hero/characters/people-back-sit.png" alt="">
+                    </div>
+                    <a class="btn-back" href="courseOffering.html">
+                        <i class="bi bi-chevron-left" aria-hidden="true"></i>返回列表
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 開課作業表單：四張卡片（基本資料／節次設定／課表預覽／排課檢查） -->
+        <section class="form-section-wrap">
+            <div class="container">
+                <!-- 後端：表單送出目標與驗證由後端接手 -->
+                <form class="course-form" action="#" method="post" novalidate>
+                    <div class="row g-4">
+                        <!-- 一.開課基本資料 -->
+                        <div class="col-12 col-xl-7">
+                            <section class="course-card" aria-labelledby="secBasic">
+                                <h2 class="course-card-title" id="secBasic">一.開課基本資料</h2>
+
+                                <div class="row g-4">
+                                    <div class="col-12 col-lg-5">
+                                        <div class="mb-4">
+                                            <label class="form-label" for="courseSubject">科目<span class="badge-required">必填</span></label>
+                                            <select class="form-select" id="courseSubject" name="courseSubject" required aria-required="true">
+                                                <option value="" selected>請選擇科目</option>
+                                                <option value="1002">1002(語文)</option>
+                                                <option value="1005">1005(數學)</option>
+                                                <option value="2005">2005(社會)</option>
+                                                <option value="1017-5">1017-5(特殊需求－功能性動作訓練)</option>
+                                                <option value="3126">3126(配送實作)</option>
+                                            </select>
+                                            <div class="invalid-feedback">請選擇開課科目。</div>
+                                        </div>
+                                        <div class="mb-4">
+                                            <label class="form-label" for="courseClass">開課班級<span class="badge-required">必填</span></label>
+                                            <select class="form-select" id="courseClass" name="courseClass" required aria-required="true">
+                                                <option value="" selected>請選擇</option>
+                                                <option value="1">國小低年級</option>
+                                                <option value="2">國小中年級</option>
+                                                <option value="3">國小高年級</option>
+                                                <option value="4">國中一年級</option>
+                                                <option value="5">高職一年甲班</option>
+                                            </select>
+                                            <div class="invalid-feedback">請選擇開課班級。</div>
+                                        </div>
+                                        <div class="mb-4">
+                                            <label class="form-label" for="coursePlace">授課地點</label>
+                                            <select class="form-select" id="coursePlace" name="coursePlace">
+                                                <option value="" selected>同開課班級</option>
+                                                <option value="1">視聽教室</option>
+                                                <option value="2">活動中心</option>
+                                                <option value="3">職能訓練教室</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="form-label" for="courseName">課程名稱</label>
+                                            <input type="text" class="form-control" id="courseName" name="courseName" placeholder="範例：科目-教師-開課班級">
+                                        </div>
+                                    </div>
+
+                                    <!-- 授課教師動態列（新增/刪除、正課/兼課） -->
+                                    <div class="col-12 col-lg-7">
+                                        <div class="teacher-block">
+                                            <div class="teacher-block-head">
+                                                <span class="form-label mb-0" id="teacherListLabel">授課教師 (請先選擇科目)<span class="badge-required">必填</span></span>
+                                                <button type="button" class="btn btn-outline-primary btn-teacher-add" id="teacherAddBtn">
+                                                    <i class="bi bi-plus-lg" aria-hidden="true"></i>新增教師
+                                                </button>
+                                            </div>
+                                            <div class="teacher-table" role="group" aria-labelledby="teacherListLabel">
+                                                <div class="teacher-table-head" aria-hidden="true">
+                                                    <span>教師姓名</span><span>授課性質</span><span>操作</span>
+                                                </div>
+                                                <!-- 後端：教師名單選項為動態產生 -->
+                                                <ul class="teacher-list" id="teacherList">
+                                                    <li class="teacher-row">
+                                                        <div class="teacher-row-name">
+                                                            <label class="sr-only" for="teacherName1">教師姓名</label>
+                                                            <select class="form-select" id="teacherName1" name="teacherName[]">
+                                                                <option value="">選擇教師</option>
+                                                                <option value="1" selected>黃富勝</option>
+                                                                <option value="2">鍾子敏</option>
+                                                                <option value="3">徐學強</option>
+                                                                <option value="4">王小明</option>
+                                                            </select>
+                                                        </div>
+                                                        <fieldset class="teacher-nature">
+                                                            <legend class="sr-only">授課性質</legend>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" name="teacherNature1" id="teacherNature1a" value="main" checked>
+                                                                <label class="form-check-label" for="teacherNature1a">正課</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" name="teacherNature1" id="teacherNature1b" value="part">
+                                                                <label class="form-check-label" for="teacherNature1b">兼課</label>
+                                                            </div>
+                                                        </fieldset>
+                                                        <button type="button" class="btn teacher-remove" aria-label="刪除此教師">
+                                                            <i class="bi bi-trash3" aria-hidden="true"></i>
+                                                        </button>
+                                                    </li>
+                                                    <li class="teacher-row">
+                                                        <div class="teacher-row-name">
+                                                            <label class="sr-only" for="teacherName2">教師姓名</label>
+                                                            <select class="form-select" id="teacherName2" name="teacherName[]">
+                                                                <option value="" selected>選擇教師</option>
+                                                                <option value="1">黃富勝</option>
+                                                                <option value="2">鍾子敏</option>
+                                                                <option value="3">徐學強</option>
+                                                                <option value="4">王小明</option>
+                                                            </select>
+                                                        </div>
+                                                        <fieldset class="teacher-nature">
+                                                            <legend class="sr-only">授課性質</legend>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" name="teacherNature2" id="teacherNature2a" value="main">
+                                                                <label class="form-check-label" for="teacherNature2a">正課</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" name="teacherNature2" id="teacherNature2b" value="part" checked>
+                                                                <label class="form-check-label" for="teacherNature2b">兼課</label>
+                                                            </div>
+                                                        </fieldset>
+                                                        <button type="button" class="btn teacher-remove" aria-label="刪除此教師">
+                                                            <i class="bi bi-trash3" aria-hidden="true"></i>
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <p class="teacher-count" aria-live="polite">已選擇<span id="teacherCount">2</span>位教師共同授課</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label class="form-label" for="courseMemo">備註</label>
+                                        <div class="textarea-counter-wrap">
+                                            <textarea class="form-control" id="courseMemo" name="courseMemo" placeholder="請輸入備註(最多200字)" maxlength="200" aria-describedby="courseMemoCount"></textarea>
+                                            <span class="textarea-counter" id="courseMemoCount" aria-live="polite">0 / 200</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+
+                        <!-- 二.授課節次設定 -->
+                        <div class="col-12 col-xl-5">
+                            <section class="course-card" aria-labelledby="secSlots">
+                                <h2 class="course-card-title" id="secSlots">二.授課節次設定<small>(點選節次以選擇上課時段)</small></h2>
+                                <div class="overflow-x-auto">
+                                    <table class="slot-grid">
+                                        <caption class="sr-only">授課節次勾選表，勾選各星期之上課節次</caption>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">節次 / 星期</th>
+                                                <th scope="col">星期一</th>
+                                                <th scope="col">星期二</th>
+                                                <th scope="col">星期三</th>
+                                                <th scope="col">星期四</th>
+                                                <th scope="col">星期五</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">第一節</th>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="1-1" data-day="星期一" aria-label="星期一 第一節" checked></td>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="2-1" data-day="星期二" aria-label="星期二 第一節"></td>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="3-1" data-day="星期三" aria-label="星期三 第一節" checked></td>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="4-1" data-day="星期四" aria-label="星期四 第一節"></td>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="5-1" data-day="星期五" aria-label="星期五 第一節"></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">第二節</th>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="1-2" data-day="星期一" aria-label="星期一 第二節" checked></td>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="2-2" data-day="星期二" aria-label="星期二 第二節"></td>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="3-2" data-day="星期三" aria-label="星期三 第二節"></td>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="4-2" data-day="星期四" aria-label="星期四 第二節"></td>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="5-2" data-day="星期五" aria-label="星期五 第二節"></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">第三節</th>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="1-3" data-day="星期一" aria-label="星期一 第三節"></td>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="2-3" data-day="星期二" aria-label="星期二 第三節"></td>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="3-3" data-day="星期三" aria-label="星期三 第三節" checked></td>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="4-3" data-day="星期四" aria-label="星期四 第三節"></td>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="5-3" data-day="星期五" aria-label="星期五 第三節"></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">第四節</th>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="1-4" data-day="星期一" aria-label="星期一 第四節"></td>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="2-4" data-day="星期二" aria-label="星期二 第四節"></td>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="3-4" data-day="星期三" aria-label="星期三 第四節"></td>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="4-4" data-day="星期四" aria-label="星期四 第四節" checked></td>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="5-4" data-day="星期五" aria-label="星期五 第四節"></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">第五節</th>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="1-5" data-day="星期一" aria-label="星期一 第五節"></td>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="2-5" data-day="星期二" aria-label="星期二 第五節"></td>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="3-5" data-day="星期三" aria-label="星期三 第五節"></td>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="4-5" data-day="星期四" aria-label="星期四 第五節"></td>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="5-5" data-day="星期五" aria-label="星期五 第五節" checked></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">第六節</th>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="1-6" data-day="星期一" aria-label="星期一 第六節" checked></td>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="2-6" data-day="星期二" aria-label="星期二 第六節"></td>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="3-6" data-day="星期三" aria-label="星期三 第六節"></td>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="4-6" data-day="星期四" aria-label="星期四 第六節"></td>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="5-6" data-day="星期五" aria-label="星期五 第六節"></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">第七節</th>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="1-7" data-day="星期一" aria-label="星期一 第七節"></td>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="2-7" data-day="星期二" aria-label="星期二 第七節"></td>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="3-7" data-day="星期三" aria-label="星期三 第七節"></td>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="4-7" data-day="星期四" aria-label="星期四 第七節"></td>
+                                                <td><input class="form-check-input slot-check" type="checkbox" name="slot[]" value="5-7" data-day="星期五" aria-label="星期五 第七節" checked></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+
+                                <!-- 已選節次統計（JS 即時計算） -->
+                                <div class="slot-summary" aria-live="polite">
+                                    <span class="slot-summary-total">已選節次：<strong id="slotTotal">8</strong> 節</span>
+                                    <span class="slot-summary-days" id="slotDays">星期一：3 節｜星期三：2 節｜星期四：1 節｜星期五：2 節</span>
+                                </div>
+                            </section>
+                        </div>
+
+                        <!-- 三.已排定課表預覽 -->
+                        <div class="col-12 col-xl-7">
+                            <section class="course-card" aria-labelledby="secPreview">
+                                <h2 class="course-card-title" id="secPreview">三.已排定課表預覽<small>(點擊時段查看詳細)</small></h2>
+
+                                <div class="timetable-toolbar">
+                                    <div class="timetable-class">
+                                        <label class="form-label" for="previewClass">預覽班級</label>
+                                        <select class="form-select" id="previewClass" name="previewClass">
+                                            <option value="2" selected>國小中年級</option>
+                                            <option value="1">國小低年級</option>
+                                            <option value="3">國小高年級</option>
+                                            <option value="4">國中一年級</option>
+                                        </select>
+                                    </div>
+                                    <!-- 後端：月份切換與課表內容由後端動態產生，前端以 JS 示意切換 -->
+                                    <div class="timetable-month">
+                                        <span class="timetable-month-label" id="timetableMonthLabel" aria-live="polite">2026年6月</span>
+                                        <button type="button" class="btn timetable-month-btn" id="timetableMonthPrev" aria-label="上個月">
+                                            <i class="bi bi-chevron-left" aria-hidden="true"></i>
+                                        </button>
+                                        <button type="button" class="btn timetable-month-btn" id="timetableMonthNext" aria-label="下個月">
+                                            <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <table class="timetable">
+                                    <caption class="sr-only">已排定課表預覽，點擊已排課時段可查看課程詳細資訊</caption>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">節次</th>
+                                            <th scope="col">一</th>
+                                            <th scope="col">二</th>
+                                            <th scope="col">三</th>
+                                            <th scope="col">四</th>
+                                            <th scope="col">五</th>
+                                        </tr>
+                                    </thead>
+                                    <!-- 後端：課表內容為動態產生，以下為示意（切換月份時由 JS 重新渲染） -->
+                                    <tbody id="timetablePreviewBody">
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>
+                                                <button type="button" class="timetable-slot" style="--slot-hue:0" data-bs-toggle="modal" data-bs-target="#courseInfoModal" data-slot-title="星期一 第一節">
+                                                    <span class="timetable-slot-subject">語文</span>
+                                                    <span class="timetable-slot-teacher">王小明</span>
+                                                </button>
+                                            </td>
+                                            <td><span aria-hidden="true">-</span><span class="sr-only">未排課</span></td>
+                                            <td><span aria-hidden="true">-</span><span class="sr-only">未排課</span></td>
+                                            <td>
+                                                <button type="button" class="timetable-slot" style="--slot-hue:295" data-bs-toggle="modal" data-bs-target="#courseInfoModal" data-slot-title="星期四 第一節">
+                                                    <span class="timetable-slot-subject">社會</span>
+                                                    <span class="timetable-slot-teacher">徐學強</span>
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="timetable-slot" style="--slot-hue:165" data-bs-toggle="modal" data-bs-target="#courseInfoModal" data-slot-title="星期五 第一節">
+                                                    <span class="timetable-slot-subject">體育</span>
+                                                    <span class="timetable-slot-teacher">黃富勝+王冠純</span>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>
+                                                <button type="button" class="timetable-slot timetable-slot--special" data-bs-toggle="modal" data-bs-target="#specialModal" data-slot-title="星期一 第二節">
+                                                    <span class="timetable-slot-subject">特殊 黃富勝+鍾子敏</span>
+                                                    <span class="timetable-slot-teacher">社會 鍾OO</span>
+                                                </button>
+                                            </td>
+                                            <td><span aria-hidden="true">-</span><span class="sr-only">未排課</span></td>
+                                            <td>
+                                                <button type="button" class="timetable-slot timetable-slot--special" data-bs-toggle="modal" data-bs-target="#specialModal" data-slot-title="星期三 第二節">
+                                                    <span class="timetable-slot-subject">特殊 黃富勝+鍾子敏</span>
+                                                    <span class="timetable-slot-teacher">生活 鍾OO</span>
+                                                </button>
+                                            </td>
+                                            <td><span aria-hidden="true">-</span><span class="sr-only">未排課</span></td>
+                                            <td>
+                                                <button type="button" class="timetable-slot" style="--slot-hue:28" data-bs-toggle="modal" data-bs-target="#courseInfoModal" data-slot-title="星期五 第二節">
+                                                    <span class="timetable-slot-subject">自然</span>
+                                                    <span class="timetable-slot-teacher">楊可量</span>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">3</th>
+                                            <td><span aria-hidden="true">-</span><span class="sr-only">未排課</span></td>
+                                            <td><span aria-hidden="true">-</span><span class="sr-only">未排課</span></td>
+                                            <td>
+                                                <button type="button" class="timetable-slot" style="--slot-hue:28" data-bs-toggle="modal" data-bs-target="#courseInfoModal" data-slot-title="星期三 第三節">
+                                                    <span class="timetable-slot-subject">自然</span>
+                                                    <span class="timetable-slot-teacher">張老師</span>
+                                                </button>
+                                            </td>
+                                            <td><span aria-hidden="true">-</span><span class="sr-only">未排課</span></td>
+                                            <td><span aria-hidden="true">-</span><span class="sr-only">未排課</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">4</th>
+                                            <td><span aria-hidden="true">-</span><span class="sr-only">未排課</span></td>
+                                            <td><span aria-hidden="true">-</span><span class="sr-only">未排課</span></td>
+                                            <td><span aria-hidden="true">-</span><span class="sr-only">未排課</span></td>
+                                            <td>
+                                                <button type="button" class="timetable-slot" style="--slot-hue:295" data-bs-toggle="modal" data-bs-target="#courseInfoModal" data-slot-title="星期四 第四節">
+                                                    <span class="timetable-slot-subject">社會</span>
+                                                    <span class="timetable-slot-teacher">王小明</span>
+                                                </button>
+                                            </td>
+                                            <td><span aria-hidden="true">-</span><span class="sr-only">未排課</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">5</th>
+                                            <td><span aria-hidden="true">-</span><span class="sr-only">未排課</span></td>
+                                            <td><span aria-hidden="true">-</span><span class="sr-only">未排課</span></td>
+                                            <td><span aria-hidden="true">-</span><span class="sr-only">未排課</span></td>
+                                            <td><span aria-hidden="true">-</span><span class="sr-only">未排課</span></td>
+                                            <td>
+                                                <button type="button" class="timetable-slot" style="--slot-hue:8" data-bs-toggle="modal" data-bs-target="#courseInfoModal" data-slot-title="星期五 第五節">
+                                                    <span class="timetable-slot-subject">藝術</span>
+                                                    <span class="timetable-slot-teacher">李小華</span>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">6</th>
+                                            <td><span aria-hidden="true">-</span><span class="sr-only">未排課</span></td>
+                                            <td><span aria-hidden="true">-</span><span class="sr-only">未排課</span></td>
+                                            <td><span aria-hidden="true">-</span><span class="sr-only">未排課</span></td>
+                                            <td><span aria-hidden="true">-</span><span class="sr-only">未排課</span></td>
+                                            <td><span aria-hidden="true">-</span><span class="sr-only">未排課</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">7</th>
+                                            <td><span aria-hidden="true">-</span><span class="sr-only">未排課</span></td>
+                                            <td><span aria-hidden="true">-</span><span class="sr-only">未排課</span></td>
+                                            <td><span aria-hidden="true">-</span><span class="sr-only">未排課</span></td>
+                                            <td><span aria-hidden="true">-</span><span class="sr-only">未排課</span></td>
+                                            <td><span aria-hidden="true">-</span><span class="sr-only">未排課</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <p class="course-tip course-tip--warning">
+                                    <i class="bi bi-info-circle" aria-hidden="true"></i>
+                                    選擇節次時，系統將自動檢查教師、班級與場地是否有衝突。
+                                </p>
+                            </section>
+                        </div>
+
+                        <!-- 四.排課檢查與特殊安排 -->
+                        <div class="col-12 col-xl-5">
+                            <section class="course-card" aria-labelledby="secCheck">
+                                <h2 class="course-card-title" id="secCheck">四.排課檢查與特殊安排</h2>
+
+                                <!-- 後端：統計數字為動態產生 -->
+                                <div class="check-stats">
+                                    <div class="check-stat check-stat--normal">
+                                        <span class="check-stat-label">正常上課</span>
+                                        <span class="check-stat-num">6<small>項</small></span>
+                                    </div>
+                                    <div class="check-stat check-stat--special">
+                                        <span class="check-stat-label">特殊安排</span>
+                                        <span class="check-stat-num">2<small>項</small></span>
+                                    </div>
+                                </div>
+
+                                <table class="check-table">
+                                    <caption class="sr-only">排課檢查與特殊安排清單</caption>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">類型</th>
+                                            <th scope="col">節次</th>
+                                            <th scope="col">說明</th>
+                                            <th scope="col">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <!-- 後端：檢查結果為動態產生 -->
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="check-type">特殊安排<br>(已合併)</span></td>
+                                            <td>星期一<br>第二節</td>
+                                            <td>國小中年級教室已有課程</td>
+                                            <td>
+                                                <button type="button" class="btn check-setting-btn" data-bs-toggle="modal" data-bs-target="#specialModal" data-slot-title="星期一 第二節" aria-label="設定星期一第二節特殊安排">
+                                                    <i class="bi bi-eye" aria-hidden="true"></i>設定
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="check-type">特殊安排<br>(已分組)</span></td>
+                                            <td>星期三<br>第二節</td>
+                                            <td>國小中年級教室已有課程</td>
+                                            <td>
+                                                <button type="button" class="btn check-setting-btn" data-bs-toggle="modal" data-bs-target="#specialModal" data-slot-title="星期三 第二節" aria-label="設定星期三第二節特殊安排">
+                                                    <i class="bi bi-eye" aria-hidden="true"></i>設定
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <p class="course-tip course-tip--warning">
+                                    <i class="bi bi-info-circle" aria-hidden="true"></i>
+                                    提醒：衝突項目需調整後才能儲存，請點選「設定」進行調整。
+                                </p>
+
+                                <div class="form-actions course-actions">
+                                    <a class="btn btn-cancel" href="courseOffering.html">取消/返回</a>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="bi bi-save" aria-hidden="true"></i>儲存
+                                    </button>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- 課程卡 Modal：點擊課表時段顯示課程明細 -->
+    <div class="modal fade data-modal" id="courseInfoModal" tabindex="-1" aria-labelledby="courseInfoModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <h2 class="data-modal-title" id="courseInfoModalTitle">
+                            <span class="data-modal-title-text">星期四 第一節</span>
+                        </h2>
+                        <p class="data-modal-desc">課程資料明細。</p>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉視窗"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- 後端：以下明細由後端依時段帶入 -->
+                    <div class="row g-3">
+                        <div class="col-12 col-md-4">
+                            <span class="form-label d-block">授課老師：</span>
+                            <p class="data-modal-static">徐學強（正課）</p>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <span class="form-label d-block">班級：</span>
+                            <p class="data-modal-static">國小中年級</p>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <span class="form-label d-block">教授科目：</span>
+                            <p class="data-modal-static">2005(社會)</p>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <span class="form-label d-block">授課地點：</span>
+                            <p class="data-modal-static">同開課班級</p>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <span class="form-label d-block">學生數 <small>(使用人數)</small>：</span>
+                            <p class="data-modal-static">22</p>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <span class="form-label d-block">上課時間 <small>(星期、節數)</small>：</span>
+                            <p class="data-modal-static">41 / 52</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <label class="form-label" for="courseInfoMemo">備註</label>
+                        <div class="textarea-counter-wrap">
+                            <textarea class="form-control" id="courseInfoMemo" placeholder="請輸入備註(最多200字)" maxlength="200" aria-describedby="courseInfoMemoCount"></textarea>
+                            <span class="textarea-counter" id="courseInfoMemoCount" aria-live="polite">0 / 200</span>
+                        </div>
+                    </div>
+
+                    <div class="data-modal-actions">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">關閉</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 特殊安排 Modal：現有課程 vs 加入課程＋處理方式 -->
+    <div class="modal fade data-modal" id="specialModal" tabindex="-1" aria-labelledby="specialModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="flex-grow-1">
+                        <h2 class="data-modal-title" id="specialModalTitle">
+                            <span class="data-modal-title-text">星期三 第二節</span>
+                        </h2>
+                        <p class="special-alert" role="status">
+                            <i class="bi bi-info-circle" aria-hidden="true"></i>
+                            國小中年級教室已有課程，需進行特殊安排
+                        </p>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉視窗"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- 後端：表單送出目標與驗證由後端接手 -->
+                    <form action="#" method="post" novalidate>
+                        <div class="row g-4">
+                            <!-- 現有課程（後端帶入） -->
+                            <div class="col-12 col-lg-6">
+                                <h3 class="special-col-title">現有課程</h3>
+                                <div class="row g-3">
+                                    <div class="col-12 col-md-6">
+                                        <span class="form-label d-block">授課老師：</span>
+                                        <p class="data-modal-static">徐學強（正課）</p>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <span class="form-label d-block">班級：</span>
+                                        <p class="data-modal-static">國小中年級</p>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <span class="form-label d-block">授課地點：</span>
+                                        <p class="data-modal-static">同開課班級</p>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <span class="form-label d-block">教授科目：</span>
+                                        <p class="data-modal-static">2005(社會)鍾子敏</p>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <span class="form-label d-block">學生數 <small>(使用人數)</small>：</span>
+                                        <p class="data-modal-static">22</p>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <span class="form-label d-block">上課時間 <small>(星期、節數)</small>：</span>
+                                        <p class="data-modal-static">41 / 42</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 加入課程（本次新增，後端帶入） -->
+                            <div class="col-12 col-lg-6">
+                                <h3 class="special-col-title">加入課程 2</h3>
+                                <div class="row g-3">
+                                    <div class="col-12 col-md-6">
+                                        <span class="form-label d-block">授課老師：</span>
+                                        <p class="data-modal-static">黃富聖（正課）、鍾子敏（兼課）</p>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <span class="form-label d-block">班級：</span>
+                                        <p class="data-modal-static">國小中年級</p>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <span class="form-label d-block">授課地點：</span>
+                                        <p class="data-modal-static">同開課班級</p>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <span class="form-label d-block">教授科目：</span>
+                                        <p class="data-modal-static">1017-5 特殊需求－功能性動作訓練</p>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <span class="form-label d-block">學生數 <small>(使用人數)</small>：</span>
+                                        <p class="data-modal-static">22</p>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <span class="form-label d-block">上課時間 <small>(星期、節數)</small>：</span>
+                                        <p class="data-modal-static">41 / 42</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 處理方式 -->
+                        <h3 class="special-col-title special-process-title">
+                            <i class="bi bi-people" aria-hidden="true"></i>處理方式
+                        </h3>
+                        <fieldset class="process-options">
+                            <legend class="sr-only">選擇處理方式</legend>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="processType" id="processMerge" value="merge" checked>
+                                <label class="form-check-label" for="processMerge">合併上課</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="processType" id="processGroup" value="group">
+                                <label class="form-check-label" for="processGroup">分組上課</label>
+                            </div>
+
+                            <!-- 合併/分組時顯示的班級名稱設定（取消此次新增時由 JS 隱藏） -->
+                            <div class="process-classbox" id="processClassBox">
+                                <label class="form-label" for="processClassName">班級名稱</label>
+                                <div class="process-classbox-row">
+                                    <select class="form-select" id="processClassName" name="processClassName">
+                                        <option value="1" selected>國小中年級分組班</option>
+                                        <option value="2">國小中年級合併班</option>
+                                        <option value="3">國小高年級分組班</option>
+                                    </select>
+                                    <p class="process-classbox-hint">
+                                        <strong>找不到合適班級名稱？</strong>請洽主任或註冊組組長新增「分組上課班級名稱」。
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="processType" id="processCancel" value="cancel">
+                                <label class="form-check-label" for="processCancel">取消此次新增</label>
+                            </div>
+                        </fieldset>
+
+                        <div class="mt-4">
+                            <label class="form-label" for="processReason">原因</label>
+                            <div class="textarea-counter-wrap">
+                                <textarea class="form-control" id="processReason" name="processReason" rows="2" placeholder="請輸入原因(最多200字)" maxlength="200" aria-describedby="processReasonCount"></textarea>
+                                <span class="textarea-counter" id="processReasonCount" aria-live="polite">0 / 200</span>
+                            </div>
+                        </div>
+
+                        <div class="data-modal-actions">
+                            <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">關閉</button>
+                            <button type="submit" class="btn btn-primary">確定更新</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回饋 Modal（儲存/更新成功；3 秒倒數自動關閉） -->
+    <div class="modal fade feedback-modal" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body feedback-body" role="status">
+                    <span class="feedback-icon" aria-hidden="true">
+                        <i class="bi bi-file-earmark-check"></i>
+                    </span>
+                    <h2 class="feedback-title" id="feedbackModalTitle">資料儲存成功</h2>
+                    <p class="feedback-desc">你已儲存“開課作業資料”</p>
+                    <p class="feedback-countdown"><span class="feedback-countdown-num">3</span>秒後 自動關閉</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/courseOffering.js"></script>
+</body>
+</html>

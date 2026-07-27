@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>學生出缺勤管理 - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="登錄與管理學生出缺勤紀錄，自動偵測衝突資料並提供修正或強制解除功能。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body>
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1">
+        <!-- 內頁 Banner：麵包屑＋標題＋CSS 裝飾＋插圖 -->
+        <section class="page-banner">
+            <!-- 裝飾層（純 CSS 繪製） -->
+            <div class="page-banner-deco" aria-hidden="true">
+                <span class="page-banner-halfcircle"></span>
+                <span class="page-banner-circle"></span>
+                <span class="page-banner-dots"></span>
+            </div>
+
+            <div class="container">
+                <nav class="page-banner-breadcrumb" aria-label="麵包屑導覽">
+                    <ol>
+                        <li>
+                            <a class="breadcrumb-home" href="index_AdminLogged.html" aria-label="首頁">
+                                <i class="bi bi-house-door" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">學務管理</a></li>
+                        <li><a href="#">出缺勤作業</a></li>
+                        <li aria-current="page">學生出缺勤管理</li>
+                    </ol>
+                </nav>
+
+                <div class="page-banner-main">
+                    <div class="page-banner-text">
+                        <h1 class="page-banner-title">學生出缺勤管理</h1>
+                        <p class="page-banner-desc">登錄與管理學生出缺勤紀錄，系統將自動偵測衝突資料，並提供修正或強制解除功能。</p>
+                    </div>
+                    <!-- 右側人物插圖（純裝飾） -->
+                    <div class="page-banner-visual page-banner-visual--composed page-banner-visual--sitPerson" aria-hidden="true">
+                        <span class="banner-visual-blob"></span>
+                        <span class="banner-visual-window"></span>
+                        <img class="banner-visual-person" src="img/hero/characters/people-back-sit.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 查詢與資料列表 -->
+        <section class="data-section">
+            <div class="container">
+                <div class="data-card">
+                    <!-- 查詢工具列（後端：查詢/刪除/匯出行為由後端接手） -->
+                    <form class="data-toolbar" action="#" method="get">
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterSemester">學期別</label>
+                            <select class="form-select" id="filterSemester" name="filterSemester">
+                                <option value="" selected>請選擇</option>
+                                <option value="1">114學年度第2學期</option>
+                                <option value="2">114學年度第1學期</option>
+                                <option value="3">113學年度第2學期</option>
+                            </select>
+                        </div>
+                        <div class="data-toolbar-field data-toolbar-field--range">
+                            <span class="form-label d-block" id="filterDateLabel">請假日期區間</span>
+                            <div class="date-range" role="group" aria-labelledby="filterDateLabel">
+                                <label class="sr-only" for="filterDateStart">請假開始日期</label>
+                                <input type="date" class="form-control" id="filterDateStart" name="filterDateStart">
+                                <span class="date-range-sep" aria-hidden="true">~</span>
+                                <label class="sr-only" for="filterDateEnd">請假結束日期</label>
+                                <input type="date" class="form-control" id="filterDateEnd" name="filterDateEnd">
+                            </div>
+                        </div>
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterSource">資料來源</label>
+                            <select class="form-select" id="filterSource" name="filterSource">
+                                <option value="" selected>請選擇</option>
+                                <option value="1">人工登打</option>
+                                <option value="2">請假系統</option>
+                                <option value="3">導師登打</option>
+                            </select>
+                        </div>
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterClassToggle">班級</label>
+                            <!-- 下拉搜尋選單通用元件（比照 teacherSubject.html），後端：選項為系統既有班級清單，動態產生 -->
+                            <div class="dropdown dropdown-search" data-dropdown-search>
+                                <button class="form-select text-start text-muted bg-white" type="button" id="filterClassToggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                    請選擇
+                                </button>
+                                <div class="dropdown-menu w-100 p-2" aria-labelledby="filterClassToggle">
+                                    <div class="dropdown-search-box">
+                                        <label class="sr-only" for="filterClassSearch">搜尋班級名稱</label>
+                                        <input type="search" class="form-control" id="filterClassSearch" placeholder="搜尋班級名稱" data-dropdown-search-input autocomplete="off">
+                                    </div>
+                                    <ul class="dropdown-search-list">
+                                        <li><button type="button" class="dropdown-search-item" data-value="1">國小低年級</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="2">國小中年級</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="3">國中一年級</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="4">11年1班</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="5">12年1班</button></li>
+                                    </ul>
+                                    <p class="dropdown-search-empty" data-dropdown-search-empty hidden>查無符合的班級</p>
+                                </div>
+                                <input type="hidden" name="filterClass" data-dropdown-search-value>
+                            </div>
+                        </div>
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterStudentName">姓名</label>
+                            <input type="text" class="form-control" id="filterStudentName" name="filterStudentName" placeholder="請輸入姓名">
+                        </div>
+                        <div class="data-toolbar-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-search" aria-hidden="true"></i>查詢
+                            </button>
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#attendanceModal" data-modal-mode="add">
+                                <i class="bi bi-plus-lg" aria-hidden="true"></i>新增
+                            </button>
+                            <button type="button" class="btn btn-danger">
+                                <i class="bi bi-trash3" aria-hidden="true"></i>刪除
+                            </button>
+                            <button type="button" class="btn btn-export">
+                                <i class="bi bi-download" aria-hidden="true"></i>匯出
+                            </button>
+                            <span class="data-toolbar-divider" aria-hidden="true"></span>
+                            <button type="button" class="btn btn-conflict-toggle" id="attConflictViewBtn" aria-pressed="false">
+                                <i class="bi bi-exclamation-triangle" aria-hidden="true"></i>檢視衝突
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" id="attConflictClearBtn">
+                                <i class="bi bi-unlock" aria-hidden="true"></i>解除衝突
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- 後端：總筆數 -->
+                    <p class="data-total" data-attendance-total>總筆數：5</p>
+
+                    <!-- 欄位較多：md 以上以水平捲動容器承載，避免資訊被截斷 -->
+                    <div class="data-table-wrap" data-attendance-table tabindex="0" role="region" aria-label="學生出缺勤管理列表（可左右捲動）">
+                        <table class="table data-table data-table--wide table-striped">
+                            <caption class="sr-only">學生出缺勤管理紀錄列表</caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">
+                                        <span class="check-all-label">
+                                            <input class="form-check-input" type="checkbox" id="checkAll" data-check-all>
+                                            <label for="checkAll">全選</label>
+                                        </span>
+                                    </th>
+                                    <th scope="col">序號</th>
+                                    <th scope="col">單號</th>
+                                    <th scope="col">班級</th>
+                                    <th scope="col">姓名</th>
+                                    <th scope="col">學號</th>
+                                    <th scope="col">假別</th>
+                                    <th scope="col">資料來源</th>
+                                    <th scope="col">請假日期</th>
+                                    <th scope="col">請假節次</th>
+                                    <th scope="col" class="col-conflict">衝突原因</th>
+                                    <th scope="col">功能</th>
+                                </tr>
+                            </thead>
+                            <!-- 後端：以下列表資料為動態產生，示意 5 筆（3 筆含衝突標記） -->
+                            <tbody>
+                                <tr data-conflict="false">
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取單號 202506200001"></span></td>
+                                    <td data-label="序號"><span class="cell-value">1</span></td>
+                                    <td data-label="單號"><span class="cell-value">202506200001</span></td>
+                                    <td data-label="班級"><span class="cell-value">國小中年級</span></td>
+                                    <td data-label="姓名"><span class="cell-value">王小明</span></td>
+                                    <td data-label="學號"><span class="cell-value">B11001</span></td>
+                                    <td data-label="假別"><span class="cell-value">病假</span></td>
+                                    <td data-label="資料來源"><span class="cell-value">人工登打</span></td>
+                                    <td data-label="請假日期"><span class="cell-value">2025-06-20</span></td>
+                                    <td data-label="請假節次"><span class="cell-value">3</span></td>
+                                    <td data-label="衝突原因" class="col-conflict"><span class="cell-value">—</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#attendanceModal" data-modal-mode="edit" data-record-name="王小明2025-06-20病假" aria-label="編輯單號 202506200001 學生出缺勤紀錄">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                            </button>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr data-conflict="true">
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取單號 202506200002"></span></td>
+                                    <td data-label="序號"><span class="cell-value"><i class="bi bi-exclamation-triangle-fill conflict-flag" aria-hidden="true"></i>2</span></td>
+                                    <td data-label="單號"><span class="cell-value">202506200002</span></td>
+                                    <td data-label="班級"><span class="cell-value">國中一年級</span></td>
+                                    <td data-label="姓名"><span class="cell-value">陳小華</span></td>
+                                    <td data-label="學號"><span class="cell-value">C11005</span></td>
+                                    <td data-label="假別"><span class="cell-value">事假</span></td>
+                                    <td data-label="資料來源"><span class="cell-value">請假系統</span></td>
+                                    <td data-label="請假日期"><span class="cell-value">2025-06-20 ~ 2025-06-21</span></td>
+                                    <td data-label="請假節次"><span class="cell-value">7</span></td>
+                                    <td data-label="衝突原因" class="col-conflict">
+                                        <span class="cell-value conflict-reason">
+                                            <i class="bi bi-exclamation-circle-fill" aria-hidden="true"></i>與調代課紀錄衝突：原授課教師已排定同節次代課
+                                        </span>
+                                    </td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#attendanceModal" data-modal-mode="conflict" data-record-name="陳小華2025-06-20事假" data-conflict-reason="與調代課紀錄衝突：原授課教師已排定同節次代課" aria-label="編輯單號 202506200002 學生出缺勤紀錄（含衝突）">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                            </button>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr data-conflict="true">
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取單號 202506210001"></span></td>
+                                    <td data-label="序號"><span class="cell-value"><i class="bi bi-exclamation-triangle-fill conflict-flag" aria-hidden="true"></i>3</span></td>
+                                    <td data-label="單號"><span class="cell-value">202506210001</span></td>
+                                    <td data-label="班級"><span class="cell-value">12年1班</span></td>
+                                    <td data-label="姓名"><span class="cell-value">林小美</span></td>
+                                    <td data-label="學號"><span class="cell-value">D12003</span></td>
+                                    <td data-label="假別"><span class="cell-value">公假</span></td>
+                                    <td data-label="資料來源"><span class="cell-value">導師登打</span></td>
+                                    <td data-label="請假日期"><span class="cell-value">2025-06-21</span></td>
+                                    <td data-label="請假節次"><span class="cell-value">2</span></td>
+                                    <td data-label="衝突原因" class="col-conflict">
+                                        <span class="cell-value conflict-reason">
+                                            <i class="bi bi-exclamation-circle-fill" aria-hidden="true"></i>與獎懲紀錄衝突：同日已有其他假別紀錄
+                                        </span>
+                                    </td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#attendanceModal" data-modal-mode="conflict" data-record-name="林小美2025-06-21公假" data-conflict-reason="與獎懲紀錄衝突：同日已有其他假別紀錄" aria-label="編輯單號 202506210001 學生出缺勤紀錄（含衝突）">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                            </button>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr data-conflict="true">
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取單號 202506210002"></span></td>
+                                    <td data-label="序號"><span class="cell-value"><i class="bi bi-exclamation-triangle-fill conflict-flag" aria-hidden="true"></i>4</span></td>
+                                    <td data-label="單號"><span class="cell-value">202506210002</span></td>
+                                    <td data-label="班級"><span class="cell-value">國小低年級</span></td>
+                                    <td data-label="姓名"><span class="cell-value">張小強</span></td>
+                                    <td data-label="學號"><span class="cell-value">A10002</span></td>
+                                    <td data-label="假別"><span class="cell-value">喪假</span></td>
+                                    <td data-label="資料來源"><span class="cell-value">人工登打</span></td>
+                                    <td data-label="請假日期"><span class="cell-value">2025-06-21 ~ 2025-06-25</span></td>
+                                    <td data-label="請假節次"><span class="cell-value">35</span></td>
+                                    <td data-label="衝突原因" class="col-conflict">
+                                        <span class="cell-value conflict-reason">
+                                            <i class="bi bi-exclamation-circle-fill" aria-hidden="true"></i>請假節次超出當日課表總節數
+                                        </span>
+                                    </td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#attendanceModal" data-modal-mode="conflict" data-record-name="張小強2025-06-21喪假" data-conflict-reason="請假節次超出當日課表總節數" aria-label="編輯單號 202506210002 學生出缺勤紀錄（含衝突）">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                            </button>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr data-conflict="false">
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取單號 202506220001"></span></td>
+                                    <td data-label="序號"><span class="cell-value">5</span></td>
+                                    <td data-label="單號"><span class="cell-value">202506220001</span></td>
+                                    <td data-label="班級"><span class="cell-value">11年1班</span></td>
+                                    <td data-label="姓名"><span class="cell-value">黃小芳</span></td>
+                                    <td data-label="學號"><span class="cell-value">D11007</span></td>
+                                    <td data-label="假別"><span class="cell-value">事假</span></td>
+                                    <td data-label="資料來源"><span class="cell-value">請假系統</span></td>
+                                    <td data-label="請假日期"><span class="cell-value">2025-06-22</span></td>
+                                    <td data-label="請假節次"><span class="cell-value">1</span></td>
+                                    <td data-label="衝突原因" class="col-conflict"><span class="cell-value">—</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#attendanceModal" data-modal-mode="edit" data-record-name="黃小芳2025-06-22事假" aria-label="編輯單號 202506220001 學生出缺勤紀錄">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                            </button>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- 後端：分頁為動態產生 -->
+                    <nav class="data-pagination" aria-label="分頁導覽">
+                        <ul class="pagination">
+                            <li class="page-item page-item--nav">
+                                <a class="page-link" href="#" aria-label="上一頁">
+                                    <i class="bi bi-chevron-double-left" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item page-item--nav">
+                                <a class="page-link" href="#" aria-label="下一頁">
+                                    <i class="bi bi-chevron-double-right" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 學生出缺勤 Modal：新增/編輯/衝突修正共用 -->
+    <div class="modal fade data-modal" id="attendanceModal" tabindex="-1" aria-labelledby="attendanceModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <h2 class="data-modal-title" id="attendanceModalTitle">
+                            <span class="data-modal-title-text">新增學生出缺勤紀錄</span>
+                            <span class="badge-required">必填</span>
+                        </h2>
+                        <p class="data-modal-desc">請填寫學生出缺勤資料明細。</p>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉視窗"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- 後端：表單送出目標與驗證由後端接手 -->
+                    <form action="#" method="post" novalidate>
+                        <!-- 後端：單號由後端產生、節次由系統自動計算；新增模式尚無單號，前端隱藏本列 -->
+                        <p class="substitute-info-bar">
+                            <span>單號：202506200002</span>
+                            <span>班級：<strong>國中一年級</strong></span>
+                            <span>姓名：<strong>陳小華</strong></span>
+                            <span>節次：<strong>7</strong> <small>(自動計算)</small></span>
+                        </p>
+
+                        <!-- 衝突警示框：僅衝突修正模式顯示，衝突原因由 JS 帶入 -->
+                        <p class="special-alert special-alert--danger attendance-conflict-alert" role="alert" hidden>
+                            <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
+                            <span><strong>衝突原因：</strong><span class="attendance-conflict-alert-text">此筆紀錄與其他出缺勤資料衝突。</span></span>
+                        </p>
+
+                        <div class="row g-3 mt-1">
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="attStudentName">姓名</label>
+                                <input type="text" class="form-control" id="attStudentName" name="attStudentName" placeholder="請輸入學生姓名" required aria-required="true">
+                                <div class="invalid-feedback">請輸入學生姓名。</div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="attStudentId">學號</label>
+                                <input type="text" class="form-control" id="attStudentId" name="attStudentId" placeholder="請輸入學號" required aria-required="true">
+                                <div class="invalid-feedback">請輸入學號。</div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="attClass">班級</label>
+                                <select class="form-select" id="attClass" name="attClass" required aria-required="true">
+                                    <option value="" selected>請選擇</option>
+                                    <option value="1">國小低年級</option>
+                                    <option value="2">國小中年級</option>
+                                    <option value="3">國中一年級</option>
+                                    <option value="4">11年1班</option>
+                                    <option value="5">12年1班</option>
+                                </select>
+                                <div class="invalid-feedback">請選擇班級。</div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="attLeaveType">假別</label>
+                                <select class="form-select" id="attLeaveType" name="attLeaveType" required aria-required="true">
+                                    <option value="" selected>請選擇</option>
+                                    <option value="1">病假</option>
+                                    <option value="2">事假</option>
+                                    <option value="3">公假</option>
+                                    <option value="4">喪假</option>
+                                    <option value="5">婚假</option>
+                                    <option value="6">生理假</option>
+                                    <option value="7">其他</option>
+                                </select>
+                                <div class="invalid-feedback">請選擇假別。</div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="attSource">資料來源</label>
+                                <select class="form-select" id="attSource" name="attSource" required aria-required="true">
+                                    <option value="" selected>請選擇</option>
+                                    <option value="1">人工登打</option>
+                                    <option value="2">請假系統</option>
+                                    <option value="3">導師登打</option>
+                                </select>
+                                <div class="invalid-feedback">請選擇資料來源。</div>
+                            </div>
+
+                            <div class="col-12">
+                                <span class="form-label d-block" id="attDateLabel">請假日期</span>
+                                <div class="date-range" role="group" aria-labelledby="attDateLabel">
+                                    <label class="sr-only" for="attDateStart">請假開始日期</label>
+                                    <input type="date" class="form-control" id="attDateStart" name="attDateStart" required aria-required="true">
+                                    <span class="date-range-sep" aria-hidden="true">~</span>
+                                    <label class="sr-only" for="attDateEnd">請假結束日期</label>
+                                    <input type="date" class="form-control" id="attDateEnd" name="attDateEnd" required aria-required="true">
+                                </div>
+                                <p class="substitute-date-hint">單日請假時，系統將自動隱藏「星期天數」選項。</p>
+                            </div>
+
+                            <!-- 跨日請假時顯示（單日由 JS 自動隱藏） -->
+                            <div class="col-12" id="attWeekdayGroup" hidden>
+                                <fieldset class="weekday-checks">
+                                    <legend class="form-legend">星期天數 <small>(請勾選實際請假的星期)</small></legend>
+                                    <div class="weekday-checks-row">
+                                        <div class="form-check weekday-check">
+                                            <input class="form-check-input" type="checkbox" id="attWd1" name="attWeekday[]" value="1">
+                                            <label class="form-check-label" for="attWd1">周一</label>
+                                        </div>
+                                        <div class="form-check weekday-check">
+                                            <input class="form-check-input" type="checkbox" id="attWd2" name="attWeekday[]" value="2">
+                                            <label class="form-check-label" for="attWd2">周二</label>
+                                        </div>
+                                        <div class="form-check weekday-check">
+                                            <input class="form-check-input" type="checkbox" id="attWd3" name="attWeekday[]" value="3">
+                                            <label class="form-check-label" for="attWd3">周三</label>
+                                        </div>
+                                        <div class="form-check weekday-check">
+                                            <input class="form-check-input" type="checkbox" id="attWd4" name="attWeekday[]" value="4">
+                                            <label class="form-check-label" for="attWd4">周四</label>
+                                        </div>
+                                        <div class="form-check weekday-check">
+                                            <input class="form-check-input" type="checkbox" id="attWd5" name="attWeekday[]" value="5">
+                                            <label class="form-check-label" for="attWd5">周五</label>
+                                        </div>
+                                        <div class="form-check weekday-check">
+                                            <input class="form-check-input" type="checkbox" id="attWd6" name="attWeekday[]" value="6">
+                                            <label class="form-check-label" for="attWd6">周六</label>
+                                        </div>
+                                        <div class="form-check weekday-check">
+                                            <input class="form-check-input" type="checkbox" id="attWd7" name="attWeekday[]" value="7">
+                                            <label class="form-check-label" for="attWd7">周日</label>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                            <div class="col-12">
+                                <span class="form-label d-block" id="attPeriodLabel">請假節次</span>
+                                <div class="period-range" role="group" aria-labelledby="attPeriodLabel">
+                                    <label class="sr-only" for="attPeriodStart">開始節次</label>
+                                    <select class="form-select" id="attPeriodStart" name="attPeriodStart">
+                                        <option value="" selected>請選擇</option>
+                                        <option value="1">第一節</option>
+                                        <option value="2">第二節</option>
+                                        <option value="3">第三節</option>
+                                        <option value="4">第四節</option>
+                                        <option value="5">第五節</option>
+                                        <option value="6">第六節</option>
+                                        <option value="7">第七節</option>
+                                    </select>
+                                    <span class="date-range-sep" aria-hidden="true">~</span>
+                                    <label class="sr-only" for="attPeriodEnd">結束節次</label>
+                                    <select class="form-select" id="attPeriodEnd" name="attPeriodEnd">
+                                        <option value="" selected>請選擇</option>
+                                        <option value="1">第一節</option>
+                                        <option value="2">第二節</option>
+                                        <option value="3">第三節</option>
+                                        <option value="4">第四節</option>
+                                        <option value="5">第五節</option>
+                                        <option value="6">第六節</option>
+                                        <option value="7">第七節</option>
+                                    </select>
+                                    <div class="form-check period-allday">
+                                        <input class="form-check-input" type="checkbox" id="attAllDay" name="attAllDay">
+                                        <label class="form-check-label" for="attAllDay">全天</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label" for="attReason">備註</label>
+                                <div class="textarea-counter-wrap">
+                                    <textarea class="form-control" id="attReason" name="attReason" rows="4" placeholder="請輸入備註事由" maxlength="200" aria-describedby="attReasonCount"></textarea>
+                                    <span class="textarea-counter" id="attReasonCount" aria-live="polite">0 / 200</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="data-modal-actions">
+                            <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-outline-secondary" id="attUnlockBtn" hidden>
+                                <i class="bi bi-unlock" aria-hidden="true"></i>解除衝突
+                            </button>
+                            <button type="submit" class="btn btn-primary data-modal-submit">確定新增</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回饋 Modal（3 秒倒數自動關閉；圖示/色彩由 JS 依情境切換） -->
+    <div class="modal fade feedback-modal" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body feedback-body" role="status">
+                    <span class="feedback-icon" aria-hidden="true">
+                        <i class="bi bi-file-earmark-check"></i>
+                    </span>
+                    <h2 class="feedback-title" id="feedbackModalTitle">資料更新成功</h2>
+                    <p class="feedback-desc">你已更新學生出缺勤紀錄</p>
+                    <p class="feedback-countdown"><span class="feedback-countdown-num">3</span>秒後 自動關閉</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/dataModal.js"></script>
+</body>
+</html>

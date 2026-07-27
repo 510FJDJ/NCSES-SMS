@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>學年度與學期設置 - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="設定與維護學年度、學期及相關日期，作為學務與成績作業之依據。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body>
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1">
+        <!-- 內頁 Banner：麵包屑＋標題＋CSS 裝飾＋插圖 -->
+        <section class="page-banner">
+            <!-- 裝飾層（純 CSS 繪製） -->
+            <div class="page-banner-deco" aria-hidden="true">
+                <span class="page-banner-halfcircle"></span>
+                <span class="page-banner-circle"></span>
+                <span class="page-banner-dots"></span>
+            </div>
+
+            <div class="container">
+                <nav class="page-banner-breadcrumb" aria-label="麵包屑導覽">
+                    <ol>
+                        <li>
+                            <a class="breadcrumb-home" href="index_AdminLogged.html" aria-label="首頁">
+                                <i class="bi bi-house-door" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">學年度管理</a></li>
+                        <li aria-current="page">學年度與學期設置</li>
+                    </ol>
+                </nav>
+
+                <div class="page-banner-main">
+                    <div class="page-banner-text">
+                        <h1 class="page-banner-title">學年度與學期設置</h1>
+                        <p class="page-banner-desc">設定與維護學年度、學期及相關日期，作為學務與成績作業之依據。</p>
+                    </div>
+                    <!-- 右側人物插圖（純裝飾） -->
+                    <div class="page-banner-visual page-banner-visual--composed page-banner-visual--pointPerson" aria-hidden="true">
+                        <span class="banner-visual-blob"></span>
+                        <span class="banner-visual-window"></span>
+                        <img class="banner-visual-person" src="img/hero/characters/people-front-point.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 學期設置頁籤區 -->
+        <section class="form-section-wrap">
+            <div class="container">
+                <div class="form-card">
+                    <div class="tabs-nav" role="tablist" aria-label="學年度與學期設置頁籤">
+                        <button type="button" class="tabs-nav-btn is-active" role="tab" id="tab-current" aria-selected="true" aria-controls="panel-current" tabindex="0">當前學期維護</button>
+                        <button type="button" class="tabs-nav-btn" role="tab" id="tab-activate" aria-selected="false" aria-controls="panel-activate" tabindex="-1">啟用新學期</button>
+                    </div>
+
+                    <!-- 頁籤一：當前學期維護 -->
+                    <div class="tabs-panel" role="tabpanel" id="panel-current" aria-labelledby="tab-current">
+                        <div class="semester-readonly-display">
+                            <span class="semester-readonly-label">目前學期（唯讀）</span>
+                            <p class="semester-readonly-value">113 學年度 第 2 學期</p>
+                        </div>
+
+                        <!-- 後端：實際送出與資料回填由後端接手，submit 一律 preventDefault 示意 -->
+                        <form class="semester-form" id="semesterForm" novalidate>
+                            <div class="row g-4">
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label" for="semesterStartDate">學期開始日期<span class="badge-required">必填</span></label>
+                                    <input type="date" class="form-control" id="semesterStartDate" name="semesterStartDate" value="2025-02-01" required aria-required="true">
+                                    <div class="invalid-feedback" id="semesterStartDateError">請選擇學期開始日期。</div>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label" for="semesterEndDate">學期結束日期<span class="badge-required">必填</span></label>
+                                    <input type="date" class="form-control" id="semesterEndDate" name="semesterEndDate" value="2025-07-31" required aria-required="true">
+                                    <div class="invalid-feedback" id="semesterEndDateError">請選擇學期結束日期。</div>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label" for="semesterScoreDeadline">學期成績輸入截止日<span class="badge-required">必填</span></label>
+                                    <input type="date" class="form-control" id="semesterScoreDeadline" name="semesterScoreDeadline" value="2025-07-25" required aria-required="true">
+                                    <div class="invalid-feedback" id="semesterScoreDeadlineError">請選擇學期成績輸入截止日。</div>
+                                </div>
+                            </div>
+
+                            <div class="form-actions form-actions--end">
+                                <button type="submit" class="btn btn-primary" id="semesterSaveBtn">儲存目前設定</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- 頁籤二：啟用新學期 -->
+                    <div class="tabs-panel" role="tabpanel" id="panel-activate" aria-labelledby="tab-activate" hidden>
+                        <div class="semester-hint-card" role="status">
+                            <span class="semester-hint-icon" aria-hidden="true">
+                               <i class="bi bi-exclamation-triangle-fill"></i>
+                            </span>
+                            <p class="semester-hint-text">系統即將前進至：<strong>114 學年度 第 1 學期</strong></p>
+                        </div>
+
+                        <div class="semester-confirm-row">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="semesterConfirmCheck">
+                                <label class="form-check-label" for="semesterConfirmCheck">我已確認 113-2 所有成績與資料皆已辦理與備份完畢，並了解開啟新學期後無法重返舊學期。</label>
+                            </div>
+                        </div>
+
+                        <div class="semester-activate-actions">
+                            <button type="button" class="btn btn-activate-semester" id="semesterActivateBtn" disabled>
+                                正式開啟新學期<i class="bi bi-arrow-right" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 回饋 Modal（3 秒倒數自動關閉；圖示/色彩由 JS 依情境切換） -->
+    <div class="modal fade feedback-modal" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body feedback-body" role="status">
+                    <span class="feedback-icon" aria-hidden="true">
+                        <i class="bi bi-file-earmark-check"></i>
+                    </span>
+                    <h2 class="feedback-title" id="feedbackModalTitle">儲存成功</h2>
+                    <p class="feedback-desc" id="feedbackModalDesc">學期設定已更新完成。</p>
+                    <p class="feedback-countdown"><span class="feedback-countdown-num">3</span>秒後 自動關閉</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 新學期啟用成功 Modal（不自動關閉；取消／前往資料轉移管理） -->
+    <div class="modal fade feedback-modal" id="semesterActivateSuccessModal" tabindex="-1" aria-labelledby="semesterActivateSuccessModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body feedback-body" role="status">
+                    <span class="feedback-icon" aria-hidden="true">
+                        <i class="bi bi-file-earmark-check"></i>
+                    </span>
+                    <h2 class="feedback-title" id="semesterActivateSuccessModalTitle">新學期已啟用</h2>
+                    <p class="feedback-desc">系統已正式前進至 114 學年度 第 1 學期。您可以前往「學期資料轉移管理」，一鍵複製編班、代課費、課程與 IEP 資料，無須逐筆手動建置。</p>
+                    <div class="data-modal-actions">
+                        <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">取消</button>
+                        <a href="semesterDataTransfer.html" class="btn btn-primary">前往資料轉移管理</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/tabs.js"></script>
+    <script src="js/semesterSetup.js"></script>
+</body>
+</html>

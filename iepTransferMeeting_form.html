@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>IEP轉銜會議記錄(檢視/修改) - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="維護與編製個案學生之學期轉銜決議，落實基本能力評估、生涯安置管道與轉銜需求規劃。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body class="has-iep-action-bar">
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1">
+        <!-- 內頁 Banner：麵包屑＋標題＋返回列表按鈕 -->
+        <section class="page-banner">
+            <!-- 裝飾層（純 CSS 繪製） -->
+            <div class="page-banner-deco" aria-hidden="true">
+                <span class="page-banner-halfcircle"></span>
+                <span class="page-banner-circle"></span>
+                <span class="page-banner-dots"></span>
+            </div>
+
+            <div class="container">
+                <nav class="page-banner-breadcrumb" aria-label="麵包屑導覽">
+                    <ol>
+                        <li>
+                            <a class="breadcrumb-home" href="index_AdminLogged.html" aria-label="首頁">
+                                <i class="bi bi-house-door" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">IEP管理</a></li>
+                        <li><a href="#">IEP紀錄表</a></li>
+                        <li><a href="iepTransferMeeting.html">IEP轉銜會議記錄</a></li>
+                        <li aria-current="page">編輯</li>
+                    </ol>
+                </nav>
+
+                <div class="page-banner-main">
+                    <div class="page-banner-text">
+                        <h1 class="page-banner-title">IEP轉銜會議記錄(檢視/修改)</h1>
+                        <p class="page-banner-desc">維護與編製個案學生之學期轉銜決議，落實基本能力評估、生涯安置管道與轉銜需求規劃。</p>
+                    </div>
+                    <!-- 右側人物插圖（純裝飾；背景以 CSS 繪製，角色圖可互換） -->
+                    <div class="page-banner-visual page-banner-visual--composed page-banner-visual--pointPerson" aria-hidden="true">
+                        <span class="banner-visual-blob"></span>
+                        <span class="banner-visual-window"></span>
+                        <img class="banner-visual-person" src="img/hero/characters/people-front-point.png" alt="">
+                    </div>
+                    <a class="btn-back" href="iepTransferMeeting.html">
+                        <i class="bi bi-chevron-left" aria-hidden="true"></i>返回列表
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- IEP 明細表單 -->
+        <section class="form-section-wrap">
+            <div class="container">
+                <!-- 學生資訊摘要列（後端：選擇班級與學生後由學生資料帶入） -->
+                <div class="iep-student-bar">
+                    <div class="iep-student-name">
+                        <span>黃彥中</span>
+                        <span class="iep-student-dept-badge">國中部</span>
+                    </div>
+                    <dl class="iep-student-metas">
+                        <div class="iep-student-meta">
+                            <dt>班級：</dt>
+                            <dd>201 國中一年級</dd>
+                        </div>
+                        <div class="iep-student-meta">
+                            <dt>個案管理師：</dt>
+                            <dd>蕭松茂</dd>
+                        </div>
+                        <div class="iep-student-meta">
+                            <dt>填表學期：</dt>
+                            <dd>113學年度第2學期</dd>
+                        </div>
+                        <div class="iep-student-meta">
+                            <dt>單號：</dt>
+                            <dd>202503050001</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <!-- 後端：表單送出目標與驗證由後端接手 -->
+                <form class="form-card" id="iepForm" action="#" method="post" novalidate>
+                    <!-- 個案管理師／地點／會議日期／會議時間（皆為必填） -->
+                    <section class="form-section" aria-label="填表資訊">
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="caseManager">個案管理師<span class="badge-required">必填</span></label>
+                                <input type="text" class="form-control" id="caseManager" name="caseManager" required placeholder="請輸入姓名" value="蕭松茂">
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="meetingLocation">地點<span class="badge-required">必填</span></label>
+                                <input type="text" class="form-control" id="meetingLocation" name="meetingLocation" required placeholder="請輸入地點">
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="meetingDate">會議日期<span class="badge-required">必填</span></label>
+                                <input type="date" class="form-control" id="meetingDate" name="meetingDate" required>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <div class="form-label" id="meetingTimeLabel">會議時間<span class="badge-required">必填</span></div>
+                                <div class="d-flex align-items-center gap-2" role="group" aria-labelledby="meetingTimeLabel">
+                                    <label class="sr-only" for="meetingHour">時</label>
+                                    <input type="number" class="form-control" id="meetingHour" name="meetingHour" min="0" max="23" required placeholder="10">
+                                    <span aria-hidden="true">時</span>
+                                    <label class="sr-only" for="meetingMinute">分</label>
+                                    <input type="number" class="form-control" id="meetingMinute" name="meetingMinute" min="0" max="59" required placeholder="10">
+                                    <span aria-hidden="true">分</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ============================================================
+                         與會人員／安置方式與管道（雙欄）
+                    ============================================================ -->
+                    <section class="form-section" aria-labelledby="transferSecMembersPlacement">
+                        <h2 class="sr-only" id="transferSecMembersPlacement">與會人員與安置方式</h2>
+                        <div class="row g-4">
+                            <!-- 與會人員 -->
+                            <div class="col-12 col-lg-6">
+                                <h3 class="form-section-title">
+                                    <i class="bi bi-people" aria-hidden="true"></i>與會人員
+                                </h3>
+                                <table class="table data-table table-striped">
+                                    <caption class="sr-only">與會人員名單</caption>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">職稱</th>
+                                            <th scope="col">與會人員</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td data-label="職稱"><span class="cell-value">主席</span></td>
+                                            <td data-label="與會人員">
+                                                <span class="cell-value">
+                                                    <label class="sr-only" for="memberName1">第1位與會人員姓名</label>
+                                                    <input type="text" class="form-control" id="memberName1" name="memberName1" value="黃彥中">
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td data-label="職稱"><span class="cell-value">主任</span></td>
+                                            <td data-label="與會人員">
+                                                <span class="cell-value">
+                                                    <label class="sr-only" for="memberName2">第2位與會人員姓名</label>
+                                                    <input type="text" class="form-control" id="memberName2" name="memberName2" value="党謙光">
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td data-label="職稱"><span class="cell-value">導師</span></td>
+                                            <td data-label="與會人員">
+                                                <span class="cell-value">
+                                                    <label class="sr-only" for="memberName3">第3位與會人員姓名</label>
+                                                    <input type="text" class="form-control" id="memberName3" name="memberName3" value="陳OO">
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td data-label="職稱"><span class="cell-value">任課教師</span></td>
+                                            <td data-label="與會人員">
+                                                <span class="cell-value">
+                                                    <label class="sr-only" for="memberName4">第4位與會人員姓名</label>
+                                                    <input type="text" class="form-control" id="memberName4" name="memberName4" value="林OO">
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td data-label="職稱"><span class="cell-value">家長</span></td>
+                                            <td data-label="與會人員">
+                                                <span class="cell-value">
+                                                    <label class="sr-only" for="memberName5">第5位與會人員姓名</label>
+                                                    <input type="text" class="form-control" id="memberName5" name="memberName5" value="黃彥中">
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- 安置方式與管道 -->
+                            <div class="col-12 col-lg-6">
+                                <h3 class="form-section-title">
+                                    <i class="bi bi-signpost-split" aria-hidden="true"></i>安置方式與管道
+                                </h3>
+                                <div class="d-flex flex-column gap-3">
+                                    <fieldset class="iep-choice-box">
+                                        <legend class="form-legend">1. 障礙資格鑑定</legend>
+                                        <div class="row g-3">
+                                            <div class="col-12 col-sm-6">
+                                                <label class="form-label" for="disabilityLevel">學生障礙程度</label>
+                                                <select class="form-select" id="disabilityLevel" name="disabilityLevel">
+                                                    <option value="" selected>請選擇</option>
+                                                    <option value="mild">輕度</option>
+                                                    <option value="moderate">中度</option>
+                                                    <option value="severe">重度</option>
+                                                    <option value="profound">極重度</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-12 col-sm-6">
+                                                <label class="form-label" for="disabilityCategory">障礙類別</label>
+                                                <select class="form-select" id="disabilityCategory" name="disabilityCategory">
+                                                    <option value="" selected>請選擇</option>
+                                                    <option value="intellectual">智能障礙</option>
+                                                    <option value="autism">自閉症</option>
+                                                    <option value="multiple">多重障礙</option>
+                                                    <option value="physical">肢體障礙</option>
+                                                    <option value="healthImpaired">身體病弱</option>
+                                                    <option value="learning">學習障礙</option>
+                                                    <option value="emotional">情緒行為障礙</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                    <div class="row g-3">
+                                        <div class="col-12 col-sm-6">
+                                            <fieldset class="iep-choice-box h-100">
+                                                <legend class="form-legend">2. 畢業生涯考量</legend>
+                                                <div class="iep-radio-inline">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" id="careerStudy" name="careerConsideration" value="study" checked>
+                                                        <label class="form-check-label" for="careerStudy">升學</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" id="careerWork" name="careerConsideration" value="work">
+                                                        <label class="form-check-label" for="careerWork">就業</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" id="careerCare" name="careerConsideration" value="care">
+                                                        <label class="form-check-label" for="careerCare">就養</label>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+
+                                        <div class="col-12 col-sm-6">
+                                            <fieldset class="iep-choice-box h-100">
+                                                <legend class="form-legend">3. 是否報名學年度身心障礙學生適性輔導安置</legend>
+                                                <div class="iep-radio-inline">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" id="adaptivePlacementYes" name="adaptivePlacement" value="yes">
+                                                        <label class="form-check-label" for="adaptivePlacementYes">是</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" id="adaptivePlacementNo" name="adaptivePlacement" value="no" checked>
+                                                        <label class="form-check-label" for="adaptivePlacementNo">否</label>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+
+                                    <fieldset class="iep-choice-box">
+                                        <legend class="form-legend">4. 報名類組（請選擇一項）</legend>
+                                        <div class="iep-radio-inline">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" id="admissionGroupSpecial" name="admissionGroup" value="specialSchool" checked>
+                                                <label class="form-check-label" for="admissionGroupSpecial">特殊教育學校</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" id="admissionGroupCentralized" name="admissionGroup" value="centralizedClass">
+                                                <label class="form-check-label" for="admissionGroupCentralized">高級中等學校集中式特教班</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" id="admissionGroupSenior" name="admissionGroup" value="seniorHigh">
+                                                <label class="form-check-label" for="admissionGroupSenior">高級中等學校</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" id="admissionGroupOther" name="admissionGroup" value="other">
+                                                <label class="form-check-label" for="admissionGroupOther">其他</label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ============================================================
+                         基本能力現況／轉銜需求
+                    ============================================================ -->
+                    <section class="form-section" aria-labelledby="transferSecAbilityNeed">
+                        <h2 class="sr-only" id="transferSecAbilityNeed">基本能力現況與轉銜需求</h2>
+                        <div class="row g-3">
+                            <div class="col-12 col-lg-6">
+                                <label class="form-label" for="presentAbility">基本能力現況<span class="badge-required">必填</span></label>
+                                <div class="textarea-counter-wrap">
+                                    <textarea class="form-control" id="presentAbility" name="presentAbility" rows="6" maxlength="500" required placeholder="請說明學生目前基本能力現況，限中文500字以內。" aria-describedby="presentAbilityCount"></textarea>
+                                    <span class="textarea-counter" id="presentAbilityCount" aria-live="polite">0 / 500</span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <label class="form-label" for="transferNeed">轉銜需求<span class="badge-required">必填</span></label>
+                                <div class="textarea-counter-wrap">
+                                    <textarea class="form-control" id="transferNeed" name="transferNeed" rows="6" maxlength="500" required placeholder="請說明學生升學或就業之轉銜需求，限中文500字以內。" aria-describedby="transferNeedCount"></textarea>
+                                    <span class="textarea-counter" id="transferNeedCount" aria-live="polite">0 / 500</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- 固定於視窗底部的表單操作列（後端：儲存與報表產出由後端接手） -->
+    <div class="iep-action-bar" role="region" aria-label="IEP 表單操作列">
+        <div class="iep-action-hint">
+            <img src="img/icon/小提醒.svg" alt="" class="iep-action-hint-icon">
+            <p><strong>小提醒</strong><br>表單完成後請記得儲存並送出審核歐!</p>
+        </div>
+        <div class="iep-action-buttons">
+            <button type="button" class="btn btn-success" id="transferMeetingSaveBtn">
+                <i class="bi bi-floppy" aria-hidden="true"></i>儲存修改資料
+            </button>
+            <button type="button" class="btn btn-primary" id="transferMeetingExportBtn">
+                <i class="bi bi-download" aria-hidden="true"></i>下載轉銜報告書
+            </button>
+        </div>
+        <a class="btn iep-action-cancel" href="iepTransferMeeting.html">取消</a>
+    </div>
+
+    <!-- 回饋 Modal（3 秒倒數自動關閉；圖示/色彩由 JS 依情境切換） -->
+    <div class="modal fade feedback-modal" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body feedback-body" role="status">
+                    <span class="feedback-icon" aria-hidden="true">
+                        <i class="bi bi-file-earmark-check"></i>
+                    </span>
+                    <h2 class="feedback-title" id="feedbackModalTitle">儲存成功</h2>
+                    <p class="feedback-desc">您的 IEP 表單內容已儲存。</p>
+                    <p class="feedback-countdown"><span class="feedback-countdown-num">3</span>秒後 自動關閉</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/iep.js"></script>
+</body>
+</html>

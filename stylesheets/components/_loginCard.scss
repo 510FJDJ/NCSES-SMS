@@ -1,0 +1,187 @@
+// ==========================================================================
+// 系統登入卡片（未登入首頁）：含帳號／密碼／圖形驗證碼＋語音播放
+// ==========================================================================
+
+.login-card {
+  background-color: $white;
+  border-radius: 16px;
+  box-shadow: $box-shadow-lg;
+  padding: 20px;
+  max-width: 650px;
+
+  @include media-breakpoint-up(lg) {
+    // padding: 32px;
+  }
+}
+
+.login-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.login-card-title {
+  color: $primary-100;
+  font-size: 2rem;
+  font-weight: $font-weight-medium;
+  padding-bottom: 8px;
+  border-bottom: 1px solid $gray-300;
+  width:100%;
+  position: relative;
+  margin: 0;
+}
+.login-card-title::after{
+  content: "";
+  bottom:-2.5px;
+  left:0;
+  position: absolute;
+  display: block;
+  width: 72px;
+  height: 5px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: $primary-100;
+}
+
+.login-card-grip {
+  color: $grey-300;
+  font-size: 1.5rem;
+}
+
+.login-field {
+  margin-bottom: 10px;
+
+  label {
+    display: block;
+    color: $grey-600;
+    font-weight: $font-weight-medium;
+    margin-bottom: 4px;
+  }
+}
+
+// 必填星號
+.required-mark {
+  color: $danger;
+}
+
+// 密碼欄：輸入框＋顯示密碼切換鈕
+.input-password-wrap {
+  position: relative;
+
+  .form-control {
+    padding-right: 48px;
+  }
+}
+
+.toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  border: 0;
+  background: transparent;
+  color: $grey-500;
+  font-size: 1.125rem;
+  padding: 4px;
+
+  &:hover {
+    color: $primary;
+  }
+}
+
+.login-field-aid {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.forgot-link {
+  margin-left: auto;
+  color: $grey-500;
+  font-size: 1rem;
+
+  &:hover {
+    color: $primary;
+  }
+}
+
+// 錯誤提示：文字描述＋顏色變化並行（不可只用顏色）
+.field-error {
+  color: $danger;
+  font-size: 1rem;
+  margin: 4px 0 0;
+
+  &::before {
+    content: "\F333"; // bootstrap-icons: bi-exclamation-circle
+    font-family: "bootstrap-icons";
+    margin-right: 4px;
+  }
+}
+
+// 驗證碼列
+.captcha-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .form-control {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+.captcha-img {
+  width: 120px;
+  height: 48px;
+  border: 1px solid $grey-300;
+  border-radius: 8px;
+  background-color: $grey-200;
+  flex-shrink: 0;
+}
+
+.captcha-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.btn-captcha {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 14px;
+  border: 1px solid $grey-300;
+  border-radius: 8px;
+  background-color: $white;
+  color: $grey-600;
+  font-size: 1rem;
+  transition: border-color .2s ease-in-out, color .2s ease-in-out;
+
+  &:hover {
+    border-color: $primary;
+    color: $primary;
+  }
+}
+
+// 登入送出鈕
+.btn-login {
+  display: block;
+  width: 100%;
+  margin-top: 24px;
+  padding: 10px;
+  border: 0;
+  border-radius: 8px;
+  background-color: $primary-100;
+  color: $white;
+  font-size: 1.125rem;
+  font-weight: $font-weight-medium;
+  letter-spacing: 0.2em;
+  transition: background-color .2s ease-in-out;
+
+  &:hover {
+    background-color: shade-color($primary-100, 12%);
+  }
+}

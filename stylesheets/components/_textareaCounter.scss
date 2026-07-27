@@ -1,0 +1,21 @@
+// ==========================================================================
+// Textarea 字數統計元件（.textarea-counter-wrap / .textarea-counter）
+// 全站凡有 maxlength 限制的 textarea 皆應套用此結構
+// ==========================================================================
+
+.textarea-counter-wrap {
+  position: relative;
+
+  .form-control {
+    padding-bottom: 36px;
+  }
+}
+
+.textarea-counter {
+  position: absolute;
+  right: 14px;
+  bottom: 10px;
+  color: $grey-500;
+  font-size: 0.9375rem;
+  pointer-events: none;
+}

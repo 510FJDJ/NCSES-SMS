@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>科目基本資料 - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="維護與管理學生科目資料，確保資料正確與完整。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body>
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1">
+        <!-- 內頁 Banner：麵包屑＋標題＋CSS 裝飾＋插圖 -->
+        <section class="page-banner">
+            <!-- 裝飾層（純 CSS 繪製） -->
+            <div class="page-banner-deco" aria-hidden="true">
+                <span class="page-banner-halfcircle"></span>
+                <span class="page-banner-circle"></span>
+                <span class="page-banner-dots"></span>
+            </div>
+
+            <div class="container">
+                <nav class="page-banner-breadcrumb" aria-label="麵包屑導覽">
+                    <ol>
+                        <li>
+                            <a class="breadcrumb-home" href="index_AdminLogged.html" aria-label="首頁">
+                                <i class="bi bi-house-door" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">基本資料維護</a></li>
+                        <li aria-current="page">科目基本資料</li>
+                    </ol>
+                </nav>
+
+                <div class="page-banner-main">
+                    <div class="page-banner-text">
+                        <h1 class="page-banner-title">科目基本資料</h1>
+                        <p class="page-banner-desc">維護與管理學生科目資料，確保資料正確與完整。</p>
+                    </div>
+                    <!-- 右側人物插圖（純裝飾） -->
+                    <div class="page-banner-visual" aria-hidden="true">
+                        <img src="img/hero/login-hero/內頁人物背景.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 查詢與資料列表 -->
+        <section class="data-section">
+            <div class="container">
+                <div class="data-card">
+                    <!-- 查詢工具列（後端：查詢/刪除/匯出行為由後端接手） -->
+                    <form class="data-toolbar" action="#" method="get">
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterDept">部別</label>
+                            <select class="form-select" id="filterDept" name="filterDept">
+                                <option value="" selected>請選擇</option>
+                                <option value="1">國民小學</option>
+                                <option value="2">國民中學</option>
+                                <option value="3">高級職業部</option>
+                            </select>
+                        </div>
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterSubNameToggle">科目名稱</label>
+                            <!-- 下拉搜尋選單通用元件（比照 teacherSubject.html），後端：選項為系統既有科目名稱清單，動態產生 -->
+                            <div class="dropdown dropdown-search" data-dropdown-search>
+                                <button class="form-select text-start text-muted bg-white" type="button" id="filterSubNameToggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                    請選擇
+                                </button>
+                                <div class="dropdown-menu w-100 p-2" aria-labelledby="filterSubNameToggle">
+                                    <div class="dropdown-search-box">
+                                        <label class="sr-only" for="filterSubNameSearch">搜尋科目名稱</label>
+                                        <input type="search" class="form-control" id="filterSubNameSearch" placeholder="搜尋科目名稱" data-dropdown-search-input autocomplete="off">
+                                    </div>
+                                    <ul class="dropdown-search-list">
+                                        <li><button type="button" class="dropdown-search-item" data-value="1">語文</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="2">數學</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="3">自然科學</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="4">健康與體育</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="5">綜合活動</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="6">特殊需求</button></li>
+                                    </ul>
+                                    <p class="dropdown-search-empty" data-dropdown-search-empty hidden>查無符合的科目</p>
+                                </div>
+                                <input type="hidden" name="filterSubName" data-dropdown-search-value>
+                            </div>
+                        </div>
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterSubCode">科目代碼</label>
+                            <input type="text" class="form-control" id="filterSubCode" name="filterSubCode" placeholder="請輸入代碼">
+                        </div>
+                        <div class="data-toolbar-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-search" aria-hidden="true"></i>查詢
+                            </button>
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#subjectModal" data-modal-mode="add">
+                                <i class="bi bi-plus-lg" aria-hidden="true"></i>新增
+                            </button>
+                            <button type="button" class="btn btn-danger">
+                                <i class="bi bi-trash3" aria-hidden="true"></i>刪除
+                            </button>
+                            <button type="button" class="btn btn-export">
+                                <i class="bi bi-download" aria-hidden="true"></i>匯出
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- 後端：總筆數 -->
+                    <p class="data-total">總筆數：44</p>
+
+                    <table class="table data-table table-striped">
+                        <caption class="sr-only">科目基本資料列表</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    <span class="check-all-label">
+                                        <input class="form-check-input" type="checkbox" id="checkAll" data-check-all>
+                                        <label for="checkAll">全選</label>
+                                    </span>
+                                </th>
+                                <th scope="col">序號</th>
+                                <th scope="col">科目代碼</th>
+                                <th scope="col">科目名稱</th>
+                                <th scope="col">部別</th>
+                                <th scope="col">部 / 校定科目</th>
+                                <th scope="col">功能</th>
+                            </tr>
+                        </thead>
+                        <!-- 後端：以下列表資料為動態產生，示意 10 筆 -->
+                        <tbody>
+                            <tr>
+                                <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取科目 1002 語文"></span></td>
+                                <td data-label="序號"><span class="cell-value">1</span></td>
+                                <td data-label="科目代碼"><span class="cell-value">1002</span></td>
+                                <td data-label="科目名稱"><span class="cell-value">語文</span></td>
+                                <td data-label="部別"><span class="cell-value">國民小學</span></td>
+                                <td data-label="部 / 校定科目"><span class="cell-value">部定科目</span></td>
+                                <td data-label="功能">
+                                    <span class="cell-value">
+                                        <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#subjectModal" data-modal-mode="edit" data-record-code="1002" data-record-name="語文" aria-label="編輯科目 1002 語文">
+                                            <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                        </button>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取科目 1005 健康與體育"></span></td>
+                                <td data-label="序號"><span class="cell-value">2</span></td>
+                                <td data-label="科目代碼"><span class="cell-value">1005</span></td>
+                                <td data-label="科目名稱"><span class="cell-value">健康與體育</span></td>
+                                <td data-label="部別"><span class="cell-value">國民小學</span></td>
+                                <td data-label="部 / 校定科目"><span class="cell-value">部定科目</span></td>
+                                <td data-label="功能">
+                                    <span class="cell-value">
+                                        <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#subjectModal" data-modal-mode="edit" data-record-code="1005" data-record-name="健康與體育" aria-label="編輯科目 1005 健康與體育">
+                                            <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                        </button>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取科目 1005-1 健康與體育-健康"></span></td>
+                                <td data-label="序號"><span class="cell-value">3</span></td>
+                                <td data-label="科目代碼"><span class="cell-value">1005-1</span></td>
+                                <td data-label="科目名稱"><span class="cell-value">健康與體育-健康</span></td>
+                                <td data-label="部別"><span class="cell-value">高級職業部</span></td>
+                                <td data-label="部 / 校定科目"><span class="cell-value">部定科目</span></td>
+                                <td data-label="功能">
+                                    <span class="cell-value">
+                                        <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#subjectModal" data-modal-mode="edit" data-record-code="1005-1" data-record-name="健康與體育-健康" aria-label="編輯科目 1005-1 健康與體育-健康">
+                                            <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                        </button>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取科目 1005-2 數學"></span></td>
+                                <td data-label="序號"><span class="cell-value">4</span></td>
+                                <td data-label="科目代碼"><span class="cell-value">1005-2</span></td>
+                                <td data-label="科目名稱"><span class="cell-value">數學</span></td>
+                                <td data-label="部別"><span class="cell-value">高級職業部</span></td>
+                                <td data-label="部 / 校定科目"><span class="cell-value">部定科目</span></td>
+                                <td data-label="功能">
+                                    <span class="cell-value">
+                                        <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#subjectModal" data-modal-mode="edit" data-record-code="1005-2" data-record-name="數學" aria-label="編輯科目 1005-2 數學">
+                                            <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                        </button>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取科目 1017 特殊需求"></span></td>
+                                <td data-label="序號"><span class="cell-value">5</span></td>
+                                <td data-label="科目代碼"><span class="cell-value">1017</span></td>
+                                <td data-label="科目名稱"><span class="cell-value">特殊需求</span></td>
+                                <td data-label="部別"><span class="cell-value">國民小學</span></td>
+                                <td data-label="部 / 校定科目"><span class="cell-value">校定科目</span></td>
+                                <td data-label="功能">
+                                    <span class="cell-value">
+                                        <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#subjectModal" data-modal-mode="edit" data-record-code="1017" data-record-name="特殊需求" aria-label="編輯科目 1017 特殊需求">
+                                            <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                        </button>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取科目 1017-1 特殊需求-生活管理"></span></td>
+                                <td data-label="序號"><span class="cell-value">6</span></td>
+                                <td data-label="科目代碼"><span class="cell-value">1017-1</span></td>
+                                <td data-label="科目名稱"><span class="cell-value">特殊需求-生活管理</span></td>
+                                <td data-label="部別"><span class="cell-value">國民小學</span></td>
+                                <td data-label="部 / 校定科目"><span class="cell-value">校定科目</span></td>
+                                <td data-label="功能">
+                                    <span class="cell-value">
+                                        <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#subjectModal" data-modal-mode="edit" data-record-code="1017-1" data-record-name="特殊需求-生活管理" aria-label="編輯科目 1017-1 特殊需求-生活管理">
+                                            <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                        </button>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取科目 1017-2 特殊需求-社會技巧"></span></td>
+                                <td data-label="序號"><span class="cell-value">7</span></td>
+                                <td data-label="科目代碼"><span class="cell-value">1017-2</span></td>
+                                <td data-label="科目名稱"><span class="cell-value">特殊需求-社會技巧</span></td>
+                                <td data-label="部別"><span class="cell-value">高級職業部</span></td>
+                                <td data-label="部 / 校定科目"><span class="cell-value">校定科目</span></td>
+                                <td data-label="功能">
+                                    <span class="cell-value">
+                                        <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#subjectModal" data-modal-mode="edit" data-record-code="1017-2" data-record-name="特殊需求-社會技巧" aria-label="編輯科目 1017-2 特殊需求-社會技巧">
+                                            <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                        </button>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取科目 1017-3 特殊需求-溝通訓練"></span></td>
+                                <td data-label="序號"><span class="cell-value">8</span></td>
+                                <td data-label="科目代碼"><span class="cell-value">1017-3</span></td>
+                                <td data-label="科目名稱"><span class="cell-value">特殊需求-溝通訓練</span></td>
+                                <td data-label="部別"><span class="cell-value">高級職業部</span></td>
+                                <td data-label="部 / 校定科目"><span class="cell-value">校定科目</span></td>
+                                <td data-label="功能">
+                                    <span class="cell-value">
+                                        <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#subjectModal" data-modal-mode="edit" data-record-code="1017-3" data-record-name="特殊需求-溝通訓練" aria-label="編輯科目 1017-3 特殊需求-溝通訓練">
+                                            <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                        </button>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取科目 1018 自然科學"></span></td>
+                                <td data-label="序號"><span class="cell-value">9</span></td>
+                                <td data-label="科目代碼"><span class="cell-value">1018</span></td>
+                                <td data-label="科目名稱"><span class="cell-value">自然科學</span></td>
+                                <td data-label="部別"><span class="cell-value">高級職業部</span></td>
+                                <td data-label="部 / 校定科目"><span class="cell-value">部定科目</span></td>
+                                <td data-label="功能">
+                                    <span class="cell-value">
+                                        <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#subjectModal" data-modal-mode="edit" data-record-code="1018" data-record-name="自然科學" aria-label="編輯科目 1018 自然科學">
+                                            <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                        </button>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取科目 1019 語文"></span></td>
+                                <td data-label="序號"><span class="cell-value">10</span></td>
+                                <td data-label="科目代碼"><span class="cell-value">1019</span></td>
+                                <td data-label="科目名稱"><span class="cell-value">語文</span></td>
+                                <td data-label="部別"><span class="cell-value">高級職業部</span></td>
+                                <td data-label="部 / 校定科目"><span class="cell-value">部定科目</span></td>
+                                <td data-label="功能">
+                                    <span class="cell-value">
+                                        <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#subjectModal" data-modal-mode="edit" data-record-code="1019" data-record-name="語文" aria-label="編輯科目 1019 語文">
+                                            <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                        </button>
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- 後端：分頁為動態產生 -->
+                    <nav class="data-pagination" aria-label="分頁導覽">
+                        <ul class="pagination">
+                            <li class="page-item page-item--nav">
+                                <a class="page-link" href="#" aria-label="上一頁">
+                                    <i class="bi bi-chevron-double-left" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item active" aria-current="page"><span class="page-link">2</span></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item"><a class="page-link" href="#">6</a></li>
+                            <li class="page-item page-item--nav">
+                                <a class="page-link" href="#" aria-label="下一頁">
+                                    <i class="bi bi-chevron-double-right" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 科目資料 Modal（新增/編輯共用；標題與按鈕文字由 JS 依模式切換） -->
+    <div class="modal fade data-modal" id="subjectModal" tabindex="-1" aria-labelledby="subjectModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <h2 class="data-modal-title" id="subjectModalTitle">
+                            <span class="data-modal-title-text">新增科目資料</span>
+                            <span class="badge-required">必填</span>
+                        </h2>
+                        <p class="data-modal-desc">請填寫科目資料明細。</p>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉視窗"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- 後端：表單送出目標與驗證由後端接手 -->
+                    <form action="#" method="post" novalidate>
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="subCode">科目代碼</label>
+                                <input type="text" class="form-control" id="subCode" name="subCode" placeholder="請輸入代碼" required aria-required="true">
+                                <div class="invalid-feedback">請輸入科目代碼（例如：1002）。</div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="subName">科目名稱</label>
+                                <input type="text" class="form-control" id="subName" name="subName" placeholder="請輸入名稱" required aria-required="true">
+                                <div class="invalid-feedback">請輸入科目名稱。</div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="subDept">部別</label>
+                                <select class="form-select" id="subDept" name="subDept" required aria-required="true">
+                                    <option value="" selected>請選擇</option>
+                                    <option value="1">國民小學</option>
+                                    <option value="2">國民中學</option>
+                                    <option value="3">高級職業部</option>
+                                </select>
+                                <div class="invalid-feedback">請選擇部別。</div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="subKind">部/校定科目</label>
+                                <select class="form-select" id="subKind" name="subKind" required aria-required="true">
+                                    <option value="" selected>請選擇</option>
+                                    <option value="1">部定科目</option>
+                                    <option value="2">校定科目</option>
+                                </select>
+                                <div class="invalid-feedback">請選擇部/校定科目。</div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="subCategory">科目類別</label>
+                                <select class="form-select" id="subCategory" name="subCategory">
+                                    <option value="" selected>請選擇</option>
+                                    <option value="1">一般科目</option>
+                                    <option value="2">專業科目</option>
+                                    <option value="3">特殊需求領域課程</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="subDomain">領域</label>
+                                <select class="form-select" id="subDomain" name="subDomain">
+                                    <option value="" selected>請選擇</option>
+                                    <option value="1">語文</option>
+                                    <option value="2">數學</option>
+                                    <option value="3">自然科學</option>
+                                    <option value="4">健康與體育</option>
+                                    <option value="5">綜合活動</option>
+                                    <option value="6">社會</option>
+                                </select>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="subRequired">必選修</label>
+                                <select class="form-select" id="subRequired" name="subRequired">
+                                    <option value="" selected>請選擇</option>
+                                    <option value="1">必修</option>
+                                    <option value="2">選修</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="subCredit">學分</label>
+                                <select class="form-select" id="subCredit" name="subCredit">
+                                    <option value="" selected>請選擇</option>
+                                    <option value="1">1 學分</option>
+                                    <option value="2">2 學分</option>
+                                    <option value="3">3 學分</option>
+                                    <option value="4">4 學分</option>
+                                </select>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <fieldset>
+                                    <legend class="form-legend">是否計算成績</legend>
+                                    <div class="form-radio-row">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="subCalcScore" id="subCalcScoreY" value="Y" checked>
+                                            <label class="form-check-label" for="subCalcScoreY">是</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="subCalcScore" id="subCalcScoreN" value="N">
+                                            <label class="form-check-label" for="subCalcScoreN">否</label>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <fieldset>
+                                    <legend class="form-legend">是否顯示於成績單</legend>
+                                    <div class="form-radio-row">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="subShowReport" id="subShowReportY" value="Y" checked>
+                                            <label class="form-check-label" for="subShowReportY">是</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="subShowReport" id="subShowReportN" value="N">
+                                            <label class="form-check-label" for="subShowReportN">否</label>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label" for="subNote">備註</label>
+                                <div class="textarea-counter-wrap">
+                                    <textarea class="form-control" id="subNote" name="subNote" rows="2" placeholder="請輸入備註" maxlength="200" aria-describedby="subNoteCount"></textarea>
+                                    <span class="textarea-counter" id="subNoteCount" aria-live="polite">0 / 200</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="data-modal-actions">
+                            <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary data-modal-submit">確定新增</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回饋 Modal（新增/更新成功；3 秒倒數自動關閉） -->
+    <div class="modal fade feedback-modal" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body feedback-body" role="status">
+                    <span class="feedback-icon" aria-hidden="true">
+                        <i class="bi bi-file-earmark-check"></i>
+                    </span>
+                    <h2 class="feedback-title" id="feedbackModalTitle">資料新增成功</h2>
+                    <p class="feedback-desc">你已送出你的“綜合活動-科目資料”</p>
+                    <p class="feedback-countdown"><span class="feedback-countdown-num">3</span>秒後 自動關閉</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/dataModal.js"></script>
+</body>
+</html>

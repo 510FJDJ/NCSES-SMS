@@ -1,0 +1,420 @@
+// ==========================================================================
+// IEP 基本資料管理明細（iepBasicInfo_form.html）
+// 學生資訊摘要列、三階段編號頁籤、唯讀基本資料格、可複選勾選群組
+// ==========================================================================
+
+// --------------------------------------------------------------------------
+// 學生資訊摘要列（姓名＋部別徽章＋學號/班級/填表學期/填表日期）
+// --------------------------------------------------------------------------
+.iep-student-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 0;
+  background-color: $white;
+  border-radius: 16px;
+  box-shadow: $box-shadow;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+
+  @include media-breakpoint-up(lg) {
+    padding: 20px 28px;
+  }
+}
+
+.iep-student-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.375rem;
+  font-weight: $font-weight-bold;
+  color: $grey-600;
+  padding-right: 24px;
+}
+
+.iep-student-dept-badge {
+  flex-shrink: 0;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background-color: $primary;
+  color: $white;
+  font-size: .8125rem;
+  font-weight: $font-weight-medium;
+}
+
+.iep-student-metas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 0;
+  margin: 0;
+  flex: 1 1 auto;
+}
+
+.iep-student-meta {
+  flex: 1 1 160px;
+  min-width: 0;
+  padding: 0 24px;
+  border-left: 1px solid $grey-300;
+
+  dt {
+    color: $grey-500;
+    font-size: .9375rem;
+    font-weight: $font-weight-medium;
+    margin-bottom: 2px;
+  }
+
+  dd {
+    margin: 0;
+    color: $grey-600;
+    font-weight: $font-weight-medium;
+  }
+
+  @include media-breakpoint-down(md) {
+    flex: 1 1 100%;
+    padding: 0;
+    border-left: 0;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 三階段編號頁籤（tabs-nav 變體：未選中藍底白字、選中白底藍字接合面板）
+// --------------------------------------------------------------------------
+.tabs-nav--steps {
+  background: none;
+  border-radius: 0;
+  padding: 0;
+  gap: 6px;
+  margin-bottom: 0;
+  align-items: flex-end;
+
+  .tabs-nav-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex: 1 1 220px;
+    background-color: $primary;
+    color: $white;
+    border: 1px solid $primary;
+    border-radius: 10px 10px 0 0;
+    padding: 14px 16px;
+
+    &:hover {
+      background-color: $primary-100;
+      border-color: $primary-100;
+      color: $white;
+    }
+
+    &.is-active {
+      background-color: $white;
+      color: $primary;
+      border-color: $primary-100;
+      border-bottom-color: $white;
+      margin-bottom: -1px;
+      z-index: 1;
+      box-shadow: none;
+    }
+  }
+}
+
+.iep-step-num {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  font-size: .9375rem;
+  font-weight: $font-weight-bold;
+}
+
+// 頁籤下方的面板容器（與選中頁籤共用邊框）
+.iep-step-panels {
+  border: 1px solid $primary-100;
+  border-radius: 0 0 12px 12px;
+  padding: 20px 16px;
+
+  @include media-breakpoint-up(lg) {
+    padding: 28px;
+  }
+}
+
+// 各頁籤重點導語
+.iep-tab-lead {
+  color: $primary;
+  font-weight: $font-weight-medium;
+  margin-bottom: 24px;
+}
+
+// 欄位標籤內的字數限制備註
+.iep-label-note {
+  margin-left: 6px;
+  color: $danger;
+  font-size: .9375rem;
+}
+
+// --------------------------------------------------------------------------
+// 唯讀基本資料格（分類標籤欄＋欄位群組，每列一個分類）
+// --------------------------------------------------------------------------
+.iep-info-grid {
+  border: 1px solid $grey-300;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.iep-info-row {
+  display: flex;
+  flex-direction: column;
+
+  & + & {
+    border-top: 1px solid $grey-300;
+  }
+
+  @include media-breakpoint-up(md) {
+    flex-direction: row;
+    align-items: stretch;
+  }
+}
+
+.iep-info-row-label {
+  flex-shrink: 0;
+  padding: 8px 16px;
+  background-color: $color-primary-light;
+  color: $primary;
+  font-weight: $font-weight-bold;
+
+  @include media-breakpoint-up(md) {
+    width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid $grey-300;
+  }
+}
+
+.iep-info-fields {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px 24px;
+  padding: 12px 16px;
+  margin: 0;
+  min-width: 0;
+
+  @include media-breakpoint-up(sm) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    // 欄位間直向分隔線（首欄除外）
+    > .iep-info-item {
+      padding-left: 16px;
+      border-left: 1px solid $grey-300;
+
+      &:first-child {
+        padding-left: 0;
+        border-left: 0;
+      }
+    }
+  }
+}
+
+.iep-info-fields--cols3 {
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.iep-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+
+  dt {
+    font-size: .875rem;
+    color: $grey-500;
+  }
+
+  dd {
+    margin: 0;
+    font-weight: $font-weight-medium;
+    color: $grey-600;
+    word-break: break-word;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 單選＋補充輸入框同列（健康狀況：現況描述／長期服用藥物）
+// --------------------------------------------------------------------------
+.iep-radio-inline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  min-height: 52px;
+
+  .form-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+  }
+
+  .form-check-input {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  > .form-control {
+    flex: 1 1 240px;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 優弱勢分析群組
+// --------------------------------------------------------------------------
+.iep-sw-group {
+  &:not(:first-of-type) {
+    margin-top: 32px;
+  }
+
+  > .form-legend {
+    font-size: 1.0625rem;
+    font-weight: $font-weight-bold;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 可複選勾選群組（階段三）：淺灰圓角盒＋雙欄勾選清單
+// --------------------------------------------------------------------------
+.iep-choice-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.iep-choice-box {
+  border: 1px solid $grey-300;
+  border-radius: 12px;
+  background-color: $grey-100;
+  padding: 16px;
+  margin: 0;
+  min-width: 0;
+
+  > .form-legend {
+    font-size: 1.15rem;
+    font-weight: $font-weight-medium;
+  }
+  > legend{
+    background-color: white;
+    padding: 6px 12px;
+    border-radius:0 0 12px 12px;
+    color:$primary-300;
+    border-bottom:1px solid $grey-300;
+  }
+
+  // 內層子群組（來源/項目、評量標準/評量方式等）
+  fieldset .form-legend {
+    font-size: 1rem;
+  }
+}
+
+.iep-choice-box--span2 {
+  @include media-breakpoint-up(lg) {
+    grid-column: span 2;
+  }
+}
+
+.iep-choice-box--full {
+  @include media-breakpoint-up(lg) {
+    grid-column: 1 / -1;
+  }
+}
+
+.iep-choice-note {
+  color: $grey-500;
+  margin-bottom: 12px;
+}
+
+.iep-check-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 16px;
+
+  .form-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 0;
+    min-width: 0;
+  }
+
+  .form-check-input {
+    width: 20px;
+    height: 20px;
+    margin: 3px 0 0;
+    flex-shrink: 0;
+  }
+
+  .form-check-label {
+    min-width: 0;
+  }
+
+  @include media-breakpoint-down(sm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// 單欄版（選項文字較長的群組）
+.iep-check-list--single {
+  grid-template-columns: 1fr;
+}
+
+// 三欄版（相關專業團隊服務）
+.iep-check-list--cols3 {
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+// 「其他，請說明：」勾選＋補充輸入框（佔滿整列）
+.iep-check-other {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+
+  // 不可加 flex-shrink: 0（曾導致「特定物理刺激，請說明：」等長標籤
+  // 無法換行，把頁面往右推出水平捲軸），需保留可縮小以便標籤換行
+  .form-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 0;
+    min-width: 0;
+  }
+
+  .form-check-input {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  > .form-control {
+    flex: 1 1 220px;
+    padding: .5rem .75rem;
+  }
+}

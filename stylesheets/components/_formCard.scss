@@ -1,0 +1,225 @@
+// ==========================================================================
+// 表單卡片（.form-card）：新增/編輯內頁的分區表單
+// 區塊標題（icon＋藍字＋底線）、必填徽章、照片上傳、底部動作按鈕
+// ==========================================================================
+
+.form-section-wrap {
+  // 上疊進 banner 的下方留白區，做出卡片浮在漸層背景上的交疊效果
+  position: relative;
+  margin-top: -48px;
+  padding: 0 0 64px;
+  z-index:2;
+
+  @include media-breakpoint-up(lg) {
+    margin-top: -64px;
+  }
+}
+
+.form-card {
+  background-color: $white;
+  border-radius: 16px;
+  box-shadow: $box-shadow;
+  padding: 24px 16px;
+
+  @include media-breakpoint-up(lg) {
+    padding: 20px 28px;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 表單分區
+// --------------------------------------------------------------------------
+.form-section {
+  &:not(:first-child) {
+    margin-top: 20px;
+  }
+}
+
+.form-section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: $primary-300;
+  font-size: 1.75rem;
+  font-weight: $font-weight-medium;
+  padding: 8px 0;
+  border-bottom: 1px solid $primary-100;
+  margin-bottom: 24px;
+
+  .bi {
+    font-size: 1.125rem;
+  }
+
+  @include media-breakpoint-up(lg) {
+    font-size: 1.375rem;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 欄位與必填徽章
+// --------------------------------------------------------------------------
+.form-label {
+  color: $grey-600;
+}
+
+// fieldset legend 沿用 label 樣式（單選群組用）
+.form-legend {
+  display:flex;
+  align-items: center;
+  float: none;
+  width: auto;
+  font-size: 1rem;
+  font-weight: $form-label-font-weight;
+  color: $grey-600;
+  margin-bottom: $form-label-margin-bottom;
+}
+
+.badge-required {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background-color: $danger;
+  color: $white;
+  font-size: 0.75rem;
+  font-weight: $font-weight-medium;
+  letter-spacing: 0.05em;
+  vertical-align: middle;
+}
+
+// 單選群組（生理男／生理女）：與輸入框高度視覺對齊
+.form-radio-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  min-height: 52px;
+
+  .form-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+  }
+
+  .form-check-input {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    flex-shrink: 0;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 學生照片上傳：檔案欄＋預覽框
+// --------------------------------------------------------------------------
+.photo-upload {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.photo-upload-input {
+  flex: 1 1 auto;
+}
+
+// 預覽框（未選擇時顯示圖片 icon；選擇後由 JS 填入縮圖）
+.photo-preview {
+  flex-shrink: 0;
+  width: 64px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid $grey-300;
+  border-radius: 8px;
+  background-color: $grey-200;
+  color: $grey-400;
+  font-size: 1.5rem;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 通訊地址（同上勾選＋郵遞區號/地址同列）
+// --------------------------------------------------------------------------
+.mail-address-check {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 8px;
+
+  .form-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+  }
+
+  .form-check-input {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+  }
+}
+
+.mail-address-fields {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+
+  .form-label {
+    margin-bottom: 0;
+    white-space: nowrap;
+    color: $primary;
+  }
+
+  .mail-zip {
+    flex: 1 1 140px;
+
+    @include media-breakpoint-up(md) {
+      flex: 0 0 180px;
+    }
+  }
+
+  .mail-street {
+    flex: 1 1 200px;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 底部動作按鈕
+// --------------------------------------------------------------------------
+.form-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 48px;
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 140px;
+    padding: 12px 24px;
+    font-weight: $font-weight-medium;
+  }
+
+  .btn-cancel {
+    background-color: $grey-100;
+    border: 1px solid $grey-300;
+    color: $grey-600;
+
+    &:hover {
+      background-color: $grey-300;
+    }
+  }
+}

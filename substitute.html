@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>教師代課管理 - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="維護與管理教師因公假等因素之調代課紀錄，確保教學進度與兼代課時數之正確性。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body>
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1">
+        <!-- 內頁 Banner：麵包屑＋標題＋CSS 裝飾＋插圖 -->
+        <section class="page-banner">
+            <!-- 裝飾層（純 CSS 繪製） -->
+            <div class="page-banner-deco" aria-hidden="true">
+                <span class="page-banner-halfcircle"></span>
+                <span class="page-banner-circle"></span>
+                <span class="page-banner-dots"></span>
+            </div>
+
+            <div class="container">
+                <nav class="page-banner-breadcrumb" aria-label="麵包屑導覽">
+                    <ol>
+                        <li>
+                            <a class="breadcrumb-home" href="index_AdminLogged.html" aria-label="首頁">
+                                <i class="bi bi-house-door" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">課務管理</a></li>
+                        <li><a href="#">調代(兼)課作業</a></li>
+                        <li aria-current="page">教師代課管理</li>
+                    </ol>
+                </nav>
+
+                <div class="page-banner-main">
+                    <div class="page-banner-text">
+                        <h1 class="page-banner-title">教師代課管理</h1>
+                        <p class="page-banner-desc">維護與管理教師因公假等因素之調代課紀錄，確保教學進度與兼代課時數之正確性。</p>
+                    </div>
+                    <!-- 右側人物插圖（純裝飾） -->
+                    <div class="page-banner-visual" aria-hidden="true">
+                        <img src="img/hero/login-hero/內頁人物背景.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 查詢與資料列表 -->
+        <section class="data-section">
+            <div class="container">
+                <div class="data-card">
+                    <!-- 查詢工具列（後端：查詢/刪除/匯出行為由後端接手） -->
+                    <form class="data-toolbar" action="#" method="get">
+                        <div class="data-toolbar-field data-toolbar-field--range">
+                            <span class="form-label d-block" id="filterDateLabel">代課日期區間</span>
+                            <div class="date-range" role="group" aria-labelledby="filterDateLabel">
+                                <label class="sr-only" for="filterDateStart">代課開始日期</label>
+                                <input type="date" class="form-control" id="filterDateStart" name="filterDateStart">
+                                <span class="date-range-sep" aria-hidden="true">~</span>
+                                <label class="sr-only" for="filterDateEnd">代課結束日期</label>
+                                <input type="date" class="form-control" id="filterDateEnd" name="filterDateEnd">
+                            </div>
+                        </div>
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterClassToggle">開課班級</label>
+                            <!-- 下拉搜尋選單通用元件（比照 teacherSubject.html），後端：選項為系統既有開課班級清單，動態產生 -->
+                            <div class="dropdown dropdown-search" data-dropdown-search>
+                                <button class="form-select text-start text-muted bg-white" type="button" id="filterClassToggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                    請選擇
+                                </button>
+                                <div class="dropdown-menu w-100 p-2" aria-labelledby="filterClassToggle">
+                                    <div class="dropdown-search-box">
+                                        <label class="sr-only" for="filterClassSearch">搜尋班級名稱</label>
+                                        <input type="search" class="form-control" id="filterClassSearch" placeholder="搜尋班級名稱" data-dropdown-search-input autocomplete="off">
+                                    </div>
+                                    <ul class="dropdown-search-list">
+                                        <li><button type="button" class="dropdown-search-item" data-value="1">國小低年級</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="2">國小中年級</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="3">國中一年級</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="4">11年1班</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="5">12年1班</button></li>
+                                    </ul>
+                                    <p class="dropdown-search-empty" data-dropdown-search-empty hidden>查無符合的班級</p>
+                                </div>
+                                <input type="hidden" name="filterClass" data-dropdown-search-value>
+                            </div>
+                        </div>
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterSubjectToggle">開課科目</label>
+                            <!-- 下拉搜尋選單通用元件（比照 teacherSubject.html），後端：選項為系統既有開課科目清單，動態產生 -->
+                            <div class="dropdown dropdown-search" data-dropdown-search>
+                                <button class="form-select text-start text-muted bg-white" type="button" id="filterSubjectToggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                    請選擇
+                                </button>
+                                <div class="dropdown-menu w-100 p-2" aria-labelledby="filterSubjectToggle">
+                                    <div class="dropdown-search-box">
+                                        <label class="sr-only" for="filterSubjectSearch">搜尋科目名稱</label>
+                                        <input type="search" class="form-control" id="filterSubjectSearch" placeholder="搜尋科目名稱" data-dropdown-search-input autocomplete="off">
+                                    </div>
+                                    <ul class="dropdown-search-list">
+                                        <li><button type="button" class="dropdown-search-item" data-value="1">語文</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="2">數學</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="3">家事處理實作</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="4">配送實作</button></li>
+                                    </ul>
+                                    <p class="dropdown-search-empty" data-dropdown-search-empty hidden>查無符合的科目</p>
+                                </div>
+                                <input type="hidden" name="filterSubject" data-dropdown-search-value>
+                            </div>
+                        </div>
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterSubTeacher">代課老師</label>
+                            <input type="text" class="form-control" id="filterSubTeacher" name="filterSubTeacher" placeholder="請輸入姓名">
+                        </div>
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterOriTeacher">原授課老師</label>
+                            <input type="text" class="form-control" id="filterOriTeacher" name="filterOriTeacher" placeholder="請輸入姓名">
+                        </div>
+                        <div class="data-toolbar-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-search" aria-hidden="true"></i>查詢
+                            </button>
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#substituteModal" data-modal-mode="add">
+                                <i class="bi bi-plus-lg" aria-hidden="true"></i>新增
+                            </button>
+                            <button type="button" class="btn btn-danger">
+                                <i class="bi bi-trash3" aria-hidden="true"></i>刪除
+                            </button>
+                            <button type="button" class="btn btn-export">
+                                <i class="bi bi-download" aria-hidden="true"></i>匯出
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- 後端：總筆數 -->
+                    <p class="data-total">總筆數：18</p>
+
+                    <!-- 欄位較多：md 以上以水平捲動容器承載，避免資訊被截斷 -->
+                    <div class="data-table-wrap" tabindex="0" role="region" aria-label="教師代課管理列表（可左右捲動）">
+                        <table class="table data-table data-table--wide table-striped">
+                            <caption class="sr-only">教師代課管理紀錄列表</caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">
+                                        <span class="check-all-label">
+                                            <input class="form-check-input" type="checkbox" id="checkAll" data-check-all>
+                                            <label for="checkAll">全選</label>
+                                        </span>
+                                    </th>
+                                    <th scope="col">序號</th>
+                                    <th scope="col">單號</th>
+                                    <th scope="col">科目</th>
+                                    <th scope="col">部別</th>
+                                    <th scope="col">授課班級</th>
+                                    <th scope="col">假別</th>
+                                    <th scope="col">原授課教師</th>
+                                    <th scope="col">代課日期</th>
+                                    <th scope="col">代課教師</th>
+                                    <th scope="col">代課節數</th>
+                                    <th scope="col">功能</th>
+                                </tr>
+                            </thead>
+                            <!-- 後端：以下列表資料為動態產生，示意 4 筆 -->
+                            <tbody>
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取單號 202506180005"></span></td>
+                                    <td data-label="序號"><span class="cell-value">1</span></td>
+                                    <td data-label="單號"><span class="cell-value">202506180005</span></td>
+                                    <td data-label="科目"><span class="cell-value">家事處理實作</span></td>
+                                    <td data-label="部別"><span class="cell-value">高級職業部</span></td>
+                                    <td data-label="授課班級"><span class="cell-value">12年1班</span></td>
+                                    <td data-label="假別"><span class="cell-value">公假</span></td>
+                                    <td data-label="原授課教師"><span class="cell-value">卓OO</span></td>
+                                    <td data-label="代課日期"><span class="cell-value">2025-06-30</span></td>
+                                    <td data-label="代課教師"><span class="cell-value">賴OO</span></td>
+                                    <td data-label="代課節數"><span class="cell-value">3</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#substituteModal" data-modal-mode="edit" data-record-name="2025-06-30原授課教師3010(卓oo)" aria-label="編輯單號 202506180005 調代課紀錄">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                            </button>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取單號 202506180006"></span></td>
+                                    <td data-label="序號"><span class="cell-value">2</span></td>
+                                    <td data-label="單號"><span class="cell-value">202506180006</span></td>
+                                    <td data-label="科目"><span class="cell-value">配送實作</span></td>
+                                    <td data-label="部別"><span class="cell-value">高級職業部</span></td>
+                                    <td data-label="授課班級"><span class="cell-value">11年1班</span></td>
+                                    <td data-label="假別"><span class="cell-value">病假</span></td>
+                                    <td data-label="原授課教師"><span class="cell-value">賴OO</span></td>
+                                    <td data-label="代課日期"><span class="cell-value">2025-07-02</span></td>
+                                    <td data-label="代課教師"><span class="cell-value">黃OO</span></td>
+                                    <td data-label="代課節數"><span class="cell-value">2</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#substituteModal" data-modal-mode="edit" data-record-name="2025-07-02原授課教師3012(賴oo)" aria-label="編輯單號 202506180006 調代課紀錄">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                            </button>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取單號 202506190001"></span></td>
+                                    <td data-label="序號"><span class="cell-value">3</span></td>
+                                    <td data-label="單號"><span class="cell-value">202506190001</span></td>
+                                    <td data-label="科目"><span class="cell-value">語文</span></td>
+                                    <td data-label="部別"><span class="cell-value">國民小學</span></td>
+                                    <td data-label="授課班級"><span class="cell-value">國小中年級</span></td>
+                                    <td data-label="假別"><span class="cell-value">事假</span></td>
+                                    <td data-label="原授課教師"><span class="cell-value">張OO</span></td>
+                                    <td data-label="代課日期"><span class="cell-value">2025-07-07</span></td>
+                                    <td data-label="代課教師"><span class="cell-value">李OO</span></td>
+                                    <td data-label="代課節數"><span class="cell-value">4</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#substituteModal" data-modal-mode="edit" data-record-name="2025-07-07原授課教師2001(張oo)" aria-label="編輯單號 202506190001 調代課紀錄">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                            </button>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取單號 202506190002"></span></td>
+                                    <td data-label="序號"><span class="cell-value">4</span></td>
+                                    <td data-label="單號"><span class="cell-value">202506190002</span></td>
+                                    <td data-label="科目"><span class="cell-value">數學</span></td>
+                                    <td data-label="部別"><span class="cell-value">國民中學</span></td>
+                                    <td data-label="授課班級"><span class="cell-value">國中一年級</span></td>
+                                    <td data-label="假別"><span class="cell-value">公假</span></td>
+                                    <td data-label="原授課教師"><span class="cell-value">林OO</span></td>
+                                    <td data-label="代課日期"><span class="cell-value">2025-07-10</span></td>
+                                    <td data-label="代課教師"><span class="cell-value">陳OO</span></td>
+                                    <td data-label="代課節數"><span class="cell-value">1</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#substituteModal" data-modal-mode="edit" data-record-name="2025-07-10原授課教師2005(林oo)" aria-label="編輯單號 202506190002 調代課紀錄">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                            </button>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- 後端：分頁為動態產生 -->
+                    <nav class="data-pagination" aria-label="分頁導覽">
+                        <ul class="pagination">
+                            <li class="page-item page-item--nav">
+                                <a class="page-link" href="#" aria-label="上一頁">
+                                    <i class="bi bi-chevron-double-left" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item page-item--nav">
+                                <a class="page-link" href="#" aria-label="下一頁">
+                                    <i class="bi bi-chevron-double-right" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 調代(兼)課 Modal：新增/編輯共用 -->
+    <div class="modal fade data-modal" id="substituteModal" tabindex="-1" aria-labelledby="substituteModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <h2 class="data-modal-title" id="substituteModalTitle">
+                            <span class="data-modal-title-text">新增調代(兼)課管理</span>
+                            <span class="badge-required">必填</span>
+                        </h2>
+                        <p class="data-modal-desc">新增此筆調代(兼)課基本資料與節次。</p>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉視窗"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- 後端：表單送出目標與驗證由後端接手 -->
+                    <form action="#" method="post" novalidate>
+                        <!-- 後端：單號由後端產生、節次由系統自動計算 -->
+                        <p class="substitute-info-bar">
+                            <span>單號：202506180005</span>
+                            <span>節次：<strong>3</strong> <small>(自動計算)</small></span>
+                        </p>
+
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="substClass">班級</label>
+                                <select class="form-select" id="substClass" name="substClass" required aria-required="true">
+                                    <option value="" selected>請選擇</option>
+                                    <option value="1">國小低年級</option>
+                                    <option value="2">國小中年級</option>
+                                    <option value="3">國中一年級</option>
+                                    <option value="4">11年1班</option>
+                                    <option value="5">12年1班</option>
+                                </select>
+                                <div class="invalid-feedback">請選擇班級。</div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="substLeaveType">假別</label>
+                                <select class="form-select" id="substLeaveType" name="substLeaveType" required aria-required="true">
+                                    <option value="" selected>請選擇</option>
+                                    <option value="1">公假</option>
+                                    <option value="2">病假</option>
+                                    <option value="3">事假</option>
+                                    <option value="4">婚假</option>
+                                    <option value="5">喪假</option>
+                                </select>
+                                <div class="invalid-feedback">請選擇假別。</div>
+                            </div>
+
+                            <div class="col-12">
+                                <span class="form-label d-block" id="substDateLabel">代課日期</span>
+                                <div class="date-range" role="group" aria-labelledby="substDateLabel">
+                                    <label class="sr-only" for="substDateStart">代課開始日期</label>
+                                    <input type="date" class="form-control" id="substDateStart" name="substDateStart" required aria-required="true">
+                                    <span class="date-range-sep" aria-hidden="true">~</span>
+                                    <label class="sr-only" for="substDateEnd">代課結束日期</label>
+                                    <input type="date" class="form-control" id="substDateEnd" name="substDateEnd" required aria-required="true">
+                                </div>
+                                <p class="substitute-date-hint">單日請假時，系統將自動隱藏「星期天數」選項。</p>
+                            </div>
+
+                            <!-- 跨日請假時顯示（單日由 JS 自動隱藏） -->
+                            <div class="col-12" id="substWeekdayGroup" hidden>
+                                <fieldset class="weekday-checks">
+                                    <legend class="form-legend">星期天數 <small>(請勾選實際請假的星期)</small></legend>
+                                    <div class="weekday-checks-row">
+                                        <div class="form-check weekday-check">
+                                            <input class="form-check-input" type="checkbox" id="substWd1" name="substWeekday[]" value="1">
+                                            <label class="form-check-label" for="substWd1">周一</label>
+                                        </div>
+                                        <div class="form-check weekday-check">
+                                            <input class="form-check-input" type="checkbox" id="substWd2" name="substWeekday[]" value="2">
+                                            <label class="form-check-label" for="substWd2">周二</label>
+                                        </div>
+                                        <div class="form-check weekday-check">
+                                            <input class="form-check-input" type="checkbox" id="substWd3" name="substWeekday[]" value="3">
+                                            <label class="form-check-label" for="substWd3">周三</label>
+                                        </div>
+                                        <div class="form-check weekday-check">
+                                            <input class="form-check-input" type="checkbox" id="substWd4" name="substWeekday[]" value="4">
+                                            <label class="form-check-label" for="substWd4">周四</label>
+                                        </div>
+                                        <div class="form-check weekday-check">
+                                            <input class="form-check-input" type="checkbox" id="substWd5" name="substWeekday[]" value="5">
+                                            <label class="form-check-label" for="substWd5">周五</label>
+                                        </div>
+                                        <div class="form-check weekday-check">
+                                            <input class="form-check-input" type="checkbox" id="substWd6" name="substWeekday[]" value="6">
+                                            <label class="form-check-label" for="substWd6">周六</label>
+                                        </div>
+                                        <div class="form-check weekday-check">
+                                            <input class="form-check-input" type="checkbox" id="substWd7" name="substWeekday[]" value="7">
+                                            <label class="form-check-label" for="substWd7">周日</label>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="substDept">部別</label>
+                                <select class="form-select" id="substDept" name="substDept" required aria-required="true">
+                                    <option value="" selected>請選擇</option>
+                                    <option value="1">國民小學</option>
+                                    <option value="2">國民中學</option>
+                                    <option value="3">高級職業部</option>
+                                </select>
+                                <div class="invalid-feedback">請選擇部別。</div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="substSubject">科目</label>
+                                <select class="form-select" id="substSubject" name="substSubject" required aria-required="true">
+                                    <option value="" selected>請選擇</option>
+                                    <option value="1">語文</option>
+                                    <option value="2">數學</option>
+                                    <option value="3">家事處理實作</option>
+                                    <option value="4">配送實作</option>
+                                </select>
+                                <div class="invalid-feedback">請選擇科目。</div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="substOriTeacher">原授課老師</label>
+                                <select class="form-select" id="substOriTeacher" name="substOriTeacher" required aria-required="true">
+                                    <option value="" selected>請選擇</option>
+                                    <option value="1">卓OO</option>
+                                    <option value="2">賴OO</option>
+                                    <option value="3">張OO</option>
+                                    <option value="4">林OO</option>
+                                </select>
+                                <div class="invalid-feedback">請選擇原授課老師。</div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="substSubTeacher">代課老師</label>
+                                <select class="form-select" id="substSubTeacher" name="substSubTeacher" required aria-required="true">
+                                    <option value="" selected>請選擇</option>
+                                    <option value="1">黃OO</option>
+                                    <option value="2">李OO</option>
+                                    <option value="3">陳OO</option>
+                                    <option value="4">王OO</option>
+                                </select>
+                                <div class="invalid-feedback">請選擇代課老師。</div>
+                            </div>
+
+                            <div class="col-12">
+                                <span class="form-label d-block" id="substPeriodLabel">節次</span>
+                                <div class="period-range" role="group" aria-labelledby="substPeriodLabel">
+                                    <label class="sr-only" for="substPeriodStart">開始節次</label>
+                                    <select class="form-select" id="substPeriodStart" name="substPeriodStart">
+                                        <option value="" selected>請選擇</option>
+                                        <option value="1">第一節</option>
+                                        <option value="2">第二節</option>
+                                        <option value="3">第三節</option>
+                                        <option value="4">第四節</option>
+                                        <option value="5">第五節</option>
+                                        <option value="6">第六節</option>
+                                        <option value="7">第七節</option>
+                                    </select>
+                                    <span class="date-range-sep" aria-hidden="true">~</span>
+                                    <label class="sr-only" for="substPeriodEnd">結束節次</label>
+                                    <select class="form-select" id="substPeriodEnd" name="substPeriodEnd">
+                                        <option value="" selected>請選擇</option>
+                                        <option value="1">第一節</option>
+                                        <option value="2">第二節</option>
+                                        <option value="3">第三節</option>
+                                        <option value="4">第四節</option>
+                                        <option value="5">第五節</option>
+                                        <option value="6">第六節</option>
+                                        <option value="7">第七節</option>
+                                    </select>
+                                    <div class="form-check period-allday">
+                                        <input class="form-check-input" type="checkbox" id="substAllDay" name="substAllDay">
+                                        <label class="form-check-label" for="substAllDay">全天</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label" for="substReason">事由</label>
+                                <div class="textarea-counter-wrap">
+                                    <textarea class="form-control" id="substReason" name="substReason" rows="4" placeholder="請輸入事由" maxlength="200" aria-describedby="substReasonCount"></textarea>
+                                    <span class="textarea-counter" id="substReasonCount" aria-live="polite">0 / 200</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="data-modal-actions">
+                            <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary data-modal-submit">確定新增</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回饋 Modal（編輯更新成功；3 秒倒數自動關閉） -->
+    <div class="modal fade feedback-modal" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body feedback-body" role="status">
+                    <span class="feedback-icon" aria-hidden="true">
+                        <i class="bi bi-file-earmark-check"></i>
+                    </span>
+                    <h2 class="feedback-title" id="feedbackModalTitle">資料更新成功</h2>
+                    <p class="feedback-desc">你已更新“2025-06-30原授課教師3010(卓oo)-調代(兼)課管理”</p>
+                    <p class="feedback-countdown"><span class="feedback-countdown-num">3</span>秒後 自動關閉</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回饋 Modal（新增成功；含檢驗提示，手動關閉） -->
+    <div class="modal fade feedback-modal" id="feedbackManualModal" tabindex="-1" aria-labelledby="feedbackManualModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body feedback-body" role="status">
+                    <span class="feedback-icon" aria-hidden="true">
+                        <i class="bi bi-file-earmark-check"></i>
+                    </span>
+                    <h2 class="feedback-title" id="feedbackManualModalTitle">資料新增成功</h2>
+                    <p class="feedback-desc">檢驗出授課資料與不在排課(課表)內，請確認資料是否正確。(若代課當天為補課則無須理會本訊息)</p>
+                    <button type="button" class="btn btn-primary feedback-close-btn" data-bs-dismiss="modal">關閉</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/dataModal.js"></script>
+</body>
+</html>

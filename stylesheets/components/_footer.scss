@@ -1,0 +1,172 @@
+// ==========================================================================
+// Footer 元件：全站共用頁尾（藍底白字，對照首頁設計稿底部）
+// ==========================================================================
+
+.footer {
+  background-color: $primary;
+  color: $white;
+  text-align: center;
+
+  a {
+    color: $white;
+
+    &:hover {
+      color: $white;
+      text-decoration: underline;
+    }
+  }
+
+  @include media-breakpoint-up(lg) {
+    text-align: left;
+  }
+}
+
+.footer-inner {
+  padding: 48px 16px 32px;
+
+  @include media-breakpoint-up(lg) {
+    padding: 48px 48px 32px;
+  }
+}
+
+// 左欄：學校與系統識別
+.footer-school {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+
+  img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: $white;
+  }
+
+  @include media-breakpoint-up(lg) {
+    justify-content: flex-start;
+  }
+}
+
+.footer-sysname {
+  font-size: 1.375rem;
+  font-weight: $font-weight-bold;
+  margin: 4px 0;
+}
+
+// ::: 頁尾區塊定位點（導盲磚，供快速鍵與螢幕閱讀器定位）
+.footer-anchor {
+  display: inline-block;
+  color: $white;
+  letter-spacing: 0.2em;
+  margin-bottom: 8px;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.footer-address {
+  margin-bottom: 12px;
+}
+
+.footer-tel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  @include media-breakpoint-up(lg) {
+    justify-content: flex-start;
+  }
+}
+
+.footer-tel-badge {
+  padding: 2px 12px;
+  background-color: $white;
+  color: $primary;
+  font-weight: $font-weight-medium;
+  border-radius: 6px;
+  letter-spacing: 0.1em;
+}
+
+// 中欄：社群與政策連結
+.footer-middle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.footer-social {
+  display: flex;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+
+  a {
+    font-size: 1.5rem;
+
+    &:hover {
+      text-decoration: none;
+      opacity: .85;
+    }
+  }
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 24px;
+  margin: 0;
+  padding: 0;
+
+  li {
+    position: relative;
+
+    // 項目前導圓點（裝飾）
+    &::before {
+      content: "·";
+      margin-right: 6px;
+    }
+  }
+}
+
+// 右欄：白色校徽卡
+.footer-logo-col {
+  display: flex;
+  justify-content: center;
+
+  @include media-breakpoint-up(lg) {
+    justify-content: flex-end;
+    border-left: 1px solid rgba($white, .35);
+  }
+}
+
+.footer-logo-card {
+  background-color: $white;
+  border-radius: 12px;
+  padding: 12px 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    max-width: 240px;
+  }
+}
+
+// 底部版權列
+.footer-bottom {
+  padding: 16px;
+  text-align: center;
+  border-top: 1px solid rgba($white, .25);
+
+  small {
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
+    line-height: 1.8;
+  }
+}

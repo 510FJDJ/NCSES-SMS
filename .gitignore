@@ -1,0 +1,24 @@
+# Claude 專案內部文件,不對外公開
+CLAUDE.md
+design.md
+.claude/
+
+# MCP 設定(可能含金鑰,先檢查內容再決定)
+.mcp.json
+
+# 參考圖片,不對外公開
+img/參考圖/
+
+# 環境變數
+.env
+.env.local
+
+# 套件安裝檔(可重新產生,不用上傳)
+node_modules/
+
+# 打包後產生的檔案
+dist/
+build/
+
+# 系統雜項
+.DS_Store

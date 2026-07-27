@@ -1,0 +1,133 @@
+// ==========================================================================
+// 德育成績加減分輸入：列表狀態標籤與成績登錄 Modal 表格
+// ==========================================================================
+
+// 登錄狀態標籤（已登錄／未登錄）
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-weight: $font-weight-medium;
+  font-size: 0.9375rem;
+
+  &::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: currentColor;
+  }
+}
+
+.status-pill--done {
+  background-color: rgba($success, .1);
+  color: $success;
+}
+
+.status-pill--pending {
+  background-color: rgba($grey-500, .12);
+  color: $grey-500;
+}
+
+// --------------------------------------------------------------------------
+// 編輯學生德育成績 Modal：班級資訊列、成績登錄表格、評分規範提醒
+// --------------------------------------------------------------------------
+.moral-info-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  background-color: $grey-200;
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: $grey-600;
+  font-weight: $font-weight-medium;
+  margin-bottom: 20px;
+}
+
+.moral-grid-wrap {
+  overflow-x: auto;
+  border: 1px solid $grey-300;
+  border-radius: 10px;
+}
+
+.moral-grid-table {
+  margin-bottom: 0;
+  min-width: 720px;
+
+  th,
+  td {
+    vertical-align: middle;
+    text-align: center;
+    padding: 12px;
+  }
+
+  thead th {
+    background-color: $grey-200;
+    color: $grey-600;
+    font-weight: $font-weight-medium;
+    white-space: nowrap;
+    border-bottom: 0;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: $grey-100;
+  }
+
+  tbody td {
+    border-bottom: 1px solid $grey-300;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  .form-check-input {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  .form-control {
+    min-width: 110px;
+  }
+}
+
+.moral-score-input.is-invalid {
+  border-color: $danger;
+}
+
+// 評分規範提醒：沿用 .data-modal-tip 淺藍底樣式，改為條列呈現
+.moral-tip-list {
+  list-style: disc;
+  margin: 4px 0 0;
+  padding-left: 20px;
+
+  li + li {
+    margin-top: 2px;
+  }
+}
+
+// 清除勾選列成績資料（危險色外框按鈕）
+.btn-outline-danger-soft {
+  border-color: $danger;
+  color: $danger;
+  background-color: $white;
+
+  &:hover,
+  &:focus-visible {
+    background-color: rgba($danger, .08);
+    color: $danger;
+    border-color: $danger;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .status-pill {
+    transition: none;
+  }
+}

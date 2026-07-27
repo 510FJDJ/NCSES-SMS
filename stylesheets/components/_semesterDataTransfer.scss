@@ -1,0 +1,374 @@
+// ==========================================================================
+// 學期資料轉移管理：新學年度啟用前提示、啟用 CTA、四項資料轉移卡片
+// ==========================================================================
+
+// --------------------------------------------------------------------------
+// 頂部提示卡：新學年度尚未啟用
+// --------------------------------------------------------------------------
+.transfer-page-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background-color: rgba($primary, .06);
+  border: 1px solid rgba($primary, .2);
+  margin-bottom: 24px;
+  padding: 16px 20px;
+}
+
+.transfer-page-notice-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+  color: $primary;
+  flex-shrink: 0;
+}
+
+.transfer-page-notice-title {
+  color: $grey-600;
+  font-weight: $font-weight-bold;
+  margin: 0 0 4px;
+}
+
+.transfer-page-notice-text p {
+  margin: 0;
+  color: $grey-600;
+
+  & + p {
+    margin-top: 4px;
+  }
+}
+
+// 已啟用狀態：由危險提醒轉為成功引導語氣（見 js/semesterDataTransfer.js applyActivatedState）
+.transfer-page-notice--done {
+  background-color: rgba($success, .06);
+  border-color: rgba($success, .2);
+
+  .transfer-page-notice-icon,
+  .transfer-page-notice-title {
+    color: $success;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 左欄：不可逆操作確認卡（危險色）
+// --------------------------------------------------------------------------
+.transfer-confirm-title {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: $danger;
+  font-weight: $font-weight-bold;
+  font-size: 1.0625rem;
+  margin-bottom: 16px;
+}
+
+.transfer-confirm-card {
+  border: 1px solid rgba($danger, .3);
+  background-color: rgba($danger, .05);
+
+  .form-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .form-check-input {
+    width: 20px;
+    height: 20px;
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+
+  .form-check-label {
+    color: $grey-600;
+  }
+}
+
+.transfer-confirm-note {
+  color: $danger;
+  font-size: 0.9375rem;
+  margin: 12px 0 0;
+}
+
+// --------------------------------------------------------------------------
+// 左欄：新學年度啟用 CTA（深色卡＋圓形箭頭按鈕）
+// --------------------------------------------------------------------------
+// 整塊即為 <button>：停用＝灰（尚未勾選確認）／可點擊＝危險紅，點擊即直接啟用，不再另外巢狀按鈕
+.transfer-activate-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  border: none;
+  background-color: $grey-400;
+  border-radius: $border-radius-lg;
+  padding: 20px 24px;
+  font-family: inherit;
+  text-align: left;
+  transition: background-color .15s ease, box-shadow .15s ease;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &:not(:disabled) {
+    background-color: $danger;
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+      background-color: darken($danger, 8%);
+    }
+  }
+
+  &.transfer-activate-box--done {
+    background-color: $grey-500;
+    box-shadow: inset 0 0 0 2px rgba($success, .5);
+    cursor: default;
+  }
+}
+
+.transfer-activate-text {
+  margin: 0;
+  color: $white;
+  font-size: 1rem;
+
+  strong {
+    font-weight: $font-weight-bold;
+  }
+}
+
+.transfer-activate-icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: rgba($white, .2);
+  color: $white;
+  font-size: 1.125rem;
+}
+
+// --------------------------------------------------------------------------
+// 左欄：Q & A 手風琴（圖示比照 header 十字／一字切換 pattern）
+// --------------------------------------------------------------------------
+#transferFaqAccordion .accordion-button {
+  font-weight: $font-weight-medium;
+  color: $grey-600;
+  background-color: transparent;
+  box-shadow: none;
+
+  &::after {
+    content: "\F64D"; // bootstrap-icons: bi-plus-lg
+    font-family: "bootstrap-icons";
+    background-image: none;
+    width: auto;
+    height: auto;
+    color: $primary;
+    transition: none;
+  }
+
+  &:not(.collapsed) {
+    color: $primary;
+
+    &::after {
+      content: "\F63B"; // bootstrap-icons: bi-dash-lg
+      transform: none;
+    }
+  }
+}
+
+// --------------------------------------------------------------------------
+// 右欄：四項資料轉移卡片
+// --------------------------------------------------------------------------
+.transfer-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.transfer-card-desc {
+  color: $grey-500;
+  margin-bottom: 20px;
+}
+
+.transfer-card-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+
+  &.transfer-card-actions--center {
+    justify-content: center;
+    margin-top: 24px;
+  }
+}
+
+.transfer-progress {
+  width: 100%;
+  max-width: 320px;
+  height: 8px;
+  background-color: $grey-300;
+  border-radius: $border-radius;
+  overflow: hidden;
+}
+
+.transfer-progress-fill {
+  display: block;
+  width: 0%;
+  height: 100%;
+  background-color: $primary;
+  border-radius: $border-radius;
+  transition: width 1.2s ease;
+}
+
+.transfer-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: $border-radius;
+  font-size: 1rem;
+  font-weight: $font-weight-medium;
+  color: $white;
+  background-color: $grey-300;
+  transition: background-color .15s ease;
+
+  .bi-lock-fill,
+  .bi-arrow-right {
+    font-size: 0.9375rem;
+  }
+
+  &:disabled {
+    background-color: $grey-300;
+    color: $grey-500;
+    cursor: not-allowed;
+  }
+
+  &:not(:disabled) {
+    background-color: $primary;
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+      background-color: darken($primary, 8%);
+    }
+  }
+}
+
+// 資料來源學期／複製到 選單列
+.transfer-semester-row {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.transfer-semester-field {
+  flex: 1 1 200px;
+}
+
+.transfer-semester-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin-bottom: 8px;
+  flex-shrink: 0;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+// 課程轉移方式：堆疊式單選卡片
+.transfer-copy-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0 0 8px;
+  padding: 0;
+  border: none;
+}
+
+.transfer-copy-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid $grey-300;
+  border-radius: $border-radius;
+  cursor: pointer;
+  transition: border-color .15s ease, background-color .15s ease;
+
+  input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  &:has(input:checked) {
+    border-color: $primary;
+    background-color: rgba($primary, .05);
+  }
+}
+
+.transfer-copy-option-icon {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: rgba($primary, .1);
+  color: $primary;
+
+  img {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.transfer-copy-option-title {
+  display: block;
+  color: $grey-600;
+  font-weight: $font-weight-medium;
+}
+
+.transfer-copy-option-desc {
+  display: block;
+  color: $grey-500;
+  font-size: 0.9375rem;
+  margin-top: 2px;
+}
+
+.transfer-copy-option-warn {
+  color: $danger;
+  font-weight: $font-weight-medium;
+  font-style: normal;
+}
+
+.transfer-copy-option-warn-icon {
+  font-size: 0.875rem;
+  margin: 0 2px -1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .transfer-activate-box,
+  .transfer-action-btn,
+  .transfer-copy-option,
+  .transfer-progress-fill {
+    transition: none;
+  }
+}

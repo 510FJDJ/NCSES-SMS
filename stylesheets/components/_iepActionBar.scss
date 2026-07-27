@@ -1,0 +1,122 @@
+// ==========================================================================
+// IEP 明細頁固定底部操作列（iepBasicInfo_form.html）
+// 小提醒＋暫存草稿／儲存並送出審核／產生並匯出IEP報表／取消
+// 頁面掛 body.has-iep-action-bar：預留底部高度並上移回頂端按鈕，
+// 確保被固定列遮住的內容皆可捲動閱讀
+// ==========================================================================
+
+.iep-action-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: $zindex-fixed;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  background-color: $white;
+  box-shadow: 0 -4px 16px rgba(15, 23, 42, .12);
+  padding: 12px 16px;
+
+  @include media-breakpoint-up(lg) {
+    padding: 12px 32px;
+  }
+}
+
+.iep-action-hint {
+  display: none;
+
+  @include media-breakpoint-up(lg) {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: $grey-500; // 說明文字：中深灰（design.md 2.2，CR >= 4.5:1）
+    font-size: .9375rem;
+
+    .iep-action-hint-icon {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+    }
+
+    strong {
+      color: $primary; // 「小提醒」標題：品牌藍
+    }
+
+    p {
+      margin: 0;
+      line-height: 1.45;
+    }
+  }
+}
+
+.iep-action-buttons {
+  flex: 1 1 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    font-weight: $font-weight-medium;
+  }
+}
+
+// 暫存草稿（深灰底白字：CR >= 4.5:1）
+.btn-draft {
+  background-color: $grey-500;
+  border-color: $grey-500;
+  color: $white;
+
+  &:hover,
+  &:focus-visible {
+    background-color: darken($grey-500, 8%);
+    border-color: darken($grey-500, 8%);
+    color: $white;
+  }
+}
+
+// 取消（白底紅字外框，靠右）
+.iep-action-cancel {
+  margin-left: auto;
+  background-color: $white;
+  border: 1px solid $danger;
+  color: $danger;
+
+  &:hover,
+  &:focus-visible {
+    background-color: rgba($danger, .08);
+    color: $danger;
+  }
+
+  @include media-breakpoint-down(lg) {
+    margin-left: 0;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 頁面配套：底部預留操作列高度；回頂端按鈕上移避免被固定列覆蓋
+// --------------------------------------------------------------------------
+.has-iep-action-bar {
+  main {
+    padding-bottom: 88px;
+
+    @include media-breakpoint-down(lg) {
+      padding-bottom: 160px;
+    }
+  }
+
+  .scroll-top-btn {
+    bottom: 130px;
+
+    @include media-breakpoint-down(lg) {
+      bottom: 180px;
+    }
+  }
+}

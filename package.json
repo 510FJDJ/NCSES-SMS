@@ -1,0 +1,11 @@
+{
+  "name": "ncses-sms",
+  "description": "國立彰化特殊教育學校 雲端校務管理系統",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
+    "jquery": "^3.7.1",
+    "swiper": "^11.2.4"
+  }
+}

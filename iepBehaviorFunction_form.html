@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>IEP行為功能介入方案明細 - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="針對學生個別行為問題擬定功能性介入策略，動態追蹤前事調整、行為教導與後果控制之執行成效。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body class="has-iep-action-bar">
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1">
+        <!-- 內頁 Banner：麵包屑＋標題＋返回列表按鈕 -->
+        <section class="page-banner">
+            <!-- 裝飾層（純 CSS 繪製） -->
+            <div class="page-banner-deco" aria-hidden="true">
+                <span class="page-banner-halfcircle"></span>
+                <span class="page-banner-circle"></span>
+                <span class="page-banner-dots"></span>
+            </div>
+
+            <div class="container">
+                <nav class="page-banner-breadcrumb" aria-label="麵包屑導覽">
+                    <ol>
+                        <li>
+                            <a class="breadcrumb-home" href="index_AdminLogged.html" aria-label="首頁">
+                                <i class="bi bi-house-door" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">IEP管理</a></li>
+                        <li><a href="#">IEP行為介入計畫方案</a></li>
+                        <li><a href="iepBehaviorFunction.html">IEP行為功能介入方案</a></li>
+                        <li aria-current="page">新增IEP</li>
+                    </ol>
+                </nav>
+
+                <div class="page-banner-main">
+                    <div class="page-banner-text">
+                        <h1 class="page-banner-title">IEP行為功能介入方案明細-新增</h1>
+                        <p class="page-banner-desc">針對學生個別行為問題擬定功能性介入策略，動態追蹤前事調整、行為教導與後果控制之執行成效。</p>
+                    </div>
+                    <!-- 右側人物插圖（純裝飾；背景以 CSS 繪製，角色圖可互換） -->
+                    <div class="page-banner-visual page-banner-visual--composed page-banner-visual--pointPerson" aria-hidden="true">
+                        <span class="banner-visual-blob"></span>
+                        <span class="banner-visual-window"></span>
+                        <img class="banner-visual-person" src="img/hero/characters/people-front-point.png" alt="">
+                    </div>
+                    <a class="btn-back" href="iepBehaviorFunction.html">
+                        <i class="bi bi-chevron-left" aria-hidden="true"></i>返回列表
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- IEP 明細表單 -->
+        <section class="form-section-wrap">
+            <div class="container">
+                <!-- 學生資訊摘要列（後端：選擇班級與學生後由學生資料帶入） -->
+                <div class="iep-student-bar">
+                    <div class="iep-student-name">
+                        <span>OOO</span>
+                        <span class="iep-student-dept-badge">OO部</span>
+                    </div>
+                    <dl class="iep-student-metas">
+                        <div class="iep-student-meta">
+                            <dt>班級：</dt>
+                            <dd>-</dd>
+                        </div>
+                        <div class="iep-student-meta">
+                            <dt>個案管理師：</dt>
+                            <dd>-</dd>
+                        </div>
+                        <div class="iep-student-meta">
+                            <dt>填表學期：</dt>
+                            <dd>113學年度第2學期</dd>
+                        </div>
+                        <div class="iep-student-meta">
+                            <dt>單號：</dt>
+                            <dd>-</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <!-- 後端：表單送出目標與驗證由後端接手 -->
+                <form class="form-card" id="iepForm" action="#" method="post" novalidate>
+                    <!-- 個案管理師／班級／學生／日期選取列 -->
+                    <section class="form-section" aria-label="填表資訊">
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6 col-lg">
+                                <label class="form-label" for="caseManager">個案管理師</label>
+                                <select class="form-select" id="caseManager" name="caseManager">
+                                    <option value="" selected>請選擇</option>
+                                    <option value="1">陳OO</option>
+                                    <option value="2">林OO</option>
+                                    <option value="3">黃OO</option>
+                                    <option value="4">吳OO</option>
+                                    <option value="5">張OO</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg">
+                                <label class="form-label" for="behaviorClass">班級 (代碼/名稱)</label>
+                                <select class="form-select" id="behaviorClass" name="behaviorClass">
+                                    <option value="" selected>請選擇</option>
+                                    <option value="1">101 國小低年級</option>
+                                    <option value="2">102 國小低年級</option>
+                                    <option value="3">103 國小低年級</option>
+                                    <option value="4">201 國中一年級</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg">
+                                <label class="form-label" for="studentName">學生姓名</label>
+                                <select class="form-select" id="studentName" name="studentName" disabled>
+                                    <option value="" selected>請先選擇班級</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg">
+                                <label class="form-label" for="planDate">擬定日期</label>
+                                <input type="date" class="form-control" id="planDate" name="planDate">
+                            </div>
+                            <div class="col-12 col-md-6 col-lg">
+                                <label class="form-label" for="evalDate">預定評鑑日期</label>
+                                <input type="date" class="form-control" id="evalDate" name="evalDate">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ============================================================
+                         行為診斷區塊
+                    ============================================================ -->
+                    <section class="form-section" aria-labelledby="behaviorSecDiagnosis">
+                        <h2 class="form-section-title" id="behaviorSecDiagnosis">
+                            <i class="bi bi-clipboard2-pulse" aria-hidden="true"></i>行為診斷區塊
+                        </h2>
+                        <div class="row g-4">
+                            <div class="col-12 col-lg-3">
+                                <fieldset class="iep-choice-box">
+                                    <legend class="form-legend">行為問題界定<span class="badge-required">必填</span></legend>
+                                    <label class="sr-only" for="behaviorProblem">行為問題界定</label>
+                                    <div class="textarea-counter-wrap">
+                                        <textarea class="form-control" id="behaviorProblem" name="behaviorProblem" rows="8" maxlength="500" placeholder="請輸入行為問題界定" aria-describedby="behaviorProblemCount" required></textarea>
+                                        <span class="textarea-counter" id="behaviorProblemCount" aria-live="polite">0 / 500</span>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <fieldset class="iep-choice-box">
+                                    <legend class="form-legend">行為功能分析</legend>
+                                    <div class="row g-4">
+                                        <div class="col-12 col-lg-6">
+                                            <fieldset>
+                                                <legend class="form-legend">獲得刺激 (可複選)<span class="badge-required">必填</span></legend>
+                                                <div class="iep-check-list iep-check-list--single">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" id="gainExternal" name="gainStimulus[]" value="external">
+                                                        <label class="form-check-label" for="gainExternal">外在刺激</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" id="gainSocial" name="gainStimulus[]" value="social">
+                                                        <label class="form-check-label" for="gainSocial">社會刺激</label>
+                                                    </div>
+                                                    <div class="iep-check-other">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="gainInternal" name="gainStimulus[]" value="internal">
+                                                            <label class="form-check-label" for="gainInternal">內在刺激，請說明：</label>
+                                                        </div>
+                                                        <label class="sr-only" for="gainInternalNote">內在刺激說明</label>
+                                                        <input type="text" class="form-control" id="gainInternalNote" name="gainInternalNote" maxlength="100" placeholder="請說明，限中文100字以內。">
+                                                    </div>
+                                                    <div class="iep-check-other">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="gainPhysical" name="gainStimulus[]" value="physical">
+                                                            <label class="form-check-label" for="gainPhysical">特定物理刺激，請說明：</label>
+                                                        </div>
+                                                        <label class="sr-only" for="gainPhysicalNote">特定物理刺激說明</label>
+                                                        <input type="text" class="form-control" id="gainPhysicalNote" name="gainPhysicalNote" maxlength="100" placeholder="請說明，限中文100字以內。">
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <fieldset>
+                                                <legend class="form-legend">逃避刺激 (可複選)<span class="badge-required">必填</span></legend>
+                                                <div class="iep-check-list iep-check-list--single">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" id="escapeExternal" name="escapeStimulus[]" value="external">
+                                                        <label class="form-check-label" for="escapeExternal">外在刺激</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" id="escapeSocial" name="escapeStimulus[]" value="social">
+                                                        <label class="form-check-label" for="escapeSocial">社會刺激</label>
+                                                    </div>
+                                                    <div class="iep-check-other">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="escapeInternal" name="escapeStimulus[]" value="internal">
+                                                            <label class="form-check-label" for="escapeInternal">內在刺激，請說明：</label>
+                                                        </div>
+                                                        <label class="sr-only" for="escapeInternalNote">內在刺激說明</label>
+                                                        <input type="text" class="form-control" id="escapeInternalNote" name="escapeInternalNote" maxlength="100" placeholder="請說明，限中文100字以內。">
+                                                    </div>
+                                                    <div class="iep-check-other">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="escapePhysical" name="escapeStimulus[]" value="physical">
+                                                            <label class="form-check-label" for="escapePhysical">特定物理刺激，請說明：</label>
+                                                        </div>
+                                                        <label class="sr-only" for="escapePhysicalNote">特定物理刺激說明</label>
+                                                        <input type="text" class="form-control" id="escapePhysicalNote" name="escapePhysicalNote" maxlength="100" placeholder="請說明，限中文100字以內。">
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-12 col-lg-3">
+                                <fieldset class="iep-choice-box">
+                                    <legend class="form-legend">行為介入目標<span class="badge-required">必填</span></legend>
+                                    <label class="sr-only" for="behaviorGoal">行為介入目標</label>
+                                    <div class="textarea-counter-wrap">
+                                        <textarea class="form-control" id="behaviorGoal" name="behaviorGoal" rows="8" maxlength="500" placeholder="請輸入行為介入目標" aria-describedby="behaviorGoalCount" required></textarea>
+                                        <span class="textarea-counter" id="behaviorGoalCount" aria-live="polite">0 / 500</span>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ============================================================
+                         核心三大策略
+                    ============================================================ -->
+                    <section class="form-section" aria-labelledby="behaviorSecStrategy">
+                        <h2 class="form-section-title" id="behaviorSecStrategy">
+                            <i class="bi bi-list-check" aria-hidden="true"></i>核心三大策略
+                        </h2>
+                        <div class="data-table-wrap">
+                            <table class="table table-striped data-table data-table--wide">
+                                <caption class="sr-only">核心三大策略列表</caption>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">項目</th>
+                                        <th scope="col">策略</th>
+                                        <th scope="col">執行方式</th>
+                                        <th scope="col">負責人</th>
+                                        <th scope="col">執行狀態</th>
+                                        <th scope="col">執行結果或原因描述</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td data-label="項目"><span class="cell-value">前事調整</span></td>
+                                        <td data-label="策略">
+                                            <span class="cell-value">
+                                                <label class="sr-only" for="strategy1">前事調整策略</label>
+                                                <input type="text" class="form-control" id="strategy1" name="strategy1" placeholder="請輸入策略內容">
+                                            </span>
+                                        </td>
+                                        <td data-label="執行方式">
+                                            <span class="cell-value">
+                                                <label class="sr-only" for="method1">前事調整執行方式</label>
+                                                <input type="text" class="form-control" id="method1" name="method1" placeholder="請輸入執行方式">
+                                            </span>
+                                        </td>
+                                        <td data-label="負責人">
+                                            <span class="cell-value">
+                                                <label class="sr-only" for="owner1">前事調整負責人</label>
+                                                <input type="text" class="form-control" id="owner1" name="owner1" placeholder="請輸入負責人">
+                                            </span>
+                                        </td>
+                                        <td data-label="執行狀態">
+                                            <span class="cell-value">
+                                                <fieldset>
+                                                    <legend class="sr-only">前事調整執行狀態</legend>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" id="status1A" name="status1" value="A">
+                                                        <label class="form-check-label" for="status1A">A 已執行</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" id="status1B" name="status1" value="B">
+                                                        <label class="form-check-label" for="status1B">B 執行中</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" id="status1C" name="status1" value="C">
+                                                        <label class="form-check-label" for="status1C">C 未執行</label>
+                                                    </div>
+                                                </fieldset>
+                                            </span>
+                                        </td>
+                                        <td data-label="執行結果或原因描述">
+                                            <span class="cell-value">
+                                                <label class="sr-only" for="result1">前事調整執行結果或原因描述</label>
+                                                <textarea class="form-control" id="result1" name="result1" rows="2" placeholder="請輸入執行結果或原因描述"></textarea>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="項目"><span class="cell-value">行為教導</span></td>
+                                        <td data-label="策略">
+                                            <span class="cell-value">
+                                                <label class="sr-only" for="strategy2">行為教導策略</label>
+                                                <input type="text" class="form-control" id="strategy2" name="strategy2" placeholder="請輸入策略內容">
+                                            </span>
+                                        </td>
+                                        <td data-label="執行方式">
+                                            <span class="cell-value">
+                                                <label class="sr-only" for="method2">行為教導執行方式</label>
+                                                <input type="text" class="form-control" id="method2" name="method2" placeholder="請輸入執行方式">
+                                            </span>
+                                        </td>
+                                        <td data-label="負責人">
+                                            <span class="cell-value">
+                                                <label class="sr-only" for="owner2">行為教導負責人</label>
+                                                <input type="text" class="form-control" id="owner2" name="owner2" placeholder="請輸入負責人">
+                                            </span>
+                                        </td>
+                                        <td data-label="執行狀態">
+                                            <span class="cell-value">
+                                                <fieldset>
+                                                    <legend class="sr-only">行為教導執行狀態</legend>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" id="status2A" name="status2" value="A">
+                                                        <label class="form-check-label" for="status2A">A 已執行</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" id="status2B" name="status2" value="B">
+                                                        <label class="form-check-label" for="status2B">B 執行中</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" id="status2C" name="status2" value="C">
+                                                        <label class="form-check-label" for="status2C">C 未執行</label>
+                                                    </div>
+                                                </fieldset>
+                                            </span>
+                                        </td>
+                                        <td data-label="執行結果或原因描述">
+                                            <span class="cell-value">
+                                                <label class="sr-only" for="result2">行為教導執行結果或原因描述</label>
+                                                <textarea class="form-control" id="result2" name="result2" rows="2" placeholder="請輸入執行結果或原因描述"></textarea>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="項目"><span class="cell-value">後果控制</span></td>
+                                        <td data-label="策略">
+                                            <span class="cell-value">
+                                                <label class="sr-only" for="strategy3">後果控制策略</label>
+                                                <input type="text" class="form-control" id="strategy3" name="strategy3" placeholder="請輸入策略內容">
+                                            </span>
+                                        </td>
+                                        <td data-label="執行方式">
+                                            <span class="cell-value">
+                                                <label class="sr-only" for="method3">後果控制執行方式</label>
+                                                <input type="text" class="form-control" id="method3" name="method3" placeholder="請輸入執行方式">
+                                            </span>
+                                        </td>
+                                        <td data-label="負責人">
+                                            <span class="cell-value">
+                                                <label class="sr-only" for="owner3">後果控制負責人</label>
+                                                <input type="text" class="form-control" id="owner3" name="owner3" placeholder="請輸入負責人">
+                                            </span>
+                                        </td>
+                                        <td data-label="執行狀態">
+                                            <span class="cell-value">
+                                                <fieldset>
+                                                    <legend class="sr-only">後果控制執行狀態</legend>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" id="status3A" name="status3" value="A">
+                                                        <label class="form-check-label" for="status3A">A 已執行</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" id="status3B" name="status3" value="B">
+                                                        <label class="form-check-label" for="status3B">B 執行中</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" id="status3C" name="status3" value="C">
+                                                        <label class="form-check-label" for="status3C">C 未執行</label>
+                                                    </div>
+                                                </fieldset>
+                                            </span>
+                                        </td>
+                                        <td data-label="執行結果或原因描述">
+                                            <span class="cell-value">
+                                                <label class="sr-only" for="result3">後果控制執行結果或原因描述</label>
+                                                <textarea class="form-control" id="result3" name="result3" rows="2" placeholder="請輸入執行結果或原因描述"></textarea>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- ============================================================
+                         行政支援與計畫
+                    ============================================================ -->
+                    <section class="form-section" aria-labelledby="behaviorSecAdmin">
+                        <h2 class="form-section-title" id="behaviorSecAdmin">
+                            <i class="bi bi-people" aria-hidden="true"></i>行政支援與計畫
+                        </h2>
+                        <div class="row g-4">
+                            <div class="col-12 col-lg-6">
+                                <fieldset class="iep-choice-box">
+                                    <legend class="form-legend">行政支援服務<span class="badge-required">必填</span></legend>
+                                    <label class="sr-only" for="adminSupport">行政支援服務</label>
+                                    <div class="textarea-counter-wrap">
+                                        <textarea class="form-control" id="adminSupport" name="adminSupport" rows="5" maxlength="500" placeholder="請輸入行政支援服務" aria-describedby="adminSupportCount" required></textarea>
+                                        <span class="textarea-counter" id="adminSupportCount" aria-live="polite">0 / 500</span>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <fieldset class="iep-choice-box">
+                                    <legend class="form-legend">行為維持或類化的計畫</legend>
+                                    <label class="sr-only" for="maintainPlan">行為維持或類化的計畫</label>
+                                    <div class="textarea-counter-wrap">
+                                        <textarea class="form-control" id="maintainPlan" name="maintainPlan" rows="5" maxlength="500" placeholder="請輸入行為維持或類化的計畫" aria-describedby="maintainPlanCount"></textarea>
+                                        <span class="textarea-counter" id="maintainPlanCount" aria-live="polite">0 / 500</span>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </section>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- 固定於視窗底部的表單操作列（後端：儲存與報表產出由後端接手） -->
+    <div class="iep-action-bar" role="region" aria-label="IEP 表單操作列">
+        <div class="iep-action-hint">
+            <img src="img/icon/小提醒.svg" alt="" class="iep-action-hint-icon">
+            <p><strong>小提醒</strong><br>表單完成後請記得儲存修改資料歐!</p>
+        </div>
+        <div class="iep-action-buttons">
+            <button type="button" class="btn btn-success" id="behaviorFunctionSaveBtn">
+                <i class="bi bi-floppy" aria-hidden="true"></i>儲存修改資料
+            </button>
+            <button type="button" class="btn btn-primary" id="behaviorFunctionExportBtn">
+                <i class="bi bi-download" aria-hidden="true"></i>產生並匯出IEP報表
+            </button>
+        </div>
+        <a class="btn iep-action-cancel" href="iepBehaviorFunction.html">取消</a>
+    </div>
+
+    <!-- 回饋 Modal（3 秒倒數自動關閉；圖示/色彩由 JS 依情境切換） -->
+    <div class="modal fade feedback-modal" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body feedback-body" role="status">
+                    <span class="feedback-icon" aria-hidden="true">
+                        <i class="bi bi-file-earmark-check"></i>
+                    </span>
+                    <h2 class="feedback-title" id="feedbackModalTitle">儲存成功</h2>
+                    <p class="feedback-desc">您的 IEP 表單內容已儲存。</p>
+                    <p class="feedback-countdown"><span class="feedback-countdown-num">3</span>秒後 自動關閉</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/iep.js"></script>
+</body>
+</html>

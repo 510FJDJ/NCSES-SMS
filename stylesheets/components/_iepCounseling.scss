@@ -1,0 +1,133 @@
+// ==========================================================================
+// IEP學生輔導記錄表明細（iepCounselingRecord_form.html）
+// 導師必填輸入列、日常輔導紀錄動態表格（輔導對象/輔導方式/處理方式/追蹤複選群組）
+// ==========================================================================
+
+// --------------------------------------------------------------------------
+// 表格上方：導師必填輸入框＋新增按鈕列
+// --------------------------------------------------------------------------
+.iep-counsel-teacher-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+
+  .iep-counsel-teacher-field {
+    flex: 1 1 320px;
+    min-width: 0;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    font-weight: $font-weight-medium;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 輔導對象／輔導方式／處理方式／追蹤：垂直複選群組
+// --------------------------------------------------------------------------
+.iep-counsel-checks {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  .form-check {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    @include media-breakpoint-up(md) {
+    flex-wrap: nowrap;
+    
+  }
+  }
+
+  .form-check-input {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  .form-check-label {
+    color: $grey-600;
+    font-size: 0.9375rem;
+  }
+}
+
+// 處理方式欄：「如：」子欄位（跟隨「融入相關課程」複選項）
+.iep-counsel-process-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 26px;
+  color: $grey-500;
+  font-size: 0.9375rem;
+
+  .form-control {
+    min-width: 0;
+  }
+}
+
+// 狀況描述／相關參與人員欄：textarea 保留可讀寬度，允許使用者手動拖曳加寬
+// （表格擠不下時交由 .data-table-wrap 出現 x 軸捲軸，md 以下維持直式堆疊不受影響）
+.iep-counsel-table textarea.form-control {
+  @include media-breakpoint-up(md) {
+    min-width: 220px;
+  }
+}
+
+// 功能欄：md 以上固定於表格最右側，其餘欄位可 x 軸捲動查看
+.iep-counsel-table {
+  @include media-breakpoint-up(md) {
+    // 覆寫 .data-table 的 overflow: hidden，
+    // 否則 sticky 會以 <table> 自身（不會捲動）為裁切基準而失效，
+    // 必須讓 sticky 以真正會 x 軸捲動的 .data-table-wrap 為基準
+    overflow: visible;
+
+
+    th:last-child,
+    td:last-child {
+      position: sticky;
+      right: 0;
+      z-index: 1;
+      border-left: 1px solid $grey-300;
+    }
+
+    thead th:last-child {
+      background-color: $grey-200;
+    }
+
+    tbody td:last-child {
+      background-color: $white;
+    }
+
+    tbody tr:nth-child(even) td:last-child {
+      background-color: $grey-100;
+    }
+  }
+}
+
+// --------------------------------------------------------------------------
+// RWD：< md 導師列改直式堆疊，按鈕滿版
+// --------------------------------------------------------------------------
+@include media-breakpoint-down(md) {
+  .iep-counsel-teacher-row {
+    align-items: stretch;
+
+    .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}

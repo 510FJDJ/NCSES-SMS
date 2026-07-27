@@ -1,0 +1,363 @@
+// ==========================================================================
+// 資料列表卡片（.data-card）：查詢工具列＋資料表格＋分頁
+// RWD：< md（768px）表格轉直式區塊（data-label + ::before 顯示欄名），
+//      全程不產生水平捲軸
+// ==========================================================================
+
+.data-section {
+  // 上疊進 banner 的下方留白區，做出卡片浮在漸層背景上的交疊效果
+  position: relative;
+  margin-top: -48px;
+  padding: 0 0 64px;
+  z-index:2;
+
+  @include media-breakpoint-up(lg) {
+    margin-top: -64px;
+  }
+}
+
+.data-card {
+  background-color: $white;
+  border-radius: 16px;
+  box-shadow: $box-shadow;
+  padding: 20px 16px;
+
+  @include media-breakpoint-up(lg) {
+    padding: 24px;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 查詢工具列
+// --------------------------------------------------------------------------
+.data-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+.data-toolbar-field {
+  flex: 1 1 100%;
+
+  @include media-breakpoint-up(md) {
+    flex: 0 1 200px;
+  }
+}
+
+.data-toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    font-weight: $font-weight-medium;
+  }
+}
+
+// 日期區間欄（教師代課管理：開始 ~ 結束）
+.data-toolbar-field--range {
+  @include media-breakpoint-up(md) {
+    flex: 0 1 340px;
+  }
+}
+
+// 搜尋說明較長的欄位（如個人範本頁：班級+科目複合搜尋，需容納完整 placeholder 提示）
+.data-toolbar-field--wide {
+  @include media-breakpoint-up(md) {
+    flex: 0 1 320px;
+  }
+}
+
+.date-range {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .form-control {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+}
+
+.date-range-sep {
+  color: $grey-500;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+// 匯出按鈕（深琥珀色：白字對比 CR >= 4.5:1）
+.btn-export {
+  background-color: #A05E11;
+  border-color: #A05E11;
+  color: $white;
+
+  &:hover,
+  &:focus-visible {
+    background-color: darken(#A05E11, 8%);
+    border-color: darken(#A05E11, 8%);
+    color: $white;
+  }
+}
+
+// 總筆數（後端動態數字）
+.data-total {
+  text-align: right;
+  color: $grey-600;
+  font-weight: $font-weight-medium;
+  margin: 16px 0 12px;
+}
+
+// --------------------------------------------------------------------------
+// 資料表格（桌機）
+// --------------------------------------------------------------------------
+.data-table {
+    border-radius: 10px;
+    margin-bottom: 0;
+    overflow: hidden;
+    outline: 1px solid $grey-300;
+
+  th,
+  td {
+    vertical-align: middle;
+    text-align: center;
+    padding: 14px 12px;
+  }
+
+  thead th {
+    background-color: $grey-200;
+    color: $grey-600;
+    font-weight: $font-weight-medium;
+    white-space: nowrap;
+    border-bottom: 0;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: $grey-100;
+  }
+
+  tbody td {
+    border-bottom: 1px solid $grey-300;
+  }
+
+  // 全選／勾選欄
+  .form-check-input {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+  
+
+  .check-all-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: $font-weight-medium;
+  }
+
+  // 功能欄編輯按鈕
+  .btn-edit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 120px;
+    padding: 8px 16px;
+  }
+}
+ .form-check-input {
+    transform: scale(1.3);
+  }
+.form-check .form-check-input {
+    margin-left: -1.8em;
+  }
+// 長字串欄位（如課程名稱）靠左呈現
+.data-table .cell-value--start {
+  display: block;
+  text-align: left;
+}
+
+// --------------------------------------------------------------------------
+// 狀態徽章（啟用／停用）：表格「狀態」欄位使用，樣式比照 .report-status-badge
+// --------------------------------------------------------------------------
+@mixin status-badge-colors($bg, $fg) {
+  background-color: $bg;
+  color: $fg;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 14px;
+  border-radius: 999px;
+  font-weight: $font-weight-medium;
+
+  &.status-badge--active {
+    @include status-badge-colors(rgba($success, 0.12), $success);
+  }
+
+  &.status-badge--inactive {
+    @include status-badge-colors($grey-200, $grey-500);
+  }
+}
+
+// --------------------------------------------------------------------------
+// 寬版表格（教師代課管理：欄位多）：md 以上以水平捲動容器承載
+// --------------------------------------------------------------------------
+.data-table-wrap {
+  // position: relative 為必要設定：儲存格內的 .sr-only 隱藏標籤是 position: absolute，
+  // 若本容器不是定位基準，其定位基準會跳到外層 .form-section-wrap（relative），
+  // 便不受此處 overflow-x 裁切，靜態位置落在表格捲動範圍內時會把整頁文件
+  // 撐寬，於視窗最右側多出一段空白可捲動區（桌機/平板皆會發生）
+  position: relative;
+
+  @include media-breakpoint-up(md) {
+    overflow-x: auto;
+    border-radius: 10px;
+  }
+}
+
+.data-table--wide {
+  @include media-breakpoint-up(md) {
+    min-width: 1080px;
+
+    th,
+    td {
+      white-space: nowrap;
+    }
+  }
+}
+
+// --------------------------------------------------------------------------
+// RWD：< md 轉直式區塊（參考 data-label + ::before 手法）
+// --------------------------------------------------------------------------
+@include media-breakpoint-down(md) {
+  .data-table {
+    display: block;
+    outline:initial; 
+    thead {
+      display: none; // 欄名改由各格 data-label 呈現
+    }
+
+    tbody,
+    tr,
+    td {
+      display: block;
+      width: 100%;
+    }
+
+    tbody tr {
+      margin-bottom: 16px;
+      border: 1px solid $grey-300;
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: $white;
+
+      &:nth-child(even) {
+        background-color: $white;
+
+        td::before {
+          background-color: $grey-300;
+        }
+      }
+    }
+
+    tbody td {
+      display: flex;
+      align-items: stretch;
+      padding: 0;
+      border-bottom: 1px solid $grey-300;
+      text-align: left;
+
+      &:last-child {
+        border-bottom: 0;
+      }
+
+      // 左側欄名標籤
+      &::before {
+        content: attr(data-label);
+        flex: 0 0 35%;
+        display: flex;
+        align-items: center;
+        padding: 10px 12px;
+        background-color: $grey-200;
+        color: $grey-600;
+        font-weight: $font-weight-medium;
+        word-break: break-word;
+      }
+    }
+
+    // 右側內容值置中
+    // min-width: 0 為必要設定：flex 子項預設 min-width:auto 會依內容不可斷行的
+    // 最大寬度撐開，導致長文字（如勾選群組標籤）把整個頁面往右推出水平捲軸
+    .cell-value {
+      flex: 1 1 auto;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 12px;
+    }
+
+    .check-all-label {
+      justify-content: center;
+    }
+
+    .btn-edit {
+      width: 100%;
+    }
+  }
+}
+
+// --------------------------------------------------------------------------
+// 分頁
+// --------------------------------------------------------------------------
+.data-pagination {
+  margin-top: 32px;
+
+  .pagination {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 0;
+  }
+
+  .page-link {
+    min-width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    border: 1px solid $grey-300;
+    color: $grey-600;
+
+    &:hover {
+      color: $primary;
+      background-color: $grey-200;
+    }
+  }
+
+  .page-item.active .page-link {
+    background-color: $primary;
+    border-color: $primary;
+    color: $white;
+  }
+
+  // 前後翻頁鍵不加外框
+  .page-item--nav .page-link {
+    border: 0;
+    background-color: transparent;
+    color: $grey-500;
+
+    &:hover {
+      color: $primary;
+    }
+  }
+}

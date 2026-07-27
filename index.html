@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="keywords" content="國立彰化特殊教育學校, 彰化特教, 雲端校務管理系統, 校務系統, 特殊教育, IEP管理">
+    <meta name="description" content="國立彰化特殊教育學校雲端校務管理系統：權限分級控管、師生資料集中管理與自動化統計報表，整合校務流程、提升行政效率、建構智慧校園。">
+
+    <meta property="og:title" content="國立彰化特殊教育學校 雲端校務管理系統">
+    <meta property="og:description" content="權限分級控管、師生資料集中管理與自動化統計報表，整合校務流程、提升行政效率、建構智慧校園。">
+    <meta property="og:url" content="#">
+    <meta property="og:type" content="website">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body>
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 訪客 Header（依設計稿僅手機板顯示） -->
+    <div id="header" data-layout="layout/header.html"></div>
+
+    <main id="goCenter" tabindex="-1" class="overflow-hidden bg-white">
+        <!-- 主視覺與系統登入 -->
+        <section class="hero">
+            <img class="hero-dec hero-dec--left-top" src="img/hero/hero-leftTop-lg.svg" alt="" aria-hidden="true">
+            <img class="hero-dec hero-dec--left-bottom" src="img/hero/hero-leftBottom-lg.svg" alt="" aria-hidden="true">
+            <img class="hero-dec hero-dec--right" src="img/hero/hero-right-lg.svg" alt="" aria-hidden="true">
+
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-12 col-lg-7">
+                        <p class="hero-eyebrow">
+                            <img src="img/logo/logo-uni.png" alt="" width="21" height="21">國立彰化特殊教育學校
+                        </p>
+                        <h1 class="hero-title">雲端校務管理系統</h1>
+                        <ul class="hero-features">
+                            <li>
+                                <span class="feature-icon"><i class="bi bi-person-fill-lock" aria-hidden="true"></i></span>
+                                <span class="feature-body">
+                                    <span class="feature-title">權限分級</span>
+                                    <span class="feature-desc d-none d-lg-inline">角色化控管，兼顧安全與便利</span>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="feature-icon"><i class="bi bi-stack" aria-hidden="true"></i></span>
+                                <span class="feature-body">
+                                    <span class="feature-title">資料集中</span>
+                                    <span class="feature-desc d-none d-lg-inline">整合師生與班級基本資料</span>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="feature-icon"><i class="bi bi-graph-up-arrow" aria-hidden="true"></i></span>
+                                <span class="feature-body">
+                                    <span class="feature-title">行政效率</span>
+                                    <span class="feature-desc d-none d-lg-inline">自動化統計與報表輸出</span>
+                                </span>
+                            </li>
+                        </ul>
+
+                        <!-- 系統登入卡片 -->
+                        <!-- 後端：登入表單 action 與驗證邏輯由後端掛載 -->
+                        <form class="login-card" action="#" method="post" novalidate>
+                            <div class="login-card-head">
+                                <h2 class="login-card-title">系統登入</h2>
+                                <a class="login-card-grip" href="#" id="c" accesskey="c" title="主要網站資訊區塊" aria-hidden="true">:::</a>
+                            </div>
+
+                            <div class="login-field">
+                                <label for="loginAccount">帳號 <span class="required-mark" aria-hidden="true">*</span><span class="sr-only">（必填）</span></label>
+                                <input type="text" class="form-control" id="loginAccount" name="account" placeholder="請輸入帳號" required autocomplete="username" aria-describedby="accountError">
+                                <!-- 後端：驗證失敗時移除 hidden 屬性顯示錯誤文字 -->
+                                <p class="field-error" id="accountError" hidden>請輸入帳號</p>
+                            </div>
+
+                            <div class="login-field">
+                                <label for="loginPassword">密碼 <span class="required-mark" aria-hidden="true">*</span><span class="sr-only">（必填）</span></label>
+                                <div class="flex-center-start  flex-wrap gap-3">
+                                     <div class="input-password-wrap">
+                                        <input type="password" class="form-control" id="loginPassword" name="password" placeholder="請輸入 6 至 12 碼大小寫英文字母與數字" required autocomplete="current-password" aria-describedby="passwordError">
+                                        <button type="button" class="toggle-password" data-target="loginPassword" aria-label="顯示密碼">
+                                            <i class="bi bi-eye-slash" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                    <div class="login-field-aid">
+                                        <!-- 後端：驗證失敗時移除 hidden 屬性顯示錯誤文字 -->
+                                        <p class="field-error" id="passwordError" hidden>密碼格式錯誤：請輸入 6 至 12 碼大小寫英文字母與數字</p>
+                                        <!-- 後端：忘記密碼流程連結 -->
+                                        <a class="forgot-link" href="#">忘記密碼?</a>
+                                    </div>
+                                </div>
+                               
+                            </div>
+
+                            <div class="login-field">
+                                <label for="captchaInput">圖形驗證碼 <span class="required-mark" aria-hidden="true">*</span><span class="sr-only">（必填）</span></label>
+                                <div class="flex-center-start gap-2 flex-lg-nowrap flex-wrap">
+                                    <input type="text" class="form-control w-auto" id="captchaInput" name="captcha" placeholder="請輸入圖片中顯示的驗證碼" required autocomplete="off" inputmode="numeric" aria-describedby="captchaError">
+                                    <!-- 後端：正式驗證碼圖片由後端產生（前端示意由 js/main.js 繪製） -->
+                                    <img class="captcha-img" id="captchaImage" src="" alt="圖形驗證碼" width="120" height="48">
+                                    <button type="button" class="btn-captcha" id="captchaSpeak" aria-label="播放驗證碼語音">
+                                        <i class="bi bi-volume-up" aria-hidden="true"></i>語音播放
+                                    </button>
+                                    <button type="button" class="btn-captcha" id="captchaRefresh" aria-label="重新產生一組圖形驗證碼">
+                                        <i class="bi bi-arrow-clockwise" aria-hidden="true"></i>換一張
+                                    </button>
+                                </div>
+                                <!-- 後端：驗證失敗時移除 hidden 屬性顯示錯誤文字 -->
+                                <p class="field-error" id="captchaError" hidden>驗證碼輸入錯誤，請重新輸入</p>
+                            </div>
+
+                            <button type="submit" class="btn-login">立即登入</button>
+                        </form>
+
+                    </div>
+
+                    <div class="col-12 col-lg-5 position-relative">
+                        
+                        <div class="hero-visual">
+                            <img src="img/hero/main-visual_images-lg.png" alt="">
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 外部網站連結 -->
+        <section class="external-links" aria-labelledby="extLinksTitle">
+            <h2 class="external-links-title" id="extLinksTitle">
+                <img src="./img/hero/external-links-title.svg" alt="外部網站連結">
+            </h2>
+            <div class="external-links-bg">
+                <ul class="link-circles">
+                    <li>
+                        <!-- 後端：外部網站網址 -->
+                        <a class="circle-link" href="https://www.chsmr.chc.edu.tw/" target="_blank" rel="noopener" title="彰化特教（另開新視窗）">彰化特教</a>
+                    </li>
+                    <li>
+                        <a class="circle-link" href="http://211.20.19.15:8037/" target="_blank" rel="noopener" title="雲端空間預約管理（另開新視窗）">雲端空間<br>預約管理</a>
+                    </li>
+                    <li>
+                        <a class="circle-link" href="#" target="_blank" rel="noopener" title="學校營養午餐系統（另開新視窗）">學校營養<br>午餐系統</a>
+                    </li>
+                    <li>
+                        <a class="circle-link" href="https://pk12.cloudhr.tw/" target="_blank" rel="noopener" title="國教署雲端差勤系統（另開新視窗）">國教署雲端<br>差勤系統</a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">置頂</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

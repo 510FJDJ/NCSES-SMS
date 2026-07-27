@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>學生學籍基本資料 - 新增 - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="填寫學生學籍資料，並新增。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body>
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1">
+        <!-- 內頁 Banner：麵包屑＋標題＋返回列表按鈕 -->
+        <section class="page-banner">
+            <!-- 裝飾層（純 CSS 繪製） -->
+            <div class="page-banner-deco" aria-hidden="true">
+                <span class="page-banner-halfcircle"></span>
+                <span class="page-banner-circle"></span>
+                <span class="page-banner-dots"></span>
+            </div>
+
+            <div class="container">
+                <nav class="page-banner-breadcrumb" aria-label="麵包屑導覽">
+                    <ol>
+                        <li>
+                            <a class="breadcrumb-home" href="index_AdminLogged.html" aria-label="首頁">
+                                <i class="bi bi-house-door" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">基本資料維護</a></li>
+                        <li><a href="studentRoster.html">學生學籍基本資料</a></li>
+                        <!-- 後端：編輯模式時此處為「編輯」 -->
+                        <li aria-current="page">新增</li>
+                    </ol>
+                </nav>
+
+                <div class="page-banner-main">
+                    <div class="page-banner-text">
+                        <!-- 後端：編輯模式時標題描述為「修改學生學籍資料，並儲存。」 -->
+                        <h1 class="page-banner-title">學生學籍基本資料</h1>
+                        <p class="page-banner-desc">填寫學生學籍資料，並新增。</p>
+                    </div>
+                    <!-- 右側人物插圖（純裝飾；背景以 CSS 繪製，角色圖可互換） -->
+                    <div class="page-banner-visual page-banner-visual--composed page-banner-visual--pointPerson" aria-hidden="true">
+                        <span class="banner-visual-blob"></span>
+                        <span class="banner-visual-window"></span>
+                        <img class="banner-visual-person" src="img/hero/characters/people-front-point.png" alt="">
+                    </div>
+                    <a class="btn-back" href="studentRoster.html">
+                        <i class="bi bi-chevron-left" aria-hidden="true"></i>返回列表
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 學籍資料表單 -->
+        <section class="form-section-wrap">
+            <div class="container">
+                <!-- 後端：表單送出目標與驗證由後端接手 -->
+                <form class="form-card" action="#" method="post" novalidate>
+                    <!-- 基本資料 -->
+                    <section class="form-section" aria-labelledby="secBasic">
+                        <h2 class="form-section-title" id="secBasic">
+                            <i class="bi bi-person" aria-hidden="true"></i>基本資料
+                        </h2>
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <label class="form-label" for="stuSid">學號<span class="badge-required">必填</span></label>
+                                <input type="text" class="form-control" id="stuSid" name="stuSid" placeholder="請輸入學號" required aria-required="true">
+                                <div class="invalid-feedback">請輸入學號（例如：1011001）。</div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <label class="form-label" for="stuNameZh">中文姓名<span class="badge-required">必填</span></label>
+                                <input type="text" class="form-control" id="stuNameZh" name="stuNameZh" placeholder="範例：王小明" required aria-required="true">
+                                <div class="invalid-feedback">請輸入學生中文姓名。</div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <label class="form-label" for="stuNameEn">英文姓名</label>
+                                <input type="text" class="form-control" id="stuNameEn" name="stuNameEn" placeholder="範例：Xiao-Ming Wang">
+                            </div>
+
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <fieldset>
+                                    <legend class="form-legend">姓別<span class="badge-required">必填</span></legend>
+                                    <div class="form-radio-row">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="stuGender" id="stuGenderM" value="M" checked>
+                                            <label class="form-check-label" for="stuGenderM">生理男</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="stuGender" id="stuGenderF" value="F">
+                                            <label class="form-check-label" for="stuGenderF">生理女</label>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <label class="form-label" for="stuBirthday">學生生日<span class="badge-required">必填</span></label>
+                                <input type="date" class="form-control" id="stuBirthday" name="stuBirthday" required aria-required="true">
+                                <div class="invalid-feedback">請選擇學生出生日期。</div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <label class="form-label" for="stuIdentityDropdown">學生身分別 (可多選)</label>
+                                <!-- 後端：勾選結果以 name="stuIdentity[]" 提交 -->
+                                <div class="dropdown multi-select-dropdown">
+                                    <button class="form-select text-start text-muted bg-white" type="button" id="stuIdentityDropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                    請選擇學生身分別
+                                    </button>
+                                    <div class="dropdown-menu w-100 p-3" aria-labelledby="stuIdentityDropdown">
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="stuIdentity1" name="stuIdentity[]" value="1">
+                                            <label class="form-check-label d-block" for="stuIdentity1">一般生</label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="stuIdentity2" name="stuIdentity[]" value="2">
+                                            <label class="form-check-label d-block" for="stuIdentity2">原住民</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="stuIdentity3" name="stuIdentity[]" value="3">
+                                            <label class="form-check-label d-block" for="stuIdentity3">低收入戶</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="stuDept">部別<span class="badge-required">必填</span></label>
+                                <select class="form-select" id="stuDept" name="stuDept" required aria-required="true">
+                                    <option value="" selected>請選擇</option>
+                                    <option value="1">國民小學</option>
+                                    <option value="2">國民中學</option>
+                                    <option value="3">高級職業部</option>
+                                </select>
+                                <div class="invalid-feedback">請選擇部別。</div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="stuDivision">科別</label>
+                                <select class="form-select" id="stuDivision" name="stuDivision">
+                                    <option value="" selected>請選擇</option>
+                                    <option value="1">綜合職能科</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="stuGuardian">家長姓名<span class="badge-required">必填</span></label>
+                                <input type="text" class="form-control" id="stuGuardian" name="stuGuardian" placeholder="請輸入家長姓名" required aria-required="true">
+                                <div class="invalid-feedback">請輸入家長姓名。</div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="stuNid">身份證字號<span class="badge-required">必填</span></label>
+                                <input type="text" class="form-control" id="stuNid" name="stuNid" placeholder="範例：N123456789" required aria-required="true">
+                                <div class="invalid-feedback">請輸入正確格式的身份證字號（1 碼英文＋9 碼數字）。</div>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label" for="studentPhoto">學生照片</label>
+                                <div class="photo-upload">
+                                    <input type="file" class="form-control photo-upload-input" id="studentPhoto" name="studentPhoto" accept="image/*">
+                                    <!-- 選擇檔案後由 JS 填入縮圖預覽 -->
+                                    <span class="photo-preview" id="photoPreview" aria-hidden="true">
+                                        <i class="bi bi-image" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 特教與入學資料 -->
+                    <section class="form-section" aria-labelledby="secSped">
+                        <h2 class="form-section-title" id="secSped">
+                            <i class="bi bi-book" aria-hidden="true"></i>特教與入學資料
+                        </h2>
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="spedTypeDropdown">障礙類別(可多選)</label>
+
+                                <!-- Bootstrap 下拉選單容器；auto-close="outside" 讓點選選單內部不收合 -->
+                                <div class="dropdown multi-select-dropdown">
+                                    <!-- 下拉按鈕：外觀看起來像一般輸入框，勾選後由 JS 回填選取值 -->
+                                    <button class="form-select text-start text-muted bg-white" type="button" id="spedTypeDropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                    請選擇障礙類別
+                                    </button>
+                                    
+                                    <!-- 下拉選單內容：寬度設為 100% 貼合按鈕，加上內距 p-3 -->
+                                    <div class="dropdown-menu w-100 p-3" aria-labelledby="spedTypeDropdown">
+                                    
+                                    <!-- 選項 1：智能障礙 -->
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" id="spedType1" name="spedType[]" value="1">
+                                        <label class="form-check-label d-block" for="spedType1">智能障礙</label>
+                                    </div>
+                                    
+                                    <!-- 選項 2：視覺障礙 -->
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" id="spedType2" name="spedType[]" value="2">
+                                        <label class="form-check-label d-block" for="spedType2">視覺障礙</label>
+                                    </div>
+                                    
+                                    <!-- 選項 3：聽覺障礙 -->
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="spedType3" name="spedType[]" value="3">
+                                        <label class="form-check-label d-block" for="spedType3">聽覺障礙</label>
+                                    </div>
+                                    
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="spedLevel">障礙等級</label>
+                                <select class="form-select" id="spedLevel" name="spedLevel">
+                                    <option value="" selected>請選擇</option>
+                                    <option value="1">輕度</option>
+                                    <option value="2">中度</option>
+                                    <option value="3">重度</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="enrollYear">入學學年度<span class="badge-required">必填</span></label>
+                                <input type="text" class="form-control" id="enrollYear" name="enrollYear" placeholder="2026年9月入學,範例:115" required aria-required="true">
+                                <div class="invalid-feedback">請輸入入學學年度（例如：115）。</div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="identityNote">身分別註記</label>
+                                <input type="text" class="form-control" id="identityNote" name="identityNote" placeholder="請輸入說明">
+                            </div>
+
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="enrollKind">入學區分</label>
+                                <select class="form-select" id="enrollKind" name="enrollKind">
+                                    <option value="" selected>請選擇</option>
+                                    <option value="1">新生</option>
+                                    <option value="2">轉入生</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="enrollSchool">入學學校</label>
+                                <select class="form-select" id="enrollSchool" name="enrollSchool">
+                                    <option value="" selected>請選擇</option>
+                                    <option value="1">本校</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="enrollQualify">入學資格</label>
+                                <select class="form-select" id="enrollQualify" name="enrollQualify">
+                                    <option value="" selected>請選擇</option>
+                                    <option value="1">鑑輔會安置</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="assessTypeDropdown">鑑輔特教類別 (可多選)</label>
+                                <!-- 後端：勾選結果以 name="assessType[]" 提交 -->
+                                <div class="dropdown multi-select-dropdown">
+                                    <button class="form-select text-start text-muted bg-white" type="button" id="assessTypeDropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                    請選擇鑑輔特教類別
+                                    </button>
+                                    <div class="dropdown-menu w-100 p-3" aria-labelledby="assessTypeDropdown">
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="assessType1" name="assessType[]" value="1">
+                                            <label class="form-check-label d-block" for="assessType1">智能障礙</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="assessType2" name="assessType[]" value="2">
+                                            <label class="form-check-label d-block" for="assessType2">自閉症</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="assessLevel">鑑輔特教程度</label>
+                                <select class="form-select" id="assessLevel" name="assessLevel">
+                                    <option value="" selected>請選擇</option>
+                                    <option value="1">輕度</option>
+                                    <option value="2">中度</option>
+                                    <option value="3">重度</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="assessNote">鑑輔特教註記</label>
+                                <div class="textarea-counter-wrap">
+                                    <textarea class="form-control" id="assessNote" name="assessNote" placeholder="請輸入說明" maxlength="100" aria-describedby="assessNoteCount"></textarea>
+                                    <span class="textarea-counter" id="assessNoteCount" aria-live="polite">0 / 100</span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="gradYear">畢業學年度</label>
+                                <input type="text" class="form-control" id="gradYear" name="gradYear" placeholder="2026年6月畢業,範例:114">
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="gradClass">畢業班級</label>
+                                <input type="text" class="form-control" id="gradClass" name="gradClass" placeholder="請輸入畢業班級">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 聯絡資料 -->
+                    <section class="form-section" aria-labelledby="secContact">
+                        <h2 class="form-section-title" id="secContact">
+                            <i class="bi bi-person-vcard" aria-hidden="true"></i>聯絡資料
+                        </h2>
+                        <div class="row g-3">
+                            <div class="col-12 col-lg-6">
+                                <label class="form-label" for="stuPhone">學生手機</label>
+                                <input type="tel" class="form-control" id="stuPhone" name="stuPhone" placeholder="請輸入學生手機">
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <label class="form-label" for="stuEmail">電子信箱</label>
+                                <input type="email" class="form-control" id="stuEmail" name="stuEmail" placeholder="請輸入電子信箱">
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label" for="householdAddress">戶籍地址<span class="badge-required">必填</span></label>
+                                <input type="text" class="form-control" id="householdAddress" name="householdAddress" placeholder="請輸入戶籍地址" required aria-required="true">
+                                <div class="invalid-feedback">請輸入戶籍地址。</div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="mail-address-check">
+                                    <span class="form-label mb-0">通訊地址</span>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="sameAddress">
+                                        <label class="form-check-label" for="sameAddress">同上</label>
+                                    </div>
+                                </div>
+                                <div class="mail-address-fields">
+                                    <label class="form-label" for="mailZip">郵遞區號：</label>
+                                    <input type="text" class="form-control mail-zip" id="mailZip" name="mailZip" placeholder="請輸入郵遞區號">
+                                    <label class="form-label" for="mailAddress">地址：</label>
+                                    <input type="text" class="form-control mail-street" id="mailAddress" name="mailAddress" placeholder="請輸入通訊地址">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 家長資料 -->
+                    <section class="form-section" aria-labelledby="secGuardian">
+                        <h2 class="form-section-title" id="secGuardian">
+                            <i class="bi bi-people" aria-hidden="true"></i>家長資料
+                        </h2>
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="guardianName">家長姓名</label>
+                                <input type="text" class="form-control" id="guardianName" name="guardianName" placeholder="請輸入家長姓名">
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="guardianNid">家長身分證號</label>
+                                <input type="text" class="form-control" id="guardianNid" name="guardianNid" placeholder="請輸入家長身分證號">
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <fieldset>
+                                    <legend class="form-legend">家長姓別</legend>
+                                    <div class="form-radio-row">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="guardianGender" id="guardianGenderM" value="M" checked>
+                                            <label class="form-check-label" for="guardianGenderM">生理男</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="guardianGender" id="guardianGenderF" value="F">
+                                            <label class="form-check-label" for="guardianGenderF">生理女</label>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="guardianBirthday">家長生日</label>
+                                <input type="date" class="form-control" id="guardianBirthday" name="guardianBirthday">
+                            </div>
+
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="guardianJob">家長職業</label>
+                                <select class="form-select" id="guardianJob" name="guardianJob">
+                                    <option value="" selected>請選擇</option>
+                                    <option value="1">工</option>
+                                    <option value="2">商</option>
+                                    <option value="3">服務業</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="guardianEdu">家長學歷</label>
+                                <select class="form-select" id="guardianEdu" name="guardianEdu">
+                                    <option value="" selected>請選擇</option>
+                                    <option value="1">國中</option>
+                                    <option value="2">高中職</option>
+                                    <option value="3">大專以上</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="guardianTitle">家長稱謂</label>
+                                <select class="form-select" id="guardianTitle" name="guardianTitle">
+                                    <option value="" selected>請選擇</option>
+                                    <option value="1">父</option>
+                                    <option value="2">母</option>
+                                    <option value="3">祖父母</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="guardianTel">家長電話</label>
+                                <input type="tel" class="form-control" id="guardianTel" name="guardianTel" placeholder="請輸入家長電話">
+                            </div>
+
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="guardianPhone">家長手機</label>
+                                <input type="tel" class="form-control" id="guardianPhone" name="guardianPhone" placeholder="請輸入家長手機">
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-9">
+                                <label class="form-label" for="guardianAddress">家長通訊地址</label>
+                                <input type="text" class="form-control" id="guardianAddress" name="guardianAddress" placeholder="請輸入家長通訊地址">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 父(母)資料 -->
+                    <section class="form-section" aria-labelledby="secParent">
+                        <h2 class="form-section-title" id="secParent">
+                            <i class="bi bi-person-check" aria-hidden="true"></i>父(母)資料
+                        </h2>
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="parentName">父(母)姓名</label>
+                                <input type="text" class="form-control" id="parentName" name="parentName" placeholder="請輸入父或母姓名">
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="parentNid">父(母)身分證號</label>
+                                <input type="text" class="form-control" id="parentNid" name="parentNid" placeholder="請輸入父或母身分證號">
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="parentBirthday">父(母)生日</label>
+                                <input type="date" class="form-control" id="parentBirthday" name="parentBirthday">
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="parentJob">父(母)職業</label>
+                                <select class="form-select" id="parentJob" name="parentJob">
+                                    <option value="" selected>請選擇</option>
+                                    <option value="1">工</option>
+                                    <option value="2">商</option>
+                                    <option value="3">服務業</option>
+                                </select>
+                            </div>
+
+                            <div class="col-12 col-lg-6">
+                                <label class="form-label" for="parentTel">父(母)電話</label>
+                                <input type="tel" class="form-control" id="parentTel" name="parentTel" placeholder="請輸入父或母電話">
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <label class="form-label" for="parentPhone">父(母)手機</label>
+                                <input type="tel" class="form-control" id="parentPhone" name="parentPhone" placeholder="請輸入父或母手機">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 緊急連絡人 -->
+                    <section class="form-section" aria-labelledby="secEmergency">
+                        <h2 class="form-section-title" id="secEmergency">
+                            <i class="bi bi-telephone" aria-hidden="true"></i>緊急連絡人
+                        </h2>
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <label class="form-label" for="emergencyName">聯絡人姓名</label>
+                                <input type="text" class="form-control" id="emergencyName" name="emergencyName" placeholder="請輸入聯絡人姓名">
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <label class="form-label" for="emergencyTel">聯絡人電話</label>
+                                <input type="tel" class="form-control" id="emergencyTel" name="emergencyTel" placeholder="請輸入聯絡人電話">
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <label class="form-label" for="emergencyPhone">聯絡人手機</label>
+                                <input type="tel" class="form-control" id="emergencyPhone" name="emergencyPhone" placeholder="請輸入聯絡人手機">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 底部動作 -->
+                    <div class="form-actions">
+                        <a class="btn btn-cancel" href="studentRoster.html">取消</a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-floppy" aria-hidden="true"></i>儲存
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,526 @@
+// ==========================================================================
+// 資料維護 Modal（.data-modal）：新增/編輯表單、穿梭清單（編班）、座號表格
+// 回饋 Modal（.feedback-modal）：操作成功訊息＋倒數自動關閉
+// ==========================================================================
+
+.data-modal {
+  .modal-content {
+    border: 0;
+    border-radius: 16px;
+    box-shadow: $box-shadow-lg;
+  }
+
+  .modal-header {
+    align-items: flex-start;
+    padding: 24px 24px 16px;
+    border-bottom: 1px solid $grey-300;
+
+    .btn-close {
+      margin-top: 4px;
+    }
+  }
+
+  .modal-body {
+    padding: 24px;
+  }
+}
+
+// Modal 標題（h2：頁面唯一 h1 保留給 banner）與副標
+.data-modal-title {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 1.5rem;
+  font-weight: $font-weight-bold;
+  color: $grey-600;
+  margin-bottom: 0;
+}
+
+.data-modal-desc{
+  color: $grey-500;
+  margin: 6px 0 0;
+}
+
+// 唯讀資訊（如：班級名稱）
+.data-modal-static {
+  background-color: $grey-200;
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: $primary;
+  font-weight: $font-weight-medium;
+  margin-bottom: 0;
+}
+
+// 小提醒列
+.data-modal-tip {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background-color: rgba($primary, .08);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: $primary;
+  margin: 24px 0 0;
+
+  .bi {
+    flex-shrink: 0;
+    line-height: inherit;
+  }
+}
+
+// 底部動作按鈕（沿用 .form-actions 視覺，縮小上方留白）
+.data-modal-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 32px;
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 120px;
+    padding: 12px 24px;
+    font-weight: $font-weight-medium;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 穿梭清單（編班 Modal：班級學生 ⇄ 尚未編班學生）
+// --------------------------------------------------------------------------
+.transfer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+
+  @include media-breakpoint-up(lg) {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 20px;
+  }
+}
+
+.transfer-panel {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.transfer-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+// 面板標題（h3：位於 modal h2 之下，符合標題階層）
+.transfer-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.125rem;
+  font-weight: $font-weight-bold;
+  color: $grey-600;
+  margin-bottom: 0;
+}
+
+.transfer-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 8px;
+  border-radius: 8px;
+  background-color: $primary;
+  color: $white;
+  font-size: 0.9375rem;
+}
+
+.transfer-search {
+  position: relative;
+  flex: 1 1 160px;
+  max-width: 240px;
+
+  .form-control {
+    padding: .5rem 2.5rem .5rem 1rem;
+  }
+
+  .bi {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $grey-500;
+    pointer-events: none;
+  }
+}
+
+.transfer-box {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $grey-300;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: white;
+}
+
+.transfer-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px;
+  border-bottom: 1px solid $grey-300;
+
+  .form-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+  }
+
+  .form-check-input {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    flex-shrink: 0;
+  }
+}
+
+.transfer-selected {
+  color: $grey-500;
+}
+
+.transfer-list {
+  list-style: none;
+  margin: 0;
+  padding: 8px 16px;
+  max-height: 220px;
+  overflow-y: auto;
+
+  .form-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    margin: 0;
+  }
+
+  .form-check-input {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    flex-shrink: 0;
+  }
+}
+
+// 中央單筆移動按鈕
+.transfer-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  @include media-breakpoint-up(lg) {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+}
+
+// 面板底部「全選移除／全選添加」
+.transfer-bulk {
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  border: 1px solid $primary;
+  border-radius: 8px;
+  background-color: $white;
+  color: $primary;
+  font-weight: $font-weight-medium;
+
+  &:hover,
+  &:focus-visible {
+    background-color: $grey-200;
+    color: $primary;
+    border-color: $primary;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 座號 Modal：座號輸入欄
+// --------------------------------------------------------------------------
+.seat-input {
+  max-width: 180px;
+  margin: 0 auto;
+  text-align: left;
+
+  @include media-breakpoint-down(md) {
+    max-width: 100%;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 回饋 Modal：成功訊息＋倒數自動關閉
+// --------------------------------------------------------------------------
+.feedback-modal {
+  .modal-content {
+    border: 0;
+    border-radius: 16px;
+    box-shadow: $box-shadow-lg;
+  }
+
+  .feedback-body {
+    padding: 40px 32px 32px;
+    text-align: center;
+  }
+
+  .feedback-icon {
+    display: inline-flex;
+    font-size: 3rem;
+    line-height: 1;
+    color: $primary-300;
+    margin-bottom: 16px;
+
+    // 危險色變體：如強制解除衝突等具警示意義的操作結果
+    &.feedback-icon--danger {
+      color: $danger;
+    }
+  }
+
+  .feedback-title {
+    font-size: 1.5rem;
+    font-weight: $font-weight-bold;
+    color: $grey-600;
+    margin-bottom: 8px;
+  }
+
+  .feedback-desc {
+    color: $grey-500;
+    margin-bottom: 24px;
+  }
+
+  .feedback-countdown {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 10px 20px;
+    border: 1px solid $grey-300;
+    border-radius: 8px;
+    background-color: $grey-100;
+    color: $grey-600;
+    margin-bottom: 0;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 指定修課學生 Modal：右面板以班級下拉篩選（取代搜尋框）
+// --------------------------------------------------------------------------
+.transfer-classpick {
+  flex: 1 1 160px;
+  max-width: 240px;
+}
+
+// --------------------------------------------------------------------------
+// 特殊安排 Modal（開課作業）：衝突提示、現有/加入課程對照、處理方式
+// --------------------------------------------------------------------------
+.special-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 12px 0 0;
+  padding: 10px 16px;
+  border: 1px solid $success;
+  border-radius: 8px;
+  background-color: rgba($success, .06);
+  color: $success;
+
+  .bi {
+    flex-shrink: 0;
+    line-height: inherit;
+  }
+}
+
+// 對照欄標題（h3：位於 modal h2 之下，符合標題階層）
+.special-col-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.125rem;
+  font-weight: $font-weight-bold;
+  color: $grey-600;
+  padding-bottom: 8px;
+  border-bottom: 1px solid $grey-300;
+  margin-bottom: 16px;
+}
+
+.special-process-title {
+  margin-top: 32px;
+  color: $primary-300;
+  border-bottom-color: $primary-100;
+}
+
+.process-options {
+  .form-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    margin: 0;
+  }
+
+  .form-check-input {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    flex-shrink: 0;
+  }
+}
+
+// 合併/分組上課時顯示的班級名稱設定區
+.process-classbox {
+  background-color: rgba($primary, .06);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 8px 0 8px 28px;
+}
+
+.process-classbox-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 16px;
+
+  .form-select {
+    flex: 0 1 260px;
+  }
+}
+
+.process-classbox-hint {
+  flex: 1 1 240px;
+  margin: 0;
+  color: $grey-600;
+}
+
+// --------------------------------------------------------------------------
+// 調代(兼)課 Modal：單號資訊列、星期天數、節次區間、事由字數
+// --------------------------------------------------------------------------
+.substitute-info-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  background-color: $grey-200;
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: $grey-600;
+  font-weight: $font-weight-medium;
+  margin-bottom: 20px;
+
+  small {
+    color: $grey-500;
+    font-weight: $font-weight-normal;
+  }
+}
+
+.substitute-date-hint {
+  margin: 8px 0 0;
+  color: $grey-500;
+  font-size: 0.9375rem;
+}
+
+// 星期天數：邊框方塊式勾選列（跨日請假時由 JS 顯示）
+.weekday-checks-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.weekday-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 10px 14px;
+  border: 1px solid $grey-300;
+  border-radius: 8px;
+
+  .form-check-input {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  &:has(.form-check-input:checked) {
+    border-color: $primary;
+    background-color: rgba($primary, .05);
+  }
+}
+
+// 節次區間（下拉 ~ 下拉＋全天）
+.period-range {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  .form-select {
+    flex: 1 1 160px;
+    max-width: 240px;
+  }
+}
+
+.period-allday {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 0 4px;
+  white-space: nowrap;
+
+  .form-check-input {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    flex-shrink: 0;
+  }
+}
+
+// 手動關閉版回饋 Modal 的關閉按鈕
+.feedback-close-btn {
+  min-width: 120px;
+  padding: 10px 24px;
+  font-weight: $font-weight-medium;
+}
+
+// 尊重使用者系統的減少動態效果設定：停用 modal 淡入位移過渡
+@media (prefers-reduced-motion: reduce) {
+  .data-modal,
+  .feedback-modal {
+    transition: none;
+
+    .modal-dialog {
+      transition: none;
+      transform: none;
+    }
+  }
+}

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>IEP行為功能介入方案 - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="維護與管理個案學生之行為問題與因應策略核對清冊，確保行為介入計畫之對稱性與完整性。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body>
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1">
+        <!-- 內頁 Banner：麵包屑＋標題＋CSS 裝飾＋插圖 -->
+        <section class="page-banner">
+            <!-- 裝飾層（純 CSS 繪製） -->
+            <div class="page-banner-deco" aria-hidden="true">
+                <span class="page-banner-halfcircle"></span>
+                <span class="page-banner-circle"></span>
+                <span class="page-banner-dots"></span>
+            </div>
+
+            <div class="container">
+                <nav class="page-banner-breadcrumb" aria-label="麵包屑導覽">
+                    <ol>
+                        <li>
+                            <a class="breadcrumb-home" href="index_AdminLogged.html" aria-label="首頁">
+                                <i class="bi bi-house-door" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">IEP管理</a></li>
+                        <li><a href="#">IEP行為介入計畫方案</a></li>
+                        <li aria-current="page">IEP行為功能介入方案</li>
+                    </ol>
+                </nav>
+
+                <div class="page-banner-main">
+                    <div class="page-banner-text">
+                        <h1 class="page-banner-title">IEP行為功能介入方案</h1>
+                        <p class="page-banner-desc">維護與管理個案學生之行為問題與因應策略核對清冊，確保行為介入計畫之對稱性與完整性。</p>
+                    </div>
+                    <!-- 右側人物插圖（純裝飾） -->
+                    <div class="page-banner-visual" aria-hidden="true">
+                        <img src="img/hero/login-hero/內頁人物背景.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 查詢與資料列表 -->
+        <section class="data-section">
+            <div class="container">
+                <div class="data-card">
+                    <!-- 查詢工具列（後端：查詢/刪除/匯出行為由後端接手） -->
+                    <form class="data-toolbar" action="#" method="get">
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterSemester">學期別</label>
+                            <select class="form-select" id="filterSemester" name="filterSemester">
+                                <option value="" selected>請選擇</option>
+                                <option value="1">113學年度第2學期</option>
+                                <option value="2">113學年度第1學期</option>
+                                <option value="3">112學年度第2學期</option>
+                            </select>
+                        </div>
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterDept">部別</label>
+                            <select class="form-select" id="filterDept" name="filterDept">
+                                <option value="" selected>請選擇</option>
+                                <option value="1">國民小學</option>
+                                <option value="2">國民中學</option>
+                                <option value="3">高級職業部</option>
+                            </select>
+                        </div>
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterClassToggle">班級 (代碼/名稱)</label>
+                            <!-- 下拉搜尋選單通用元件（比照 teacherSubject.html），後端：選項為系統既有班級清單，動態產生 -->
+                            <div class="dropdown dropdown-search" data-dropdown-search>
+                                <button class="form-select text-start text-muted bg-white" type="button" id="filterClassToggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                    請選擇
+                                </button>
+                                <div class="dropdown-menu w-100 p-2" aria-labelledby="filterClassToggle">
+                                    <div class="dropdown-search-box">
+                                        <label class="sr-only" for="filterClassSearch">搜尋班級代碼或名稱</label>
+                                        <input type="search" class="form-control" id="filterClassSearch" placeholder="搜尋班級代碼或名稱" data-dropdown-search-input autocomplete="off">
+                                    </div>
+                                    <ul class="dropdown-search-list">
+                                        <li><button type="button" class="dropdown-search-item" data-value="1">101 國小低年級</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="2">102 國小低年級</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="3">103 國小低年級</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="4">201 國中一年級</button></li>
+                                    </ul>
+                                    <p class="dropdown-search-empty" data-dropdown-search-empty hidden>查無符合的班級</p>
+                                </div>
+                                <input type="hidden" name="filterClass" data-dropdown-search-value>
+                            </div>
+                        </div>
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterStudent">學生搜尋</label>
+                            <input type="text" class="form-control" id="filterStudent" name="filterStudent" placeholder="請輸入學號或姓名">
+                        </div>
+                        <div class="data-toolbar-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-search" aria-hidden="true"></i>查詢
+                            </button>
+                            <a class="btn btn-success" href="iepBehaviorFunction_form.html">
+                                <i class="bi bi-plus-lg" aria-hidden="true"></i>新增
+                            </a>
+                            <button type="button" class="btn btn-danger">
+                                <i class="bi bi-trash3" aria-hidden="true"></i>刪除
+                            </button>
+                            <button type="button" class="btn btn-export">
+                                <i class="bi bi-download" aria-hidden="true"></i>匯出
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- 後端：總筆數 -->
+                    <p class="data-total">總筆數：32</p>
+                    <div class="overflow-x-auto">
+                        <table class="table data-table table-striped">
+                            <caption class="sr-only">IEP行為功能介入方案列表</caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">
+                                        <span class="check-all-label">
+                                            <input class="form-check-input" type="checkbox" id="checkAll" data-check-all>
+                                            <label for="checkAll">全選</label>
+                                        </span>
+                                    </th>
+                                    <th scope="col">序號</th>
+                                    <th scope="col">單號</th>
+                                    <th scope="col">部別</th>
+                                    <th scope="col">班級 (代碼/名稱)</th>
+                                    <th scope="col">座號</th>
+                                    <th scope="col">姓名</th>
+                                    <th scope="col">行為問題界定</th>
+                                    <th scope="col">個案管理師</th>
+                                    <th scope="col">功能</th>
+                                </tr>
+                            </thead>
+                            <!-- 後端：以下列表資料為動態產生，示意 10 筆 -->
+                            <tbody>
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取單號 202502010001 陽OO"></span></td>
+                                    <td data-label="序號"><span class="cell-value">1</span></td>
+                                    <td data-label="單號"><span class="cell-value">202502010001</span></td>
+                                    <td data-label="部別"><span class="cell-value">國民小學</span></td>
+                                    <td data-label="班級 (代碼/名稱)"><span class="cell-value">101 國小低年級</span></td>
+                                    <td data-label="座號"><span class="cell-value">3</span></td>
+                                    <td data-label="姓名"><span class="cell-value">陽OO</span></td>
+                                    <td data-label="行為問題界定"><span class="cell-value">上課離座、干擾教學</span></td>
+                                    <td data-label="個案管理師"><span class="cell-value">陳OO</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <a class="btn btn-primary btn-edit" href="iepBehaviorFunction_form.html" aria-label="進入單號 202502010001 陽OO 的IEP">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>進入IEP
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取單號 202502010002 洪OO"></span></td>
+                                    <td data-label="序號"><span class="cell-value">2</span></td>
+                                    <td data-label="單號"><span class="cell-value">202502010002</span></td>
+                                    <td data-label="部別"><span class="cell-value">國民小學</span></td>
+                                    <td data-label="班級 (代碼/名稱)"><span class="cell-value">102 國小低年級</span></td>
+                                    <td data-label="座號"><span class="cell-value">7</span></td>
+                                    <td data-label="姓名"><span class="cell-value">洪OO</span></td>
+                                    <td data-label="行為問題界定"><span class="cell-value">攻擊行為（拍打同儕）</span></td>
+                                    <td data-label="個案管理師"><span class="cell-value">林OO</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <a class="btn btn-primary btn-edit" href="iepBehaviorFunction_form.html" aria-label="進入單號 202502010002 洪OO 的IEP">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>進入IEP
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取單號 202502010003 胡OO"></span></td>
+                                    <td data-label="序號"><span class="cell-value">3</span></td>
+                                    <td data-label="單號"><span class="cell-value">202502010003</span></td>
+                                    <td data-label="部別"><span class="cell-value">高級職業部</span></td>
+                                    <td data-label="班級 (代碼/名稱)"><span class="cell-value">201 國中一年級</span></td>
+                                    <td data-label="座號"><span class="cell-value">12</span></td>
+                                    <td data-label="姓名"><span class="cell-value">胡OO</span></td>
+                                    <td data-label="行為問題界定"><span class="cell-value">拒絕指令、情緒爆發</span></td>
+                                    <td data-label="個案管理師"><span class="cell-value">黃OO</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <a class="btn btn-primary btn-edit" href="iepBehaviorFunction_form.html" aria-label="進入單號 202502010003 胡OO 的IEP">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>進入IEP
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取單號 202502010004 蔡OO"></span></td>
+                                    <td data-label="序號"><span class="cell-value">4</span></td>
+                                    <td data-label="單號"><span class="cell-value">202502010004</span></td>
+                                    <td data-label="部別"><span class="cell-value">國民中學</span></td>
+                                    <td data-label="班級 (代碼/名稱)"><span class="cell-value">201 國中一年級</span></td>
+                                    <td data-label="座號"><span class="cell-value">5</span></td>
+                                    <td data-label="姓名"><span class="cell-value">蔡OO</span></td>
+                                    <td data-label="行為問題界定"><span class="cell-value">自我刺激行為（搖晃身體）</span></td>
+                                    <td data-label="個案管理師"><span class="cell-value">吳OO</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <a class="btn btn-primary btn-edit" href="iepBehaviorFunction_form.html" aria-label="進入單號 202502010004 蔡OO 的IEP">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>進入IEP
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取單號 202502010005 徐OO"></span></td>
+                                    <td data-label="序號"><span class="cell-value">5</span></td>
+                                    <td data-label="單號"><span class="cell-value">202502010005</span></td>
+                                    <td data-label="部別"><span class="cell-value">國民小學</span></td>
+                                    <td data-label="班級 (代碼/名稱)"><span class="cell-value">103 國小低年級</span></td>
+                                    <td data-label="座號"><span class="cell-value">9</span></td>
+                                    <td data-label="姓名"><span class="cell-value">徐OO</span></td>
+                                    <td data-label="行為問題界定"><span class="cell-value">上課大聲喧嘩</span></td>
+                                    <td data-label="個案管理師"><span class="cell-value">張OO</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <a class="btn btn-primary btn-edit" href="iepBehaviorFunction_form.html" aria-label="進入單號 202502010005 徐OO 的IEP">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>進入IEP
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取單號 202502010006 劉OO"></span></td>
+                                    <td data-label="序號"><span class="cell-value">6</span></td>
+                                    <td data-label="單號"><span class="cell-value">202502010006</span></td>
+                                    <td data-label="部別"><span class="cell-value">高級職業部</span></td>
+                                    <td data-label="班級 (代碼/名稱)"><span class="cell-value">201 國中一年級</span></td>
+                                    <td data-label="座號"><span class="cell-value">15</span></td>
+                                    <td data-label="姓名"><span class="cell-value">劉OO</span></td>
+                                    <td data-label="行為問題界定"><span class="cell-value">逃避書寫作業</span></td>
+                                    <td data-label="個案管理師"><span class="cell-value">楊OO</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <a class="btn btn-primary btn-edit" href="iepBehaviorFunction_form.html" aria-label="進入單號 202502010006 劉OO 的IEP">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>進入IEP
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取單號 202502010007 王OO"></span></td>
+                                    <td data-label="序號"><span class="cell-value">7</span></td>
+                                    <td data-label="單號"><span class="cell-value">202502010007</span></td>
+                                    <td data-label="部別"><span class="cell-value">國民小學</span></td>
+                                    <td data-label="班級 (代碼/名稱)"><span class="cell-value">101 國小低年級</span></td>
+                                    <td data-label="座號"><span class="cell-value">2</span></td>
+                                    <td data-label="姓名"><span class="cell-value">王OO</span></td>
+                                    <td data-label="行為問題界定"><span class="cell-value">搶奪同儕物品</span></td>
+                                    <td data-label="個案管理師"><span class="cell-value">許OO</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <a class="btn btn-primary btn-edit" href="iepBehaviorFunction_form.html" aria-label="進入單號 202502010007 王OO 的IEP">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>進入IEP
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取單號 202502010008 林OO"></span></td>
+                                    <td data-label="序號"><span class="cell-value">8</span></td>
+                                    <td data-label="單號"><span class="cell-value">202502010008</span></td>
+                                    <td data-label="部別"><span class="cell-value">國民中學</span></td>
+                                    <td data-label="班級 (代碼/名稱)"><span class="cell-value">201 國中一年級</span></td>
+                                    <td data-label="座號"><span class="cell-value">18</span></td>
+                                    <td data-label="姓名"><span class="cell-value">林OO</span></td>
+                                    <td data-label="行為問題界定"><span class="cell-value">拒絕轉換活動</span></td>
+                                    <td data-label="個案管理師"><span class="cell-value">鄭OO</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <a class="btn btn-primary btn-edit" href="iepBehaviorFunction_form.html" aria-label="進入單號 202502010008 林OO 的IEP">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>進入IEP
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取單號 202502010009 張OO"></span></td>
+                                    <td data-label="序號"><span class="cell-value">9</span></td>
+                                    <td data-label="單號"><span class="cell-value">202502010009</span></td>
+                                    <td data-label="部別"><span class="cell-value">國民小學</span></td>
+                                    <td data-label="班級 (代碼/名稱)"><span class="cell-value">102 國小低年級</span></td>
+                                    <td data-label="座號"><span class="cell-value">11</span></td>
+                                    <td data-label="姓名"><span class="cell-value">張OO</span></td>
+                                    <td data-label="行為問題界定"><span class="cell-value">哭鬧、拒絕入班</span></td>
+                                    <td data-label="個案管理師"><span class="cell-value">陳OO</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <a class="btn btn-primary btn-edit" href="iepBehaviorFunction_form.html" aria-label="進入單號 202502010009 張OO 的IEP">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>進入IEP
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取單號 202502010010 陳OO"></span></td>
+                                    <td data-label="序號"><span class="cell-value">10</span></td>
+                                    <td data-label="單號"><span class="cell-value">202502010010</span></td>
+                                    <td data-label="部別"><span class="cell-value">高級職業部</span></td>
+                                    <td data-label="班級 (代碼/名稱)"><span class="cell-value">201 國中一年級</span></td>
+                                    <td data-label="座號"><span class="cell-value">20</span></td>
+                                    <td data-label="姓名"><span class="cell-value">陳OO</span></td>
+                                    <td data-label="行為問題界定"><span class="cell-value">刻板動作干擾學習</span></td>
+                                    <td data-label="個案管理師"><span class="cell-value">林OO</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <a class="btn btn-primary btn-edit" href="iepBehaviorFunction_form.html" aria-label="進入單號 202502010010 陳OO 的IEP">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>進入IEP
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+
+                    <!-- 後端：分頁為動態產生 -->
+                    <nav class="data-pagination" aria-label="分頁導覽">
+                        <ul class="pagination">
+                            <li class="page-item page-item--nav">
+                                <a class="page-link" href="#" aria-label="上一頁">
+                                    <i class="bi bi-chevron-double-left" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item page-item--nav">
+                                <a class="page-link" href="#" aria-label="下一頁">
+                                    <i class="bi bi-chevron-double-right" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

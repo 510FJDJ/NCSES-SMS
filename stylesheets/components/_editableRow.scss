@@ -1,0 +1,54 @@
+// ==========================================================================
+// 表格行內編輯：新增列（於 tbody 最上方插入）與單欄位編輯／儲存／取消
+// 按鈕元件款式全站統一比照「IEP 評量明細表」(.iep-eval-row-actions)：
+// 大小／間距／圓角／字重／顏色皆沿用同一套規則，不另創風格。
+// ==========================================================================
+
+// 新增列：以淺主色底標示尚未儲存的暫存列
+.data-table tbody tr[data-row-new] {
+  background-color: rgba($primary, .05);
+}
+
+// 功能欄（編輯／儲存／取消按鈕堆疊）：比照 .iep-eval-row-actions
+.row-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 120px;
+    padding: 8px 16px;
+    font-weight: $font-weight-medium;
+    white-space: nowrap;
+  }
+}
+
+// 取消按鈕：比照 .iep-eval-cancel-btn（白底、危險色外框與文字）
+.btn-row-cancel {
+  background-color: $white;
+  border: 1px solid $danger;
+  color: $danger;
+
+  &:hover,
+  &:focus-visible {
+    background-color: rgba($danger, .08);
+    color: $danger;
+  }
+}
+
+// 表格內欄位輸入框，維持最小可讀寬度
+.data-table td {
+  .form-control,
+  .form-select {
+    min-width: 140px;
+  }
+
+  .invalid-feedback {
+    font-size: 0.8125rem;
+  }
+}

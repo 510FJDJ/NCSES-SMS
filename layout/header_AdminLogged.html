@@ -1,0 +1,490 @@
+<!-- ============================================================
+  總管理者登入狀態共用 Header
+  對照設計稿：彰特校務已登入 首頁.jpg／漢堡選單 - 總管理者登入狀態.jpg
+  後端：學年度學期、使用者稱謂、登出連結為動態內容，請保留對應標籤結構
+============================================================ -->
+<nav class="header-admin" aria-label="網站主導覽">
+    <div class="site-header-bar">
+        <a class="site-brand" href="index_AdminLogged.html">
+            <img src="img/logo/logo-uni.png" alt="" width="21" height="21">
+            <span class="site-brand-name">雲端校務管理系統</span>
+        </a>
+        <div class="header-meta d-none d-lg-flex">
+            <!-- 後端：目前學年度學期 -->
+            <span class="header-meta-item">
+                <i class="bi bi-calendar2-week" aria-hidden="true"></i>115學年度第2學期
+            </span>
+            <span class="header-meta-divider" aria-hidden="true"></span>
+            <!-- 後端：登入者稱謂 -->
+            <span class="header-meta-item">系統管理者 你好</span>
+            <!-- 後端：登出行為 -->
+            <a class="btn-logout" href="index.html">登出</a>
+        </div>
+        <button class="navbar-menu-btn d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#adminMenu" aria-controls="adminMenu" aria-expanded="false" aria-label="開啟主選單">
+            <i class="bi bi-list" aria-hidden="true"></i>
+        </button>
+    </div>
+
+    <!-- 桌面板二級導覽列 -->
+    <div class="header-admin-nav d-none d-lg-block">
+        <ul class="admin-nav">
+            <li>
+                <a class="admin-nav-link " href="index_AdminLogged.html">首頁</a>
+            </li>
+            <li class="dropdown">
+                <button class="admin-nav-link  dropdown-toggle"  type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    基本資料維護
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="studentRoster.html">學生學籍基本資料</a></li>
+                    <li><a class="dropdown-item" href="subject.html">科目基本資料</a></li>
+                    <li><a class="dropdown-item" href="#">教師基本資料</a></li>
+                    <li><a class="dropdown-item" href="teacherSubject.html">教師可授課科目設定</a></li>
+                    <li><a class="dropdown-item" href="#">班級基本資料</a></li>
+                    <li><a class="dropdown-item" href="#">教室/場地基本資料</a></li>
+                    <li><a class="dropdown-item" href="classPlacement.html">編班作業</a></li>
+                    <li><a class="dropdown-item" href="classSeatNo.html">班級座號維護</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <button class="admin-nav-link  dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    課務管理
+                </button>
+                <ul class="dropdown-menu">
+                    <li class="dropdown-submenu">
+                        <button class="dropdown-item dropdown-subtoggle" type="button" aria-haspopup="true">
+                            開排課作業
+                            <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu--sub">
+                            <li><a class="dropdown-item" href="courseOffering.html">開課作業</a></li>
+                            <li><a class="dropdown-item" href="courseStudent.html">指定修課學生</a></li>
+                            <li><a class="dropdown-item" href="#">教師授課時數查詢</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <button class="dropdown-item dropdown-subtoggle" type="button" aria-haspopup="true">
+                            調代(兼)課作業
+                            <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu--sub">
+                            <li><a class="dropdown-item" href="substitute.html">教師代課管理</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <button class="admin-nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    學務管理
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="studentAttendance.html">學生出缺勤管理</a></li>
+                    <li><a class="dropdown-item" href="#">學生獎懲管理</a></li>
+                    <li><a class="dropdown-item" href="absencePunishmentScore.html">缺曠獎懲配分設定</a></li>
+                    <li><a class="dropdown-item" href="studentConsecutiveAbsence.html">學生連續缺席統計</a></li>
+                    <li class="dropdown-submenu">
+                        <button class="dropdown-item dropdown-subtoggle" type="button" aria-haspopup="true">
+                            德育成績管理
+                            <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu--sub">
+                            <li><a class="dropdown-item" href="moralScoreInput.html">德育成績加減分輸入</a></li>
+                            <li><a class="dropdown-item" href="moralScoreCalc.html">德育成績計算作業</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <button class="admin-nav-link  dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    成績管理
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="scoreInput.html">成績輸入</a></li>
+                    <li><a class="dropdown-item" href="scoreCalc.html">成績計算作業</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <button class="admin-nav-link  dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    IEP管理
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="iepBasicInfo.html">IEP基本資料管理</a></li>
+                    <li class="dropdown-submenu">
+                        <button class="dropdown-item dropdown-subtoggle" type="button" aria-haspopup="true">
+                            IEP學年與學期教育目標
+                            <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu--sub">
+                            <li><a class="dropdown-item" href="iepEduGoalTemplatePersonal.html">教育目標範本(個人)</a></li>
+                            <li><a class="dropdown-item" href="iepEduGoalTemplateShare.html">教育目標範本(共享)</a></li>
+                            <li><a class="dropdown-item" href="iepEduGoal.html">教育目標資料管理</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <button class="dropdown-item dropdown-subtoggle" type="button" aria-haspopup="true">
+                            IEP行為介入計畫方案
+                            <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu--sub">
+                            <li><a class="dropdown-item" href="iepBehaviorFunction.html">IEP行為功能介入方案</a></li>
+                            <li><a class="dropdown-item" href="iepBehaviorChecklist.html">行為與策略對照勾選表</a></li>
+                            <li><a class="dropdown-item" href="iepReinforcerSurvey.html">增強物調查表</a></li>
+                            <li><a class="dropdown-item" href="iepReviewMeeting.html">IEP檢討會議</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <button class="dropdown-item dropdown-subtoggle" type="button" aria-haspopup="true">
+                            IEP紀錄表
+                            <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu--sub">
+                            <li><a class="dropdown-item" href="iepMeetingRecord.html">IEP會議記錄</a></li>
+                            <li><a class="dropdown-item" href="iepTransferMeeting.html">IEP轉銜會議記錄</a></li>
+                            <li><a class="dropdown-item" href="#">IEP家庭訪問紀錄表</a></li>
+                            <li><a class="dropdown-item" href="iepCounselingRecord.html">IEP學生輔導紀錄表</a></li>
+                            <li><a class="dropdown-item" href="#">IEP相關服務建議(專團服務)</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="dropdown-item" href="#">IEP報表列印</a></li>
+                    <li><a class="dropdown-item" href="iepTimetable.html">學生/班級/教師課表</a></li>
+                    <li><a class="dropdown-item" href="#">IEP資料家長申請表</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <button class="admin-nav-link  dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    各式報表列印
+                </button>
+                <ul class="dropdown-menu">
+                    <li class="dropdown-submenu">
+                        <button class="dropdown-item dropdown-subtoggle" type="button" aria-haspopup="true">
+                            學籍資料
+                            <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu--sub">
+                            <li><a class="dropdown-item" href="reportRollData.html#tab-basicForm" data-report-key="studentBasicForm">學生基本資料表</a></li>
+                            <li><a class="dropdown-item" href="reportRollData.html#tab-roll" data-report-key="studentRoll">學籍表</a></li>
+                            <li><a class="dropdown-item" href="reportRollData.html#tab-export" data-report-key="studentBasicExport">學生基本資料匯出(Excel)</a></li>
+                            <li><a class="dropdown-item" href="reportRollData.html#tab-export" data-report-key="studentAttendanceRoll">學生點名表匯出(Excel)</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <button class="dropdown-item dropdown-subtoggle" type="button" aria-haspopup="true">
+                            成績單
+                            <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu--sub">
+                            <li><a class="dropdown-item" href="reportScoreSheet.html#conductRollAll" data-report-key="conductRollAll">操行成績單(A表)</a></li>
+                            <li><a class="dropdown-item" href="reportScoreSheet.html#conductRollClass" data-report-key="conductRollClass">操行成績單(B表)(獎學金用)</a></li>
+                            <li><a class="dropdown-item" href="reportScoreSheet.html#studentScoreSheet" data-report-key="studentScoreSheet">學生成績單</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <button class="dropdown-item dropdown-subtoggle" type="button" aria-haspopup="true">
+                            學務報表
+                            <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu--sub">
+                            <li><a class="dropdown-item" href="reportAffairsData.html#tab-attendance" data-report-key="studentAttendanceReport">學生出缺勤表</a></li>
+                            <li><a class="dropdown-item" href="reportAffairsData.html#tab-reward" data-report-key="rewardPunishmentReport">獎懲紀錄統計表</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <button class="dropdown-item dropdown-subtoggle" type="button" aria-haspopup="true">
+                            新生/畢(結)業生報表
+                            <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu--sub">
+                            <li><a class="dropdown-item" href="reportGraduateData.html#tab-roster" data-report-key="畢(結)業名冊_PDF">畢(結)業名冊</a></li>
+                            <li><a class="dropdown-item" href="reportGraduateData.html#tab-govForm" data-report-key="新生(畢業)報局用表">新生(畢業)報局用表</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <button class="dropdown-item dropdown-subtoggle" type="button" aria-haspopup="true">
+                            代(兼)課相關報表
+                            <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu--sub">
+                            <li><a class="dropdown-item" href="reportSubstituteNotice.html">代(兼)課通知單</a></li>
+                            <li><a class="dropdown-item" href="reportSubstituteHours.html" data-report-key="substituteHoursReport">教師代(兼)課時數統計表</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <button class="admin-nav-link  dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    學年度管理
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="semesterSetup.html">學年度與學期設置</a></li>
+                    <li><a class="dropdown-item" href="semesterDataTransfer.html">學期資料轉移管理</a></li>
+                    <li><a class="dropdown-item" href="calendarManagement.html">行事曆管理</a></li>
+                    <li><a class="dropdown-item" href="substituteFeeManagement.html">代課費用管理</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <button class="admin-nav-link  dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    帳號管理
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">帳號管理</a></li>
+                    <li><a class="dropdown-item" href="groupManagement.html">群組管理</a></li>
+                    <li><a class="dropdown-item" href="permissionManagement.html">權限管理</a></li>
+                    <li><a class="dropdown-item" href="accountPasswordChange.html">個人密碼修改</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 手機板滿版選單 -->
+    <div class="offcanvas offcanvas-end admin-menu" tabindex="-1" id="adminMenu" aria-labelledby="adminMenuLabel">
+        <div class="offcanvas-header site-header-bar">
+            <a class="site-brand" href="index_AdminLogged.html" id="adminMenuLabel">
+                <img src="img/logo/logo-uni.png" alt="" width="21" height="21">
+                <span class="site-brand-name">雲端校務管理系統</span>
+            </a>
+            <button type="button" class="navbar-menu-btn" data-bs-dismiss="offcanvas" aria-label="關閉主選單">
+                <i class="bi bi-x-lg" aria-hidden="true"></i>
+            </button>
+        </div>
+        <div class="offcanvas-body">
+            <!-- 後端：登入者稱謂 -->
+            <p class="admin-menu-greeting">總管理者 你好</p>
+
+            <div class="accordion accordion-flush admin-menu-accordion" id="adminMenuAccordion">
+                <a class="admin-menu-toplink" href="index_AdminLogged.html">首頁</a>
+
+                <div class="accordion-item">
+                    <p class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#menuBasic" aria-expanded="false" aria-controls="menuBasic">基本資料維護</button>
+                    </p>
+                    <div id="menuBasic" class="accordion-collapse collapse" data-bs-parent="#adminMenuAccordion">
+                        <div class="accordion-body">
+                            <ul class="admin-menu-sublist">
+                                <li><a href="studentRoster.html">學生學籍基本資料</a></li>
+                                <li><a href="subject.html">科目基本資料</a></li>
+                                <li><a href="#">教師基本資料</a></li>
+                                <li><a href="teacherSubject.html">教師可授課科目設定</a></li>
+                                <li><a href="#">班級基本資料</a></li>
+                                <li><a href="#">教室/場地基本資料</a></li>
+                                <li><a href="classPlacement.html">編班作業</a></li>
+                                <li><a href="classSeatNo.html">班級座號維護</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <p class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#menuCourse" aria-expanded="false" aria-controls="menuCourse">課務管理</button>
+                    </p>
+                    <div id="menuCourse" class="accordion-collapse collapse" data-bs-parent="#adminMenuAccordion">
+                        <div class="accordion-body">
+                            <ul class="admin-menu-sublist">
+                                <li><a href="courseOffering.html">開課作業</a></li>
+                                <li><a href="courseStudent.html">指定修課學生</a></li>
+                                <li><a href="#">教師授課時數查詢</a></li>
+                                <li><a href="substitute.html">教師代課管理</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <p class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#menuAffairs" aria-expanded="false" aria-controls="menuAffairs">學務管理</button>
+                    </p>
+                    <div id="menuAffairs" class="accordion-collapse collapse" data-bs-parent="#adminMenuAccordion">
+                        <div class="accordion-body">
+                            <ul class="admin-menu-sublist">
+                                <li><a href="studentAttendance.html">學生出缺勤管理</a></li>
+                                <li><a href="#">學生獎懲管理</a></li>
+                                <li>
+                                    <!-- 第三層選單：德育成績管理 -->
+                                    <button class="admin-menu-subtoggle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#menuMoralScore" aria-expanded="false" aria-controls="menuMoralScore">
+                                        德育成績管理
+                                        <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                                    </button>
+                                    <ul id="menuMoralScore" class="collapse admin-menu-sublist-nested">
+                                        <li><a href="moralScoreInput.html">德育成績加減分輸入</a></li>
+                                        <li><a href="moralScoreCalc.html">德育成績計算作業</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="absencePunishmentScore.html">缺曠獎懲配分設定</a></li>
+                                <li><a href="studentConsecutiveAbsence.html">學生連續缺席統計</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <p class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#menuScore" aria-expanded="false" aria-controls="menuScore">成績管理</button>
+                    </p>
+                    <div id="menuScore" class="accordion-collapse collapse" data-bs-parent="#adminMenuAccordion">
+                        <div class="accordion-body">
+                            <ul class="admin-menu-sublist">
+                                <li><a href="scoreInput.html">成績輸入</a></li>
+                                <li><a href="scoreCalc.html">成績計算作業</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <p class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#menuIep" aria-expanded="false" aria-controls="menuIep">IEP管理</button>
+                    </p>
+                    <div id="menuIep" class="accordion-collapse collapse" data-bs-parent="#adminMenuAccordion">
+                        <div class="accordion-body">
+                            <ul class="admin-menu-sublist">
+                                <li><a href="iepBasicInfo.html">IEP基本資料管理</a></li>
+                                <li><a href="#">IEP報表列印</a></li>
+                                <li><a href="iepTimetable.html">學生/班級/教師課表</a></li>
+                                <li><a href="#">IEP資料家長申請表</a></li>
+                                <li>
+                                    <button class="admin-menu-subtoggle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#menuIepGoal" aria-expanded="false" aria-controls="menuIepGoal">
+                                        IEP學年與學期教育目標
+                                        <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                                    </button>
+                                    <ul id="menuIepGoal" class="collapse admin-menu-sublist-nested">
+                                        <li><a href="iepEduGoalTemplatePersonal.html">教育目標範本(個人)</a></li>
+                                        <li><a href="iepEduGoalTemplateShare.html">教育目標範本(共享)</a></li>
+                                        <li><a href="iepEduGoal.html">教育目標資料管理</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <button class="admin-menu-subtoggle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#menuIepPlan" aria-expanded="false" aria-controls="menuIepPlan">
+                                        IEP行為介入計畫方案
+                                        <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                                    </button>
+                                    <ul id="menuIepPlan" class="collapse admin-menu-sublist-nested">
+                                        <li><a href="iepBehaviorFunction.html">IEP行為功能介入方案</a></li>
+                                        <li><a href="iepBehaviorChecklist.html">行為與策略對照勾選表</a></li>
+                                        <li><a href="iepReinforcerSurvey.html">增強物調查表</a></li>
+                                        <li><a href="iepReviewMeeting.html">IEP檢討會議</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <button class="admin-menu-subtoggle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#menuIepRecord" aria-expanded="false" aria-controls="menuIepRecord">
+                                        IEP紀錄表
+                                        <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                                    </button>
+                                    <ul id="menuIepRecord" class="collapse admin-menu-sublist-nested">
+                                        <li><a href="iepMeetingRecord.html">IEP會議記錄</a></li>
+                                        <li><a href="iepTransferMeeting.html">IEP轉銜會議記錄</a></li>
+                                        <li><a href="#">IEP家庭訪問紀錄表</a></li>
+                                        <li><a href="iepCounselingRecord.html">IEP學生輔導紀錄表</a></li>
+                                        <li><a href="#">IEP相關服務建議(專團服務)</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <p class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#menuReport" aria-expanded="false" aria-controls="menuReport">各式報表列印</button>
+                    </p>
+                    <div id="menuReport" class="accordion-collapse collapse" data-bs-parent="#adminMenuAccordion">
+                        <div class="accordion-body">
+                            <ul class="admin-menu-sublist">
+                                <li>
+                                    <button class="admin-menu-subtoggle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#menuReportRoll" aria-expanded="false" aria-controls="menuReportRoll">
+                                        學籍資料
+                                        <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                                    </button>
+                                    <ul id="menuReportRoll" class="collapse admin-menu-sublist-nested">
+                                        <li><a href="reportRollData.html#tab-basicForm" data-report-key="studentBasicForm">學生基本資料表</a></li>
+                                        <li><a href="reportRollData.html#tab-roll" data-report-key="studentRoll">學籍表</a></li>
+                                        <li><a href="reportRollData.html#tab-export" data-report-key="studentBasicExport">學生基本資料匯出(Excel)</a></li>
+                                        <li><a href="reportRollData.html#tab-export" data-report-key="studentAttendanceRoll">學生點名表匯出(Excel)</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <button class="admin-menu-subtoggle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#menuReportScore" aria-expanded="false" aria-controls="menuReportScore">
+                                        成績單
+                                        <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                                    </button>
+                                    <ul id="menuReportScore" class="collapse admin-menu-sublist-nested">
+                                        <li><a href="reportScoreSheet.html#conductRollAll" data-report-key="conductRollAll">操行成績單(A表)</a></li>
+                                        <li><a href="reportScoreSheet.html#conductRollClass" data-report-key="conductRollClass">操行成績單(B表)(獎學金用)</a></li>
+                                        <li><a href="reportScoreSheet.html#studentScoreSheet" data-report-key="studentScoreSheet">學生成績單</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <button class="admin-menu-subtoggle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#menuReportAffairs" aria-expanded="false" aria-controls="menuReportAffairs">
+                                        學務報表
+                                        <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                                    </button>
+                                    <ul id="menuReportAffairs" class="collapse admin-menu-sublist-nested">
+                                        <li><a href="reportAffairsData.html#tab-attendance" data-report-key="studentAttendanceReport">學生出缺勤表</a></li>
+                                        <li><a href="reportAffairsData.html#tab-reward" data-report-key="rewardPunishmentReport">獎懲紀錄統計表</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <button class="admin-menu-subtoggle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#menuReportGrad" aria-expanded="false" aria-controls="menuReportGrad">
+                                        新生/畢(結)業生報表
+                                        <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                                    </button>
+                                    <ul id="menuReportGrad" class="collapse admin-menu-sublist-nested">
+                                        <li><a href="reportGraduateData.html#tab-roster" data-report-key="畢(結)業名冊_PDF">畢(結)業名冊</a></li>
+                                        <li><a href="reportGraduateData.html#tab-govForm" data-report-key="新生(畢業)報局用表">新生(畢業)報局用表</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <button class="admin-menu-subtoggle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#menuReportSub" aria-expanded="false" aria-controls="menuReportSub">
+                                        代(兼)課相關報表
+                                        <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                                    </button>
+                                    <ul id="menuReportSub" class="collapse admin-menu-sublist-nested">
+                                        <li><a href="reportSubstituteNotice.html">代(兼)課通知單</a></li>
+                                        <li><a href="reportSubstituteHours.html" data-report-key="substituteHoursReport">教師代(兼)課時數統計表</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <p class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#menuYear" aria-expanded="false" aria-controls="menuYear">學年度管理</button>
+                    </p>
+                    <div id="menuYear" class="accordion-collapse collapse" data-bs-parent="#adminMenuAccordion">
+                        <div class="accordion-body">
+                            <ul class="admin-menu-sublist">
+                                <li><a href="semesterSetup.html">學年度與學期設置</a></li>
+                                <li><a href="semesterDataTransfer.html">學期資料轉移管理</a></li>
+                                <li><a href="calendarManagement.html">行事曆管理</a></li>
+                                <li><a href="substituteFeeManagement.html">代課費用管理</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <p class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#menuAccount" aria-expanded="false" aria-controls="menuAccount">帳號管理</button>
+                    </p>
+                    <div id="menuAccount" class="accordion-collapse collapse" data-bs-parent="#adminMenuAccordion">
+                        <div class="accordion-body">
+                            <ul class="admin-menu-sublist">
+                                <li><a href="#">帳號管理</a></li>
+                                <li><a href="groupManagement.html">群組管理</a></li>
+                                <li><a href="permissionManagement.html">權限管理</a></li>
+                                <li><a href="accountPasswordChange.html">個人密碼修改</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 後端：登出行為 -->
+            <a class="admin-menu-logout" href="index.html">
+                登出
+                <i class="bi bi-arrow-right-circle-fill" aria-hidden="true"></i>
+            </a>
+        </div>
+    </div>
+</nav>

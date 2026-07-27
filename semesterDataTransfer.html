@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>學期資料轉移管理 - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="提供新學期編班、代課費用、課表科目與特教 IEP 資料的一鍵複製平移，快速建構新學期基礎行政資料。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body>
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1">
+        <!-- 內頁 Banner：麵包屑＋標題＋CSS 裝飾＋插圖 -->
+        <section class="page-banner">
+            <!-- 裝飾層（純 CSS 繪製） -->
+            <div class="page-banner-deco" aria-hidden="true">
+                <span class="page-banner-halfcircle"></span>
+                <span class="page-banner-circle"></span>
+                <span class="page-banner-dots"></span>
+            </div>
+
+            <div class="container">
+                <nav class="page-banner-breadcrumb" aria-label="麵包屑導覽">
+                    <ol>
+                        <li>
+                            <a class="breadcrumb-home" href="index_AdminLogged.html" aria-label="首頁">
+                                <i class="bi bi-house-door" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">學年度管理</a></li>
+                        <li aria-current="page">學期資料轉移管理</li>
+                    </ol>
+                </nav>
+
+                <div class="page-banner-main">
+                    <div class="page-banner-text">
+                        <h1 class="page-banner-title">學期資料轉移管理</h1>
+                        <p class="page-banner-desc">提供新學期編班、代課費用、課表科目與特教 IEP 資料的一鍵複製平移，快速建構新學期基礎行政資料。</p>
+                    </div>
+                    <!-- 右側人物插圖（純裝飾） -->
+                    <div class="page-banner-visual page-banner-visual--composed page-banner-visual--sitPerson" aria-hidden="true">
+                        <span class="banner-visual-blob"></span>
+                        <span class="banner-visual-window"></span>
+                        <img class="banner-visual-person" src="img/hero/characters/people-back-sit.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 學期資料轉移作業區 -->
+        <section class="data-section">
+            <div class="container">
+                <!-- 頂部提示：新學年度尚未啟用時，右側任務暫不開放 -->
+                <div class="data-card transfer-page-notice" id="transferNotActivatedNotice" role="status">
+                    <span class="transfer-page-notice-icon" aria-hidden="true"><i class="bi bi-info-circle-fill"></i></span>
+                    <div class="transfer-page-notice-text">
+                        <p class="transfer-page-notice-title">新學年度尚未使用</p>
+                        <p>尚未設置 114 學年度 第 1 學期，右方任務暫不開放操作。請依序完成左側新學年度啟用後，再執行各項資料轉移作業，以確保資料正確性與一致性。</p>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <!-- 左欄：新學年度啟用流程 -->
+                    <div class="col-lg-4 d-flex flex-column gap-4">
+                        <div class="data-card transfer-confirm-card">
+                            <p class="transfer-confirm-title">
+                                <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>重要確認：資料轉移前請務必確認
+                            </p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="transferConfirmCheck">
+                                <label class="form-check-label" for="transferConfirmCheck">我已確認 113-2 所有成績與資料皆已辦理與備份完畢，並了解開啟新學期後無法重返舊學期。</label>
+                            </div>
+                            <p class="transfer-confirm-note">此為不可逆操作，請謹慎確認後勾選。</p>
+                        </div>
+
+                        <!-- 後端：實際啟用邏輯由後端接手，前端僅示意流程；點擊即直接啟用，不再二次跳窗確認 -->
+                        <button type="button" class="transfer-activate-box" id="transferActivateBox" disabled aria-label="立即啟用 114 學年度 第 1 學期">
+                            <span class="transfer-activate-text" id="transferActivateText">立即啟用 <strong>114 學年度 第 1 學期</strong></span>
+                            <span class="transfer-activate-icon" aria-hidden="true"><i class="bi bi-arrow-right"></i></span>
+                        </button>
+
+                        <div class="data-card">
+                            <h2 class="data-modal-title">Q &amp; A</h2>
+                            <div class="accordion mt-3" id="transferFaqAccordion">
+                                <div class="accordion-item">
+                                    <h3 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#transferFaq1" aria-expanded="false" aria-controls="transferFaq1">
+                                            複製成功後，如果需要微調可以去哪裡修改？
+                                        </button>
+                                    </h3>
+                                    <div id="transferFaq1" class="accordion-collapse collapse" data-bs-parent="#transferFaqAccordion">
+                                        <div class="accordion-body">
+                                            <p>請不用擔心！「一次性作業」是指系統無法重複自動覆蓋。若新學期有部分課程、老師或學生需要異動，您隨時可以至以下原有模組進行手動調整，無須擔心資料鎖死：</p>
+                                            <p>📋 若要修改開課時間、更換授課老師：請至【 <a href="courseOffering.html">課務管理 ➔ 開排課作業 ➔ 開課作業</a>】</p>
+                                            <p>🧑‍🎓 若要手動調整個別學生的修課名單：請至【<a href="courseStudent.html">課務管理 ➔ 開排課作業 ➔ 指定修課學生</a>】</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 右欄：四項資料轉移任務 -->
+                    <div class="col-lg-8" id="transferCardsStart">
+                        <div class="row g-4">
+                            <!-- 一.編班資料轉移 -->
+                            <div class="col-md-6">
+                                <div class="data-card transfer-card">
+                                    <div class="transfer-card-head">
+                                        <h2 class="data-modal-title">一.編班資料轉移</h2>
+                                        <span class="report-status-badge report-status--pending" id="transferCard1Badge">
+                                            <i class="bi bi-hourglass-split" aria-hidden="true"></i>待辦中
+                                        </span>
+                                    </div>
+                                    <p class="transfer-card-desc" id="transferCard1Desc">執行全校學生年級集體升級與新學年班級初始化。</p>
+                                    <div class="transfer-card-actions justify-content-center">
+                                        <!-- 後端：實際轉移邏輯由後端接手，前端僅示意流程 -->
+                                        <button type="button" class="transfer-action-btn" id="transferCard1Btn" disabled>
+                                            <span class="transfer-action-btn-text">執行全校編班升級</span>
+                                            <i class="bi bi-lock-fill" aria-hidden="true" title="請先完成新學年度設置"></i>
+                                        </button>
+                                        <div class="transfer-progress" id="transferCard1Progress" hidden aria-hidden="true">
+                                            <span class="transfer-progress-fill"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 二.代課費用設定轉移 -->
+                            <div class="col-md-6">
+                                <div class="data-card transfer-card">
+                                    <div class="transfer-card-head">
+                                        <h2 class="data-modal-title">二.代課費用設定轉移</h2>
+                                        <span class="report-status-badge report-status--pending" id="transferCard2Badge">
+                                            <i class="bi bi-hourglass-split" aria-hidden="true"></i>待辦中
+                                        </span>
+                                    </div>
+                                    <p class="transfer-card-desc" id="transferCard2Desc">執行本學期代課費用設定資料轉移。</p>
+                                    <div class="transfer-card-actions justify-content-center">
+                                        <!-- 後端：實際轉移邏輯由後端接手，前端僅示意流程 -->
+                                        <button type="button" class="transfer-action-btn" id="transferCard2Btn" disabled>
+                                            <span class="transfer-action-btn-text">執行代課費用轉移</span>
+                                            <i class="bi bi-lock-fill" aria-hidden="true" title="請先完成新學年度設置"></i>
+                                        </button>
+                                        <div class="transfer-progress" id="transferCard2Progress" hidden aria-hidden="true">
+                                            <span class="transfer-progress-fill"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 三.科目與課程資料轉移 -->
+                            <div class="col-12">
+                                <div class="data-card transfer-card">
+                                    <div class="transfer-card-head">
+                                        <h2 class="data-modal-title">三.科目與課程資料轉移</h2>
+                                        <span class="report-status-badge report-status--pending" id="transferCard3Badge">
+                                            <i class="bi bi-hourglass-split" aria-hidden="true"></i>待辦中
+                                        </span>
+                                    </div>
+
+                                    <p class="transfer-card-desc" id="transferCard3Desc" hidden>已依所選複製方式，完成科目與課程資料轉移，無須重複操作。</p>
+
+                                    <div class="transfer-semester-row">
+                                        <div class="transfer-semester-field">
+                                            <label class="form-label" for="transferCourseFrom">資料來源學期</label>
+                                            <select class="form-select" id="transferCourseFrom">
+                                                <option selected>113 學年度 第2學期</option>
+                                            </select>
+                                        </div>
+                                        <span class="transfer-semester-arrow" aria-hidden="true"><img src="img/icon/cherve-right.svg" alt=""></span>
+                                        <div class="transfer-semester-field">
+                                            <label class="form-label" for="transferCourseTo">複製到</label>
+                                            <select class="form-select" id="transferCourseTo">
+                                                <option selected>114 學年度 第1學期</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <fieldset>
+                                        <legend class="form-legend">課程轉移方式</legend>
+                                        <div class="transfer-copy-options">
+                                            <label class="transfer-copy-option">
+                                                <input type="radio" name="transferCourseMode" id="transferCourseModeSubject" value="subjectOnly">
+                                                <span class="transfer-copy-option-icon" aria-hidden="true"><i class="bi bi-file-earmark-text-fill"></i></span>
+                                                <span class="transfer-copy-option-text">
+                                                    <span class="transfer-copy-option-title">僅科目名稱</span>
+                                                    <span class="transfer-copy-option-desc">適合新學期課表、老師大改的學校</span>
+                                                </span>
+                                            </label>
+                                            <label class="transfer-copy-option">
+                                                <input type="radio" name="transferCourseMode" id="transferCourseModeTeacher" value="subjectTeacher" checked>
+                                                <span class="transfer-copy-option-icon" aria-hidden="true"><i class="bi bi-person-lines-fill"></i></span>
+                                                <span class="transfer-copy-option-text">
+                                                    <span class="transfer-copy-option-title">科目＋課表與老師（最常用）</span>
+                                                    <span class="transfer-copy-option-desc">適合課表變動不大的學校。</span>
+                                                </span>
+                                            </label>
+                                            <label class="transfer-copy-option">
+                                                <input type="radio" name="transferCourseMode" id="transferCourseModeStudent" value="subjectTeacherStudent">
+                                                <span class="transfer-copy-option-icon" aria-hidden="true"><i class="bi bi-people-fill"></i></span>
+                                                <span class="transfer-copy-option-text">
+                                                    <span class="transfer-copy-option-title">科目＋課表與老師＋原班學生 <em class="transfer-copy-option-warn">（<i class="bi bi-exclamation-triangle-fill transfer-copy-option-warn-icon" aria-hidden="true"></i>跨學年不建議）</em></span>
+                                                    <span class="transfer-copy-option-desc">最適合特教班、不跑班的原班級。</span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </fieldset>
+
+                                    <div class="transfer-card-actions transfer-card-actions--center">
+                                        <!-- 後端：實際轉移邏輯由後端接手，前端僅示意流程 -->
+                                        <button type="button" class="transfer-action-btn" id="transferCard3Btn" disabled>
+                                            <span class="transfer-action-btn-text">執行課程轉移</span>
+                                            <i class="bi bi-lock-fill" aria-hidden="true" title="請先完成新學年度設置"></i>
+                                        </button>
+                                        <div class="transfer-progress" id="transferCard3Progress" hidden aria-hidden="true">
+                                            <span class="transfer-progress-fill"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 四.特教IEP基本資料轉移 -->
+                            <div class="col-12">
+                                <div class="data-card transfer-card">
+                                    <div class="transfer-card-head">
+                                        <h2 class="data-modal-title">四.特教IEP基本資料轉移</h2>
+                                        <span class="report-status-badge report-status--pending" id="transferCard4Badge">
+                                            <i class="bi bi-hourglass-split" aria-hidden="true"></i>待辦中
+                                        </span>
+                                    </div>
+
+                                    <p class="transfer-card-desc" id="transferCard4Desc" hidden>已完成特教 IEP 基本資料平移，無須重複操作。</p>
+
+                                    <div class="transfer-semester-row">
+                                        <div class="transfer-semester-field">
+                                            <label class="form-label" for="transferIepFrom">資料來源學期</label>
+                                            <select class="form-select" id="transferIepFrom">
+                                                <option selected>113 學年度 第2學期</option>
+                                            </select>
+                                        </div>
+                                        <span class="transfer-semester-arrow" aria-hidden="true"><img src="img/icon/cherve-right.svg" alt=""></span>
+                                        <div class="transfer-semester-field">
+                                            <label class="form-label" for="transferIepTo">複製到</label>
+                                            <select class="form-select" id="transferIepTo">
+                                                <option selected>114 學年度 第1學期</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="transfer-card-actions transfer-card-actions--center">
+                                        <!-- 後端：實際轉移邏輯由後端接手，前端僅示意流程 -->
+                                        <button type="button" class="transfer-action-btn" id="transferCard4Btn" disabled>
+                                            <span class="transfer-action-btn-text">執行IEP資料平移</span>
+                                            <i class="bi bi-lock-fill" aria-hidden="true" title="請先完成新學年度設置"></i>
+                                        </button>
+                                        <div class="transfer-progress" id="transferCard4Progress" hidden aria-hidden="true">
+                                            <span class="transfer-progress-fill"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 回饋 Modal（3 秒倒數自動關閉；新學年度啟用與各項資料轉移執行成功時共用；
+         本頁點擊即直接啟用，確認流程已在「學年度與學期設置」頁完成，此處不再二次跳窗攔截） -->
+    <div class="modal fade feedback-modal" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body feedback-body" role="status">
+                    <span class="feedback-icon" aria-hidden="true">
+                        <i class="bi bi-file-earmark-check"></i>
+                    </span>
+                    <h2 class="feedback-title" id="feedbackModalTitle">轉移完成</h2>
+                    <p class="feedback-desc">資料轉移已完成。</p>
+                    <p class="feedback-countdown"><span class="feedback-countdown-num">3</span>秒後 自動關閉</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/semesterDataTransfer.js"></script>
+</body>
+</html>

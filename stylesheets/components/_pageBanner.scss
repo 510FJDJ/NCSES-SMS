@@ -1,0 +1,242 @@
+// ==========================================================================
+// 內頁 Banner（.page-banner）：麵包屑＋頁面標題＋CSS 裝飾＋右側人物插圖
+// 列表頁與新增/編輯內頁共用；「返回列表」按鈕僅出現在表單頁
+// 裝飾（黃半圓、黃圓、5×4 點陣）皆以純 CSS 繪製，HTML 掛 aria-hidden="true"
+// ==========================================================================
+
+.page-banner {
+  position: relative;
+  overflow: hidden; // 裝飾超出邊界時不得產生水平捲軸
+  // 下方預留較大留白：後續內容卡片以負邊距上疊，做出設計稿的交疊效果
+  padding: 24px 0 72px;
+  background: linear-gradient(180deg, #E4F1FC -22.4%, #F4F8FE 76.8%);
+
+  @include media-breakpoint-up(lg) {
+    padding: 32px 0 70px;
+  }
+
+  .container {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 裝飾層（最底）
+// --------------------------------------------------------------------------
+.page-banner-deco {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+// 左下黃色半圓：手機等比縮小保留，作為左側視覺延伸
+.page-banner-halfcircle {
+  position: absolute;
+  bottom: -50px;
+  left: -34px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #F7DA8D;
+
+  @include media-breakpoint-up(lg) {
+    bottom: -120px;
+    left: 2%;
+    width: 200px;
+    height: 200px;
+  }
+}
+
+// 中間（上方）黃色圓形：手機隱藏
+.page-banner-circle {
+  display: none;
+
+  @include media-breakpoint-up(lg) {
+    display: block;
+    position: absolute;
+    top: 60px;
+    left: 48%;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background-color: #F7DA8D;
+  }
+}
+
+// 5×4 藍色圓點格子：手機隱藏
+.page-banner-dots {
+  display: none;
+
+  @include media-breakpoint-up(lg) {
+    display: block;
+    position: absolute;
+    top: 100px;
+    left: 40%;
+    width: 100px;  
+    height: 60px; 
+    background-image: radial-gradient(circle, #C9DCF5 2px, transparent 2.5px);
+    background-size: 20px 15px;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 麵包屑
+// --------------------------------------------------------------------------
+.page-banner-breadcrumb {
+  ol {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 12px;
+    padding: 0;
+    font-size: 0.9375rem;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    color: $grey-600;
+
+    // 項目間的圓點分隔（純裝飾）
+    + li::before {
+      content: "\2027"; // ‧
+      margin-right: 8px;
+      color: $grey-500;
+    }
+  }
+
+  // RWD：< md 麵包屑過長時僅顯示最後兩項（已有返回列表按鈕，不影響操作）
+  @include media-breakpoint-down(md) {
+    li:not(:nth-last-child(-n+2)) {
+      display: none;
+    }
+
+    // 隱藏後第一個可見項目不應再顯示分隔點
+    li:nth-last-child(2)::before {
+      content: none;
+    }
+  }
+
+  a {
+    color: $primary;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  // 首頁 icon：圓框樣式
+  .breadcrumb-home {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: 1px solid $grey-300;
+    border-radius: 50%;
+    background-color: $white;
+    color: $grey-600;
+    font-size: 0.875rem;
+
+    &:hover {
+      color: $primary;
+      border-color: $primary;
+      text-decoration: none;
+    }
+  }
+}
+
+// --------------------------------------------------------------------------
+// 主要內容列：標題文字＋插圖＋（表單頁）返回列表按鈕
+// --------------------------------------------------------------------------
+.page-banner-main {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+
+  @include media-breakpoint-up(lg) {
+    flex-wrap: nowrap;
+    gap: 32px;
+  }
+}
+
+.page-banner-text {
+  flex: 1 1 auto;
+}
+
+.page-banner-title {
+  color: $grey-600;
+  font-size: 1.75rem;
+  font-weight: $font-weight-bold;
+  margin-bottom: 8px;
+
+  @include media-breakpoint-up(lg) {
+    font-size: 2.25rem;
+  }
+}
+
+.page-banner-desc {
+  color: $grey-500;
+  margin-bottom: 0;
+  // 手機版：右側保留插圖淡化顯示的空間
+  max-width: 70%;
+
+  @include media-breakpoint-up(lg) {
+    max-width: none;
+  }
+}
+
+// 右側人物插圖：手機縮小淡化置於文字右下作背景，避免干擾閱讀
+.page-banner-visual {
+  position: absolute;
+  right: -50px;
+  bottom: -80px;
+  z-index: -1;
+  width: 220px;
+  opacity: 0.5;
+
+  @include media-breakpoint-up(lg) {
+    position: static;
+    z-index: auto;
+    flex: 0 0 auto;
+    align-self: flex-end;
+    width: 438px;
+    margin-right:5%;
+    opacity: 1;
+     margin-bottom: -58px;
+    
+  }
+
+  img {
+    width: 100%;
+    display: block;
+  }
+}
+
+// 返回列表按鈕（僅表單頁）
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  padding: 10px 24px;
+  border: 1px solid #B6D7EA;
+  border-radius: 999px;
+  background-color: $white;
+  color: $primary;
+  font-weight: $font-weight-medium;
+  box-shadow: $box-shadow-sm;
+  transition: background-color .2s ease-in-out, border-color .2s ease-in-out;
+
+  &:hover {
+    background-color: $primary;
+    border-color: $primary;
+    color: $white;
+    text-decoration: none;
+  }
+}

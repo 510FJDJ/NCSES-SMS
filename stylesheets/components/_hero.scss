@@ -1,0 +1,374 @@
+// ==========================================================================
+// Hero 主視覺區：未登入首頁（.hero）與登入後歡迎區（.hero--logged）
+// ==========================================================================
+
+.hero {
+  position: relative;
+  padding: 32px 0 48px;
+   z-index: 1;
+
+  @include media-breakpoint-up(lg) {
+    padding: 40px 0;
+  }
+}
+
+// 藍黃圓形裝飾（純裝飾，HTML 中 alt="" + aria-hidden）
+.hero-dec {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  animation: hero-dec-breathe 7s ease-in-out infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.hero-dec--left-top {
+  top: -25px;
+  left: -30px;
+  width: 90px;
+  animation-duration: 6.4s;
+  animation-delay: -0.8s;
+
+  @include media-breakpoint-up(lg) {
+    top: -120px;
+    left: -80px;
+    width: 200px;
+  }
+}
+
+.hero-dec--left-bottom {
+  bottom: 400px;
+  left: -50px;
+  width: 180px;
+  animation-duration: 8.2s;
+  animation-delay: -1.6s;
+
+  @include media-breakpoint-up(lg) {
+    bottom: -200px;
+    left: -150px;
+    width: 320px;
+  }
+}
+
+.hero-dec--right {
+  top: -40px;
+  right: -130px;
+  width: 255px;
+  animation-duration: 7.2s;
+  animation-delay: -0.2s;
+
+  @include media-breakpoint-up(lg) {
+    top: -74px;
+    right: -180px;
+    width: 462px;
+  }
+}
+
+.hero .container {
+  position: relative;
+   z-index: 2;
+}
+
+// 學校名稱前導列
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: $primary-100;
+  font-weight: $font-weight-medium;
+  margin-bottom:0px;
+}
+
+.hero-title {
+  color: $primary;
+  font-weight: $font-weight-bold;
+  font-size: 2rem;
+  font-style: italic;
+
+  @include media-breakpoint-up(lg) {
+    font-size: 3.125rem;
+  }
+}
+
+// 三大特色（權限分級／資料集中／行政效率）
+.hero-features {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0;
+
+    @include media-breakpoint-up(lg) {
+      margin-bottom:20px;
+      margin-top: 0px;        
+  }
+
+  li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+    flex: 1;
+
+    @include media-breakpoint-up(lg) {
+      flex-direction: row;
+      text-align: left;
+    }
+  }
+}
+
+.feature-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: $white;
+  box-shadow: $box-shadow;
+  color: $primary;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.feature-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.feature-title {
+  color: $grey-600;
+  font-weight: $font-weight-medium;
+}
+
+.feature-desc {
+  color: $grey-500;
+  font-size: 0.875rem;
+}
+
+// 右側主視覺插圖
+.hero-visual {
+    transform: scale(1.6);
+    top: 50px;
+    position: relative;
+    z-index: -5;
+  @include media-breakpoint-up(lg) {
+    transform: scale(1.3);
+    position: absolute;
+    top: -110px;
+    left: -240px;
+    z-index: -10;
+  }
+
+  img {
+    width: 100%;
+    display: block;
+  }
+}
+
+@keyframes hero-dec-breathe {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  25% {
+    transform: translate3d(0, -12px, 0) scale(1.04);
+  }
+
+  50% {
+    transform: translate3d(0, -4px, 0) scale(1.02);
+  }
+
+  75% {
+    transform: translate3d(0, 10px, 0) scale(1.05);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-dec,
+  .logged-orb {
+    animation: none;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 登入後首頁：歡迎區（背景交由 .main-logged 三層裝飾系統）
+// --------------------------------------------------------------------------
+.hero--logged {
+  padding-bottom: 20px; // 手機版：保留底層插圖的顯示空間
+
+  @include media-breakpoint-up(lg) {
+    padding-bottom: 32px;
+  }
+}
+
+.hero-welcome-lead {
+  color: $primary;
+  font-size: 1.5rem;
+  font-weight: $font-weight-medium;
+  margin-bottom: 0;
+   @include media-breakpoint-up(lg) {
+    font-size: 2.5rem;
+  }
+}
+.heroLogin-title{
+  color: $primary;
+  font-size: 2rem;
+  line-height: 1.2;
+  font-weight: $font-weight-bold;
+  margin-bottom: 0;
+   @include media-breakpoint-up(lg) {
+    font-size: 3rem;
+  }
+}
+
+.hero-slogan {
+  color: $grey-500;
+  margin-top: 16px;
+}
+
+// --------------------------------------------------------------------------
+// 登入後首頁：三層背景結構
+//   第一層 .logged-deco  ：圓形裝飾＋主視覺插圖（最底層）
+//   第二層 .logged-glass ：玻璃弧形遮罩（#FFFFFF99＋frost 23，延伸至 footer 上方）
+//   內容層（.hero--logged / .service-section）固定於 z-index: 3
+// --------------------------------------------------------------------------
+.main-logged {
+  position: relative;
+
+  .hero--logged,
+  .service-section {
+    position: relative;
+    z-index: 3;
+  }
+}
+
+// 第一層：底層裝飾（圓形＋插圖）
+.logged-deco {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.logged-circle {
+  position: absolute;
+    border-radius: 50%;
+    animation: hero-dec-breathe 7s ease-in-out infinite;
+    transform-origin: center center;
+    will-change: transform;
+}
+
+// 左上藍色圓（桌機 82.43px）
+.logged-circle--blue {
+  top: 80px;
+  left: -5%;
+  width: 48px;
+  height: 48px;
+  // background-color: #DEF0FD;
+  background: radial-gradient(circle at 32% 28%, #F3FAFF 0%, #DEF0FD 55%, #BCDFF6 100%);
+    animation-duration: 6.4s;
+    animation-delay: -0.6s;
+
+  @include media-breakpoint-up(lg) {
+    top: -30px;
+    left: 14%;
+    width: 82.43px;
+    height: 82.43px;
+  }
+}
+
+// 右側黃色圓（198px，襯在插圖後方）
+.logged-circle--yellow-right {
+  top: -50px;
+  right: -40px;
+  width: 120px;
+  height: 120px;
+  background-color: #F2D24C;
+
+  @include media-breakpoint-up(lg) {
+    top: -100px;
+    right: 5%;
+    width: 198px;
+    height: 198px;
+  }
+}
+
+// 左下黃色圓（198px，下半落在玻璃遮罩之下）
+.logged-circle--yellow-left {
+  top: 560px;
+  left: -48px;
+  width: 120px;
+  height: 120px;
+      background: radial-gradient(circle at 32% 28%, #F9E48E 0%, #F2D24C 55%, #E4BE2B 100%);
+    animation-duration: 8.2s;
+    animation-delay: -1.6s;
+
+  @include media-breakpoint-up(lg) {
+    top: 310px;
+    left: 50px;
+    width: 198px;
+    height: 198px;
+  }
+}
+
+// 右半邊主視覺插圖（手機置中於文字下方；桌機靠右半邊）
+.logged-visual {
+  position: absolute;
+  top: 340px;
+  left: 50%;
+  z-index: -1;
+  transform: translateX(-50%);
+  width: min(92%, 480px);
+display: none;
+  @include media-breakpoint-up(lg) {
+    top: 0px;
+    left: auto;
+    right: 0%;
+    top:-20px;
+    transform: none;
+    width: min(100%, 780px);
+    display: block;
+  }
+}
+.logged-illustration{
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+
+  @include media-breakpoint-up(lg) {
+    top: 11%;
+    left: 62%;
+    z-index: 4;
+    display: block;
+  }
+}
+// 第二層：玻璃弧形遮罩
+.logged-glass {
+  position: absolute;
+  z-index: 3;
+  top: 200px;
+  bottom: 0;
+  left: -30%;
+  width: 160%;
+  background:
+    linear-gradient(-45deg, rgba($white, .28) 0%, rgba($white, 0) 45%),
+    rgba($white, .6); 
+  backdrop-filter: blur(23px);
+  -webkit-backdrop-filter: blur(23px);
+  // 上緣不對稱橢圓弧：左淺右深，做出左高右低的下彎弧線
+  border-radius: 48% 52% 0 0 / 220px 340px 0 0;
+  border-top: 1px solid rgba($white, .9);
+  box-shadow:
+    inset 3px 3px 18px rgba($white, .55),
+    0 -12px 32px rgba($primary, .06);
+
+  @include media-breakpoint-up(lg) {
+    top: 300px; 
+    border-radius: 46% 54% 0 0 / 300px 460px 0 0;
+  }
+}

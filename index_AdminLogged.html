@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>首頁 - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="國立彰化特殊教育學校雲端校務管理系統：整合校務流程、提升行政效率、建構智慧校園。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body>
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1" class="main-logged overflow-hidden">
+        <!-- 第一層（最底）：圓形裝飾＋右半邊主視覺插圖（純裝飾） -->
+        <div class="logged-deco" aria-hidden="true">
+            <span class="logged-circle logged-circle--blue"></span>
+            <span class="logged-circle logged-circle--yellow-right"></span>
+            <span class="logged-circle logged-circle--yellow-left"></span>
+            
+        </div>
+
+       
+
+
+        <!-- 歡迎主視覺 -->
+        <section class="hero hero--logged">
+            <div class="container">
+                <div class="row flex-center-lg-end">
+                    <div class="col-12 col-md-12 col-lg-5">
+                        <p class="hero-eyebrow">國立彰化特殊教育學校</p>
+                        <p class="hero-welcome-lead">歡迎使用</p>
+                        <h1 class="heroLogin-title">雲端校務管理系統</h1>
+                        <p class="hero-slogan">整合校務流程 · 提升行政效率 · 建構智慧校園</p>
+                    </div>
+                    <!-- 右半欄：桌機版保留給底層插圖的視覺空間 -->
+                    <div class="col-12 col-lg-6">
+                        <img class="logged-visual" src="img/hero/login-hero/main-visual_login-lg.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+         <!-- 第二層：玻璃弧形遮罩 -->
+        <div class="logged-glass" aria-hidden="true"></div>
+        <!-- 第三層:插畫人物 -->
+        <div class="logged-illustration" aria-hidden="true">
+            <img src="img/hero/login-hero/main-visual_loginPeople-lg.png" alt="">
+        </div>
+        <!-- 服務項目快速開始 -->
+        <section class="service-section" aria-labelledby="serviceTitle">
+            <div class="container">
+                <h2 class="service-section-title" id="serviceTitle">
+                    <i class="bi bi-grid-fill" aria-hidden="true"></i>服務項目快速開始
+                </h2>
+
+                <div class="row gy-6">
+                    <!-- 基本資料維護 -->
+                    <div class="col-12 col-lg-4">
+                        <div class="service-card service-card--basic">
+                            <div class="service-card-head">
+                                <span class="service-card-icon"><i class="bi bi-person-vcard" aria-hidden="true"></i></span>
+                                <h3 class="service-card-title">基本資料維護</h3>
+                            </div>
+                            <ul class="service-card-list">
+                                <li><a href="studentRoster.html">學生學籍基本資料<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="subject.html">科目基本資料<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="#">教師基本資料<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="teacherSubject.html">教師可授課科目設定<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="#">班級基本資料<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="#">教室/場地基本資料<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="classPlacement.html">編班作業<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="classSeatNo.html">班級座號維護<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 課務管理 -->
+                    <div class="col-12 col-lg-4">
+                        <div class="service-card service-card--course">
+                            <div class="service-card-head">
+                                <span class="service-card-icon"><i class="bi bi-book" aria-hidden="true"></i></span>
+                                <h3 class="service-card-title">課務管理</h3>
+                            </div>
+                            <p class="service-card-group">開排課作業</p>
+                            <ul class="service-card-list">
+                                <li><a href="courseOffering.html">開課作業<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="courseStudent.html">指定修課學生<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="#">教師授課時數查詢<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                            </ul>
+                            <p class="service-card-group">調代(兼)課作業</p>
+                            <ul class="service-card-list">
+                                <li><a href="substitute.html">教師代課管理<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 學務管理 -->
+                    <div class="col-12 col-lg-4">
+                        <div class="service-card service-card--affairs">
+                            <div class="service-card-head">
+                                <span class="service-card-icon"><i class="bi bi-mortarboard-fill" aria-hidden="true"></i></span>
+                                <h3 class="service-card-title">學務管理</h3>
+                            </div>
+                            <ul class="service-card-list">
+                                <li><a href="studentAttendance.html">學生出缺勤管理<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="#">學生獎懲管理<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="absencePunishmentScore.html">缺曠獎懲配分設定<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="studentConsecutiveAbsence.html">學生連續缺席統計<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                            </ul>
+                            <p class="service-card-group">德育成績管理</p>
+                            <ul class="service-card-list">
+                                <li><a href="moralScoreInput.html">德育成績加減分輸入<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="moralScoreCalc.html">德育成績計算作業<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 成績管理 -->
+                    <div class="col-12 col-lg-4">
+                        <div class="service-card service-card--score">
+                            <div class="service-card-head">
+                                <span class="service-card-icon"><i class="bi bi-bar-chart-fill" aria-hidden="true"></i></span>
+                                <h3 class="service-card-title">成績管理</h3>
+                            </div>
+                            <ul class="service-card-list">
+                                <li><a href="scoreInput.html">成績輸入<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="scoreCalc.html">成績計算作業<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- IEP管理 -->
+                    <div class="col-12 col-lg-4">
+                        <div class="service-card service-card--iep">
+                            <div class="service-card-head">
+                                <span class="service-card-icon"><i class="bi bi-clipboard2-check" aria-hidden="true"></i></span>
+                                <h3 class="service-card-title">IEP管理</h3>
+                            </div>
+                            <ul class="service-card-list">
+                                <li><a href="iepBasicInfo.html">IEP基本資料管理<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="#">IEP報表列印<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="iepTimetable.html">學生/班級/教師課表<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="#">IEP資料家長申請表<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                            </ul>
+                            <p class="service-card-group">IEP學年與學期教育目標</p>
+                            <ul class="service-card-list">
+                                <li><a href="iepEduGoalTemplatePersonal.html">教育目標範本(個人)<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="iepEduGoalTemplateShare.html">教育目標範本(共享)<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="iepEduGoal.html">教育目標資料管理<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                            </ul>
+                            <p class="service-card-group">IEP行為介入計畫方案</p>
+                            <ul class="service-card-list">
+                                <li><a href="iepBehaviorFunction.html">IEP行為功能介入方案<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="iepBehaviorChecklist.html">行為與策略對照勾選表<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="iepReinforcerSurvey.html">增強物調查表<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="iepReviewMeeting.html">IEP檢討會議<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                            </ul>
+                            <p class="service-card-group">IEP紀錄表</p>
+                            <ul class="service-card-list">
+                                <li><a href="iepMeetingRecord.html">IEP會議記錄<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="iepTransferMeeting.html">IEP轉銜會議記錄<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="#">IEP家庭訪問紀錄表<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="iepCounselingRecord.html">IEP學生輔導紀錄表<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="#">IEP相關服務建議(專團服務)<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 各式報表列印 -->
+                    <div class="col-12 col-lg-4">
+                        <div class="service-card service-card--report">
+                            <div class="service-card-head">
+                                <span class="service-card-icon"><i class="bi bi-printer-fill" aria-hidden="true"></i></span>
+                                <h3 class="service-card-title">各式報表列印</h3>
+                            </div>
+                            <p class="service-card-group">學籍資料</p>
+                            <ul class="service-card-list">
+                                <li><a href="reportRollData.html#tab-basicForm">學生基本資料表<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="reportRollData.html#tab-roll">學籍表<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="reportRollData.html#tab-export">學生基本資料匯出(Excel)<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="reportRollData.html#tab-export">學生點名表匯出(Excel)<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                            </ul>
+                            <p class="service-card-group">成績單</p>
+                            <ul class="service-card-list">
+                                <li><a href="reportScoreSheet.html#conductRollAll">操行成績單(A表)<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="reportScoreSheet.html#conductRollClass">操行成績單(B表)(獎學金用)<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="reportScoreSheet.html#studentScoreSheet">學生成績單<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                            </ul>
+                            <p class="service-card-group">學務報表</p>
+                            <ul class="service-card-list">
+                                <li><a href="reportAffairsData.html#tab-attendance">學生出缺勤表<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="reportAffairsData.html#tab-reward">獎懲紀錄統計表<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                            </ul>
+                            <p class="service-card-group">新生/畢(結)業生報表</p>
+                            <ul class="service-card-list">
+                                <li><a href="reportGraduateData.html#tab-roster">畢(結)業名冊<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="reportGraduateData.html#tab-govForm">新生(畢業)報局用表<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                            </ul>
+                            <p class="service-card-group">代(兼)課相關報表</p>
+                            <ul class="service-card-list">
+                                <li><a href="reportSubstituteNotice.html">代(兼)課通知單<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                                <li><a href="reportSubstituteHours.html">教師代(兼)課時數統計表<i class="bi bi-chevron-right" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

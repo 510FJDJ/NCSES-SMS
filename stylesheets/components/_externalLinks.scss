@@ -1,0 +1,77 @@
+// ==========================================================================
+// 外部網站連結區（未登入首頁）：曲線校景背景＋圓形外框連結
+// ==========================================================================
+
+.external-links {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.external-links-title img {
+ transform: scale(0.8);
+  @include media-breakpoint-up(lg) {
+    transform: scale(1);
+    margin: 10px 0;
+  }
+}
+
+// 校景照片背景（手機／桌面各自的曲線圖）
+.external-links-bg {
+  margin-top: -16px;
+  padding: 96px 16px 64px;
+  background-image: url("../img/hero/bg-link-sm.png");
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+
+  @include media-breakpoint-up(lg) {
+    background-image: url("../img/hero/bg-link-lg.png");
+    padding: 160px 16px 80px;
+  }
+}
+
+.link-circles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 400px;
+
+  @include media-breakpoint-up(lg) {
+    max-width: none;
+    gap: 48px;
+  }
+}
+
+// 圓形外框連結：半透明白襯底確保文字對比
+.circle-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 128px;
+  height: 128px;
+  border: 1px solid $primary;
+  border-radius: 50%;
+  background-color: rgba($white, .75);
+  color: $primary;
+  font-weight: $font-weight-medium;
+  letter-spacing: 0.1em;
+  padding: 12px;
+  transition: background-color .2s ease-in-out, color .2s ease-in-out, transform .2s ease-in-out;
+
+  &:hover {
+    background-color: rgba($primary, .3);
+    border-color: rgba($primary, .3);
+    color: $white;
+    text-decoration: none;
+    transform: translateY(-4px);
+  }
+
+  @include media-breakpoint-up(lg) {
+    width: 150px;
+    height: 150px;
+  }
+}

@@ -1,0 +1,134 @@
+// ==========================================================================
+// 學年度與學期設置：當前學期唯讀顯示、啟用新學期提示卡與危險確認按鈕
+// ==========================================================================
+
+// --------------------------------------------------------------------------
+// 頁籤一：當前學期（唯讀）大字標題
+// --------------------------------------------------------------------------
+.semester-readonly-display {
+  margin-bottom: 32px;
+}
+
+.semester-readonly-label {
+  display: block;
+  color: $grey-500;
+  font-size: 0.875rem;
+  font-weight: $font-weight-medium;
+  margin-bottom: 4px;
+}
+
+.semester-readonly-value {
+  color: $grey-600;
+  font-size: 1.75rem;
+  font-weight: $font-weight-bold;
+  margin: 0;
+
+  @include media-breakpoint-up(lg) {
+    font-size: 2rem;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 頁籤二：系統推算下一學期的提示卡（唯讀，不隨表單狀態改變）
+// --------------------------------------------------------------------------
+.semester-hint-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: rgba($danger, .05);
+  border: 1px solid rgba($danger, .3);
+  border-radius: $border-radius-lg;
+  padding: 16px 20px;
+  margin-bottom: 32px;
+}
+
+.semester-hint-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+  color: $danger;
+  flex-shrink: 0;
+}
+
+.semester-hint-text {
+  color: $grey-600;
+  font-size: 1.0625rem;
+  font-weight: $font-weight-bold;
+  margin: 0;
+
+  strong {
+    color: $danger;
+    font-weight: $font-weight-bold;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 確認勾選列（置中）
+// --------------------------------------------------------------------------
+.semester-confirm-row {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0 32px;
+
+  .form-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .form-check-input {
+    width: 20px;
+    height: 20px;
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+
+  .form-check-label {
+    color: $grey-600;
+    text-align: left;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 啟用新學期：主要危險動作按鈕（停用＝灰／啟用＝深紅）
+// --------------------------------------------------------------------------
+.semester-activate-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-activate-semester {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 420px;
+  padding: 14px 24px;
+  border: none;
+  border-radius: $border-radius-lg;
+  font-size: 1.0625rem;
+  font-weight: $font-weight-bold;
+  color: $white;
+  background-color: $grey-400;
+  transition: background-color .15s ease;
+
+  &:disabled {
+    background-color: $grey-400;
+    color: $grey-100;
+    cursor: not-allowed;
+  }
+
+  &:not(:disabled) {
+    background-color: $danger;
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+      background-color: darken($danger, 8%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}

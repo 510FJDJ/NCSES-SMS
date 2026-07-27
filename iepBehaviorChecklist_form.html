@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>行為與策略對照勾選表明細 - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="對照學生行為前事與不當表現，勾選並落實前事、行為教導與後果處理之適性輔導策略。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body class="has-iep-action-bar">
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1">
+        <!-- 內頁 Banner：麵包屑＋標題＋返回列表按鈕 -->
+        <section class="page-banner">
+            <!-- 裝飾層（純 CSS 繪製） -->
+            <div class="page-banner-deco" aria-hidden="true">
+                <span class="page-banner-halfcircle"></span>
+                <span class="page-banner-circle"></span>
+                <span class="page-banner-dots"></span>
+            </div>
+
+            <div class="container">
+                <nav class="page-banner-breadcrumb" aria-label="麵包屑導覽">
+                    <ol>
+                        <li>
+                            <a class="breadcrumb-home" href="index_AdminLogged.html" aria-label="首頁">
+                                <i class="bi bi-house-door" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">IEP管理</a></li>
+                        <li><a href="#">IEP行為介入計畫方案</a></li>
+                        <li><a href="iepBehaviorChecklist.html">行為與策略對照勾選表</a></li>
+                        <li aria-current="page">編輯</li>
+                    </ol>
+                </nav>
+
+                <div class="page-banner-main">
+                    <div class="page-banner-text">
+                        <h1 class="page-banner-title">行為與策略對照勾選表明細</h1>
+                        <p class="page-banner-desc">對照學生行為前事與不當表現，勾選並落實前事、行為教導與後果處理之適性輔導策略。</p>
+                    </div>
+                    <!-- 右側人物插圖（純裝飾；背景以 CSS 繪製，角色圖可互換） -->
+                    <div class="page-banner-visual page-banner-visual--composed page-banner-visual--pointPerson" aria-hidden="true">
+                        <span class="banner-visual-blob"></span>
+                        <span class="banner-visual-window"></span>
+                        <img class="banner-visual-person" src="img/hero/characters/people-front-point.png" alt="">
+                    </div>
+                    <a class="btn-back" href="iepBehaviorChecklist.html">
+                        <i class="bi bi-chevron-left" aria-hidden="true"></i>返回列表
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- IEP 明細表單 -->
+        <section class="form-section-wrap">
+            <div class="container">
+                <!-- 學生資訊摘要列（後端：由學生資料帶入） -->
+                <div class="iep-student-bar">
+                    <div class="iep-student-name">
+                        <span>王小明</span>
+                        <span class="iep-student-dept-badge">國小部</span>
+                    </div>
+                    <dl class="iep-student-metas">
+                        <div class="iep-student-meta">
+                            <dt>班級：</dt>
+                            <dd>101國小低年級</dd>
+                        </div>
+                        <div class="iep-student-meta">
+                            <dt>填寫日期：</dt>
+                            <dd>2026/07/25</dd>
+                        </div>
+                        <div class="iep-student-meta">
+                            <dt>填表學期：</dt>
+                            <dd>113學年度第2學期</dd>
+                        </div>
+                        <div class="iep-student-meta">
+                            <dt>單號：</dt>
+                            <dd>202502120001</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <!-- 後端：表單送出目標與驗證由後端接手 -->
+                <form class="form-card" id="iepForm" action="#" method="post" novalidate>
+                    <!-- 填表人 -->
+                    <section class="form-section" aria-label="填表資訊">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label" for="fillerName">填表人</label>
+                                <input type="text" class="form-control" id="fillerName" name="fillerName" placeholder="請輸入姓名" value="王OO">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ============================================================
+                         行為脈絡鏈
+                    ============================================================ -->
+                    <section class="form-section" aria-labelledby="checklistSecChain">
+                        <h2 class="form-section-title" id="checklistSecChain">
+                            <i class="bi bi-diagram-3" aria-hidden="true"></i>行為脈絡鏈
+                        </h2>
+                        <div class="row g-2 align-items-stretch">
+                            <div class="col-12 col-md-6 col-lg">
+                                <fieldset class="iep-choice-box">
+                                    <legend class="form-legend">環境背景</legend>
+                                    <label class="sr-only" for="chainEnvironment">環境背景說明</label>
+                                    <textarea class="form-control" id="chainEnvironment" name="chainEnvironment" rows="6" maxlength="200" placeholder="請說明環境背景"></textarea>
+                                </fieldset>
+                            </div>
+                            <div class="col-auto d-none d-lg-flex align-items-center">
+                                <img src="img/icon/cherve-right.svg" alt="" aria-hidden="true">
+                            </div>
+                            <div class="col-12 col-md-6 col-lg">
+                                <fieldset class="iep-choice-box">
+                                    <legend class="form-legend">身心特質</legend>
+                                    <label class="sr-only" for="chainTrait">身心特質說明</label>
+                                    <textarea class="form-control" id="chainTrait" name="chainTrait" rows="6" maxlength="200" placeholder="請說明身心特質"></textarea>
+                                </fieldset>
+                            </div>
+                            <div class="col-auto d-none d-lg-flex align-items-center">
+                                <img src="img/icon/cherve-right.svg" alt="" aria-hidden="true">
+                            </div>
+                            <div class="col-12 col-md-6 col-lg">
+                                <fieldset class="iep-choice-box">
+                                    <legend class="form-legend">誘發因素</legend>
+                                    <label class="sr-only" for="chainTrigger">誘發因素說明</label>
+                                    <textarea class="form-control" id="chainTrigger" name="chainTrigger" rows="6" maxlength="200" placeholder="請說明誘發因素"></textarea>
+                                </fieldset>
+                            </div>
+                            <div class="col-auto d-none d-lg-flex align-items-center">
+                                <img src="img/icon/cherve-right.svg" alt="" aria-hidden="true">
+                            </div>
+                            <div class="col-12 col-md-6 col-lg">
+                                <fieldset class="iep-choice-box">
+                                    <legend class="form-legend">行為觀察</legend>
+                                    <label class="sr-only" for="chainObservation">行為觀察說明</label>
+                                    <textarea class="form-control" id="chainObservation" name="chainObservation" rows="6" maxlength="200" placeholder="請說明行為觀察"></textarea>
+                                </fieldset>
+                            </div>
+                            <div class="col-auto d-none d-lg-flex align-items-center">
+                                <img src="img/icon/cherve-right.svg" alt="" aria-hidden="true">
+                            </div>
+                            <div class="col-12 col-md-6 col-lg">
+                                <fieldset class="iep-choice-box">
+                                    <legend class="form-legend">後果</legend>
+                                    <label class="sr-only" for="chainConsequence">後果說明</label>
+                                    <textarea class="form-control" id="chainConsequence" name="chainConsequence" rows="6" maxlength="200" placeholder="請說明後果"></textarea>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ============================================================
+                         介入策略
+                    ============================================================ -->
+                    <section class="form-section" aria-labelledby="checklistSecStrategy">
+                        <h2 class="form-section-title" id="checklistSecStrategy">
+                            <i class="bi bi-clipboard2-check" aria-hidden="true"></i>介入策略
+                        </h2>
+                        <div class="iep-choice-grid">
+                            <fieldset class="iep-choice-box">
+                                <legend class="form-legend">環境背景調整策略 (可複選)</legend>
+                                <div class="iep-check-list ">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="envStrategy1" name="envStrategy[]" value="1" checked>
+                                        <label class="form-check-label" for="envStrategy1">宣導 (特教/班級宣導)</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="envStrategy2" name="envStrategy[]" value="2">
+                                        <label class="form-check-label" for="envStrategy2">親職教育</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="envStrategy3" name="envStrategy[]" value="3">
+                                        <label class="form-check-label" for="envStrategy3">調整班規</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="envStrategy4" name="envStrategy[]" value="4">
+                                        <label class="form-check-label" for="envStrategy4">建立合理期待</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="envStrategy5" name="envStrategy[]" value="5">
+                                        <label class="form-check-label" for="envStrategy5">調整物理環境</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="envStrategy6" name="envStrategy[]" value="6">
+                                        <label class="form-check-label" for="envStrategy6">教材、評量、作業的調整</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="envStrategy7" name="envStrategy[]" value="7">
+                                        <label class="form-check-label" for="envStrategy7">調整作息</label>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="iep-choice-box">
+                                <legend class="form-legend">身心特質調整策略 (可複選)</legend>
+                                <div class="iep-check-list ">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="traitStrategy1" name="traitStrategy[]" value="1" checked>
+                                        <label class="form-check-label" for="traitStrategy1">就醫評估</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="traitStrategy2" name="traitStrategy[]" value="2">
+                                        <label class="form-check-label" for="traitStrategy2">諮商輔導</label>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="iep-choice-box">
+                                <legend class="form-legend">誘發因素調整策略 (可複選)</legend>
+                                <div class="iep-check-list ">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="triggerStrategy1" name="triggerStrategy[]" value="1" checked>
+                                        <label class="form-check-label" for="triggerStrategy1">正向提示</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="triggerStrategy2" name="triggerStrategy[]" value="2">
+                                        <label class="form-check-label" for="triggerStrategy2">預告改變或行為後果</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="triggerStrategy3" name="triggerStrategy[]" value="3">
+                                        <label class="form-check-label" for="triggerStrategy3">明確指令</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="triggerStrategy4" name="triggerStrategy[]" value="4">
+                                        <label class="form-check-label" for="triggerStrategy4">當下調整 (改變難度,提供協助)</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="triggerStrategy5" name="triggerStrategy[]" value="5">
+                                        <label class="form-check-label" for="triggerStrategy5">表達關切</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="triggerStrategy6" name="triggerStrategy[]" value="6">
+                                        <label class="form-check-label" for="triggerStrategy6">提供選擇</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="triggerStrategy7" name="triggerStrategy[]" value="7">
+                                        <label class="form-check-label" for="triggerStrategy7">協助放鬆</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="triggerStrategy8" name="triggerStrategy[]" value="8">
+                                        <label class="form-check-label" for="triggerStrategy8">移轉注意</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="triggerStrategy9" name="triggerStrategy[]" value="9">
+                                        <label class="form-check-label" for="triggerStrategy9">重新指令</label>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="iep-choice-box">
+                                <legend class="form-legend">行為教導策略 (可複選)</legend>
+                                <div class="iep-check-list ">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="teachStrategy1" name="teachStrategy[]" value="1" checked>
+                                        <label class="form-check-label" for="teachStrategy1">教室行為訓練</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="teachStrategy2" name="teachStrategy[]" value="2">
+                                        <label class="form-check-label" for="teachStrategy2">溝通訓練</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="teachStrategy3" name="teachStrategy[]" value="3">
+                                        <label class="form-check-label" for="teachStrategy3">放鬆訓練</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="teachStrategy4" name="teachStrategy[]" value="4">
+                                        <label class="form-check-label" for="teachStrategy4">社會技巧訓練</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="teachStrategy5" name="teachStrategy[]" value="5">
+                                        <label class="form-check-label" for="teachStrategy5">系統減敏訓練</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="teachStrategy6" name="teachStrategy[]" value="6">
+                                        <label class="form-check-label" for="teachStrategy6">社會理解教導</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="teachStrategy7" name="teachStrategy[]" value="7">
+                                        <label class="form-check-label" for="teachStrategy7">生活技能訓練</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="teachStrategy8" name="teachStrategy[]" value="8">
+                                        <label class="form-check-label" for="teachStrategy8">自我管理計畫</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="teachStrategy9" name="teachStrategy[]" value="9">
+                                        <label class="form-check-label" for="teachStrategy9">專注力訓練</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="teachStrategy10" name="teachStrategy[]" value="10">
+                                        <label class="form-check-label" for="teachStrategy10">訂立契約</label>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="iep-choice-box">
+                                <legend class="form-legend">後果處理策略_增加適當行為 (可複選)</legend>
+                                <div class="iep-check-list ">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="consequenceInc1" name="consequenceInc[]" value="1" checked>
+                                        <label class="form-check-label" for="consequenceInc1">原級增強</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="consequenceInc2" name="consequenceInc[]" value="2">
+                                        <label class="form-check-label" for="consequenceInc2">活動增強</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="consequenceInc3" name="consequenceInc[]" value="3">
+                                        <label class="form-check-label" for="consequenceInc3">代幣系統</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="consequenceInc4" name="consequenceInc[]" value="4">
+                                        <label class="form-check-label" for="consequenceInc4">社會性增強</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="consequenceInc5" name="consequenceInc[]" value="5">
+                                        <label class="form-check-label" for="consequenceInc5">DRO</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="consequenceInc6" name="consequenceInc[]" value="6">
+                                        <label class="form-check-label" for="consequenceInc6">DRA</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="consequenceInc7" name="consequenceInc[]" value="7">
+                                        <label class="form-check-label" for="consequenceInc7">DRI</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="consequenceInc8" name="consequenceInc[]" value="8">
+                                        <label class="form-check-label" for="consequenceInc8">DRL</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="consequenceInc9" name="consequenceInc[]" value="9">
+                                        <label class="form-check-label" for="consequenceInc9">DRH</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="consequenceInc10" name="consequenceInc[]" value="10">
+                                        <label class="form-check-label" for="consequenceInc10">自我增強</label>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="iep-choice-box">
+                                <legend class="form-legend">後果處理策略_減少不當行為 (可複選)</legend>
+                                <div class="iep-check-list ">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="consequenceDec1" name="consequenceDec[]" value="1" checked>
+                                        <label class="form-check-label" for="consequenceDec1">消弱</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="consequenceDec2" name="consequenceDec[]" value="2">
+                                        <label class="form-check-label" for="consequenceDec2">反應代價</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="consequenceDec3" name="consequenceDec[]" value="3" checked>
+                                        <label class="form-check-label" for="consequenceDec3">隔離</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="consequenceDec4" name="consequenceDec[]" value="4">
+                                        <label class="form-check-label" for="consequenceDec4">回復原狀</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="consequenceDec5" name="consequenceDec[]" value="5" checked>
+                                        <label class="form-check-label" for="consequenceDec5">過度矯正</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="consequenceDec6" name="consequenceDec[]" value="6">
+                                        <label class="form-check-label" for="consequenceDec6">身體的制服</label>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </section>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- 固定於視窗底部的表單操作列（後端：儲存與報表產出由後端接手） -->
+    <div class="iep-action-bar" role="region" aria-label="IEP 表單操作列">
+        <div class="iep-action-hint">
+            <img src="img/icon/小提醒.svg" alt="" class="iep-action-hint-icon">
+            <p><strong>小提醒</strong><br>表單完成後請記得儲存修改資料歐!</p>
+        </div>
+        <div class="iep-action-buttons">
+            <button type="button" class="btn btn-success" id="behaviorChecklistSaveBtn">
+                <i class="bi bi-floppy" aria-hidden="true"></i>儲存修改資料
+            </button>
+            <button type="button" class="btn btn-primary" id="behaviorChecklistExportBtn">
+                <i class="bi bi-download" aria-hidden="true"></i>產生並匯出IEP報表
+            </button>
+        </div>
+        <a class="btn iep-action-cancel" href="iepBehaviorChecklist.html">取消</a>
+    </div>
+
+    <!-- 回饋 Modal（3 秒倒數自動關閉；圖示/色彩由 JS 依情境切換） -->
+    <div class="modal fade feedback-modal" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body feedback-body" role="status">
+                    <span class="feedback-icon" aria-hidden="true">
+                        <i class="bi bi-file-earmark-check"></i>
+                    </span>
+                    <h2 class="feedback-title" id="feedbackModalTitle">儲存成功</h2>
+                    <p class="feedback-desc">您的 IEP 表單內容已儲存。</p>
+                    <p class="feedback-countdown"><span class="feedback-countdown-num">3</span>秒後 自動關閉</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/iep.js"></script>
+</body>
+</html>

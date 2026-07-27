@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>IEP學生輔導記錄表明細 - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="登錄個案學生之日常個案輔導紀錄，即時維護晤談時間、訪談對象、狀況描述與後續追蹤。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body class="has-iep-action-bar">
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1">
+        <!-- 內頁 Banner：麵包屑＋標題＋返回列表按鈕 -->
+        <section class="page-banner">
+            <!-- 裝飾層（純 CSS 繪製） -->
+            <div class="page-banner-deco" aria-hidden="true">
+                <span class="page-banner-halfcircle"></span>
+                <span class="page-banner-circle"></span>
+                <span class="page-banner-dots"></span>
+            </div>
+
+            <div class="container">
+                <nav class="page-banner-breadcrumb" aria-label="麵包屑導覽">
+                    <ol>
+                        <li>
+                            <a class="breadcrumb-home" href="index_AdminLogged.html" aria-label="首頁">
+                                <i class="bi bi-house-door" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">IEP管理</a></li>
+                        <li><a href="#">IEP紀錄表</a></li>
+                        <li><a href="iepCounselingRecord.html">IEP學生輔導記錄表</a></li>
+                        <li aria-current="page">進入IEP</li>
+                    </ol>
+                </nav>
+
+                <div class="page-banner-main">
+                    <div class="page-banner-text">
+                        <h1 class="page-banner-title">IEP學生輔導記錄表（檢視/修改）</h1>
+                        <p class="page-banner-desc">登錄個案學生之日常個案輔導紀錄，即時維護晤談時間、訪談對象、狀況描述與後續追蹤。</p>
+                    </div>
+                    <!-- 右側人物插圖（純裝飾；背景以 CSS 繪製，角色圖可互換） -->
+                    <div class="page-banner-visual page-banner-visual--composed page-banner-visual--pointPerson" aria-hidden="true">
+                        <span class="banner-visual-blob"></span>
+                        <span class="banner-visual-window"></span>
+                        <img class="banner-visual-person" src="img/hero/characters/people-front-point.png" alt="">
+                    </div>
+                    <a class="btn-back" href="iepCounselingRecord.html">
+                        <i class="bi bi-chevron-left" aria-hidden="true"></i>返回列表
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- IEP 明細表單 -->
+        <section class="form-section-wrap">
+            <div class="container">
+                <!-- 學生資訊摘要列（後端：選擇班級與學生後由學生資料帶入） -->
+                <div class="iep-student-bar">
+                    <div class="iep-student-name">
+                        <span>王小明</span>
+                        <span class="iep-student-dept-badge">國小部</span>
+                    </div>
+                    <dl class="iep-student-metas">
+                        <div class="iep-student-meta">
+                            <dt>班級：</dt>
+                            <dd>101 國小低年級</dd>
+                        </div>
+                        <div class="iep-student-meta">
+                            <dt>導師：</dt>
+                            <dd>李宛叡、李宛真</dd>
+                        </div>
+                        <div class="iep-student-meta">
+                            <dt>填表學期：</dt>
+                            <dd>113學年度第2學期</dd>
+                        </div>
+                        <div class="iep-student-meta">
+                            <dt>單號：</dt>
+                            <dd>202502120001</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <!-- 後端：表單送出目標與驗證由後端接手 -->
+                <form class="form-card" id="counselingForm" action="#" method="post" novalidate>
+                    <!-- ============================================================
+                         日常輔導紀錄
+                    ============================================================ -->
+                    <section class="form-section" aria-labelledby="counselSecDaily">
+                        <h2 class="form-section-title sr-only" id="counselSecDaily">日常輔導紀錄</h2>
+
+                        <div class="iep-counsel-teacher-row">
+                            <div class="iep-counsel-teacher-field">
+                                <label class="form-label" for="counselTeacher">導師<span class="badge-required">必填</span></label>
+                                <input type="text" class="form-control" id="counselTeacher" name="counselTeacher" placeholder="請輸入姓名" required>
+                            </div>
+                            <button type="button" class="btn btn-success" id="btnAddCounselRow">
+                                <i class="bi bi-plus-lg" aria-hidden="true"></i>新增日常輔導紀錄
+                            </button>
+                        </div>
+
+                        <div class="data-table-wrap">
+                            <table class="table table-striped data-table data-table--wide iep-counsel-table">
+                                <caption class="sr-only">日常輔導紀錄明細表</caption>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">序號</th>
+                                        <th scope="col">紀錄日期</th>
+                                        <th scope="col">輔導對象</th>
+                                        <th scope="col">輔導方式</th>
+                                        <th scope="col">狀況描述</th>
+                                        <th scope="col">處理方式</th>
+                                        <th scope="col">追蹤</th>
+                                        <th scope="col">相關參與人員</th>
+                                        <th scope="col">功能</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="counselRows">
+                                    <tr>
+                                        <td data-label="序號"><span class="cell-value">1</span></td>
+                                        <td data-label="紀錄日期">
+                                            <span class="cell-value">
+                                                <label class="sr-only" for="counselDate1">紀錄日期</label>
+                                                <input type="date" class="form-control" id="counselDate1" name="counselDate1" title="紀錄日期" aria-label="紀錄日期" disabled>
+                                            </span>
+                                        </td>
+                                        <td data-label="輔導對象">
+                                            <span class="cell-value cell-value--start">
+                                                <fieldset class="iep-counsel-checks">
+                                                    <legend class="sr-only">第1筆輔導對象</legend>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselTarget1" id="counselTargetStudent1" value="student" checked disabled>
+                                                        <label class="form-check-label" for="counselTargetStudent1">學生</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselTarget1" id="counselTargetParent1" value="parent" checked disabled>
+                                                        <label class="form-check-label" for="counselTargetParent1">家長</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselTarget1" id="counselTargetOther1" value="other" disabled>
+                                                        <label class="form-check-label" for="counselTargetOther1">其他</label>
+                                                    </div>
+                                                </fieldset>
+                                            </span>
+                                        </td>
+                                        <td data-label="輔導方式">
+                                            <span class="cell-value cell-value--start">
+                                                <fieldset class="iep-counsel-checks">
+                                                    <legend class="sr-only">第1筆輔導方式</legend>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselMethod1" id="counselMethodTalk1" value="talk" disabled>
+                                                        <label class="form-check-label" for="counselMethodTalk1">晤談</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselMethod1" id="counselMethodPhone1" value="phone" checked disabled>
+                                                        <label class="form-check-label" for="counselMethodPhone1">電話</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselMethod1" id="counselMethodVisit1" value="visit" disabled>
+                                                        <label class="form-check-label" for="counselMethodVisit1">家訪</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselMethod1" id="counselMethodNote1" value="note" disabled>
+                                                        <label class="form-check-label" for="counselMethodNote1">聯絡簿</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselMethod1" id="counselMethodApp1" value="app" disabled>
+                                                        <label class="form-check-label" for="counselMethodApp1">通訊軟體</label>
+                                                    </div>
+                                                </fieldset>
+                                            </span>
+                                        </td>
+                                        <td data-label="狀況描述">
+                                            <span class="cell-value cell-value--start">
+                                                <label class="sr-only" for="counselDesc1">狀況描述</label>
+                                                <textarea class="form-control" id="counselDesc1" name="counselDesc1" rows="3" placeholder="請輸入描述" disabled></textarea>
+                                            </span>
+                                        </td>
+                                        <td data-label="處理方式">
+                                            <span class="cell-value cell-value--start">
+                                                <fieldset class="iep-counsel-checks">
+                                                    <legend class="sr-only">第1筆處理方式</legend>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselProcess1" id="counselProcessLife1" value="life" checked disabled>
+                                                        <label class="form-check-label" for="counselProcessLife1">融入生活教育</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselProcess1" id="counselProcessParent1" value="parent" checked disabled>
+                                                        <label class="form-check-label" for="counselProcessParent1">與家長討論後共同執行策略</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselProcess1" id="counselProcessCourse1" value="course" disabled>
+                                                        <label class="form-check-label" for="counselProcessCourse1">融入相關課程</label>
+                                                    </div>
+                                                    <div class="iep-counsel-process-note">
+                                                        <span aria-hidden="true">如：</span>
+                                                        <label class="sr-only" for="counselProcessNote1">融入相關課程說明</label>
+                                                        <input type="text" class="form-control" id="counselProcessNote1" name="counselProcessNote1" placeholder="請輸入" disabled>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselProcess1" id="counselProcessBehavior1" value="behavior" checked disabled>
+                                                        <label class="form-check-label" for="counselProcessBehavior1">行為功能介入</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselProcess1" id="counselProcessOther1" value="other" checked disabled>
+                                                        <label class="form-check-label" for="counselProcessOther1">其他</label>
+                                                    </div>
+                                                </fieldset>
+                                            </span>
+                                        </td>
+                                        <td data-label="追蹤">
+                                            <span class="cell-value cell-value--start">
+                                                <fieldset class="iep-counsel-checks">
+                                                    <legend class="sr-only">第1筆追蹤</legend>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselFollow1" id="counselFollowObserve1" value="observe" checked disabled>
+                                                        <label class="form-check-label" for="counselFollowObserve1">持續觀察</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselFollow1" id="counselFollowChange1" value="change" checked disabled>
+                                                        <label class="form-check-label" for="counselFollowChange1">策略更改</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselFollow1" id="counselFollowStable1" value="stable" disabled>
+                                                        <label class="form-check-label" for="counselFollowStable1">狀態穩定</label>
+                                                    </div>
+                                                </fieldset>
+                                            </span>
+                                        </td>
+                                        <td data-label="相關參與人員">
+                                            <span class="cell-value cell-value--start">
+                                                <label class="sr-only" for="counselParticipants1">相關參與人員</label>
+                                                <textarea class="form-control" id="counselParticipants1" name="counselParticipants1" rows="3" placeholder="請輸入人員名稱" disabled></textarea>
+                                            </span>
+                                        </td>
+                                        <td data-label="功能">
+                                            <span class="cell-value">
+                                                <div class="iep-eval-row-actions">
+                                                    <button type="button" class="btn btn-primary iep-eval-edit-btn"><i class="bi bi-pencil" aria-hidden="true"></i>編輯</button>
+                                                    <button type="button" class="btn btn-outline-danger iep-eval-delete-btn"><i class="bi bi-trash" aria-hidden="true"></i>刪除</button>
+                                                </div>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="序號"><span class="cell-value">2</span></td>
+                                        <td data-label="紀錄日期">
+                                            <span class="cell-value">
+                                                <label class="sr-only" for="counselDate2">紀錄日期</label>
+                                                <input type="date" class="form-control" id="counselDate2" name="counselDate2" title="紀錄日期" aria-label="紀錄日期" disabled>
+                                            </span>
+                                        </td>
+                                        <td data-label="輔導對象">
+                                            <span class="cell-value cell-value--start">
+                                                <fieldset class="iep-counsel-checks">
+                                                    <legend class="sr-only">第2筆輔導對象</legend>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselTarget2" id="counselTargetStudent2" value="student" checked disabled>
+                                                        <label class="form-check-label" for="counselTargetStudent2">學生</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselTarget2" id="counselTargetParent2" value="parent" checked disabled>
+                                                        <label class="form-check-label" for="counselTargetParent2">家長</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselTarget2" id="counselTargetOther2" value="other" disabled>
+                                                        <label class="form-check-label" for="counselTargetOther2">其他</label>
+                                                    </div>
+                                                </fieldset>
+                                            </span>
+                                        </td>
+                                        <td data-label="輔導方式">
+                                            <span class="cell-value cell-value--start">
+                                                <fieldset class="iep-counsel-checks">
+                                                    <legend class="sr-only">第2筆輔導方式</legend>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselMethod2" id="counselMethodTalk2" value="talk" disabled>
+                                                        <label class="form-check-label" for="counselMethodTalk2">晤談</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselMethod2" id="counselMethodPhone2" value="phone" checked disabled>
+                                                        <label class="form-check-label" for="counselMethodPhone2">電話</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselMethod2" id="counselMethodVisit2" value="visit" disabled>
+                                                        <label class="form-check-label" for="counselMethodVisit2">家訪</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselMethod2" id="counselMethodNote2" value="note" disabled>
+                                                        <label class="form-check-label" for="counselMethodNote2">聯絡簿</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselMethod2" id="counselMethodApp2" value="app" disabled>
+                                                        <label class="form-check-label" for="counselMethodApp2">通訊軟體</label>
+                                                    </div>
+                                                </fieldset>
+                                            </span>
+                                        </td>
+                                        <td data-label="狀況描述">
+                                            <span class="cell-value cell-value--start">
+                                                <label class="sr-only" for="counselDesc2">狀況描述</label>
+                                                <textarea class="form-control" id="counselDesc2" name="counselDesc2" rows="3" placeholder="請輸入描述" disabled></textarea>
+                                            </span>
+                                        </td>
+                                        <td data-label="處理方式">
+                                            <span class="cell-value cell-value--start">
+                                                <fieldset class="iep-counsel-checks">
+                                                    <legend class="sr-only">第2筆處理方式</legend>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselProcess2" id="counselProcessLife2" value="life" checked disabled>
+                                                        <label class="form-check-label" for="counselProcessLife2">融入生活教育</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselProcess2" id="counselProcessParent2" value="parent" checked disabled>
+                                                        <label class="form-check-label" for="counselProcessParent2">與家長討論後共同執行策略</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselProcess2" id="counselProcessCourse2" value="course" disabled>
+                                                        <label class="form-check-label" for="counselProcessCourse2">融入相關課程</label>
+                                                    </div>
+                                                    <div class="iep-counsel-process-note">
+                                                        <span aria-hidden="true">如：</span>
+                                                        <label class="sr-only" for="counselProcessNote2">融入相關課程說明</label>
+                                                        <input type="text" class="form-control" id="counselProcessNote2" name="counselProcessNote2" placeholder="請輸入" disabled>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselProcess2" id="counselProcessBehavior2" value="behavior" checked disabled>
+                                                        <label class="form-check-label" for="counselProcessBehavior2">行為功能介入</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselProcess2" id="counselProcessOther2" value="other" checked disabled>
+                                                        <label class="form-check-label" for="counselProcessOther2">其他</label>
+                                                    </div>
+                                                </fieldset>
+                                            </span>
+                                        </td>
+                                        <td data-label="追蹤">
+                                            <span class="cell-value cell-value--start">
+                                                <fieldset class="iep-counsel-checks">
+                                                    <legend class="sr-only">第2筆追蹤</legend>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselFollow2" id="counselFollowObserve2" value="observe" checked disabled>
+                                                        <label class="form-check-label" for="counselFollowObserve2">持續觀察</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselFollow2" id="counselFollowChange2" value="change" checked disabled>
+                                                        <label class="form-check-label" for="counselFollowChange2">策略更改</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselFollow2" id="counselFollowStable2" value="stable" disabled>
+                                                        <label class="form-check-label" for="counselFollowStable2">狀態穩定</label>
+                                                    </div>
+                                                </fieldset>
+                                            </span>
+                                        </td>
+                                        <td data-label="相關參與人員">
+                                            <span class="cell-value cell-value--start">
+                                                <label class="sr-only" for="counselParticipants2">相關參與人員</label>
+                                                <textarea class="form-control" id="counselParticipants2" name="counselParticipants2" rows="3" placeholder="請輸入人員名稱" disabled></textarea>
+                                            </span>
+                                        </td>
+                                        <td data-label="功能">
+                                            <span class="cell-value">
+                                                <div class="iep-eval-row-actions">
+                                                    <button type="button" class="btn btn-primary iep-eval-edit-btn"><i class="bi bi-pencil" aria-hidden="true"></i>編輯</button>
+                                                    <button type="button" class="btn btn-outline-danger iep-eval-delete-btn"><i class="bi bi-trash" aria-hidden="true"></i>刪除</button>
+                                                </div>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="序號"><span class="cell-value">3</span></td>
+                                        <td data-label="紀錄日期">
+                                            <span class="cell-value">
+                                                <label class="sr-only" for="counselDate3">紀錄日期</label>
+                                                <input type="date" class="form-control" id="counselDate3" name="counselDate3" title="紀錄日期" aria-label="紀錄日期" disabled>
+                                            </span>
+                                        </td>
+                                        <td data-label="輔導對象">
+                                            <span class="cell-value cell-value--start">
+                                                <fieldset class="iep-counsel-checks">
+                                                    <legend class="sr-only">第3筆輔導對象</legend>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselTarget3" id="counselTargetStudent3" value="student" checked disabled>
+                                                        <label class="form-check-label" for="counselTargetStudent3">學生</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselTarget3" id="counselTargetParent3" value="parent" checked disabled>
+                                                        <label class="form-check-label" for="counselTargetParent3">家長</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselTarget3" id="counselTargetOther3" value="other" disabled>
+                                                        <label class="form-check-label" for="counselTargetOther3">其他</label>
+                                                    </div>
+                                                </fieldset>
+                                            </span>
+                                        </td>
+                                        <td data-label="輔導方式">
+                                            <span class="cell-value cell-value--start">
+                                                <fieldset class="iep-counsel-checks">
+                                                    <legend class="sr-only">第3筆輔導方式</legend>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselMethod3" id="counselMethodTalk3" value="talk" disabled>
+                                                        <label class="form-check-label" for="counselMethodTalk3">晤談</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselMethod3" id="counselMethodPhone3" value="phone" checked disabled>
+                                                        <label class="form-check-label" for="counselMethodPhone3">電話</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselMethod3" id="counselMethodVisit3" value="visit" disabled>
+                                                        <label class="form-check-label" for="counselMethodVisit3">家訪</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselMethod3" id="counselMethodNote3" value="note" disabled>
+                                                        <label class="form-check-label" for="counselMethodNote3">聯絡簿</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselMethod3" id="counselMethodApp3" value="app" disabled>
+                                                        <label class="form-check-label" for="counselMethodApp3">通訊軟體</label>
+                                                    </div>
+                                                </fieldset>
+                                            </span>
+                                        </td>
+                                        <td data-label="狀況描述">
+                                            <span class="cell-value cell-value--start">
+                                                <label class="sr-only" for="counselDesc3">狀況描述</label>
+                                                <textarea class="form-control" id="counselDesc3" name="counselDesc3" rows="3" placeholder="請輸入描述" disabled></textarea>
+                                            </span>
+                                        </td>
+                                        <td data-label="處理方式">
+                                            <span class="cell-value cell-value--start">
+                                                <fieldset class="iep-counsel-checks">
+                                                    <legend class="sr-only">第3筆處理方式</legend>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselProcess3" id="counselProcessLife3" value="life" checked disabled>
+                                                        <label class="form-check-label" for="counselProcessLife3">融入生活教育</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselProcess3" id="counselProcessParent3" value="parent" checked disabled>
+                                                        <label class="form-check-label" for="counselProcessParent3">與家長討論後共同執行策略</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselProcess3" id="counselProcessCourse3" value="course" disabled>
+                                                        <label class="form-check-label" for="counselProcessCourse3">融入相關課程</label>
+                                                    </div>
+                                                    <div class="iep-counsel-process-note">
+                                                        <span aria-hidden="true">如：</span>
+                                                        <label class="sr-only" for="counselProcessNote3">融入相關課程說明</label>
+                                                        <input type="text" class="form-control" id="counselProcessNote3" name="counselProcessNote3" placeholder="請輸入" disabled>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselProcess3" id="counselProcessBehavior3" value="behavior" checked disabled>
+                                                        <label class="form-check-label" for="counselProcessBehavior3">行為功能介入</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselProcess3" id="counselProcessOther3" value="other" checked disabled>
+                                                        <label class="form-check-label" for="counselProcessOther3">其他</label>
+                                                    </div>
+                                                </fieldset>
+                                            </span>
+                                        </td>
+                                        <td data-label="追蹤">
+                                            <span class="cell-value cell-value--start">
+                                                <fieldset class="iep-counsel-checks">
+                                                    <legend class="sr-only">第3筆追蹤</legend>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselFollow3" id="counselFollowObserve3" value="observe" checked disabled>
+                                                        <label class="form-check-label" for="counselFollowObserve3">持續觀察</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselFollow3" id="counselFollowChange3" value="change" checked disabled>
+                                                        <label class="form-check-label" for="counselFollowChange3">策略更改</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="counselFollow3" id="counselFollowStable3" value="stable" disabled>
+                                                        <label class="form-check-label" for="counselFollowStable3">狀態穩定</label>
+                                                    </div>
+                                                </fieldset>
+                                            </span>
+                                        </td>
+                                        <td data-label="相關參與人員">
+                                            <span class="cell-value cell-value--start">
+                                                <label class="sr-only" for="counselParticipants3">相關參與人員</label>
+                                                <textarea class="form-control" id="counselParticipants3" name="counselParticipants3" rows="3" placeholder="請輸入人員名稱" disabled></textarea>
+                                            </span>
+                                        </td>
+                                        <td data-label="功能">
+                                            <span class="cell-value">
+                                                <div class="iep-eval-row-actions">
+                                                    <button type="button" class="btn btn-primary iep-eval-edit-btn"><i class="bi bi-pencil" aria-hidden="true"></i>編輯</button>
+                                                    <button type="button" class="btn btn-outline-danger iep-eval-delete-btn"><i class="bi bi-trash" aria-hidden="true"></i>刪除</button>
+                                                </div>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- ============================================================
+                         輔導記錄照片佐證
+                    ============================================================ -->
+                    <section class="form-section" aria-labelledby="counselSecPhoto">
+                        <h2 class="form-section-title" id="counselSecPhoto">
+                            <i class="bi bi-camera" aria-hidden="true"></i>輔導記錄照片佐證
+                        </h2>
+                        <div class="iep-photo-upload">
+                            <div class="iep-photo-dropzone" id="meetingPhotoDropzone">
+                                <input type="file" class="iep-photo-dropzone-input" id="meetingPhotoInput" name="meetingPhoto[]" accept="image/jpeg,image/png" multiple>
+                                <label class="iep-photo-dropzone-label" for="meetingPhotoInput">
+                                    <i class="bi bi-cloud-arrow-up" aria-hidden="true"></i>
+                                    <span>拖曳照片至此或點擊上傳</span>
+                                </label>
+                                <p class="iep-photo-hint">支援JPG、PNG，單張上限10MB</p>
+                            </div>
+
+                            <!-- 後端：實際照片檔案由後端接手儲存與提供，以下為版面示意 -->
+                            <ul class="iep-photo-grid" id="meetingPhotoGrid">
+                                <li class="iep-photo-item">
+                                    <div class="iep-photo-thumb">
+                                        <span class="iep-photo-thumb-placeholder" aria-hidden="true"><i class="bi bi-image"></i></span>
+                                        <div class="iep-photo-overlay">
+                                            <button type="button" class="iep-photo-action iep-photo-action--zoom" aria-label="放大檢視 輔導記錄照片1.jpg">
+                                                <i class="bi bi-zoom-in" aria-hidden="true"></i>
+                                            </button>
+                                            <button type="button" class="iep-photo-action iep-photo-action--delete" aria-label="刪除 輔導記錄照片1.jpg">
+                                                <i class="bi bi-trash3" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <p class="iep-photo-name">輔導記錄照片1.jpg</p>
+                                </li>
+                                <li class="iep-photo-item">
+                                    <div class="iep-photo-thumb">
+                                        <span class="iep-photo-thumb-placeholder" aria-hidden="true"><i class="bi bi-image"></i></span>
+                                        <div class="iep-photo-overlay">
+                                            <button type="button" class="iep-photo-action iep-photo-action--zoom" aria-label="放大檢視 輔導記錄照片2.jpg">
+                                                <i class="bi bi-zoom-in" aria-hidden="true"></i>
+                                            </button>
+                                            <button type="button" class="iep-photo-action iep-photo-action--delete" aria-label="刪除 輔導記錄照片2.jpg">
+                                                <i class="bi bi-trash3" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <p class="iep-photo-name">輔導記錄照片2.jpg</p>
+                                </li>
+                                <li class="iep-photo-item">
+                                    <div class="iep-photo-thumb">
+                                        <span class="iep-photo-thumb-placeholder" aria-hidden="true"><i class="bi bi-image"></i></span>
+                                        <div class="iep-photo-overlay">
+                                            <button type="button" class="iep-photo-action iep-photo-action--zoom" aria-label="放大檢視 輔導記錄照片3.jpg">
+                                                <i class="bi bi-zoom-in" aria-hidden="true"></i>
+                                            </button>
+                                            <button type="button" class="iep-photo-action iep-photo-action--delete" aria-label="刪除 輔導記錄照片3.jpg">
+                                                <i class="bi bi-trash3" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <p class="iep-photo-name">輔導記錄照片3.jpg</p>
+                                </li>
+                                <li class="iep-photo-item">
+                                    <div class="iep-photo-thumb">
+                                        <span class="iep-photo-thumb-placeholder" aria-hidden="true"><i class="bi bi-image"></i></span>
+                                        <div class="iep-photo-overlay">
+                                            <button type="button" class="iep-photo-action iep-photo-action--zoom" aria-label="放大檢視 輔導記錄照片4.jpg">
+                                                <i class="bi bi-zoom-in" aria-hidden="true"></i>
+                                            </button>
+                                            <button type="button" class="iep-photo-action iep-photo-action--delete" aria-label="刪除 輔導記錄照片4.jpg">
+                                                <i class="bi bi-trash3" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <p class="iep-photo-name">輔導記錄照片4.jpg</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- 固定於視窗底部的表單操作列（後端：儲存與報表產出由後端接手） -->
+    <div class="iep-action-bar" role="region" aria-label="IEP 表單操作列">
+        <div class="iep-action-hint">
+            <img src="img/icon/小提醒.svg" alt="" class="iep-action-hint-icon">
+            <p><strong>小提醒</strong><br>表單完成後請記得儲存並送出審核歐!</p>
+        </div>
+        <div class="iep-action-buttons">
+            <button type="button" class="btn btn-success" id="counselingSaveAllBtn">
+                <i class="bi bi-floppy" aria-hidden="true"></i>儲存所有變更
+            </button>
+            <button type="button" class="btn btn-primary" id="counselingDownloadBtn">
+                <i class="bi bi-download" aria-hidden="true"></i>下載學期輔導紀錄表
+            </button>
+        </div>
+        <a class="btn iep-action-cancel" href="iepCounselingRecord.html">取消</a>
+    </div>
+
+    <!-- 照片放大檢視 Modal（禁用 modal-dialog-scrollable，內容不長改用一般整頁捲動） -->
+    <div class="modal fade" id="photoPreviewModal" tabindex="-1" aria-labelledby="photoPreviewModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="photoPreviewModalTitle">照片預覽</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img class="iep-photo-preview-img" id="photoPreviewImg" src="" alt="" hidden>
+                    <div class="iep-photo-preview-placeholder" id="photoPreviewPlaceholder" aria-hidden="true">
+                        <i class="bi bi-image"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回饋 Modal（3 秒倒數自動關閉；圖示/色彩由 JS 依情境切換） -->
+    <div class="modal fade feedback-modal" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body feedback-body" role="status">
+                    <span class="feedback-icon" aria-hidden="true">
+                        <i class="bi bi-file-earmark-check"></i>
+                    </span>
+                    <h2 class="feedback-title" id="feedbackModalTitle">儲存成功</h2>
+                    <p class="feedback-desc">您的 IEP 表單內容已儲存。</p>
+                    <p class="feedback-countdown"><span class="feedback-countdown-num">3</span>秒後 自動關閉</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 刪除確認 Modal：點擊列表刪除按鈕後彈出，需再次確認才會實際刪除 -->
+    <div class="modal fade data-modal" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalTitle" aria-describedby="deleteConfirmModalDesc" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <h2 class="data-modal-title" id="deleteConfirmModalTitle">確認刪除</h2>
+                        <p class="data-modal-desc" id="deleteConfirmModalDesc">確定要刪除這筆資料嗎？此操作無法復原。</p>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉視窗"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="data-modal-actions">
+                        <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-danger" id="deleteConfirmModalConfirmBtn">
+                            <i class="bi bi-trash3" aria-hidden="true"></i>確定刪除
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/iep.js"></script>
+</body>
+</html>

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>群組管理 - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="設定與管理系統使用者群組之類別、名稱及描述，作為帳號權限指派之依據。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body>
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1">
+        <!-- 內頁 Banner：麵包屑＋標題＋CSS 裝飾＋插圖 -->
+        <section class="page-banner">
+            <!-- 裝飾層（純 CSS 繪製） -->
+            <div class="page-banner-deco" aria-hidden="true">
+                <span class="page-banner-halfcircle"></span>
+                <span class="page-banner-circle"></span>
+                <span class="page-banner-dots"></span>
+            </div>
+
+            <div class="container">
+                <nav class="page-banner-breadcrumb" aria-label="麵包屑導覽">
+                    <ol>
+                        <li>
+                            <a class="breadcrumb-home" href="index_AdminLogged.html" aria-label="首頁">
+                                <i class="bi bi-house-door" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">帳號管理</a></li>
+                        <li aria-current="page">群組管理</li>
+                    </ol>
+                </nav>
+
+                <div class="page-banner-main">
+                    <div class="page-banner-text">
+                        <h1 class="page-banner-title">群組管理</h1>
+                        <p class="page-banner-desc">設定與管理系統使用者群組之類別、名稱及描述，作為帳號權限指派之依據。</p>
+                    </div>
+                    <!-- 右側人物插圖（純裝飾） -->
+                    <div class="page-banner-visual page-banner-visual--composed page-banner-visual--pointPerson" aria-hidden="true">
+                        <span class="banner-visual-blob"></span>
+                        <span class="banner-visual-window"></span>
+                        <img class="banner-visual-person" src="img/hero/characters/people-front-point.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 查詢與資料列表 -->
+        <section class="data-section">
+            <div class="container">
+                <div class="data-card">
+                    <!-- 查詢工具列（後端：查詢/刪除/匯出行為由後端接手） -->
+                    <form class="data-toolbar" action="#" method="get">
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterGroupType">類別區分</label>
+                            <select class="form-select" id="filterGroupType" name="filterGroupType">
+                                <option value="" selected>請選擇</option>
+                                <option value="1">行政人員</option>
+                                <option value="2">教師</option>
+                                <option value="3">導師</option>
+                                <option value="4">其他</option>
+                            </select>
+                        </div>
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterGroupName">群組名稱</label>
+                            <!-- 後端：選項為系統既有群組名稱清單，動態產生 -->
+                            <select class="form-select" id="filterGroupName" name="filterGroupName">
+                                <option value="" selected>請選擇</option>
+                                <option value="1">教務處管理群組</option>
+                                <option value="2">導師群組</option>
+                                <option value="3">特教班導師群組</option>
+                                <option value="4">系統管理群組</option>
+                            </select>
+                        </div>
+                        <div class="data-toolbar-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-search" aria-hidden="true"></i>查詢
+                            </button>
+                            <button type="button" class="btn btn-success" data-add-row="groupNewRowTemplate" data-target-body="groupTableBody">
+                                <i class="bi bi-plus-lg" aria-hidden="true"></i>新增
+                            </button>
+                            <button type="button" class="btn btn-danger">
+                                <i class="bi bi-trash3" aria-hidden="true"></i>刪除
+                            </button>
+                            <button type="button" class="btn btn-export">
+                                <i class="bi bi-download" aria-hidden="true"></i>匯出
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- 後端：總筆數 -->
+                    <p class="data-total">總筆數：4</p>
+
+                    <div class="data-table-wrap" tabindex="0" role="region" aria-label="群組管理列表（可左右捲動）">
+                        <table class="table data-table table-striped">
+                            <caption class="sr-only">群組管理列表</caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">
+                                        <span class="check-all-label">
+                                            <input class="form-check-input" type="checkbox" id="checkAll" data-check-all>
+                                            <label for="checkAll">全選</label>
+                                        </span>
+                                    </th>
+                                    <th scope="col">序號</th>
+                                    <th scope="col">類別區分</th>
+                                    <th scope="col">群組名稱</th>
+                                    <th scope="col">群組描述</th>
+                                    <th scope="col">功能</th>
+                                </tr>
+                            </thead>
+                            <!-- 後端：以下列表資料為動態產生，示意 4 筆 -->
+                            <tbody id="groupTableBody">
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取項目 1"></span></td>
+                                    <td data-label="序號"><span class="cell-value">1</span></td>
+                                    <td data-label="類別區分" data-editable-field data-field-type="select">
+                                        <span class="cell-value">行政人員</span>
+                                        <template data-field-template>
+                                            <select class="form-select" aria-label="類別區分">
+                                                <option value="1">行政人員</option>
+                                                <option value="2">教師</option>
+                                                <option value="3">導師</option>
+                                                <option value="4">其他</option>
+                                            </select>
+                                        </template>
+                                    </td>
+                                    <td data-label="群組名稱" data-editable-field data-field-type="text"><span class="cell-value">教務處管理群組</span></td>
+                                    <td data-label="群組描述" data-editable-field data-field-type="text"><span class="cell-value">負責教務相關系統功能操作權限</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value row-actions">
+                                            <button type="button" class="btn btn-primary btn-edit" aria-label="編輯 教務處管理群組">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                            </button>
+                                            <button type="button" class="btn btn-success btn-row-save" hidden>
+                                                <i class="bi bi-check-lg" aria-hidden="true"></i>儲存
+                                            </button>
+                                            <button type="button" class="btn btn-row-cancel" hidden><i class="bi bi-x-lg" aria-hidden="true"></i>取消</button>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取項目 2"></span></td>
+                                    <td data-label="序號"><span class="cell-value">2</span></td>
+                                    <td data-label="類別區分" data-editable-field data-field-type="select">
+                                        <span class="cell-value">教師</span>
+                                        <template data-field-template>
+                                            <select class="form-select" aria-label="類別區分">
+                                                <option value="1">行政人員</option>
+                                                <option value="2">教師</option>
+                                                <option value="3">導師</option>
+                                                <option value="4">其他</option>
+                                            </select>
+                                        </template>
+                                    </td>
+                                    <td data-label="群組名稱" data-editable-field data-field-type="text"><span class="cell-value">導師群組</span></td>
+                                    <td data-label="群組描述" data-editable-field data-field-type="text"><span class="cell-value">負責導師端功能操作權限</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value row-actions">
+                                            <button type="button" class="btn btn-primary btn-edit" aria-label="編輯 導師群組">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                            </button>
+                                            <button type="button" class="btn btn-success btn-row-save" hidden>
+                                                <i class="bi bi-check-lg" aria-hidden="true"></i>儲存
+                                            </button>
+                                            <button type="button" class="btn btn-row-cancel" hidden><i class="bi bi-x-lg" aria-hidden="true"></i>取消</button>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取項目 3"></span></td>
+                                    <td data-label="序號"><span class="cell-value">3</span></td>
+                                    <td data-label="類別區分" data-editable-field data-field-type="select">
+                                        <span class="cell-value">導師</span>
+                                        <template data-field-template>
+                                            <select class="form-select" aria-label="類別區分">
+                                                <option value="1">行政人員</option>
+                                                <option value="2">教師</option>
+                                                <option value="3">導師</option>
+                                                <option value="4">其他</option>
+                                            </select>
+                                        </template>
+                                    </td>
+                                    <td data-label="群組名稱" data-editable-field data-field-type="text"><span class="cell-value">特教班導師群組</span></td>
+                                    <td data-label="群組描述" data-editable-field data-field-type="text"><span class="cell-value">特教班導師專用權限群組</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value row-actions">
+                                            <button type="button" class="btn btn-primary btn-edit" aria-label="編輯 特教班導師群組">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                            </button>
+                                            <button type="button" class="btn btn-success btn-row-save" hidden>
+                                                <i class="bi bi-check-lg" aria-hidden="true"></i>儲存
+                                            </button>
+                                            <button type="button" class="btn btn-row-cancel" hidden><i class="bi bi-x-lg" aria-hidden="true"></i>取消</button>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取項目 4"></span></td>
+                                    <td data-label="序號"><span class="cell-value">4</span></td>
+                                    <td data-label="類別區分" data-editable-field data-field-type="select">
+                                        <span class="cell-value">其他</span>
+                                        <template data-field-template>
+                                            <select class="form-select" aria-label="類別區分">
+                                                <option value="1">行政人員</option>
+                                                <option value="2">教師</option>
+                                                <option value="3">導師</option>
+                                                <option value="4">其他</option>
+                                            </select>
+                                        </template>
+                                    </td>
+                                    <td data-label="群組名稱" data-editable-field data-field-type="text"><span class="cell-value">系統管理群組</span></td>
+                                    <td data-label="群組描述" data-editable-field data-field-type="text"><span class="cell-value">系統最高權限管理群組</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value row-actions">
+                                            <button type="button" class="btn btn-primary btn-edit" aria-label="編輯 系統管理群組">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                            </button>
+                                            <button type="button" class="btn btn-success btn-row-save" hidden>
+                                                <i class="bi bi-check-lg" aria-hidden="true"></i>儲存
+                                            </button>
+                                            <button type="button" class="btn btn-row-cancel" hidden><i class="bi bi-x-lg" aria-hidden="true"></i>取消</button>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- 後端：分頁為動態產生 -->
+                    <nav class="data-pagination" aria-label="分頁導覽">
+                        <ul class="pagination">
+                            <li class="page-item page-item--nav">
+                                <a class="page-link" href="#" aria-label="上一頁">
+                                    <i class="bi bi-chevron-double-left" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
+                            <li class="page-item page-item--nav">
+                                <a class="page-link" href="#" aria-label="下一頁">
+                                    <i class="bi bi-chevron-double-right" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 新增列模板：點擊「新增」後複製插入表格最上方，類別區分/群組名稱/群組描述皆為輸入框（群組描述選填） -->
+    <template id="groupNewRowTemplate">
+        <tr data-row-new="true">
+            <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取新增列"></span></td>
+            <td data-label="序號"><span class="cell-value">-</span></td>
+            <td data-label="類別區分">
+                <select class="form-select" data-field="groupType" data-field-type="select" data-editable-field required aria-label="類別區分">
+                    <option value="" selected>請選擇</option>
+                    <option value="1">行政人員</option>
+                    <option value="2">教師</option>
+                    <option value="3">導師</option>
+                    <option value="4">其他</option>
+                </select>
+                <div class="invalid-feedback">請選擇類別區分。</div>
+            </td>
+            <td data-label="群組名稱">
+                <input type="text" class="form-control" data-field="groupName" data-field-type="text" data-editable-field required aria-label="群組名稱" placeholder="請輸入群組名稱">
+                <div class="invalid-feedback">請輸入群組名稱。</div>
+            </td>
+            <td data-label="群組描述">
+                <input type="text" class="form-control" data-field="groupDesc" data-field-type="text" data-editable-field aria-label="群組描述" placeholder="請輸入群組描述（選填）">
+            </td>
+            <td data-label="功能">
+                <span class="cell-value row-actions">
+                    <button type="button" class="btn btn-primary btn-edit" hidden>
+                        <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                    </button>
+                    <button type="button" class="btn btn-success btn-row-save">
+                        <i class="bi bi-check-lg" aria-hidden="true"></i>儲存
+                    </button>
+                    <button type="button" class="btn btn-row-cancel"><i class="bi bi-x-lg" aria-hidden="true"></i>取消</button>
+                </span>
+            </td>
+        </tr>
+    </template>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/editableRow.js"></script>
+</body>
+</html>

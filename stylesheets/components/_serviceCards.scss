@@ -1,0 +1,160 @@
+
+// 服務項目快速開始卡片（登入後首頁）：六色粉彩卡＋功能連結清單
+
+.service-section {
+  padding: 10px 0 64px;
+  @include media-breakpoint-up(lg) {
+     padding: 100px 0 64px;
+  }
+}
+
+.service-section-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: $primary;
+  font-size: 1.5rem;
+  font-weight: $font-weight-medium;
+  margin-bottom: 32px;
+
+  .bi {
+    color: $primary-100;
+  }
+
+  @include media-breakpoint-up(lg) {
+    font-size: 2rem;
+  }
+}
+
+.service-card {
+  height: 100%;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: $box-shadow-sm;
+}
+
+.service-card-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.service-card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  color: $white;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.service-card-title {
+  font-size: 1.375rem;
+  font-weight: $font-weight-bold;
+  margin: 0;
+}
+
+// 卡片內功能連結清單
+.service-card-list {
+  margin: 0;
+  padding: 0;
+
+  > li > a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 4px;
+    color: $grey-600;
+
+    .bi {
+      color: $grey-400;
+      border: 1px solid $grey-300;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+      background-color: $white;
+      transition: background-color .2s ease-in-out, color .2s ease-in-out;
+    }
+
+    &:hover {
+      color: $primary;
+      text-decoration: none;
+
+      .bi {
+        background-color: $primary;
+        border-color: $primary;
+        color: $white;
+      }
+    }
+  }
+}
+
+// 卡片內群組標題（如：開排課作業、學籍資料）
+.service-card-group {
+  padding: 12px 4px 6px;
+  font-weight: $font-weight-medium;
+  border-bottom: 1px solid $grey-300;
+  margin-bottom: 4px;
+}
+
+// --------------------------------------------------------------------------
+// 六色主題（粉彩襯底為裝飾；標題色皆為白底 CR >= 4.5:1 的深色）
+// --------------------------------------------------------------------------
+.service-card--basic {
+  background-color: #EDF2FB;
+
+  .service-card-icon { background-color: $primary; }
+  .service-card-title,
+  .service-card-group { color: $primary; }
+}
+
+.service-card--course {
+  background-color: #EAF6F0;
+
+  .service-card-icon { background-color: $success; }
+  .service-card-title,
+  .service-card-group { color: $success; }
+}
+
+.service-card--affairs {
+  background-color: #FCF3E6;
+
+  .service-card-icon { background-color: #A05E11; }
+  .service-card-title,
+  .service-card-group { color: #A05E11; }
+}
+
+.service-card--score {
+  background-color: #F6F0FA;
+
+  .service-card-icon { background-color: #6D28D9; }
+  .service-card-title,
+  .service-card-group { color: #6D28D9; }
+}
+
+.service-card--iep {
+  background-color: #EEF0FB;
+
+  .service-card-icon { background-color: #4548C4; }
+  .service-card-title,
+  .service-card-group { color: #4548C4; }
+}
+
+.service-card--report {
+  background-color: #E9F5F4;
+
+  .service-card-icon { background-color: #0F6E66; }
+  .service-card-title,
+  .service-card-group { color: #0F6E66; }
+}

@@ -1,0 +1,104 @@
+// ==========================================================================
+// 內頁 Banner 插圖合成版（.page-banner-visual--composed）
+// 背景藍色色塊與瀏覽器視窗以純 CSS 繪製，角色圖（/img/hero/characters/）可互換：
+//   people-front-point.png（正面指向）、people-side-walk.png（側面行走）、
+//   people-back-sit.png（背面盤腿）
+// 搭配 .page-banner-visual 基礎尺寸使用；整體為純裝飾，HTML 掛 aria-hidden="true"
+// ==========================================================================
+
+.page-banner-visual--composed {
+  aspect-ratio: 438 / 320; // 無實體合成圖，改以比例撐出高度（比原插圖再高一些）
+
+  // 子元素以絕對定位合成，桌機需覆寫基礎類的 position: static
+  @include media-breakpoint-up(lg) {
+    position: relative;
+  }
+}
+
+// 背景淺藍色塊：仿原插圖的有機圓角造型
+.banner-visual-blob {
+  position: absolute;
+  inset: 14% 0 4% 6%;
+  background-color: #E4F1FC;
+  border-radius: 46% 54% 42% 58% / 62% 48% 52% 38%;
+}
+
+// 瀏覽器視窗模擬：藍色標題列（三圓點）＋內文線條，皆以漸層繪製
+.banner-visual-window {
+  position: absolute;
+  top: 4%;
+  right: 2%;
+  width: 56%;
+  height: 62%;
+  background-color: $white;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(2, 101, 148, 0.12);
+
+  // 標題列與圓點
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 22px;
+    border-radius: 10px 10px 0 0;
+    background-color: #3F86DE;
+    background-image:
+      radial-gradient(circle 3px at 14px 50%, $white 98%, transparent),
+      radial-gradient(circle 3px at 28px 50%, $white 98%, transparent),
+      radial-gradient(circle 3px at 42px 50%, $white 98%, transparent);
+  }
+
+  // 內文線條
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 34px 14px 14px;
+    background-image: repeating-linear-gradient(
+      180deg,
+      #D7E5F5 0 6px,
+      transparent 6px 18px
+    );
+  }
+}
+
+// 可換式角色圖：以高度貼齊容器、靠左壓在色塊前
+// 選擇器特異性須高於 .page-banner-visual img（該基礎規則會設 width: 100%），
+// 否則角色圖會被同時強制 width:100% 與 height:100% 造成變形
+.page-banner-visual--composed .banner-visual-person {
+  position: absolute;
+  bottom: 0;
+  left: -4%;
+  height: 100%;
+  width: auto;
+}
+
+// --------------------------------------------------------------------------
+// 各頁面垂直位移修正（modifier）：不同角色圖裁切留白不同，
+// 與 .page-banner-visual--composed 一起掛在同一容器上，個別微調桌機版位置
+// --------------------------------------------------------------------------
+
+// 學生學籍表單頁（people-front-point.png）
+.page-banner-visual--pointPerson {
+  @include media-breakpoint-up(lg) {
+    bottom: 10px;
+    margin-bottom: -148px;
+  }
+}
+
+// 開課作業資料新增頁（people-back-sit.png）
+.page-banner-visual--sitPerson {
+  @include media-breakpoint-up(lg) {
+    bottom: 10px;
+    margin-bottom: -164px;
+  }
+}
+
+// 德育成績計算作業頁（people-side-walk.png）
+.page-banner-visual--walkPerson {
+  @include media-breakpoint-up(lg) {
+    bottom: 10px;
+    margin-bottom: -152px;
+  }
+}

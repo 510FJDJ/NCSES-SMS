@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>權限管理 - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="查詢系統使用者群組，並進入各群組的功能操作權限設定。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body>
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1">
+        <!-- 內頁 Banner：麵包屑＋標題＋CSS 裝飾＋插圖 -->
+        <section class="page-banner">
+            <!-- 裝飾層（純 CSS 繪製） -->
+            <div class="page-banner-deco" aria-hidden="true">
+                <span class="page-banner-halfcircle"></span>
+                <span class="page-banner-circle"></span>
+                <span class="page-banner-dots"></span>
+            </div>
+
+            <div class="container">
+                <nav class="page-banner-breadcrumb" aria-label="麵包屑導覽">
+                    <ol>
+                        <li>
+                            <a class="breadcrumb-home" href="index_AdminLogged.html" aria-label="首頁">
+                                <i class="bi bi-house-door" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">帳號管理</a></li>
+                        <li aria-current="page">權限管理</li>
+                    </ol>
+                </nav>
+
+                <div class="page-banner-main">
+                    <div class="page-banner-text">
+                        <h1 class="page-banner-title">權限管理</h1>
+                        <p class="page-banner-desc">查詢系統使用者群組，並進入各群組的功能操作權限設定。</p>
+                    </div>
+                    <!-- 右側人物插圖（純裝飾） -->
+                    <div class="page-banner-visual page-banner-visual--composed page-banner-visual--walkPerson" aria-hidden="true">
+                        <span class="banner-visual-blob"></span>
+                        <span class="banner-visual-window"></span>
+                        <img class="banner-visual-person" src="img/hero/characters/people-side-walk.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 查詢與資料列表 -->
+        <section class="data-section">
+            <div class="container">
+                <div class="data-card">
+                    <!-- 查詢工具列（後端：查詢/匯出行為由後端接手） -->
+                    <form class="data-toolbar" action="#" method="get">
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterGroupCode">群組代碼</label>
+                            <input type="text" class="form-control" id="filterGroupCode" name="filterGroupCode" placeholder="請輸入群組代碼">
+                        </div>
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterGroupNameToggle">群組名稱</label>
+                            <!-- 下拉搜尋選單通用元件（比照 teacherSubject.html），後端：選項為系統既有群組名稱清單，動態產生 -->
+                            <div class="dropdown dropdown-search" data-dropdown-search>
+                                <button class="form-select text-start text-muted bg-white" type="button" id="filterGroupNameToggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                    請選擇群組
+                                </button>
+                                <div class="dropdown-menu w-100 p-2" aria-labelledby="filterGroupNameToggle">
+                                    <div class="dropdown-search-box">
+                                        <label class="sr-only" for="filterGroupNameSearch">搜尋群組代碼或名稱</label>
+                                        <input type="search" class="form-control" id="filterGroupNameSearch" placeholder="搜尋群組代碼或名稱" data-dropdown-search-input autocomplete="off">
+                                    </div>
+                                    <ul class="dropdown-search-list">
+                                        <li><button type="button" class="dropdown-search-item" data-value="G001">G001 教務處管理群組</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="G002">G002 導師群組</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="G003">G003 特教班導師群組</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="G004">G004 系統管理群組</button></li>
+                                    </ul>
+                                    <p class="dropdown-search-empty" data-dropdown-search-empty hidden>查無符合的群組</p>
+                                </div>
+                                <input type="hidden" name="filterGroupName" data-dropdown-search-value>
+                            </div>
+                        </div>
+                        <div class="data-toolbar-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-search" aria-hidden="true"></i>查詢
+                            </button>
+                            <button type="button" class="btn btn-export">
+                                <i class="bi bi-download" aria-hidden="true"></i>匯出
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- 後端：總筆數 -->
+                    <p class="data-total">總筆數：4</p>
+
+                    <div class="data-table-wrap" tabindex="0" role="region" aria-label="權限管理列表（可左右捲動）">
+                        <table class="table data-table table-striped">
+                            <caption class="sr-only">權限管理列表</caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">
+                                        <span class="check-all-label">
+                                            <input class="form-check-input" type="checkbox" id="checkAll" data-check-all>
+                                            <label for="checkAll">全選</label>
+                                        </span>
+                                    </th>
+                                    <th scope="col">序號</th>
+                                    <th scope="col">群組代碼</th>
+                                    <th scope="col">群組名稱</th>
+                                    <th scope="col">功能</th>
+                                </tr>
+                            </thead>
+                            <!-- 後端：以下列表資料為動態產生，示意 4 筆 -->
+                            <tbody>
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取項目 1"></span></td>
+                                    <td data-label="序號"><span class="cell-value">1</span></td>
+                                    <td data-label="群組代碼"><span class="cell-value">G001</span></td>
+                                    <td data-label="群組名稱"><span class="cell-value">教務處管理群組</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value row-actions">
+                                            <a class="btn btn-primary" href="groupPermission.html?groupCode=G001" aria-label="設定 教務處管理群組 的權限">
+                                                <i class="bi bi-shield-lock" aria-hidden="true"></i>權限設定
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取項目 2"></span></td>
+                                    <td data-label="序號"><span class="cell-value">2</span></td>
+                                    <td data-label="群組代碼"><span class="cell-value">G002</span></td>
+                                    <td data-label="群組名稱"><span class="cell-value">導師群組</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value row-actions">
+                                            <a class="btn btn-primary" href="groupPermission.html?groupCode=G002" aria-label="設定 導師群組 的權限">
+                                                <i class="bi bi-shield-lock" aria-hidden="true"></i>權限設定
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取項目 3"></span></td>
+                                    <td data-label="序號"><span class="cell-value">3</span></td>
+                                    <td data-label="群組代碼"><span class="cell-value">G003</span></td>
+                                    <td data-label="群組名稱"><span class="cell-value">特教班導師群組</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value row-actions">
+                                            <a class="btn btn-primary" href="groupPermission.html?groupCode=G003" aria-label="設定 特教班導師群組 的權限">
+                                                <i class="bi bi-shield-lock" aria-hidden="true"></i>權限設定
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取項目 4"></span></td>
+                                    <td data-label="序號"><span class="cell-value">4</span></td>
+                                    <td data-label="群組代碼"><span class="cell-value">G004</span></td>
+                                    <td data-label="群組名稱"><span class="cell-value">系統管理群組</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value row-actions">
+                                            <a class="btn btn-primary" href="groupPermission.html?groupCode=G004" aria-label="設定 系統管理群組 的權限">
+                                                <i class="bi bi-shield-lock" aria-hidden="true"></i>權限設定
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- 後端：分頁為動態產生 -->
+                    <nav class="data-pagination" aria-label="分頁導覽">
+                        <ul class="pagination">
+                            <li class="page-item page-item--nav">
+                                <a class="page-link" href="#" aria-label="上一頁">
+                                    <i class="bi bi-chevron-double-left" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
+                            <li class="page-item page-item--nav">
+                                <a class="page-link" href="#" aria-label="下一頁">
+                                    <i class="bi bi-chevron-double-right" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

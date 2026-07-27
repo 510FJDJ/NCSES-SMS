@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>班級座號維護 - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="維護與管理班級學生座號，確保點名系統與成績登錄之正確性。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body>
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1">
+        <!-- 內頁 Banner：麵包屑＋標題＋CSS 裝飾＋插圖 -->
+        <section class="page-banner">
+            <!-- 裝飾層（純 CSS 繪製） -->
+            <div class="page-banner-deco" aria-hidden="true">
+                <span class="page-banner-halfcircle"></span>
+                <span class="page-banner-circle"></span>
+                <span class="page-banner-dots"></span>
+            </div>
+
+            <div class="container">
+                <nav class="page-banner-breadcrumb" aria-label="麵包屑導覽">
+                    <ol>
+                        <li>
+                            <a class="breadcrumb-home" href="index_AdminLogged.html" aria-label="首頁">
+                                <i class="bi bi-house-door" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">基本資料維護</a></li>
+                        <li aria-current="page">班級座號維護</li>
+                    </ol>
+                </nav>
+
+                <div class="page-banner-main">
+                    <div class="page-banner-text">
+                        <h1 class="page-banner-title">班級座號維護</h1>
+                        <p class="page-banner-desc">維護與管理班級學生座號，確保點名系統與成績登錄之正確性。</p>
+                    </div>
+                    <!-- 右側人物插圖（純裝飾） -->
+                    <div class="page-banner-visual" aria-hidden="true">
+                        <img src="img/hero/login-hero/內頁人物背景.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 查詢與資料列表 -->
+        <section class="data-section">
+            <div class="container">
+                <div class="data-card">
+                    <!-- 查詢工具列（後端：查詢/匯出行為由後端接手） -->
+                    <form class="data-toolbar" action="#" method="get">
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterDept">部別</label>
+                            <select class="form-select" id="filterDept" name="filterDept">
+                                <option value="" selected>請選擇</option>
+                                <option value="1">國民小學</option>
+                                <option value="2">國民中學</option>
+                                <option value="3">高級職業部</option>
+                            </select>
+                        </div>
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterClassNameToggle">班級名稱</label>
+                            <!-- 下拉搜尋選單通用元件（比照 teacherSubject.html），後端：選項為系統既有班級名稱清單，動態產生 -->
+                            <div class="dropdown dropdown-search" data-dropdown-search>
+                                <button class="form-select text-start text-muted bg-white" type="button" id="filterClassNameToggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                    請選擇
+                                </button>
+                                <div class="dropdown-menu w-100 p-2" aria-labelledby="filterClassNameToggle">
+                                    <div class="dropdown-search-box">
+                                        <label class="sr-only" for="filterClassNameSearch">搜尋班級名稱</label>
+                                        <input type="search" class="form-control" id="filterClassNameSearch" placeholder="搜尋班級名稱" data-dropdown-search-input autocomplete="off">
+                                    </div>
+                                    <ul class="dropdown-search-list">
+                                        <li><button type="button" class="dropdown-search-item" data-value="1">國小低年級</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="2">國小中年級</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="3">國小高年級</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="4">國中一年級</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="5">高職一年甲班</button></li>
+                                    </ul>
+                                    <p class="dropdown-search-empty" data-dropdown-search-empty hidden>查無符合的班級</p>
+                                </div>
+                                <input type="hidden" name="filterClassName" data-dropdown-search-value>
+                            </div>
+                        </div>
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterClassCode">班級代碼</label>
+                            <input type="text" class="form-control" id="filterClassCode" name="filterClassCode" placeholder="請輸入代碼">
+                        </div>
+                        <div class="data-toolbar-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-search" aria-hidden="true"></i>查詢
+                            </button>
+                            <button type="button" class="btn btn-export">
+                                <i class="bi bi-download" aria-hidden="true"></i>匯出
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- 後端：總筆數 -->
+                    <p class="data-total">總筆數：12</p>
+
+                    <table class="table data-table table-striped">
+                        <caption class="sr-only">班級座號維護班級列表</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">序號</th>
+                                <th scope="col">班級代碼</th>
+                                <th scope="col">班級名稱</th>
+                                <th scope="col">部別</th>
+                                <th scope="col">功能</th>
+                            </tr>
+                        </thead>
+                        <!-- 後端：以下列表資料為動態產生，示意 8 筆 -->
+                        <tbody>
+                            <tr>
+                                <td data-label="序號"><span class="cell-value">1</span></td>
+                                <td data-label="班級代碼"><span class="cell-value">101</span></td>
+                                <td data-label="班級名稱"><span class="cell-value">國小低年級</span></td>
+                                <td data-label="部別"><span class="cell-value">國民小學</span></td>
+                                <td data-label="功能">
+                                    <span class="cell-value">
+                                        <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#seatModal" data-class-name="國小低年級(101)" aria-label="編輯班級 101 國小低年級座號">
+                                            <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                        </button>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="序號"><span class="cell-value">2</span></td>
+                                <td data-label="班級代碼"><span class="cell-value">401</span></td>
+                                <td data-label="班級名稱"><span class="cell-value">國小中年級</span></td>
+                                <td data-label="部別"><span class="cell-value">國民小學</span></td>
+                                <td data-label="功能">
+                                    <span class="cell-value">
+                                        <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#seatModal" data-class-name="國小中年級(401)" aria-label="編輯班級 401 國小中年級座號">
+                                            <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                        </button>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="序號"><span class="cell-value">3</span></td>
+                                <td data-label="班級代碼"><span class="cell-value">601</span></td>
+                                <td data-label="班級名稱"><span class="cell-value">國小高年級</span></td>
+                                <td data-label="部別"><span class="cell-value">國民小學</span></td>
+                                <td data-label="功能">
+                                    <span class="cell-value">
+                                        <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#seatModal" data-class-name="國小高年級(601)" aria-label="編輯班級 601 國小高年級座號">
+                                            <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                        </button>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="序號"><span class="cell-value">4</span></td>
+                                <td data-label="班級代碼"><span class="cell-value">701</span></td>
+                                <td data-label="班級名稱"><span class="cell-value">國中一年級</span></td>
+                                <td data-label="部別"><span class="cell-value">國民中學</span></td>
+                                <td data-label="功能">
+                                    <span class="cell-value">
+                                        <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#seatModal" data-class-name="國中一年級(701)" aria-label="編輯班級 701 國中一年級座號">
+                                            <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                        </button>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="序號"><span class="cell-value">5</span></td>
+                                <td data-label="班級代碼"><span class="cell-value">801</span></td>
+                                <td data-label="班級名稱"><span class="cell-value">國中二年級</span></td>
+                                <td data-label="部別"><span class="cell-value">國民中學</span></td>
+                                <td data-label="功能">
+                                    <span class="cell-value">
+                                        <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#seatModal" data-class-name="國中二年級(801)" aria-label="編輯班級 801 國中二年級座號">
+                                            <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                        </button>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="序號"><span class="cell-value">6</span></td>
+                                <td data-label="班級代碼"><span class="cell-value">901</span></td>
+                                <td data-label="班級名稱"><span class="cell-value">國中三年級</span></td>
+                                <td data-label="部別"><span class="cell-value">國民中學</span></td>
+                                <td data-label="功能">
+                                    <span class="cell-value">
+                                        <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#seatModal" data-class-name="國中三年級(901)" aria-label="編輯班級 901 國中三年級座號">
+                                            <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                        </button>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="序號"><span class="cell-value">7</span></td>
+                                <td data-label="班級代碼"><span class="cell-value">J101</span></td>
+                                <td data-label="班級名稱"><span class="cell-value">高職一年甲班</span></td>
+                                <td data-label="部別"><span class="cell-value">高級職業部</span></td>
+                                <td data-label="功能">
+                                    <span class="cell-value">
+                                        <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#seatModal" data-class-name="高職一年甲班(J101)" aria-label="編輯班級 J101 高職一年甲班座號">
+                                            <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                        </button>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="序號"><span class="cell-value">8</span></td>
+                                <td data-label="班級代碼"><span class="cell-value">J201</span></td>
+                                <td data-label="班級名稱"><span class="cell-value">高職二年甲班</span></td>
+                                <td data-label="部別"><span class="cell-value">高級職業部</span></td>
+                                <td data-label="功能">
+                                    <span class="cell-value">
+                                        <button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#seatModal" data-class-name="高職二年甲班(J201)" aria-label="編輯班級 J201 高職二年甲班座號">
+                                            <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                        </button>
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- 後端：分頁為動態產生 -->
+                    <nav class="data-pagination" aria-label="分頁導覽">
+                        <ul class="pagination">
+                            <li class="page-item page-item--nav">
+                                <a class="page-link" href="#" aria-label="上一頁">
+                                    <i class="bi bi-chevron-double-left" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item page-item--nav">
+                                <a class="page-link" href="#" aria-label="下一頁">
+                                    <i class="bi bi-chevron-double-right" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 座號 Modal：班級學生座號編輯 -->
+    <div class="modal fade data-modal" id="seatModal" tabindex="-1" aria-labelledby="seatModalTitle" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <h2 class="data-modal-title" id="seatModalTitle">
+                            <span class="data-modal-title-text">編輯班級座號</span>
+                            <span class="badge-required">必填</span>
+                        </h2>
+                        <p class="data-modal-desc">檢視或修改學生座號資料明細。</p>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉視窗"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- 後端：表單送出目標與驗證由後端接手 -->
+                    <form action="#" method="post" novalidate>
+                        <div class="mb-5">
+                            <span class="form-label d-block">班級名稱：</span>
+                            <!-- 後端：由後端帶入班級名稱 -->
+                            <p class="data-modal-static" id="seatClassName">國小中年級(401)</p>
+                        </div>
+
+                        <table class="table data-table table-striped">
+                            <caption class="sr-only">班級學生座號列表</caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">
+                                        <span class="check-all-label">
+                                            <input class="form-check-input" type="checkbox" id="seatCheckAll" data-check-all>
+                                            <label for="seatCheckAll">全選</label>
+                                        </span>
+                                    </th>
+                                    <th scope="col">學號</th>
+                                    <th scope="col">姓名</th>
+                                    <th scope="col">座號</th>
+                                </tr>
+                            </thead>
+                            <!-- 後端：以下學生名單為動態產生 -->
+                            <tbody>
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取學號 1031001 尤OO"></span></td>
+                                    <td data-label="學號"><span class="cell-value">1031001</span></td>
+                                    <td data-label="姓名"><span class="cell-value">尤OO</span></td>
+                                    <td data-label="座號">
+                                        <span class="cell-value">
+                                            <label class="sr-only" for="seatNo1">學號 1031001 尤OO 的座號</label>
+                                            <input type="text" inputmode="numeric" class="form-control seat-input" id="seatNo1" name="seatNo[]" value="1">
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取學號 1311001 利OO"></span></td>
+                                    <td data-label="學號"><span class="cell-value">1311001</span></td>
+                                    <td data-label="姓名"><span class="cell-value">利OO</span></td>
+                                    <td data-label="座號">
+                                        <span class="cell-value">
+                                            <label class="sr-only" for="seatNo2">學號 1311001 利OO 的座號</label>
+                                            <input type="text" inputmode="numeric" class="form-control seat-input" id="seatNo2" name="seatNo[]" value="2">
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取學號 1311002 潘OO"></span></td>
+                                    <td data-label="學號"><span class="cell-value">1311002</span></td>
+                                    <td data-label="姓名"><span class="cell-value">潘OO</span></td>
+                                    <td data-label="座號">
+                                        <span class="cell-value">
+                                            <label class="sr-only" for="seatNo3">學號 1311002 潘OO 的座號</label>
+                                            <input type="text" inputmode="numeric" class="form-control seat-input" id="seatNo3" name="seatNo[]" value="3">
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取學號 1311003 吳OO"></span></td>
+                                    <td data-label="學號"><span class="cell-value">1311003</span></td>
+                                    <td data-label="姓名"><span class="cell-value">吳OO</span></td>
+                                    <td data-label="座號">
+                                        <span class="cell-value">
+                                            <label class="sr-only" for="seatNo4">學號 1311003 吳OO 的座號</label>
+                                            <input type="text" inputmode="numeric" class="form-control seat-input" id="seatNo4" name="seatNo[]" value="4">
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="data-modal-actions">
+                            <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary">確定更新</button>
+                            <button type="button" class="btn btn-outline-danger" id="seatClearBtn">
+                                <i class="bi bi-trash3" aria-hidden="true"></i>清除座號
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回饋 Modal（更新成功；3 秒倒數自動關閉） -->
+    <div class="modal fade feedback-modal" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body feedback-body" role="status">
+                    <span class="feedback-icon" aria-hidden="true">
+                        <i class="bi bi-file-earmark-check"></i>
+                    </span>
+                    <h2 class="feedback-title" id="feedbackModalTitle">資料更新成功</h2>
+                    <p class="feedback-desc">你已更新“國小中年級(401)-學生座號”</p>
+                    <p class="feedback-countdown"><span class="feedback-countdown-num">3</span>秒後 自動關閉</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/dataModal.js"></script>
+</body>
+</html>

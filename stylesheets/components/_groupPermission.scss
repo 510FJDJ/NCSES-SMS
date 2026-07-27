@@ -1,0 +1,301 @@
+// ==========================================================================
+// 群組權限設定頁（groupPermission.html）
+// 頂部工具列（卡片內固定，非 sticky）＋六色模組卡片（比照首頁 service-card 色系）
+// ==========================================================================
+
+// --------------------------------------------------------------------------
+// 頂部工具列：群組名稱／搜尋／統計／取消・存檔
+// --------------------------------------------------------------------------
+.permission-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.permission-toolbar-group {
+  flex: 0 0 auto;
+  font-size: 1.125rem;
+  font-weight: $font-weight-bold;
+  color: $grey-600;
+
+  strong {
+    color: $primary;
+  }
+}
+
+.permission-toolbar-search {
+  flex: 1 1 240px;
+  min-width: 200px;
+
+  .form-control {
+    width: 100%;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 固定底部操作列：統計／取消／存檔（比照 .iep-action-bar 視覺與 body 掛勾慣例）
+// 頁面掛 body.has-permission-action-bar：預留底部高度並上移回頂端按鈕
+// --------------------------------------------------------------------------
+.permission-action-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: $zindex-fixed;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  background-color: $white;
+  box-shadow: 0 -4px 16px rgba(15, 23, 42, .12);
+  padding: 12px 16px;
+
+  @include media-breakpoint-up(lg) {
+    padding: 12px 32px;
+  }
+}
+
+.permission-action-stats {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background-color: $color-primary-light;
+  color: $primary;
+  font-weight: $font-weight-medium;
+  white-space: nowrap;
+  margin: 0;
+}
+
+.permission-action-buttons {
+  flex: 1 1 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    font-weight: $font-weight-medium;
+  }
+}
+
+// 取消（白底紅字外框，比照 .iep-action-cancel）
+.permission-action-cancel {
+  background-color: $white;
+  border: 1px solid $danger;
+  color: $danger;
+
+  &:hover,
+  &:focus-visible {
+    background-color: rgba($danger, .08);
+    color: $danger;
+  }
+}
+
+.has-permission-action-bar {
+  main {
+    padding-bottom: 88px;
+
+    @include media-breakpoint-down(lg) {
+      padding-bottom: 140px;
+    }
+  }
+
+  .scroll-top-btn {
+    bottom: 130px;
+
+    @include media-breakpoint-down(lg) {
+      bottom: 160px;
+    }
+  }
+}
+
+// --------------------------------------------------------------------------
+// 模組卡片格線
+// --------------------------------------------------------------------------
+.permission-grid {
+  margin-bottom: 8px;
+}
+
+.permission-card {
+  height: 100%;
+  background-color: $white;
+  border: 1px solid $grey-300;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: $box-shadow-sm;
+  transition: opacity .2s ease-in-out;
+}
+
+.permission-card--faded {
+  opacity: 0.35;
+}
+
+.permission-card-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid $grey-300;
+}
+
+.permission-card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  color: $white;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.permission-card-title {
+  flex: 1 1 auto;
+  font-size: 1.125rem;
+  font-weight: $font-weight-bold;
+  margin: 0;
+}
+
+.permission-card-select {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.permission-card-count {
+  font-size: 1rem;
+  font-weight: $font-weight-medium;
+  color: $grey-500;
+  white-space: nowrap;
+}
+
+// 六色主題：僅套用於圖示底色與標題／子標題文字色，內容區維持白底以利勾選閱讀
+.permission-card--basic {
+  .permission-card-icon { background-color: $primary; }
+  .permission-card-title { color: $primary; }
+}
+
+.permission-card--course {
+  .permission-card-icon { background-color: $success; }
+  .permission-card-title { color: $success; }
+}
+
+.permission-card--affairs {
+  .permission-card-icon { background-color: #A05E11; }
+  .permission-card-title { color: #A05E11; }
+}
+
+.permission-card--score {
+  .permission-card-icon { background-color: #6D28D9; }
+  .permission-card-title { color: #6D28D9; }
+}
+
+.permission-card--iep {
+  .permission-card-icon { background-color: #4548C4; }
+  .permission-card-title { color: #4548C4; }
+}
+
+.permission-card--report {
+  .permission-card-icon { background-color: #0F6E66; }
+  .permission-card-title { color: #0F6E66; }
+}
+
+// --------------------------------------------------------------------------
+// 權限項目清單（單層）
+// --------------------------------------------------------------------------
+.permission-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.permission-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 4px;
+  border-radius: 6px;
+  transition: background-color .2s ease-in-out;
+
+  .form-check-input {
+    flex-shrink: 0;
+    // 不覆寫 transform：沿用 _dataTable.scss 全站 .form-check-input { transform: scale(1.3); }，
+    // 與列表頁表格勾選框比例一致
+    width: 20px;
+    height: 20px;
+    margin: 0;
+  }
+
+  label {
+    flex: 1 1 auto;
+    color: $grey-600;
+  }
+}
+
+.permission-item--highlight {
+  background-color: #FFF6DE;
+
+  label {
+    font-weight: $font-weight-bold;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 子分類（如：德育成績管理、IEP學年與學期教育目標）
+// --------------------------------------------------------------------------
+.permission-subgroup {
+  margin-top: 8px;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+.permission-subgroup-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 4px;
+  color: $grey-500;
+  font-weight: $font-weight-medium;
+  font-size: 1rem;
+
+  .form-check-input {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+  }
+}
+
+.permission-subgroup-count {
+  font-size: 1rem;
+  font-weight: $font-weight-medium;
+  color: $grey-500;
+  white-space: nowrap;
+}
+
+.permission-subgroup-list {
+  list-style: none;
+  margin: 0;
+  padding-left: 26px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .permission-card,
+  .permission-item {
+    transition: none;
+  }
+}

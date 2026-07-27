@@ -1,0 +1,194 @@
+// ==========================================================================
+// Bootstrap 5 變數覆寫（依 DESIGN.md 設計 Token）
+// 注意：本檔必須在 bootstrap/scss/variables 之「前」引入，
+//       透過 Bootstrap 的 !default 機制讓以下值優先生效。
+// ==========================================================================
+
+// --------------------------------------------------------------------------
+// 2.1 功能與強調色（WCAG 2.1 AA：白底上 CR >= 4.5:1）
+// --------------------------------------------------------------------------
+$primary: #026594; // 主視覺藍
+$primary-100:#0079B2; // 主視覺藍（淺色）
+$primary-300:#2A6CC5; // 主視覺藍（中等色）
+$success: #047F58; // 通過/安全
+$warning: #ECB43F; // 警告/提醒
+$danger:  #D6322D; // 錯誤/緊急
+$info:    #0DCAF0;
+
+$color-primary-light: #F8F9FA; // 淺色藍襯底（區塊分隔）
+
+// --------------------------------------------------------------------------
+// 2.2 中性灰階
+// --------------------------------------------------------------------------
+$grey-100: #F8FAFC; // 全域網頁背景
+$grey-200: #F1F5F9; // 卡片與輸入框襯底
+$grey-300: #E2E8F0; // 細線邊框、分隔線
+$grey-400: #94A3B8; // 純裝飾文字（CR >= 3:1）
+$grey-500: #64748B; // 次標題與說明文字（CR >= 4.5:1）
+$grey-600: #0F172A; // 主內文與大標題（CR >= 7:1）
+
+// --------------------------------------------------------------------------
+// 2.3 互動無障礙焦點色
+// 深夜藍黑：黃色登出鈕、藍色頂欄、白底皆維持 CR >= 3:1 清晰可見
+// --------------------------------------------------------------------------
+$color-focus: $grey-600;
+
+// --------------------------------------------------------------------------
+// Bootstrap 主題色對映
+// --------------------------------------------------------------------------
+$secondary: $grey-500;
+$light:     $grey-100;
+$dark:      $grey-600;
+$white:     #fff;
+
+$theme-colors: (
+  "primary":   $primary,
+  "secondary": $secondary,
+  "success":   $success,
+  "info":      $info,
+  "warning":   $warning,
+  "danger":    $danger,
+  "light":     $light,
+  "dark":      $dark,
+  "white":     $white,
+  "focus":     $color-focus,
+  "grey-100":  $grey-100,
+  "grey-200":  $grey-200,
+  "grey-300":  $grey-300,
+  "grey-400":  $grey-400,
+  "grey-500":  $grey-500,
+  "grey-600":  $grey-600,
+);
+
+// WCAG 2.1 AA 對比度門檻（color-contrast() 依此挑選深淺文字色）
+$min-contrast-ratio: 4.5;
+
+// --------------------------------------------------------------------------
+// Body
+// --------------------------------------------------------------------------
+$body-bg:    $grey-100;
+$body-color: $grey-600;
+$component-active-bg:         $primary-300 !default;
+// --------------------------------------------------------------------------
+// 3. 字體（本地端字體，見 base/_font.scss 的 @font-face）
+// --------------------------------------------------------------------------
+$font-family-sans-serif: "Noto Sans TC", "Roboto", system-ui, -apple-system,
+  "Segoe UI", "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+
+$font-size-base:       1rem;  // 16px：豎排內文最小字級下限
+$font-weight-normal:   400;
+$font-weight-medium:   500;
+$font-weight-bold:     700;
+$headings-font-weight: 700;
+$line-height-base:     1.6;
+
+// --------------------------------------------------------------------------
+// 4. 間距系統（4px 基礎遞增：p-1 ~ p-8 / m-1 ~ m-8 / gap-1 ~ gap-8）
+// --------------------------------------------------------------------------
+$spacers: (
+  0: 0,
+  1: 4px,
+  2: 8px,
+  3: 12px,
+  4: 16px,
+  5: 24px,
+  6: 32px,
+  7: 48px,
+  8: 64px,
+);
+
+// font-sizes字體大小 fs-1系列
+$h1-font-size:                $font-size-base * 2.5 !default; //40 h1
+$h2-font-size:                $font-size-base * 2.25 !default;  //36  h2
+$h3-font-size:                $font-size-base * 2 !default; //32 h3
+$h4-font-size:                $font-size-base * 1.5 !default;  //24 h4
+$h5-font-size:                $font-size-base * 1.25 !default; //20 h5
+$h6-font-size:                $font-size-base * 1.125 !default;         //18 h6
+$h7-font-size:                $font-size-base * 1 !default;         //16 h7
+// scss-docs-end font-variables
+
+// scss-docs-start font-sizes
+$font-sizes: (
+  1: $h1-font-size, //40px 指fs-1
+  2: $h2-font-size, //36px
+  3: $h3-font-size, //32px
+  4: $h4-font-size, //24px
+  5: $h5-font-size,//20px
+  6: $h6-font-size,//18px
+  7: $h7-font-size, //16px
+) !default;
+
+// 響應式斷點與容器寬度沿用 Bootstrap 5 預設
+// （sm:576 / md:768 / lg:992 / xl:1200 / xxl:1400），符合 DESIGN.md 規範。
+
+// --------------------------------------------------------------------------
+// 邊框、圓角、陰影（細緻微陰影原則）
+// --------------------------------------------------------------------------
+$border-color:      $grey-300;
+$border-radius:     8px;
+$border-radius-sm:  4px;
+$border-radius-lg:  16px;
+$border-radius-xl:  24px;
+
+$box-shadow-sm: 0 1px 2px rgba(15, 23, 42, .06);
+$box-shadow:    0 4px 16px rgba(15, 23, 42, .08);
+$box-shadow-lg: 0 12px 32px rgba(15, 23, 42, .12);
+
+// --------------------------------------------------------------------------
+// 表單
+// --------------------------------------------------------------------------
+$input-bg:                 $white;
+$input-border-color:       $grey-300;
+$input-placeholder-color:  $grey-400;
+$input-border-radius:      8px;
+$input-padding-y:          .75rem;
+$input-padding-x:          1rem;
+$input-focus-border-color: $primary;
+
+$form-label-margin-bottom: 8px;
+$form-label-font-weight:   500;
+
+// 焦點環（滑鼠情境的 Bootstrap focus ring；鍵盤 :focus-visible 見 base/_base.scss）
+$focus-ring-color: rgba($color-focus, .35);
+
+// --------------------------------------------------------------------------
+// 連結
+// --------------------------------------------------------------------------
+$link-color:            $primary;
+$link-decoration:       none;
+$link-hover-decoration: underline;
+
+// --------------------------------------------------------------------------
+// 下拉選單（登入後 header 二級導覽使用）
+// --------------------------------------------------------------------------
+$dropdown-border-color:      $grey-300;
+$dropdown-border-radius:     12px;
+$dropdown-box-shadow:        $box-shadow;
+$dropdown-link-color:        $grey-600;
+$dropdown-link-hover-color:  $primary;
+$dropdown-link-hover-bg:     transparent; // hover 只變字色，背景不變
+$dropdown-link-active-color: $primary;
+$dropdown-link-active-bg:    transparent;
+$dropdown-item-padding-y:    .625rem;
+$dropdown-item-padding-x:    1.25rem;
+
+// --------------------------------------------------------------------------
+// Offcanvas（漢堡選單）
+// --------------------------------------------------------------------------
+$offcanvas-horizontal-width: 320px;
+$offcanvas-padding-y:        0;
+$offcanvas-padding-x:        0;
+$offcanvas-bg-color:         $white;
+// --------------------------------------------------------------------------
+// Accordion（手機板多層選單）
+// --------------------------------------------------------------------------
+$accordion-border-width:      0;
+$accordion-button-active-bg:  transparent;
+$accordion-button-active-color: $primary;
+$accordion-button-focus-box-shadow: none; // 交由全域 :focus-visible 高對比外框接手
+
+//table
+$table-striped-bg:            rgba($white, 1) !default;
+
+//modal
+$modal-content-bg:                  $white !default;

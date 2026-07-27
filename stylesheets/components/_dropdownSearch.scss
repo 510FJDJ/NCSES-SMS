@@ -1,0 +1,54 @@
+// ==========================================================================
+// 下拉搜尋選單（通用元件）：下拉選單內含篩選輸入框，供代碼/姓名等大量選項
+// 快速篩選單選使用。結構比照既有 .multi-select-dropdown（toggle 按鈕沿用
+// form-select 樣式、data-bs-auto-close="outside" 避免點擊搜尋框時提前收合），
+// 差異在於本元件為單選並將選取值存入隱藏欄位，供全站列表查詢工具列共用。
+// ==========================================================================
+.dropdown-search {
+  position: relative;
+
+  .dropdown-menu {
+    max-height: 320px;
+    overflow-y: auto;
+  }
+}
+
+.dropdown-search-box {
+  margin-bottom: 8px;
+}
+
+.dropdown-search-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.dropdown-search-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 8px 12px;
+  border: 0;
+  background: none;
+  border-radius: 6px;
+  color: $grey-600;
+
+  &:hover,
+  &:focus-visible {
+    background-color: $grey-200;
+  }
+
+  &.active {
+    background-color: rgba($primary, 0.12);
+    color: $primary;
+    font-weight: $font-weight-medium;
+  }
+}
+
+.dropdown-search-empty {
+  margin: 8px 4px 4px;
+  color: $grey-500;
+  text-align: center;
+}

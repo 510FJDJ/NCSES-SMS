@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>IEP會議記錄明細 - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="維護與編製個案學生之IEP會議記錄內容，含開會資訊與會議記錄照片佐證。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body class="has-iep-action-bar">
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1">
+        <!-- 內頁 Banner：麵包屑＋標題＋返回列表按鈕 -->
+        <section class="page-banner">
+            <!-- 裝飾層（純 CSS 繪製） -->
+            <div class="page-banner-deco" aria-hidden="true">
+                <span class="page-banner-halfcircle"></span>
+                <span class="page-banner-circle"></span>
+                <span class="page-banner-dots"></span>
+            </div>
+
+            <div class="container">
+                <nav class="page-banner-breadcrumb" aria-label="麵包屑導覽">
+                    <ol>
+                        <li>
+                            <a class="breadcrumb-home" href="index_AdminLogged.html" aria-label="首頁">
+                                <i class="bi bi-house-door" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">IEP管理</a></li>
+                        <li><a href="#">IEP紀錄表</a></li>
+                        <li><a href="iepMeetingRecord.html">IEP會議記錄</a></li>
+                        <li aria-current="page">編輯</li>
+                    </ol>
+                </nav>
+
+                <div class="page-banner-main">
+                    <div class="page-banner-text">
+                        <h1 class="page-banner-title">IEP會議記錄明細</h1>
+                        <p class="page-banner-desc">詳實記錄個案學生之個別化教育計畫（IEP）會議內容，並上傳會議記錄照片作為佐證。</p>
+                    </div>
+                    <!-- 右側人物插圖（純裝飾；背景以 CSS 繪製，角色圖可互換） -->
+                    <div class="page-banner-visual page-banner-visual--composed page-banner-visual--pointPerson" aria-hidden="true">
+                        <span class="banner-visual-blob"></span>
+                        <span class="banner-visual-window"></span>
+                        <img class="banner-visual-person" src="img/hero/characters/people-front-point.png" alt="">
+                    </div>
+                    <a class="btn-back" href="iepMeetingRecord.html">
+                        <i class="bi bi-chevron-left" aria-hidden="true"></i>返回列表
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- IEP 明細表單 -->
+        <section class="form-section-wrap">
+            <div class="container">
+                <!-- 學生資訊摘要列（後端：選擇班級與學生後由學生資料帶入） -->
+                <div class="iep-student-bar">
+                    <div class="iep-student-name">
+                        <span>王小明</span>
+                        <span class="iep-student-dept-badge">國小部</span>
+                    </div>
+                    <dl class="iep-student-metas">
+                        <div class="iep-student-meta">
+                            <dt>班級：</dt>
+                            <dd>101 國小低年級</dd>
+                        </div>
+                        <div class="iep-student-meta">
+                            <dt>召集人：</dt>
+                            <dd>王OO</dd>
+                        </div>
+                        <div class="iep-student-meta">
+                            <dt>填表學期：</dt>
+                            <dd>113學年度第2學期</dd>
+                        </div>
+                        <div class="iep-student-meta">
+                            <dt>單號：</dt>
+                            <dd>202502120001</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <!-- 後端：表單送出目標與驗證由後端接手 -->
+                <form class="form-card" id="iepForm" action="#" method="post" novalidate>
+                    <!-- 召集人／地點／會議日期／會議時間 -->
+                    <section class="form-section" aria-label="填表資訊">
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="meetingConvener">召集人</label>
+                                <input type="text" class="form-control" id="meetingConvener" name="meetingConvener" placeholder="請輸入姓名" value="王OO">
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="meetingLocation">地點</label>
+                                <input type="text" class="form-control" id="meetingLocation" name="meetingLocation" placeholder="請輸入地點">
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <label class="form-label" for="meetingDate">會議日期</label>
+                                <input type="date" class="form-control" id="meetingDate" name="meetingDate">
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <div class="form-label" id="meetingTimeLabel">會議時間</div>
+                                <div class="d-flex align-items-center gap-2" role="group" aria-labelledby="meetingTimeLabel">
+                                    <label class="sr-only" for="meetingHour">時</label>
+                                    <input type="number" class="form-control" id="meetingHour" name="meetingHour" min="0" max="23" placeholder="10">
+                                    <span aria-hidden="true">時</span>
+                                    <label class="sr-only" for="meetingMinute">分</label>
+                                    <input type="number" class="form-control" id="meetingMinute" name="meetingMinute" min="0" max="59" placeholder="10">
+                                    <span aria-hidden="true">分</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ============================================================
+                         開會資訊
+                    ============================================================ -->
+                    <section class="form-section" aria-labelledby="meetingSecInfo">
+                        <h2 class="form-section-title" id="meetingSecInfo">
+                            <i class="bi bi-journal-text" aria-hidden="true"></i>開會資訊
+                        </h2>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label" for="meetingAttendees">出席人員<span class="badge-required">必填</span></label>
+                                <div class="textarea-counter-wrap">
+                                    <textarea class="form-control" id="meetingAttendees" name="meetingAttendees" rows="4" maxlength="500" required placeholder="請列出出席人員及其職稱，限中文500字以內。" aria-describedby="meetingAttendeesCount"></textarea>
+                                    <span class="textarea-counter" id="meetingAttendeesCount" aria-live="polite">0 / 500</span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label" for="meetingTopics">討論事項<span class="badge-required">必填</span></label>
+                                <div class="textarea-counter-wrap">
+                                    <textarea class="form-control" id="meetingTopics" name="meetingTopics" rows="4" maxlength="500" required placeholder="請說明本次會議討論事項與決議，限中文500字以內。" aria-describedby="meetingTopicsCount"></textarea>
+                                    <span class="textarea-counter" id="meetingTopicsCount" aria-live="polite">0 / 500</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ============================================================
+                         會議記錄照片佐證
+                    ============================================================ -->
+                    <section class="form-section" aria-labelledby="meetingSecPhoto">
+                        <h2 class="form-section-title" id="meetingSecPhoto">
+                            <i class="bi bi-camera" aria-hidden="true"></i>會議記錄照片佐證
+                        </h2>
+                        <div class="iep-photo-upload">
+                            <div class="iep-photo-dropzone" id="meetingPhotoDropzone">
+                                <input type="file" class="iep-photo-dropzone-input" id="meetingPhotoInput" name="meetingPhoto[]" accept="image/jpeg,image/png" multiple>
+                                <label class="iep-photo-dropzone-label" for="meetingPhotoInput">
+                                    <i class="bi bi-cloud-arrow-up" aria-hidden="true"></i>
+                                    <span>拖曳照片至此或點擊上傳</span>
+                                </label>
+                                <p class="iep-photo-hint">支援JPG、PNG，單張上限10MB</p>
+                            </div>
+
+                            <!-- 後端：實際照片檔案由後端接手儲存與提供，以下為版面示意 -->
+                            <ul class="iep-photo-grid" id="meetingPhotoGrid">
+                                <li class="iep-photo-item">
+                                    <div class="iep-photo-thumb">
+                                        <span class="iep-photo-thumb-placeholder" aria-hidden="true"><i class="bi bi-image"></i></span>
+                                        <div class="iep-photo-overlay">
+                                            <button type="button" class="iep-photo-action iep-photo-action--zoom" aria-label="放大檢視 會議記錄照片1.jpg">
+                                                <i class="bi bi-zoom-in" aria-hidden="true"></i>
+                                            </button>
+                                            <button type="button" class="iep-photo-action iep-photo-action--delete" aria-label="刪除 會議記錄照片1.jpg">
+                                                <i class="bi bi-trash3" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <p class="iep-photo-name">會議記錄照片1.jpg</p>
+                                </li>
+                                <li class="iep-photo-item">
+                                    <div class="iep-photo-thumb">
+                                        <span class="iep-photo-thumb-placeholder" aria-hidden="true"><i class="bi bi-image"></i></span>
+                                        <div class="iep-photo-overlay">
+                                            <button type="button" class="iep-photo-action iep-photo-action--zoom" aria-label="放大檢視 會議記錄照片2.jpg">
+                                                <i class="bi bi-zoom-in" aria-hidden="true"></i>
+                                            </button>
+                                            <button type="button" class="iep-photo-action iep-photo-action--delete" aria-label="刪除 會議記錄照片2.jpg">
+                                                <i class="bi bi-trash3" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <p class="iep-photo-name">會議記錄照片2.jpg</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- 固定於視窗底部的表單操作列（後端：儲存與報表產出由後端接手） -->
+    <div class="iep-action-bar" role="region" aria-label="IEP 表單操作列">
+        <div class="iep-action-hint">
+            <img src="img/icon/小提醒.svg" alt="" class="iep-action-hint-icon">
+            <p><strong>小提醒</strong><br>表單完成後請記得儲存並送出審核歐!</p>
+        </div>
+        <div class="iep-action-buttons">
+            <button type="button" class="btn btn-success" id="meetingRecordSaveBtn">
+                <i class="bi bi-floppy" aria-hidden="true"></i>儲存
+            </button>
+            <button type="button" class="btn btn-primary" id="meetingRecordExportBtn">
+                <i class="bi bi-download" aria-hidden="true"></i>儲存並匯出IEP報表
+            </button>
+            <button type="button" class="btn btn-outline-primary" id="meetingRecordSignSheetBtn">
+                <i class="bi bi-download" aria-hidden="true"></i>下載會議簽到表暨同意書
+            </button>
+            <button type="button" class="btn btn-outline-primary" id="meetingRecordRehabBtn">
+                <i class="bi bi-download" aria-hidden="true"></i>下載學生復健項目執行分級表
+            </button>
+        </div>
+        <a class="btn iep-action-cancel" href="iepMeetingRecord.html">取消</a>
+    </div>
+
+    <!-- 照片放大檢視 Modal（禁用 modal-dialog-scrollable，內容不長改用一般整頁捲動） -->
+    <div class="modal fade" id="photoPreviewModal" tabindex="-1" aria-labelledby="photoPreviewModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="photoPreviewModalTitle">照片預覽</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img class="iep-photo-preview-img" id="photoPreviewImg" src="" alt="" hidden>
+                    <div class="iep-photo-preview-placeholder" id="photoPreviewPlaceholder" aria-hidden="true">
+                        <i class="bi bi-image"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回饋 Modal（3 秒倒數自動關閉；圖示/色彩由 JS 依情境切換） -->
+    <div class="modal fade feedback-modal" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body feedback-body" role="status">
+                    <span class="feedback-icon" aria-hidden="true">
+                        <i class="bi bi-file-earmark-check"></i>
+                    </span>
+                    <h2 class="feedback-title" id="feedbackModalTitle">儲存成功</h2>
+                    <p class="feedback-desc">您的 IEP 表單內容已儲存。</p>
+                    <p class="feedback-countdown"><span class="feedback-countdown-num">3</span>秒後 自動關閉</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/iep.js"></script>
+</body>
+</html>

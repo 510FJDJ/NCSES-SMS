@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>學生基本資料表 - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="依部別、班級或學號篩選學生基本資料，快速列印或匯出所需之學籍相關表單。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body>
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1">
+        <!-- 內頁 Banner：麵包屑＋標題＋CSS 裝飾＋插圖 -->
+        <section class="page-banner">
+            <!-- 裝飾層（純 CSS 繪製） -->
+            <div class="page-banner-deco" aria-hidden="true">
+                <span class="page-banner-halfcircle"></span>
+                <span class="page-banner-circle"></span>
+                <span class="page-banner-dots"></span>
+            </div>
+
+            <div class="container">
+                <nav class="page-banner-breadcrumb" aria-label="麵包屑導覽">
+                    <ol>
+                        <li>
+                            <a class="breadcrumb-home" href="index_AdminLogged.html" aria-label="首頁">
+                                <i class="bi bi-house-door" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">各式報表列印</a></li>
+                        <li><a href="#">學籍資料</a></li>
+                        <li aria-current="page" id="rollReportBreadcrumbCurrent">學生基本資料表</li>
+                    </ol>
+                </nav>
+
+                <div class="page-banner-main">
+                    <div class="page-banner-text">
+                        <h1 class="page-banner-title" id="rollReportTitle">學生基本資料表</h1>
+                        <p class="page-banner-desc">依部別、班級或學號篩選學生基本資料，快速列印或匯出所需之學籍相關表單。</p>
+                    </div>
+                    <!-- 右側人物插圖（純裝飾） -->
+                    <div class="page-banner-visual page-banner-visual--composed page-banner-visual--walkPerson" aria-hidden="true">
+                        <span class="banner-visual-blob"></span>
+                        <span class="banner-visual-window"></span>
+                        <img class="banner-visual-person" src="img/hero/characters/people-side-walk.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 報表頁籤區 -->
+        <section class="data-section">
+            <div class="container">
+                <div class="data-card">
+                    <div class="tabs-nav" role="tablist" aria-label="學籍資料報表頁籤">
+                        <button type="button" class="tabs-nav-btn is-active" role="tab" id="tab-basicForm" data-page-title="學生基本資料表" aria-selected="true" aria-controls="panel-basicForm" tabindex="0">學生基本資料表</button>
+                        <button type="button" class="tabs-nav-btn" role="tab" id="tab-roll" data-page-title="學籍表" aria-selected="false" aria-controls="panel-roll" tabindex="-1">學籍表</button>
+                        <button type="button" class="tabs-nav-btn" role="tab" id="tab-export" data-page-title="名冊類報表匯出" aria-selected="false" aria-controls="panel-export" tabindex="-1">名冊類報表匯出</button>
+                    </div>
+
+                    <!-- 頁籤一：學生基本資料表（無依賴，恆為可下載） -->
+                    <div class="tabs-panel" role="tabpanel" id="panel-basicForm" aria-labelledby="tab-basicForm">
+                        <!-- 後端：查詢/下載行為由後端接手，前端僅示意流程 -->
+                        <form class="report-filter-form" action="#" method="get" novalidate>
+                            <div class="report-filter-row">
+                                <div class="report-filter-field">
+                                    <label class="form-label flex-row-center" for="basicFormDept">部別<span class="badge-required">必填</span></label>
+                                    <select class="form-select" id="basicFormDept" name="basicFormDept">
+                                        <option value="" selected>請選擇部別</option>
+                                        <option value="1">幼兒部</option>
+                                        <option value="2">國小部</option>
+                                        <option value="3">國中部</option>
+                                        <option value="4">高職部</option>
+                                    </select>
+                                </div>
+                                <div class="report-filter-field report-filter-field--wide">
+                                    <span class="form-label flex-row-center" id="basicFormClassRangeLabel">班級區間<span class="badge-required">必填</span></span>
+                                    <div class="date-range" role="group" aria-labelledby="basicFormClassRangeLabel">
+                                        <label class="sr-only" for="basicFormClassStart">起始班級</label>
+                                        <select class="form-select" id="basicFormClassStart" name="basicFormClassStart">
+                                            <option value="" selected>起始班級</option>
+                                            <option value="1">幼兒部小班</option>
+                                            <option value="2">國小低年級忠班</option>
+                                            <option value="3">國小中年級孝班</option>
+                                            <option value="4">國中一年級忠班</option>
+                                            <option value="5">高職一年A班</option>
+                                        </select>
+                                        <span class="date-range-sep" aria-hidden="true">~</span>
+                                        <label class="sr-only" for="basicFormClassEnd">結束班級</label>
+                                        <select class="form-select" id="basicFormClassEnd" name="basicFormClassEnd">
+                                            <option value="" selected>結束班級</option>
+                                            <option value="1">幼兒部小班</option>
+                                            <option value="2">國小低年級忠班</option>
+                                            <option value="3">國小中年級孝班</option>
+                                            <option value="4">國中一年級忠班</option>
+                                            <option value="5">高職一年A班</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="report-status-inline">
+                                <span class="report-status-badge report-status--available">
+                                    <i class="bi bi-check-circle-fill" aria-hidden="true"></i>可下載
+                                </span>
+                                <span class="report-status-desc">系統將產出 PDF 檔案，每位學生一頁，適合紙本列印。</span>
+                            </div>
+
+                            <div class="report-filter-actions">
+                                <button type="button" class="btn btn-export report-download-btn" data-report-key="studentBasicForm" data-report-name="學生基本資料表">
+                                    <i class="bi bi-download" aria-hidden="true"></i>下載學生基本資料表(PDF)
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- 頁籤二：學籍表（依賴德育成績＋學科成績結算） -->
+                    <div class="tabs-panel" role="tabpanel" id="panel-roll" aria-labelledby="tab-roll" hidden>
+                        <!-- 後端：查詢/下載行為由後端接手，前端僅示意流程 -->
+                        <form class="report-filter-form" action="#" method="get" novalidate>
+                            <div class="report-filter-row">
+                                <div class="report-filter-field">
+                                    <label class="form-label flex-row-center" for="rollSemester">學期別<span class="badge-required">必填</span></label>
+                                    <select class="form-select" id="rollSemester" name="rollSemester">
+                                        <option value="1" selected>114學年度第2學期</option>
+                                        <option value="2">114學年度第1學期</option>
+                                        <option value="3">113學年度第2學期</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <fieldset>
+                                <legend class="form-legend">查詢方式<span class="badge-required">必填</span></legend>
+                                <div class="calc-mode-row">
+                                    <!-- 方式一：依部別班級區間 -->
+                                    <div class="calc-mode-option" id="rollModeClassOption">
+                                        <input class="form-check-input" type="radio" name="rollFilterMode" id="rollModeClass" value="class" checked>
+                                        <div class="calc-mode-body">
+                                            <label class="calc-mode-label" for="rollModeClass">依部別班級區間</label>
+                                            <div class="calc-mode-fields" id="rollClassFields">
+                                                <label class="sr-only" for="rollDept">部別</label>
+                                                <select class="form-select" id="rollDept" name="rollDept">
+                                                    <option value="" selected>請選擇部別</option>
+                                                    <option value="1">幼兒部</option>
+                                                    <option value="2">國小部</option>
+                                                    <option value="3">國中部</option>
+                                                    <option value="4">高職部</option>
+                                                </select>
+                                                <div class="date-range" role="group" aria-label="班級區間">
+                                                    <label class="sr-only" for="rollClassStart">起始班級</label>
+                                                    <select class="form-select" id="rollClassStart" name="rollClassStart">
+                                                        <option value="" selected>起始班級</option>
+                                                        <option value="1">幼兒部小班</option>
+                                                        <option value="2">國小低年級忠班</option>
+                                                        <option value="3">國小中年級孝班</option>
+                                                        <option value="4">國中一年級忠班</option>
+                                                        <option value="5">高職一年A班</option>
+                                                    </select>
+                                                    <span class="date-range-sep" aria-hidden="true">~</span>
+                                                    <label class="sr-only" for="rollClassEnd">結束班級</label>
+                                                    <select class="form-select" id="rollClassEnd" name="rollClassEnd">
+                                                        <option value="" selected>結束班級</option>
+                                                        <option value="1">幼兒部小班</option>
+                                                        <option value="2">國小低年級忠班</option>
+                                                        <option value="3">國小中年級孝班</option>
+                                                        <option value="4">國中一年級忠班</option>
+                                                        <option value="5">高職一年A班</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 方式二：依學號查詢 -->
+                                    <div class="calc-mode-option is-inactive" id="rollModeStudentOption">
+                                        <input class="form-check-input" type="radio" name="rollFilterMode" id="rollModeStudent" value="student">
+                                        <div class="calc-mode-body">
+                                            <label class="calc-mode-label" for="rollModeStudent">依學號查詢</label>
+                                            <div class="calc-mode-fields" id="rollStudentFields">
+                                                <label class="sr-only" for="rollStudentId">學號</label>
+                                                <input type="text" class="form-control" id="rollStudentId" name="rollStudentId" placeholder="請輸入學生學號" disabled>
+                                                <button type="button" class="btn btn-outline-primary" id="rollStudentQueryBtn" disabled>
+                                                    <i class="bi bi-search" aria-hidden="true"></i>查詢
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <div class="report-status-inline" id="rollStatusInline">
+                                <span class="report-status-badge" id="rollStatusBadge"></span>
+                                <span class="report-status-desc" id="rollStatusDesc"></span>
+                                <a href="#" class="report-status-action" id="rollStatusAction" hidden>前往結算</a>
+                            </div>
+
+                            <div class="report-filter-actions">
+                                <button type="button" class="btn btn-export report-download-btn" data-report-key="studentRoll" data-report-name="學籍表" id="rollDownloadBtn">
+                                    <i class="bi bi-download" aria-hidden="true"></i>下載學籍表
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- 頁籤三：名冊類報表匯出（無依賴，恆為可下載） -->
+                    <div class="tabs-panel" role="tabpanel" id="panel-export" aria-labelledby="tab-export" hidden>
+                        <!-- 後端：查詢/下載行為由後端接手，前端僅示意流程 -->
+                        <form class="report-filter-form" action="#" method="get" novalidate>
+                            <div class="report-filter-row">
+                                <div class="report-filter-field">
+                                    <label class="form-label flex-row-center" for="exportSemester">學期別<span class="badge-required">必填</span></label>
+                                    <select class="form-select" id="exportSemester" name="exportSemester">
+                                        <option value="1" selected>114學年度第2學期</option>
+                                        <option value="2">114學年度第1學期</option>
+                                        <option value="3">113學年度第2學期</option>
+                                    </select>
+                                </div>
+                                <div class="report-filter-field">
+                                    <label class="form-label flex-row-center" for="exportDept">部別</label>
+                                    <select class="form-select" id="exportDept" name="exportDept">
+                                        <option value="" selected>全部部別</option>
+                                        <option value="1">幼兒部</option>
+                                        <option value="2">國小部</option>
+                                        <option value="3">國中部</option>
+                                        <option value="4">高職部</option>
+                                    </select>
+                                </div>
+                                <div class="report-filter-field report-filter-field--wide">
+                                    <span class="form-label flex-row-center" id="exportClassRangeLabel">班級區間</span>
+                                    <div class="date-range" role="group" aria-labelledby="exportClassRangeLabel">
+                                        <label class="sr-only" for="exportClassStart">起始班級</label>
+                                        <select class="form-select" id="exportClassStart" name="exportClassStart">
+                                            <option value="" selected>起始班級</option>
+                                            <option value="1">幼兒部小班</option>
+                                            <option value="2">國小低年級忠班</option>
+                                            <option value="3">國小中年級孝班</option>
+                                            <option value="4">國中一年級忠班</option>
+                                            <option value="5">高職一年A班</option>
+                                        </select>
+                                        <span class="date-range-sep" aria-hidden="true">~</span>
+                                        <label class="sr-only" for="exportClassEnd">結束班級</label>
+                                        <select class="form-select" id="exportClassEnd" name="exportClassEnd">
+                                            <option value="" selected>結束班級</option>
+                                            <option value="1">幼兒部小班</option>
+                                            <option value="2">國小低年級忠班</option>
+                                            <option value="3">國小中年級孝班</option>
+                                            <option value="4">國中一年級忠班</option>
+                                            <option value="5">高職一年A班</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="report-status-inline">
+                                <span class="report-status-badge report-status--available">
+                                    <i class="bi bi-check-circle-fill" aria-hidden="true"></i>可下載
+                                </span>
+                            </div>
+                            <div class="report-filter-actions">
+                                <button type="button" class="btn btn-export report-download-btn" data-report-key="studentBasicExport" data-report-name="學生基本資料匯出">
+                                    <i class="bi bi-download" aria-hidden="true"></i>學生基本資料匯出(Excel)
+                                </button>
+                                
+                                <button type="button" class="btn btn-export report-download-btn" data-report-key="studentAttendanceRoll" data-report-name="學生點名表">
+                                    <i class="bi bi-download" aria-hidden="true"></i>學生點名表匯出(Excel)
+                                </button>
+                            </div>
+                            <span class="report-download-note text-center">原始資料匯出(Excel)，如需紙本列印請見頁籤一「學生基本資料表」。</span>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 依網址錨點（#tab-xxx）切換頁籤：初始渲染直接改 DOM（須於 tabs.js 初始化前執行，避免閃爍），
+         載入後另監聽 hashchange（手動改網址列／瀏覽器上一頁下一頁）；
+         同頁點選 header nav 連結時，部分瀏覽器對「同文件錨點導覽」不會可靠觸發 hashchange，
+         故另用點擊事件代理直接偵測目標連結並切換，兩者共用同一套切換邏輯避免重複 -->
+    <script>
+        (function () {
+            var validTabs = ['tab-basicForm', 'tab-roll', 'tab-export'];
+
+            var hash = window.location.hash.replace('#', '');
+            if (validTabs.indexOf(hash) !== -1) {
+                document.querySelectorAll('.tabs-nav[role="tablist"] [role="tab"]').forEach(function (tab) {
+                    var selected = tab.id === hash;
+                    tab.setAttribute('aria-selected', selected ? 'true' : 'false');
+                    tab.tabIndex = selected ? 0 : -1;
+                    tab.classList.toggle('is-active', selected);
+                });
+                document.querySelectorAll('.tabs-panel[role="tabpanel"]').forEach(function (panel) {
+                    panel.hidden = panel.getAttribute('aria-labelledby') !== hash;
+                });
+            }
+
+            function activateTabByHash(targetHash) {
+                if (validTabs.indexOf(targetHash) === -1) { return; }
+                var tab = document.getElementById(targetHash);
+                if (!tab || tab.getAttribute('aria-selected') === 'true') { return; }
+                // 借用 tabs.js 已綁定的 click 邏輯（同步 aria-selected/面板顯隱並派送 tabs:activate 事件），避免邏輯重複
+                tab.click();
+                tab.focus();
+            }
+
+            window.addEventListener('hashchange', function () {
+                activateTabByHash(window.location.hash.replace('#', ''));
+            });
+
+            document.addEventListener('click', function (e) {
+                var link = e.target.closest ? e.target.closest('a[href*="reportRollData.html#"]') : null;
+                if (!link) { return; }
+                var targetHash = link.getAttribute('href').split('#')[1];
+                // 延後至下一個事件迴圈執行，確保瀏覽器已完成原生錨點導覽（網址列更新）
+                window.setTimeout(function () { activateTabByHash(targetHash); }, 0);
+            });
+        })();
+    </script>
+
+    <!-- 回饋 Modal（3 秒倒數自動關閉；圖示/色彩由 JS 依情境切換） -->
+    <div class="modal fade feedback-modal" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body feedback-body" role="status">
+                    <span class="feedback-icon" aria-hidden="true">
+                        <i class="bi bi-file-earmark-check"></i>
+                    </span>
+                    <h2 class="feedback-title" id="feedbackModalTitle">報表下載成功</h2>
+                    <p class="feedback-desc">報表已開始下載，請至瀏覽器下載紀錄查看。</p>
+                    <p class="feedback-countdown"><span class="feedback-countdown-num">3</span>秒後 自動關閉</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 手動關閉版回饋 Modal：報表狀態非「可下載」時的提示（內容由 JS 依狀態動態帶入） -->
+    <div class="modal fade feedback-modal" id="feedbackManualModal" tabindex="-1" aria-labelledby="feedbackManualModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body feedback-body" role="status">
+                    <span class="feedback-icon feedback-icon--danger" aria-hidden="true">
+                        <i class="bi bi-x-circle-fill"></i>
+                    </span>
+                    <h2 class="feedback-title" id="feedbackManualModalTitle">目前無法下載</h2>
+                    <p class="feedback-desc" id="feedbackManualModalDesc">來源資料尚未完成結算，請先完成結算後再重新下載。</p>
+                    <div class="data-modal-actions">
+                        <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">取消</button>
+                        <a href="#" class="btn btn-primary" id="feedbackManualModalAction">前往結算</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/report-dependency-config.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/tabs.js"></script>
+    <script src="js/dataModal.js"></script>
+</body>
+</html>

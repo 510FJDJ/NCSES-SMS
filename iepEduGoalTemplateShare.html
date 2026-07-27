@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>教育目標範本管理及套用(共享範本) - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="維護與共享全校特教領域教育目標範本，支援跨班批次指派，建立標準化之個別化教育計畫（IEP）撰寫流程。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body>
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1">
+        <!-- 內頁 Banner：麵包屑＋標題＋CSS 裝飾＋插圖 -->
+        <section class="page-banner">
+            <!-- 裝飾層（純 CSS 繪製） -->
+            <div class="page-banner-deco" aria-hidden="true">
+                <span class="page-banner-halfcircle"></span>
+                <span class="page-banner-circle"></span>
+                <span class="page-banner-dots"></span>
+            </div>
+
+            <div class="container">
+                <nav class="page-banner-breadcrumb" aria-label="麵包屑導覽">
+                    <ol>
+                        <li>
+                            <a class="breadcrumb-home" href="index_AdminLogged.html" aria-label="首頁">
+                                <i class="bi bi-house-door" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">IEP管理</a></li>
+                        <li><a href="#">IEP學年與學期教育目標</a></li>
+                        <li aria-current="page">教育目標範本管理及套用(共享範本)</li>
+                    </ol>
+                </nav>
+
+                <div class="page-banner-main">
+                    <div class="page-banner-text">
+                        <h1 class="page-banner-title">教育目標範本管理及套用(共享範本)</h1>
+                        <p class="page-banner-desc">維護與共享全校特教領域教育目標範本，支援跨班批次指派，建立標準化之個別化教育計畫（IEP）撰寫流程。</p>
+                    </div>
+                    <!-- 右側人物插圖（純裝飾） -->
+                    <div class="page-banner-visual" aria-hidden="true">
+                        <img src="img/hero/login-hero/內頁人物背景.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 查詢與範本列表 -->
+        <section class="data-section">
+            <div class="container">
+                <div class="data-card">
+                    <!-- 查詢工具列（後端：查詢/匯出行為由後端接手） -->
+                    <form class="data-toolbar" action="#" method="get">
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterTplSemester">學期別</label>
+                            <select class="form-select" id="filterTplSemester" name="filterTplSemester">
+                                <option value="" selected>請選擇</option>
+                                <option value="1">113學年度第2學期</option>
+                                <option value="2">113學年度第1學期</option>
+                                <option value="3">112學年度第2學期</option>
+                            </select>
+                        </div>
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterTplTeacherToggle">教師 (代碼/姓名)</label>
+                            <div class="dropdown dropdown-search" data-dropdown-search>
+                                <button class="form-select text-start text-muted bg-white" type="button" id="filterTplTeacherToggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                    請選擇教師
+                                </button>
+                                <div class="dropdown-menu w-100 p-2" aria-labelledby="filterTplTeacherToggle">
+                                    <div class="dropdown-search-box">
+                                        <label class="sr-only" for="filterTplTeacherSearch">搜尋教師代碼或姓名</label>
+                                        <input type="search" class="form-control" id="filterTplTeacherSearch" placeholder="搜尋教師代碼或姓名" data-dropdown-search-input autocomplete="off">
+                                    </div>
+                                    <!-- 後端：教師名單為動態產生 -->
+                                    <ul class="dropdown-search-list">
+                                        <li><button type="button" class="dropdown-search-item" data-value="T001">T001 王小明</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="T002">T002 陳美玲</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="T003">T003 黃富勝</button></li>
+                                    </ul>
+                                    <p class="dropdown-search-empty" data-dropdown-search-empty hidden>查無符合的教師</p>
+                                </div>
+                                <input type="hidden" name="filterTplTeacher" data-dropdown-search-value>
+                            </div>
+                        </div>
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterTplSubjectToggle">科目 (代碼/名稱)</label>
+                            <div class="dropdown dropdown-search" data-dropdown-search>
+                                <button class="form-select text-start text-muted bg-white" type="button" id="filterTplSubjectToggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                    請選擇科目
+                                </button>
+                                <div class="dropdown-menu w-100 p-2" aria-labelledby="filterTplSubjectToggle">
+                                    <div class="dropdown-search-box">
+                                        <label class="sr-only" for="filterTplSubjectSearch">搜尋科目代碼或名稱</label>
+                                        <input type="search" class="form-control" id="filterTplSubjectSearch" placeholder="搜尋科目代碼或名稱" data-dropdown-search-input autocomplete="off">
+                                    </div>
+                                    <!-- 後端：科目名單為動態產生 -->
+                                    <ul class="dropdown-search-list">
+                                        <li><button type="button" class="dropdown-search-item" data-value="101">101 語文</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="102">102 數學</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="103">103 生活</button></li>
+                                        <li><button type="button" class="dropdown-search-item" data-value="104">104 社會技巧</button></li>
+                                    </ul>
+                                    <p class="dropdown-search-empty" data-dropdown-search-empty hidden>查無符合的科目</p>
+                                </div>
+                                <input type="hidden" name="filterTplSubject" data-dropdown-search-value>
+                            </div>
+                        </div>
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterTplName">範本名稱搜尋</label>
+                            <input type="search" class="form-control" id="filterTplName" name="filterTplName" placeholder="請輸入範本名稱關鍵字">
+                        </div>
+                        <div class="data-toolbar-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-search" aria-hidden="true"></i>查詢
+                            </button>
+                            <button type="button" class="btn btn-export">
+                                <i class="bi bi-download" aria-hidden="true"></i>匯出
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- 後端：總筆數為動態產生 -->
+                    <p class="data-total" id="tplShareTotalCount">總筆數：44</p>
+                    <div class="overflow-x-auto">
+                        <table class="table data-table table-striped">
+                            <caption class="sr-only">教育目標範本管理及套用（共享範本）列表</caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">序號</th>
+                                    <th scope="col">範本編號</th>
+                                    <th scope="col">教師 (代碼/姓名)</th>
+                                    <th scope="col">範本名稱</th>
+                                    <th scope="col">範本型態</th>
+                                    <th scope="col">功能</th>
+                                </tr>
+                            </thead>
+                            <!-- 後端：以下列表資料為動態產生，示意 8 筆 -->
+                            <tbody>
+                                <tr>
+                                    <td data-label="序號"><span class="cell-value">1</span></td>
+                                    <td data-label="範本編號"><span class="cell-value">TPL0001</span></td>
+                                    <td data-label="教師 (代碼/姓名)"><span class="cell-value">T001 王小明</span></td>
+                                    <td data-label="範本名稱"><span class="cell-value">國小低年級語文教育目標範本A</span></td>
+                                    <td data-label="範本型態">
+                                        <span class="cell-value">
+                                            <span class="status-badge status-badge--public">公開</span>
+                                        </span>
+                                    </td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <a class="btn btn-primary btn-edit" href="iepEduGoalTemplateShare_form.html" aria-label="檢視範本編號 TPL0001 國小低年級語文教育目標範本A 的詳情與指派">
+                                                <i class="bi bi-eye" aria-hidden="true"></i>詳情與指派
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="序號"><span class="cell-value">2</span></td>
+                                    <td data-label="範本編號"><span class="cell-value">TPL0002</span></td>
+                                    <td data-label="教師 (代碼/姓名)"><span class="cell-value">T001 王小明</span></td>
+                                    <td data-label="範本名稱"><span class="cell-value">國小低年級數學基礎概念範本</span></td>
+                                    <td data-label="範本型態">
+                                        <span class="cell-value">
+                                            <span class="status-badge status-badge--public">公開</span>
+                                        </span>
+                                    </td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <a class="btn btn-primary btn-edit" href="iepEduGoalTemplateShare_form.html" aria-label="檢視範本編號 TPL0002 國小低年級數學基礎概念範本 的詳情與指派">
+                                                <i class="bi bi-eye" aria-hidden="true"></i>詳情與指派
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="序號"><span class="cell-value">3</span></td>
+                                    <td data-label="範本編號"><span class="cell-value">TPL0003</span></td>
+                                    <td data-label="教師 (代碼/姓名)"><span class="cell-value">T002 陳美玲</span></td>
+                                    <td data-label="範本名稱"><span class="cell-value">生活自理能力訓練範本</span></td>
+                                    <td data-label="範本型態">
+                                        <span class="cell-value">
+                                            <span class="status-badge status-badge--public">公開</span>
+                                        </span>
+                                    </td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <a class="btn btn-primary btn-edit" href="iepEduGoalTemplateShare_form.html" aria-label="檢視範本編號 TPL0003 生活自理能力訓練範本 的詳情與指派">
+                                                <i class="bi bi-eye" aria-hidden="true"></i>詳情與指派
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="序號"><span class="cell-value">4</span></td>
+                                    <td data-label="範本編號"><span class="cell-value">TPL0004</span></td>
+                                    <td data-label="教師 (代碼/姓名)"><span class="cell-value">T002 陳美玲</span></td>
+                                    <td data-label="範本名稱"><span class="cell-value">社會技巧人際互動範本</span></td>
+                                    <td data-label="範本型態">
+                                        <span class="cell-value">
+                                            <span class="status-badge status-badge--public">公開</span>
+                                        </span>
+                                    </td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <a class="btn btn-primary btn-edit" href="iepEduGoalTemplateShare_form.html" aria-label="檢視範本編號 TPL0004 社會技巧人際互動範本 的詳情與指派">
+                                                <i class="bi bi-eye" aria-hidden="true"></i>詳情與指派
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="序號"><span class="cell-value">5</span></td>
+                                    <td data-label="範本編號"><span class="cell-value">TPL0005</span></td>
+                                    <td data-label="教師 (代碼/姓名)"><span class="cell-value">T003 黃富勝</span></td>
+                                    <td data-label="範本名稱"><span class="cell-value">職業教育基礎技能範本</span></td>
+                                    <td data-label="範本型態">
+                                        <span class="cell-value">
+                                            <span class="status-badge status-badge--public">公開</span>
+                                        </span>
+                                    </td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <a class="btn btn-primary btn-edit" href="iepEduGoalTemplateShare_form.html" aria-label="檢視範本編號 TPL0005 職業教育基礎技能範本 的詳情與指派">
+                                                <i class="bi bi-eye" aria-hidden="true"></i>詳情與指派
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="序號"><span class="cell-value">6</span></td>
+                                    <td data-label="範本編號"><span class="cell-value">TPL0006</span></td>
+                                    <td data-label="教師 (代碼/姓名)"><span class="cell-value">T003 黃富勝</span></td>
+                                    <td data-label="範本名稱"><span class="cell-value">國中一年級語文溝通表達範本</span></td>
+                                    <td data-label="範本型態">
+                                        <span class="cell-value">
+                                            <span class="status-badge status-badge--public">公開</span>
+                                        </span>
+                                    </td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <a class="btn btn-primary btn-edit" href="iepEduGoalTemplateShare_form.html" aria-label="檢視範本編號 TPL0006 國中一年級語文溝通表達範本 的詳情與指派">
+                                                <i class="bi bi-eye" aria-hidden="true"></i>詳情與指派
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="序號"><span class="cell-value">7</span></td>
+                                    <td data-label="範本編號"><span class="cell-value">TPL0007</span></td>
+                                    <td data-label="教師 (代碼/姓名)"><span class="cell-value">T001 王小明</span></td>
+                                    <td data-label="範本名稱"><span class="cell-value">感覺統合與精細動作訓練範本</span></td>
+                                    <td data-label="範本型態">
+                                        <span class="cell-value">
+                                            <span class="status-badge status-badge--public">公開</span>
+                                        </span>
+                                    </td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <a class="btn btn-primary btn-edit" href="iepEduGoalTemplateShare_form.html" aria-label="檢視範本編號 TPL0007 感覺統合與精細動作訓練範本 的詳情與指派">
+                                                <i class="bi bi-eye" aria-hidden="true"></i>詳情與指派
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="序號"><span class="cell-value">8</span></td>
+                                    <td data-label="範本編號"><span class="cell-value">TPL0008</span></td>
+                                    <td data-label="教師 (代碼/姓名)"><span class="cell-value">T002 陳美玲</span></td>
+                                    <td data-label="範本名稱"><span class="cell-value">情緒行為自我調節範本</span></td>
+                                    <td data-label="範本型態">
+                                        <span class="cell-value">
+                                            <span class="status-badge status-badge--public">公開</span>
+                                        </span>
+                                    </td>
+                                    <td data-label="功能">
+                                        <span class="cell-value">
+                                            <a class="btn btn-primary btn-edit" href="iepEduGoalTemplateShare_form.html" aria-label="檢視範本編號 TPL0008 情緒行為自我調節範本 的詳情與指派">
+                                                <i class="bi bi-eye" aria-hidden="true"></i>詳情與指派
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- 後端：分頁為動態產生 -->
+                    <nav class="data-pagination" aria-label="分頁導覽">
+                        <ul class="pagination">
+                            <li class="page-item page-item--nav">
+                                <a class="page-link" href="#" aria-label="上一頁">
+                                    <i class="bi bi-chevron-double-left" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item"><a class="page-link" href="#">6</a></li>
+                            <li class="page-item page-item--nav">
+                                <a class="page-link" href="#" aria-label="下一頁">
+                                    <i class="bi bi-chevron-double-right" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/iep.js"></script>
+</body>
+</html>

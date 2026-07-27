@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>學科成績計算作業 - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="一鍵結算全校學生各科段考、期考、平時分數與學期總平均，並下載學生學籍表與學科成績單。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body>
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1">
+        <!-- 內頁 Banner：麵包屑＋標題＋CSS 裝飾＋插圖 -->
+        <section class="page-banner">
+            <!-- 裝飾層（純 CSS 繪製） -->
+            <div class="page-banner-deco" aria-hidden="true">
+                <span class="page-banner-halfcircle"></span>
+                <span class="page-banner-circle"></span>
+                <span class="page-banner-dots"></span>
+            </div>
+
+            <div class="container">
+                <nav class="page-banner-breadcrumb" aria-label="麵包屑導覽">
+                    <ol>
+                        <li>
+                            <a class="breadcrumb-home" href="index_AdminLogged.html" aria-label="首頁">
+                                <i class="bi bi-house-door" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">成績管理</a></li>
+                        <li aria-current="page">成績計算作業</li>
+                    </ol>
+                </nav>
+
+                <div class="page-banner-main">
+                    <div class="page-banner-text">
+                        <h1 class="page-banner-title">學科成績結算作業</h1>
+                        <p class="page-banner-desc">執行全校學生之學科成績總結算，整合各科段考、期考、平時分數與學期總平均。</p>
+                    </div>
+                    <!-- 右側人物插圖（純裝飾；背景以 CSS 繪製，角色圖可互換） -->
+                    <div class="page-banner-visual page-banner-visual--composed page-banner-visual--walkPerson" aria-hidden="true">
+                        <span class="banner-visual-blob"></span>
+                        <span class="banner-visual-window"></span>
+                        <img class="banner-visual-person" src="img/hero/characters/people-side-walk.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 結算作業區 -->
+        <section class="data-section">
+            <div class="container">
+                <div class="data-card">
+                    <div class="calc-action-grid">
+                        <!-- 左側：結算與印表須知 -->
+                        <div class="calc-action-info">
+                            <h2 class="data-modal-title">
+                                <i class="bi bi-lightbulb-fill text-warning" aria-hidden="true"></i>結算與印表須知
+                            </h2>
+                            <ul class="calc-notice-list">
+                                <li><i class="bi bi-check-circle-fill" aria-hidden="true"></i>系統將自動彙整全校學生本學期各科段考、期考與平時分數。</li>
+                                <li><i class="bi bi-check-circle-fill" aria-hidden="true"></i>依各科學分比重計算，結算出學期學科總平均成績。</li>
+                                <li><i class="bi bi-check-circle-fill" aria-hidden="true"></i>結算完成後，方可下載學生學籍表與學科成績單。</li>
+                                <li><i class="bi bi-check-circle-fill" aria-hidden="true"></i>若後續任課老師修改分數或更動學分，請重新執行結算，以確保報表資料正確。</li>
+                                <li class="calc-notice-item--warning">
+                                    <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
+                                    <span><strong>學籍表警示</strong>：學生學籍表由「學科」與「操行」共同組成。兩端只要有資料更新，兩頁皆須重新點擊結算，否則學籍表將產生資料不同步之錯誤。若需下載學生出缺勤表或獎懲統計表，請至「<a href="moralScoreCalc.html">學務管理 &gt; 德育成績管理 &gt; 德育成績結算作業</a>」。</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- 右側：一鍵結算操作面板 -->
+                        <div class="calc-action-panel">
+                            <!-- 後端：結算觸發與資料狀態偵測由後端接手，前端僅示意流程 -->
+                            <button type="button" class="calc-cta-btn calc-cta-btn--success" id="scoreCalcStartBtn">
+                                <span class="calc-cta-main" id="scoreCtaMain">
+                                    <i class="bi bi-hand-index-thumb" aria-hidden="true"></i>點我開始執行 學科成績結算
+                                </span>
+                                <span class="calc-cta-sub">一鍵整合・自動結算・立即完成</span>
+                            </button>
+
+                            <!-- 狀態一：資料已異動，尚未結算（預設顯示） -->
+                            <div class="calc-status" id="scoreCalcStatusIdle" aria-live="polite">
+                                <p class="special-alert special-alert--danger">
+                                    <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
+                                    資料狀態：偵測到學生資料已有變更，請重新點擊按鈕進行結算。
+                                </p>
+                            </div>
+
+                            <!-- 狀態二：結算進度，4 步驟，開始結算後由 JS 顯示並依序推進 -->
+                            <div class="calc-progress" id="scoreCalcProgress" hidden aria-live="polite">
+                                <div class="calc-progress-bar-wrap">
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-label="學科成績結算進度" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="scoreCalcProgressBarFill" style="width: 0%"></div>
+                                    </div>
+                                    <span class="calc-progress-percent" id="scoreCalcProgressPercent">0%</span>
+                                </div>
+                                <p class="calc-progress-status">
+                                    <img class="calc-progress-wait-icon" src="img/gif/wait.gif" alt="">
+                                    <span id="scoreCalcProgressText">系統自動結算中，請稍候...</span>
+                                </p>
+                                <ol class="calc-steps">
+                                    <li class="calc-step">
+                                        <span class="calc-step-icon" aria-hidden="true"><i class="bi bi-circle"></i></span>
+                                        <span class="calc-step-text">
+                                            <span class="calc-step-label">計算師長評分</span>
+                                            <span class="calc-step-state">等待中</span>
+                                        </span>
+                                    </li>
+                                    <li class="calc-step">
+                                        <span class="calc-step-icon" aria-hidden="true"><i class="bi bi-circle"></i></span>
+                                        <span class="calc-step-text">
+                                            <span class="calc-step-label">結算考勤獎懲</span>
+                                            <span class="calc-step-state">等待中</span>
+                                        </span>
+                                    </li>
+                                    <li class="calc-step">
+                                        <span class="calc-step-icon" aria-hidden="true"><i class="bi bi-circle"></i></span>
+                                        <span class="calc-step-text">
+                                            <span class="calc-step-label">產生最終成績</span>
+                                            <span class="calc-step-state">等待中</span>
+                                        </span>
+                                    </li>
+                                    <li class="calc-step">
+                                        <span class="calc-step-icon" aria-hidden="true"><i class="bi bi-circle"></i></span>
+                                        <span class="calc-step-text">
+                                            <span class="calc-step-label">結算完成</span>
+                                            <span class="calc-step-state">等待中</span>
+                                        </span>
+                                    </li>
+                                </ol>
+                            </div>
+
+                            <!-- 狀態三：結算完成 -->
+                            <div class="calc-status" id="scoreCalcStatusComplete" hidden aria-live="polite">
+                                <p class="special-alert">
+                                    <i class="bi bi-shield-fill-check" aria-hidden="true"></i>
+                                    資料狀態：當前資料已是最新，可下載報表。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 現況報表下載區：結算完成前鎖定並模糊呈現 -->
+                <div class="data-card calc-report-wrap mt-4">
+                    <h2 class="data-modal-title">現況報表下載區</h2>
+
+                    <div class="calc-report-lock" id="scoreReportLock">
+                        <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                        <p>請先點選上方按鈕，執行成績結算<br>報表下載功能將在結算完成後開啟。</p>
+                    </div>
+
+                    <div class="calc-report-content is-locked" id="scoreReportContent" aria-hidden="true">
+                        <!-- 後端：查詢/下載行為由後端接手，前端僅示意流程 -->
+                        <form class="report-filter-form" action="#" method="get" novalidate>
+                            <div class="report-filter-row">
+                                <div class="report-filter-field">
+                                    <label class="form-label flex-row-center" for="scoreSemester">學期別<span class="badge-required">必填</span></label>
+                                    <select class="form-select" id="scoreSemester" name="scoreSemester">
+                                        <option value="1" selected>113學年度第2學期</option>
+                                        <option value="2">113學年度第1學期</option>
+                                        <option value="3">112學年度第2學期</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <fieldset>
+                                <legend class="form-legend">下載方式<span class="badge-required">必填</span></legend>
+                                <div class="calc-mode-row">
+                                    <!-- 方式一：依部別/班級區間篩選 -->
+                                    <div class="calc-mode-option" id="scoreModeClassOption">
+                                        <input class="form-check-input" type="radio" name="scoreDownloadMode" id="scoreModeClass" value="class" checked>
+                                        <div class="calc-mode-body">
+                                            <label class="calc-mode-label" for="scoreModeClass">依部別/班級區間篩選</label>
+                                            <div class="calc-mode-fields" id="scoreClassFields">
+                                                <label class="sr-only" for="scoreDept">部別</label>
+                                                <select class="form-select" id="scoreDept" name="scoreDept">
+                                                    <option value="" selected>請選擇部別</option>
+                                                    <option value="1">幼兒部</option>
+                                                    <option value="2">國小部</option>
+                                                    <option value="3">國中部</option>
+                                                    <option value="4">高職部</option>
+                                                </select>
+                                                <div class="date-range" role="group" aria-label="班級區間">
+                                                    <label class="sr-only" for="scoreClassStart">起始班級</label>
+                                                    <select class="form-select" id="scoreClassStart" name="scoreClassStart">
+                                                        <option value="" selected>起始班級</option>
+                                                        <option value="1">幼兒部小班</option>
+                                                        <option value="2">國小低年級忠班</option>
+                                                        <option value="3">國小中年級孝班</option>
+                                                        <option value="4">國中一年級忠班</option>
+                                                        <option value="5">高職一年A班</option>
+                                                    </select>
+                                                    <span class="date-range-sep" aria-hidden="true">~</span>
+                                                    <label class="sr-only" for="scoreClassEnd">結束班級</label>
+                                                    <select class="form-select" id="scoreClassEnd" name="scoreClassEnd">
+                                                        <option value="" selected>結束班級</option>
+                                                        <option value="1">幼兒部小班</option>
+                                                        <option value="2">國小低年級忠班</option>
+                                                        <option value="3">國小中年級孝班</option>
+                                                        <option value="4">國中一年級忠班</option>
+                                                        <option value="5">高職一年A班</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 方式二：指定學號篩選 -->
+                                    <div class="calc-mode-option is-inactive" id="scoreModeStudentOption">
+                                        <input class="form-check-input" type="radio" name="scoreDownloadMode" id="scoreModeStudent" value="student">
+                                        <div class="calc-mode-body">
+                                            <label class="calc-mode-label" for="scoreModeStudent">指定學號篩選</label>
+                                            <div class="calc-mode-fields" id="scoreStudentFields">
+                                                <label class="sr-only" for="scoreStudentIds">學號</label>
+                                                <input type="text" class="form-control" id="scoreStudentIds" name="scoreStudentIds" placeholder="請輸入學號，以逗號分隔多筆" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <div class="report-filter-actions">
+                                <button type="button" class="btn btn-primary score-download-btn" data-report-name="學生學籍表" data-report-check="moral">
+                                    <i class="bi bi-download" aria-hidden="true"></i>學生學籍表下載
+                                </button>
+                                <button type="button" class="btn btn-primary score-download-btn" data-report-name="學科成績單">
+                                    <i class="bi bi-download" aria-hidden="true"></i>學科成績單下載
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 回饋 Modal（3 秒倒數自動關閉；圖示/色彩由 JS 依情境切換） -->
+    <div class="modal fade feedback-modal" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body feedback-body" role="status">
+                    <span class="feedback-icon" aria-hidden="true">
+                        <i class="bi bi-file-earmark-check"></i>
+                    </span>
+                    <h2 class="feedback-title" id="feedbackModalTitle">學科成績結算完成</h2>
+                    <p class="feedback-desc">本學期學科成績已結算完成，您可至下方報表下載區下載相關報表。</p>
+                    <p class="feedback-countdown"><span class="feedback-countdown-num">3</span>秒後 自動關閉</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 手動關閉版回饋 Modal：無法產生學籍表錯誤提示（操行端尚未結算） -->
+    <div class="modal fade feedback-modal" id="feedbackManualModal" tabindex="-1" aria-labelledby="feedbackManualModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body feedback-body" role="status">
+                    <span class="feedback-icon feedback-icon--danger" aria-hidden="true">
+                        <i class="bi bi-file-earmark-x"></i>
+                    </span>
+                    <h2 class="feedback-title" id="feedbackManualModalTitle">無法產生學籍表！</h2>
+                    <!-- 後端：學期別與操行結算狀態偵測由後端接手 -->
+                    <p class="feedback-desc">系統偵測到「113-2學期」的【出缺勤/獎懲資料】已有異動，但您尚未執行【操行成績結算】。為確保資料正確性，請先至「操行成績結算作業」重新計算後，再行下載。</p>
+                    <div class="data-modal-actions">
+                        <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">取消</button>
+                        <a href="moralScoreCalc.html" class="btn btn-primary">帶我前往操行結算</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/report-dependency-config.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/dataModal.js"></script>
+</body>
+</html>

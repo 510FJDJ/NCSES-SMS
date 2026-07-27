@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>代課費用管理 - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="設定與管理各學年度之教師代課、兼任鐘點費率與結算標準，作為人事薪資結算之依據。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body>
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1">
+        <!-- 內頁 Banner：麵包屑＋標題＋CSS 裝飾＋插圖 -->
+        <section class="page-banner">
+            <!-- 裝飾層（純 CSS 繪製） -->
+            <div class="page-banner-deco" aria-hidden="true">
+                <span class="page-banner-halfcircle"></span>
+                <span class="page-banner-circle"></span>
+                <span class="page-banner-dots"></span>
+            </div>
+
+            <div class="container">
+                <nav class="page-banner-breadcrumb" aria-label="麵包屑導覽">
+                    <ol>
+                        <li>
+                            <a class="breadcrumb-home" href="index_AdminLogged.html" aria-label="首頁">
+                                <i class="bi bi-house-door" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">學年度管理</a></li>
+                        <li aria-current="page">代課費用管理</li>
+                    </ol>
+                </nav>
+
+                <div class="page-banner-main">
+                    <div class="page-banner-text">
+                        <h1 class="page-banner-title">代課費用管理</h1>
+                        <p class="page-banner-desc">設定與管理各學年度之教師代課、兼任鐘點費率與結算標準，作為人事薪資結算之依據。</p>
+                    </div>
+                    <!-- 右側人物插圖（純裝飾） -->
+                    <div class="page-banner-visual page-banner-visual--composed page-banner-visual--pointPerson" aria-hidden="true">
+                        <span class="banner-visual-blob"></span>
+                        <span class="banner-visual-window"></span>
+                        <img class="banner-visual-person" src="img/hero/characters/people-front-point.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 查詢與資料列表 -->
+        <section class="data-section">
+            <div class="container">
+                <div class="data-card">
+                    <!-- 查詢工具列（後端：查詢/刪除/匯出行為由後端接手） -->
+                    <form class="data-toolbar" action="#" method="get">
+                        <div class="data-toolbar-field">
+                            <label class="form-label" for="filterFeeSemester">學期別</label>
+                            <select class="form-select" id="filterFeeSemester" name="filterFeeSemester">
+                                <option value="" selected>請選擇</option>
+                                <option value="1">113 學年度 第 1 學期</option>
+                                <option value="2">113 學年度 第 2 學期</option>
+                                <option value="3">114 學年度 第 1 學期</option>
+                            </select>
+                        </div>
+                        <div class="data-toolbar-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-search" aria-hidden="true"></i>查詢
+                            </button>
+                            <button type="button" class="btn btn-success" data-add-row="feeNewRowTemplate" data-target-body="feeTableBody">
+                                <i class="bi bi-plus-lg" aria-hidden="true"></i>新增
+                            </button>
+                            <button type="button" class="btn btn-danger">
+                                <i class="bi bi-trash3" aria-hidden="true"></i>刪除
+                            </button>
+                            <button type="button" class="btn btn-export">
+                                <i class="bi bi-download" aria-hidden="true"></i>匯出
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- 後端：總筆數 -->
+                    <p class="data-total">總筆數：4</p>
+
+                    <div class="data-table-wrap" tabindex="0" role="region" aria-label="代課費用管理列表（可左右捲動）">
+                        <table class="table data-table table-striped">
+                            <caption class="sr-only">代課費用管理列表</caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">
+                                        <span class="check-all-label">
+                                            <input class="form-check-input" type="checkbox" id="checkAll" data-check-all>
+                                            <label for="checkAll">全選</label>
+                                        </span>
+                                    </th>
+                                    <th scope="col">序號</th>
+                                    <th scope="col">學期別</th>
+                                    <th scope="col">部別</th>
+                                    <th scope="col">課別</th>
+                                    <th scope="col">代課費用</th>
+                                    <th scope="col">功能</th>
+                                </tr>
+                            </thead>
+                            <!-- 後端：以下列表資料為動態產生，示意 4 筆 -->
+                            <tbody id="feeTableBody">
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取項目 1"></span></td>
+                                    <td data-label="序號"><span class="cell-value">1</span></td>
+                                    <td data-label="學期別"><span class="cell-value">113 學年度 第 2 學期</span></td>
+                                    <td data-label="部別"><span class="cell-value">國民小學</span></td>
+                                    <td data-label="課別"><span class="cell-value">正課</span></td>
+                                    <td data-label="代課費用" data-editable-field data-field-type="number"><span class="cell-value">320</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value row-actions">
+                                            <button type="button" class="btn btn-primary btn-edit" aria-label="編輯 113學年度第2學期 國民小學 正課 代課費用">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                            </button>
+                                            <button type="button" class="btn btn-success btn-row-save" hidden>
+                                                <i class="bi bi-check-lg" aria-hidden="true"></i>儲存
+                                            </button>
+                                            <button type="button" class="btn btn-row-cancel" hidden><i class="bi bi-x-lg" aria-hidden="true"></i>取消</button>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取項目 2"></span></td>
+                                    <td data-label="序號"><span class="cell-value">2</span></td>
+                                    <td data-label="學期別"><span class="cell-value">113 學年度 第 2 學期</span></td>
+                                    <td data-label="部別"><span class="cell-value">國民中學</span></td>
+                                    <td data-label="課別"><span class="cell-value">兼課</span></td>
+                                    <td data-label="代課費用" data-editable-field data-field-type="number"><span class="cell-value">280</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value row-actions">
+                                            <button type="button" class="btn btn-primary btn-edit" aria-label="編輯 113學年度第2學期 國民中學 兼課 代課費用">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                            </button>
+                                            <button type="button" class="btn btn-success btn-row-save" hidden>
+                                                <i class="bi bi-check-lg" aria-hidden="true"></i>儲存
+                                            </button>
+                                            <button type="button" class="btn btn-row-cancel" hidden><i class="bi bi-x-lg" aria-hidden="true"></i>取消</button>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取項目 3"></span></td>
+                                    <td data-label="序號"><span class="cell-value">3</span></td>
+                                    <td data-label="學期別"><span class="cell-value">113 學年度 第 1 學期</span></td>
+                                    <td data-label="部別"><span class="cell-value">高級職業部</span></td>
+                                    <td data-label="課別"><span class="cell-value">正課</span></td>
+                                    <td data-label="代課費用" data-editable-field data-field-type="number"><span class="cell-value">350</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value row-actions">
+                                            <button type="button" class="btn btn-primary btn-edit" aria-label="編輯 113學年度第1學期 高級職業部 正課 代課費用">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                            </button>
+                                            <button type="button" class="btn btn-success btn-row-save" hidden>
+                                                <i class="bi bi-check-lg" aria-hidden="true"></i>儲存
+                                            </button>
+                                            <button type="button" class="btn btn-row-cancel" hidden><i class="bi bi-x-lg" aria-hidden="true"></i>取消</button>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取項目 4"></span></td>
+                                    <td data-label="序號"><span class="cell-value">4</span></td>
+                                    <td data-label="學期別"><span class="cell-value">113 學年度 第 1 學期</span></td>
+                                    <td data-label="部別"><span class="cell-value">國民小學</span></td>
+                                    <td data-label="課別"><span class="cell-value">兼課</span></td>
+                                    <td data-label="代課費用" data-editable-field data-field-type="number"><span class="cell-value">260</span></td>
+                                    <td data-label="功能">
+                                        <span class="cell-value row-actions">
+                                            <button type="button" class="btn btn-primary btn-edit" aria-label="編輯 113學年度第1學期 國民小學 兼課 代課費用">
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                            </button>
+                                            <button type="button" class="btn btn-success btn-row-save" hidden>
+                                                <i class="bi bi-check-lg" aria-hidden="true"></i>儲存
+                                            </button>
+                                            <button type="button" class="btn btn-row-cancel" hidden><i class="bi bi-x-lg" aria-hidden="true"></i>取消</button>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- 後端：分頁為動態產生 -->
+                    <nav class="data-pagination" aria-label="分頁導覽">
+                        <ul class="pagination">
+                            <li class="page-item page-item--nav">
+                                <a class="page-link" href="#" aria-label="上一頁">
+                                    <i class="bi bi-chevron-double-left" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
+                            <li class="page-item page-item--nav">
+                                <a class="page-link" href="#" aria-label="下一頁">
+                                    <i class="bi bi-chevron-double-right" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 新增列模板：點擊「新增」後複製插入表格最上方，學年度學期/部別/課別/代課費用皆為輸入框 -->
+    <template id="feeNewRowTemplate">
+        <tr data-row-new="true">
+            <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取新增列"></span></td>
+            <td data-label="序號"><span class="cell-value">-</span></td>
+            <td data-label="學期別">
+                <select class="form-select" data-field="feeSemester" required aria-label="學期別">
+                    <option value="" selected>請選擇</option>
+                    <option value="1">113 學年度 第 1 學期</option>
+                    <option value="2">113 學年度 第 2 學期</option>
+                    <option value="3">114 學年度 第 1 學期</option>
+                </select>
+                <div class="invalid-feedback">請選擇學期別。</div>
+            </td>
+            <td data-label="部別">
+                <select class="form-select" data-field="feeDept" required aria-label="部別">
+                    <option value="" selected>請選擇</option>
+                    <option value="1">國民小學</option>
+                    <option value="2">國民中學</option>
+                    <option value="3">高級職業部</option>
+                </select>
+                <div class="invalid-feedback">請選擇部別。</div>
+            </td>
+            <td data-label="課別">
+                <select class="form-select" data-field="feeCourseType" required aria-label="課別">
+                    <option value="" selected>請選擇</option>
+                    <option value="1">正課</option>
+                    <option value="2">兼課</option>
+                </select>
+                <div class="invalid-feedback">請選擇課別。</div>
+            </td>
+            <td data-label="代課費用">
+                <input type="number" class="form-control" data-field="feeAmount" data-field-type="number" data-editable-field required min="0" aria-label="代課費用" placeholder="請輸入金額">
+                <div class="invalid-feedback">請輸入代課費用。</div>
+            </td>
+            <td data-label="功能">
+                <span class="cell-value row-actions">
+                    <button type="button" class="btn btn-primary btn-edit" hidden>
+                        <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                    </button>
+                    <button type="button" class="btn btn-success btn-row-save">
+                        <i class="bi bi-check-lg" aria-hidden="true"></i>儲存
+                    </button>
+                    <button type="button" class="btn btn-row-cancel"><i class="bi bi-x-lg" aria-hidden="true"></i>取消</button>
+                </span>
+            </td>
+        </tr>
+    </template>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/editableRow.js"></script>
+</body>
+</html>

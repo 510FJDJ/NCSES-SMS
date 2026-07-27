@@ -1,0 +1,42 @@
+<!-- ============================================================
+  訪客狀態共用 Header
+  依設計稿：僅於手機／平板顯示（d-lg-none），桌面板未登入首頁無頂欄
+============================================================ -->
+<nav class="header-guest d-lg-none" aria-label="網站主導覽">
+    <div class="site-header-bar">
+        <a class="site-brand" href="index.html">
+            <img src="img/logo/logo-uni.png" alt="" width="32" height="32">
+            <span class="site-brand-name">雲端校務管理系統</span>
+        </a>
+        <button class="navbar-menu-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#guestMenu" aria-controls="guestMenu" aria-expanded="false" aria-label="開啟主選單">
+            <i class="bi bi-list" aria-hidden="true"></i>
+        </button>
+    </div>
+
+    <!-- 訪客漢堡選單（上方下拉片） -->
+    <div class="offcanvas offcanvas-top guest-menu" tabindex="-1" id="guestMenu" aria-labelledby="guestMenuLabel" data-bs-backdrop="false">
+        <div class="offcanvas-header site-header-bar">
+            <a class="site-brand" href="index.html" id="guestMenuLabel">
+                <img src="img/logo/logo-uni.png" alt="" width="32" height="32">
+                <span class="site-brand-name">雲端校務管理系統</span>
+            </a>
+            <button type="button" class="navbar-menu-btn" data-bs-dismiss="offcanvas" aria-label="關閉主選單">
+                <i class="bi bi-x-lg" aria-hidden="true"></i>
+            </button>
+        </div>
+        <div class="offcanvas-body guest-menu-body">
+            <ul class="m-0 p-0">
+                <li>
+                    <a class="guest-menu-link" href="index.html">首頁</a>
+                </li>
+                <li>
+                    <!-- 後端：網站導覽頁連結 -->
+                    <a class="guest-menu-cta" href="#">
+                        網站導覽
+                        <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

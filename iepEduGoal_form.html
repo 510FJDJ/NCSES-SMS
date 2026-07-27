@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>教育目標資料管理明細 - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="依據學生能力現況擬定學年與學期目標，並動態登錄日常教學評量與評審決定。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body class="has-iep-action-bar">
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1">
+        <!-- 內頁 Banner：麵包屑＋標題＋CSS 裝飾＋插圖 -->
+        <section class="page-banner">
+            <!-- 裝飾層（純 CSS 繪製） -->
+            <div class="page-banner-deco" aria-hidden="true">
+                <span class="page-banner-halfcircle"></span>
+                <span class="page-banner-circle"></span>
+                <span class="page-banner-dots"></span>
+            </div>
+
+            <div class="container">
+                <!-- RWD：手機版麵包屑僅顯示最後兩項（_pageBanner.scss 控制），因已有返回列表按鈕 -->
+                <nav class="page-banner-breadcrumb" aria-label="麵包屑導覽">
+                    <ol>
+                        <li>
+                            <a class="breadcrumb-home" href="index_AdminLogged.html" aria-label="首頁">
+                                <i class="bi bi-house-door" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">IEP管理</a></li>
+                        <li><a href="#">IEP學年與學期教育目標</a></li>
+                        <li><a href="iepEduGoal.html">教育目標資料管理</a></li>
+                        <li aria-current="page">進入IEP</li>
+                    </ol>
+                </nav>
+
+                <div class="page-banner-main">
+                    <div class="page-banner-text">
+                        <h1 class="page-banner-title">IEP學年與學期教育目標管理明細</h1>
+                        <p class="page-banner-desc">依據學生能力現況擬定學年與學期目標，並動態登錄日常教學評量與評審決定。</p>
+                    </div>
+                    <!-- 右側人物插圖（純裝飾；背景以 CSS 繪製，角色圖可互換） -->
+                    <div class="page-banner-visual page-banner-visual--composed page-banner-visual--pointPerson" aria-hidden="true">
+                        <span class="banner-visual-blob"></span>
+                        <span class="banner-visual-window"></span>
+                        <img class="banner-visual-person" src="img/hero/characters/people-front-point.png" alt="">
+                    </div>
+                    <a class="btn-back" href="iepEduGoal.html">
+                        <i class="bi bi-chevron-left" aria-hidden="true"></i>返回列表
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- IEP 明細表單 -->
+        <section class="form-section-wrap">
+            <div class="container">
+                <!-- 學生資訊摘要列（後端：由學生資料帶入） -->
+                <div class="iep-student-bar">
+                    <div class="iep-student-name">
+                        <span>王小明</span>
+                        <span class="iep-student-dept-badge">國小部</span>
+                    </div>
+                    <dl class="iep-student-metas">
+                        <div class="iep-student-meta">
+                            <dt>班級：</dt>
+                            <dd>101國小低年級</dd>
+                        </div>
+                        <div class="iep-student-meta">
+                            <dt>老師/修課科目：</dt>
+                            <dd>李OO　語文</dd>
+                        </div>
+                        <div class="iep-student-meta">
+                            <dt>填表學期：</dt>
+                            <dd>113學年度第2學期</dd>
+                        </div>
+                        <div class="iep-student-meta">
+                            <dt>單號：</dt>
+                            <dd>202502120001</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <!-- 後端：表單送出動作由後端接手，此為前端切版 -->
+                <form class="form-card" id="eduGoalForm" action="#" method="post" novalidate>
+                    <!-- 二階段編號頁籤：第 2 頁籤需完成第 1 頁籤並儲存後才會解鎖 -->
+                    <div class="tabs-nav tabs-nav--steps" role="tablist" aria-label="教育目標填寫階段" id="eduGoalStepTabs">
+                        <button type="button" class="tabs-nav-btn is-active" role="tab" id="tab-eduStep1" aria-selected="true" aria-controls="panel-eduStep1" tabindex="0">
+                            <span class="iep-step-num" aria-hidden="true">1</span>能力現況與學年目標
+                        </button>
+                        <button type="button" class="tabs-nav-btn" role="tab" id="tab-eduStep2" aria-selected="false" aria-controls="panel-eduStep2" tabindex="-1" disabled data-edu-locked>
+                            <span class="iep-step-num" aria-hidden="true">2</span>學期目標與評量明細表
+                            <i class="bi bi-lock-fill iep-tab-lock" aria-hidden="true" title="請先完成並儲存階段一"></i>
+                        </button>
+                    </div>
+
+                    <div class="iep-step-panels">
+                        <!-- ① 能力現況與學年目標 -->
+                        <div class="tabs-panel" role="tabpanel" id="panel-eduStep1" aria-labelledby="tab-eduStep1">
+                            <p class="iep-tab-lead">請依據學生現況填寫能力現況描述，並擬定本學年度之學年目標，完成後儲存即可進入下一階段。</p>
+
+                            <section class="form-section">
+                                <h2 class="form-section-title">能力現況<span class="badge-required">必填</span></h2>
+                                <label class="form-label" for="presentLevel">能力現況描述</label>
+                                <div class="textarea-counter-wrap">
+                                    <textarea class="form-control" id="presentLevel" name="presentLevel" rows="4" maxlength="500" placeholder="請輸入學生目前能力現況" aria-describedby="presentLevelCount" required></textarea>
+                                    <span class="textarea-counter" id="presentLevelCount" aria-live="polite">0 / 500</span>
+                                </div>
+                            </section>
+
+                            <section class="form-section">
+                                <h2 class="form-section-title">學年目標<span class="badge-required">必填</span></h2>
+
+                                <div class="iep-quickref">
+                                    <label class="form-label" for="quickRefSyearTarget">快速引用學年目標詞句</label>
+                                    <div class="iep-quickref-row">
+                                        <select class="form-select" id="quickRefSyearTarget" name="quickRefSyearTarget">
+                                            <option value="" selected>--請選擇--</option>
+                                            <option value="1 能學會掌握聆聽的技巧並說出聆聽的內容。&#10;2 能學會正確的表達方式。&#10;3 能學會正確朗讀所授之每課課文內容。&#10;4 能學會運用所學到的標點符號。&#10;5 能學會每課的生字筆畫及部件。&#10;6 能學會用新詞或成語作正確的造句。">1 能學會掌握聆聽的技巧並說出聆聽的內容。2 能學會正確的表達方式。3 能學會正確朗讀所授之每課課文內容...</option>
+                                            <option value="配合安康護理之家接受治療。">配合安康護理之家接受治療。</option>
+                                            <option value="1. 能認識生活環境中不同的消費場所並學會購物&#10;2. 能學會介紹家庭成員&#10;3. 能學會看圖片認識早餐店&#10;4. 能認識常吃的早餐&#10;5. 能學習與人好好相處">1. 能認識生活環境中不同的消費場所並學會購物 2. 能學會介紹家庭成員 3. 能學會看圖片認識早餐店...</option>
+                                            <option value="1. 能認識生活環境中不同的消費場所並學會購物&#10;2. 能學會介紹家庭成員&#10;3. 能學會認識生活中的早餐店&#10;4. 能學會生活中常吃的早餐種類&#10;5. 能學會分擔家事">1. 能認識生活環境中不同的消費場所並學會購物 2. 能學會介紹家庭成員 3. 能學會認識生活中的早餐店...</option>
+                                        </select>
+                                        <button type="button" class="btn btn-primary iep-quickref-btn" data-quickref-select="quickRefSyearTarget" data-quickref-target="syearTarget">
+                                            <i class="bi bi-pencil-square" aria-hidden="true"></i>寫入下方文字框中
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <label class="form-label" for="syearTarget">學年目標</label>
+                                <div class="textarea-counter-wrap">
+                                    <textarea class="form-control" id="syearTarget" name="syearTarget" rows="5" maxlength="1000" placeholder="請輸入學年目標敘述" aria-describedby="syearTargetCount" required></textarea>
+                                    <span class="textarea-counter" id="syearTargetCount" aria-live="polite">0 / 1000</span>
+                                </div>
+                            </section>
+                        </div>
+
+                        <!-- ② 學期目標與評量明細表 -->
+                        <div class="tabs-panel" role="tabpanel" id="panel-eduStep2" aria-labelledby="tab-eduStep2" hidden>
+                            <p class="iep-tab-lead">請擬定本學期之學期目標，並登錄對應之日常教學評量明細與評審決定。</p>
+
+                            <section class="form-section">
+                                <h2 class="form-section-title">學期目標<span class="badge-required">必填</span></h2>
+
+                                <div class="iep-quickref">
+                                    <label class="form-label" for="quickRefTarget">快速引用學期目標詞句</label>
+                                    <div class="iep-quickref-row">
+                                        <select class="form-select" id="quickRefTarget" name="quickRefTarget">
+                                            <option value="" selected>--請選擇--</option>
+                                            <option value="5-4 能正確指出生活中「在左邊」的東西或物品，正確率達80%以上即通過。">5-4 能正確指出生活中「在左邊」的東西或物品，正確率達80%以上即通過。</option>
+                                            <option value="1-1能說出3種生活中常見的便利商店名稱，正確率達90%以上即通過。">1-1能說出3種生活中常見的便利商店名稱，正確率達90%以上即通過。</option>
+                                            <option value="1. 能在跑步機上做行走訓練每次達30分鐘以上，每兩週評量一次，連續兩次完成則通過。">1. 能在跑步機上做行走訓練每次達30分鐘以上，每兩週評量一次，連續兩次完成則通過。</option>
+                                            <option value="1-1 能在圖片中指出依據個人的用餐計畫來購買食物，正確率達80%以上即通過評量。">1-1 能在圖片中指出依據個人的用餐計畫來購買食物，正確率達80%以上即通過評量。</option>
+                                        </select>
+                                        <button type="button" class="btn btn-primary iep-quickref-btn" data-quickref-select="quickRefTarget" data-quickref-target="semTarget">
+                                            <i class="bi bi-pencil-square" aria-hidden="true"></i>寫入下方文字框中
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <label class="form-label" for="semTarget">學期目標</label>
+                                <div class="textarea-counter-wrap">
+                                    <textarea class="form-control" id="semTarget" name="semTarget" rows="4" maxlength="1000" placeholder="請輸入學期目標敘述" aria-describedby="semTargetCount" required></textarea>
+                                    <span class="textarea-counter" id="semTargetCount" aria-live="polite">0 / 1000</span>
+                                </div>
+                            </section>
+
+                            <section class="form-section">
+                                <div class="iep-eval-title-row">
+                                    <h2 class="form-section-title">評量明細表<span class="badge-required">必填</span></h2>
+                                    <div class="iep-eval-actions">
+                                        <button type="button" class="btn btn-success" id="btnAddEvalRow">
+                                            <i class="bi bi-plus-lg" aria-hidden="true"></i>新增
+                                        </button>
+                                        <button type="button" class="btn btn-outline-danger" id="btnDeleteEvalRow">
+                                            <i class="bi bi-dash-lg" aria-hidden="true"></i>刪除
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="data-table-wrap">
+                                    <table class="table table-striped data-table data-table--wide iep-assess-table">
+                                        <caption class="sr-only">學期目標評量明細表</caption>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">
+                                                    <span class="check-all-label">
+                                                        <input class="form-check-input" type="checkbox" id="evalCheckAll" data-check-all>
+                                                        <label for="evalCheckAll">全選</label>
+                                                    </span>
+                                                </th>
+                                                <th scope="col">序號</th>
+                                                <th scope="col">教學日期區間</br>(開始~結束)</th>
+                                                <th scope="col">學期目標</th>
+                                                <th scope="col">評量項目設定</th>
+                                                <th scope="col">評量結果</th>
+                                                <th scope="col">教學決定</th>
+                                                <th scope="col">功能</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="evalRows">
+                                            <tr>
+                                                <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取第1筆評量紀錄"></span></td>
+                                                <td data-label="序號"><span class="cell-value">1</span></td>
+                                                <td data-label="教學日期區間">
+                                                    <span class="cell-value cell-value--start">
+                                                        <div class="date-range date-range--stack">
+                                                            <div class="date-range-item">
+                                                                <input type="date" class="form-control" id="evalStart1" name="evalStart1" value="2026-02-16" title="教學開始日期" aria-label="教學開始日期" disabled>
+                                                            </div>
+                                                            <span class="date-range-sep" aria-hidden="true">~</span>
+                                                            <div class="date-range-item">
+                                                                <input type="date" class="form-control" id="evalEnd1" name="evalEnd1" value="2026-02-27" title="教學結束日期" aria-label="教學結束日期" disabled>
+                                                            </div>
+                                                        </div>
+                                                    </span>
+                                                </td>
+                                                <td data-label="學期目標">
+                                                    <span class="cell-value cell-value--start">
+                                                        <label class="sr-only" for="evalTarget1">學期目標</label>
+                                                        <textarea class="form-control" id="evalTarget1" name="evalTarget1" rows="2" title="學期目標" aria-label="學期目標" disabled>5-4 能正確指出生活中「在左邊」的東西或物品，正確率達80%以上即通過。</textarea>
+                                                    </span>
+                                                </td>
+                                                <td data-label="評量項目設定">
+                                                    <span class="cell-value cell-value--start">
+                                                        <div class="iep-eval-item-fields">
+                                                            <input type="date" class="form-control" id="evalDate1" name="evalDate1" title="評量日期" aria-label="評量日期" value="2026-02-27" disabled>
+                                                            <label class="sr-only" for="evalMethod1">評量方式</label>
+                                                            <select class="form-select" id="evalMethod1" name="evalMethod1" title="評量方式" disabled>
+                                                                <option value="">請選擇方式</option>
+                                                                <option value="1">1. 觀察</option>
+                                                                <option value="2">2. 口頭</option>
+                                                                <option value="3">3. 指認</option>
+                                                                <option value="4" selected>4. 實作</option>
+                                                                <option value="5">5. 書寫</option>
+                                                            </select>
+                                                            <label class="sr-only" for="evalCriteria1">評量標準</label>
+                                                            <select class="form-select" id="evalCriteria1" name="evalCriteria1" title="評量標準" disabled>
+                                                                <option value="">請選擇標準</option>
+                                                                <option value="A" selected>A 能獨立完成</option>
+                                                                <option value="B">B 能在直接口語提示下完成</option>
+                                                                <option value="C">C 能在間接口語提示下完成</option>
+                                                                <option value="D">D 能在手勢提示下完成</option>
+                                                            </select>
+                                                        </div>
+                                                    </span>
+                                                </td>
+                                                <td data-label="評量結果">
+                                                    <span class="cell-value">
+                                                        <fieldset class="iep-eval-result">
+                                                            <legend class="sr-only">第1筆評量結果</legend>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" name="evalResult1" id="evalResultPass1" value="pass" checked disabled>
+                                                                <label class="form-check-label" for="evalResultPass1">＋已通過</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" name="evalResult1" id="evalResultFail1" value="fail" disabled>
+                                                                <label class="form-check-label" for="evalResultFail1">－未通過</label>
+                                                            </div>
+                                                        </fieldset>
+                                                    </span>
+                                                </td>
+                                                <td data-label="教學決定">
+                                                    <span class="cell-value">
+                                                        <div class="iep-eval-item">
+                                                            <label class="sr-only" for="evalDecision1">教學決定</label>
+                                                            <select class="form-select" id="evalDecision1" name="evalDecision1" disabled>
+                                                                <option value="">請選擇</option>
+                                                                <option value="P" selected>P 通過</option>
+                                                                <option value="C">C 繼續</option>
+                                                                <option value="G">G 重新評估</option>
+                                                            </select>
+                                                        </div>
+                                                        
+                                                    </span>
+                                                </td>
+                                                <td data-label="功能">
+                                                    <span class="cell-value">
+                                                        <div class="iep-eval-row-actions">
+                                                            <button type="button" class="btn btn-primary iep-eval-edit-btn">
+                                                                <i class="bi bi-pencil" aria-hidden="true"></i>編輯
+                                                            </button>
+                                                            <button type="button" class="btn btn-outline-danger iep-eval-delete-btn">
+                                                                <i class="bi bi-trash" aria-hidden="true"></i>刪除
+                                                            </button>
+                                                        </div>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!-- 無障礙：不可僅以顏色表達代碼意義，另附文字圖例說明 -->
+                                <dl class="iep-eval-legend">
+                                    <div class="iep-eval-legend-item">
+                                        <dt>評量方式</dt>
+                                        <dd>1. 觀察　2. 口頭　3. 指認　4. 實作　5. 書寫</dd>
+                                    </div>
+                                    <div class="iep-eval-legend-item">
+                                        <dt>評量標準</dt>
+                                        <dd>A 能獨立完成　B 能在直接口語提示下完成　C 能在間接口語提示下完成　D 能在手勢提示下完成　E 能在視覺提示下完成　F 能在示範動作下完成　G 能在部分身體提示下完成　H 能在完全身體提示下完成　I. 其他</dd>
+                                    </div>
+                                    <div class="iep-eval-legend-item">
+                                        <dt>評量結果</dt>
+                                        <dd>＋已通過　－未通過</dd>
+                                    </div>
+                                    <div class="iep-eval-legend-item">
+                                        <dt>教學決定</dt>
+                                        <dd>P：通過　C：繼續　G：重新評估</dd>
+                                    </div>
+                                </dl>
+                            </section>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- 固定於視窗底部的表單操作列（後端：暫存/送審/報表產出由後端接手） -->
+    <div class="iep-action-bar" role="region" aria-label="IEP 表單操作列">
+        <div class="iep-action-hint">
+            <img src="img/icon/小提醒.svg" alt="" class="iep-action-hint-icon">
+            <p><strong>小提醒</strong><br>請先完成「能力現況與學年目標」並儲存，才能繼續填寫「學期目標與評量明細表」歐!</p>
+        </div>
+        <div class="iep-action-buttons">
+            <button type="button" class="btn btn-draft" id="eduGoalDraftBtn">
+                <i class="bi bi-floppy" aria-hidden="true"></i>暫存草稿
+            </button>
+            <button type="button" class="btn btn-success" id="eduGoalSubmitBtn">
+                <i class="bi bi-check-lg" aria-hidden="true"></i>儲存並進入評量明細
+            </button>
+            <button type="button" class="btn btn-primary" id="eduGoalExportBtn">
+                <i class="bi bi-download" aria-hidden="true"></i>產生並匯出IEP報表
+            </button>
+        </div>
+        <a class="btn iep-action-cancel" href="iepEduGoal.html">取消</a>
+    </div>
+
+    <!-- 回饋 Modal（3 秒倒數自動關閉；圖示/色彩由 JS 依情境切換） -->
+    <div class="modal fade feedback-modal" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body feedback-body" role="status">
+                    <span class="feedback-icon" aria-hidden="true">
+                        <i class="bi bi-file-earmark-check"></i>
+                    </span>
+                    <h2 class="feedback-title" id="feedbackModalTitle">儲存成功</h2>
+                    <p class="feedback-desc">您的 IEP 表單內容已儲存。</p>
+                    <p class="feedback-countdown"><span class="feedback-countdown-num">3</span>秒後 自動關閉</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 刪除確認 Modal：點擊列表刪除按鈕後彈出，需再次確認才會實際刪除 -->
+    <div class="modal fade data-modal" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalTitle" aria-describedby="deleteConfirmModalDesc" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <h2 class="data-modal-title" id="deleteConfirmModalTitle">確認刪除</h2>
+                        <p class="data-modal-desc" id="deleteConfirmModalDesc">確定要刪除這筆資料嗎？此操作無法復原。</p>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="關閉視窗"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="data-modal-actions">
+                        <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-danger" id="deleteConfirmModalConfirmBtn">
+                            <i class="bi bi-trash3" aria-hidden="true"></i>確定刪除
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/tabs.js"></script>
+    <script src="js/iep.js"></script>
+</body>
+</html>

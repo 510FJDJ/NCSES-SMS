@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>教育目標資料管理 - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="維護與管理特教學生之學年與學期教育目標，追蹤各學科學習評量與計畫執行進度。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body>
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1">
+        <!-- 內頁 Banner：麵包屑＋標題＋CSS 裝飾＋插圖 -->
+        <section class="page-banner">
+            <!-- 裝飾層（純 CSS 繪製） -->
+            <div class="page-banner-deco" aria-hidden="true">
+                <span class="page-banner-halfcircle"></span>
+                <span class="page-banner-circle"></span>
+                <span class="page-banner-dots"></span>
+            </div>
+
+            <div class="container">
+                <nav class="page-banner-breadcrumb" aria-label="麵包屑導覽">
+                    <ol>
+                        <li>
+                            <a class="breadcrumb-home" href="index_AdminLogged.html" aria-label="首頁">
+                                <i class="bi bi-house-door" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">IEP管理</a></li>
+                        <li><a href="#">IEP學年與學期教育目標</a></li>
+                        <li aria-current="page">教育目標資料管理</li>
+                    </ol>
+                </nav>
+
+                <div class="page-banner-main">
+                    <div class="page-banner-text">
+                        <h1 class="page-banner-title">教育目標資料管理</h1>
+                        <p class="page-banner-desc">維護與管理特教學生之學年與學期教育目標，追蹤各學科學習評量與計畫執行進度。</p>
+                    </div>
+                    <!-- 右側人物插圖（純裝飾） -->
+                    <div class="page-banner-visual" aria-hidden="true">
+                        <img src="img/hero/login-hero/內頁人物背景.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 完成狀態頁籤＋查詢與資料列表 -->
+        <section class="data-section">
+            <div class="container">
+                <div class="data-card">
+                    <!-- 填寫狀態篩選頁籤（四頁籤共用同一面板，由 js/iep.js 篩選列表） -->
+                    <div class="tabs-nav" role="tablist" aria-label="教育目標填寫狀態篩選" id="eduGoalStatusTabs">
+                        <button type="button" class="tabs-nav-btn is-active" role="tab" id="tab-eduAll" aria-selected="true" aria-controls="panel-eduGoalStudents" tabindex="0" data-iep-filter="all" data-iep-count="45">
+                            <i class="bi bi-people-fill iep-tab-icon--all" aria-hidden="true"></i>全部資料 (45)
+                        </button>
+                        <button type="button" class="tabs-nav-btn" role="tab" id="tab-eduDone" aria-selected="false" aria-controls="panel-eduGoalStudents" tabindex="-1" data-iep-filter="done" data-iep-count="30">
+                            <i class="bi bi-check-circle-fill iep-tab-icon--done" aria-hidden="true"></i>已完成資料 (30)
+                        </button>
+                        <button type="button" class="tabs-nav-btn" role="tab" id="tab-eduUndone" aria-selected="false" aria-controls="panel-eduGoalStudents" tabindex="-1" data-iep-filter="undone" data-iep-count="15">
+                            <i class="bi bi-exclamation-circle-fill iep-tab-icon--undone" aria-hidden="true"></i>未完成資料 (15)
+                        </button>
+                        <button type="button" class="tabs-nav-btn" role="tab" id="tab-eduEvalMissing" aria-selected="false" aria-controls="panel-eduGoalStudents" tabindex="-1" data-iep-filter="evalmissing" data-iep-count="10">
+                            <i class="bi bi-exclamation-triangle-fill iep-tab-icon--warn" aria-hidden="true"></i>評量資料未填 (10)
+                        </button>
+                    </div>
+
+                    <div role="tabpanel" id="panel-eduGoalStudents" aria-labelledby="tab-eduAll">
+                        <!-- 查詢工具列（後端：查詢/匯出行為由後端接手） -->
+                        <form class="data-toolbar" action="#" method="get">
+                            <div class="data-toolbar-field">
+                                <label class="form-label" for="filterSemester">學期別</label>
+                                <select class="form-select" id="filterSemester" name="filterSemester">
+                                    <option value="" selected>請選擇</option>
+                                    <option value="1">113學年度第2學期</option>
+                                    <option value="2">113學年度第1學期</option>
+                                    <option value="3">112學年度第2學期</option>
+                                </select>
+                            </div>
+                            <div class="data-toolbar-field">
+                                <label class="form-label" for="filterDept">部別</label>
+                                <select class="form-select" id="filterDept" name="filterDept">
+                                    <option value="" selected>請選擇</option>
+                                    <option value="1">國民小學</option>
+                                    <option value="2">國民中學</option>
+                                    <option value="3">高級職業部</option>
+                                </select>
+                            </div>
+                            <div class="data-toolbar-field">
+                                <label class="form-label" for="filterStudentToggle">學生 (代碼/姓名)</label>
+                                <div class="dropdown dropdown-search" data-dropdown-search>
+                                    <button class="form-select text-start text-muted bg-white" type="button" id="filterStudentToggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                        請選擇學生
+                                    </button>
+                                    <div class="dropdown-menu w-100 p-2" aria-labelledby="filterStudentToggle">
+                                        <div class="dropdown-search-box">
+                                            <label class="sr-only" for="filterStudentSearch">搜尋學生學號或姓名</label>
+                                            <input type="search" class="form-control" id="filterStudentSearch" placeholder="搜尋學號或姓名" data-dropdown-search-input autocomplete="off">
+                                        </div>
+                                        <!-- 後端：學生名單為動態產生 -->
+                                        <ul class="dropdown-search-list">
+                                            <li><button type="button" class="dropdown-search-item" data-value="1031001">1031001 尤OO</button></li>
+                                            <li><button type="button" class="dropdown-search-item" data-value="1311001">1311001 利OO</button></li>
+                                            <li><button type="button" class="dropdown-search-item" data-value="1311002">1311002 潘OO</button></li>
+                                            <li><button type="button" class="dropdown-search-item" data-value="1311003">1311003 吳OO</button></li>
+                                            <li><button type="button" class="dropdown-search-item" data-value="1021002">1021002 陽OO</button></li>
+                                            <li><button type="button" class="dropdown-search-item" data-value="1021003">1021003 洪OO</button></li>
+                                        </ul>
+                                        <p class="dropdown-search-empty" data-dropdown-search-empty hidden>查無符合的學生</p>
+                                    </div>
+                                    <input type="hidden" name="filterStudent" data-dropdown-search-value>
+                                </div>
+                            </div>
+                            <div class="data-toolbar-field">
+                                <label class="form-label" for="filterClassToggle">班級 (代碼/名稱)</label>
+                                <div class="dropdown dropdown-search" data-dropdown-search>
+                                    <button class="form-select text-start text-muted bg-white" type="button" id="filterClassToggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                        請選擇班級
+                                    </button>
+                                    <div class="dropdown-menu w-100 p-2" aria-labelledby="filterClassToggle">
+                                        <div class="dropdown-search-box">
+                                            <label class="sr-only" for="filterClassSearch">搜尋班級代碼或名稱</label>
+                                            <input type="search" class="form-control" id="filterClassSearch" placeholder="搜尋班級代碼或名稱" data-dropdown-search-input autocomplete="off">
+                                        </div>
+                                        <!-- 後端：班級名單為動態產生 -->
+                                        <ul class="dropdown-search-list">
+                                            <li><button type="button" class="dropdown-search-item" data-value="1">101 國小低年級</button></li>
+                                            <li><button type="button" class="dropdown-search-item" data-value="2">102 國小低年級</button></li>
+                                            <li><button type="button" class="dropdown-search-item" data-value="3">103 國小低年級</button></li>
+                                            <li><button type="button" class="dropdown-search-item" data-value="4">201 國中一年級</button></li>
+                                        </ul>
+                                        <p class="dropdown-search-empty" data-dropdown-search-empty hidden>查無符合的班級</p>
+                                    </div>
+                                    <input type="hidden" name="filterClass" data-dropdown-search-value>
+                                </div>
+                            </div>
+                            <div class="data-toolbar-field">
+                                <label class="form-label" for="filterTeacherToggle">教師 (代碼/姓名)</label>
+                                <div class="dropdown dropdown-search" data-dropdown-search>
+                                    <button class="form-select text-start text-muted bg-white" type="button" id="filterTeacherToggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                        請選擇教師
+                                    </button>
+                                    <div class="dropdown-menu w-100 p-2" aria-labelledby="filterTeacherToggle">
+                                        <div class="dropdown-search-box">
+                                            <label class="sr-only" for="filterTeacherSearch">搜尋教師代碼或姓名</label>
+                                            <input type="search" class="form-control" id="filterTeacherSearch" placeholder="搜尋教師代碼或姓名" data-dropdown-search-input autocomplete="off">
+                                        </div>
+                                        <!-- 後端：教師名單為動態產生 -->
+                                        <ul class="dropdown-search-list">
+                                            <li><button type="button" class="dropdown-search-item" data-value="T001">T001 王小明</button></li>
+                                            <li><button type="button" class="dropdown-search-item" data-value="T002">T002 陳美玲</button></li>
+                                            <li><button type="button" class="dropdown-search-item" data-value="T003">T003 黃富勝</button></li>
+                                        </ul>
+                                        <p class="dropdown-search-empty" data-dropdown-search-empty hidden>查無符合的教師</p>
+                                    </div>
+                                    <input type="hidden" name="filterTeacher" data-dropdown-search-value>
+                                </div>
+                            </div>
+                            <div class="data-toolbar-actions">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-search" aria-hidden="true"></i>查詢
+                                </button>
+                                <button type="button" class="btn btn-export">
+                                    <i class="bi bi-download" aria-hidden="true"></i>匯出
+                                </button>
+                            </div>
+                        </form>
+
+                        <!-- 後端：總筆數（前端依頁籤示意切換） -->
+                        <p class="data-total" id="eduGoalTotalCount">總筆數：45</p>
+                        <div class="overflow-x-auto">
+                            <table class="table data-table table-striped">
+                                <caption class="sr-only">教育目標資料管理學生列表</caption>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <span class="check-all-label">
+                                                <input class="form-check-input" type="checkbox" id="checkAll" data-check-all>
+                                                <label for="checkAll">全選</label>
+                                            </span>
+                                        </th>
+                                        <th scope="col">序號</th>
+                                        <th scope="col">部別</th>
+                                        <th scope="col">班級 (代碼/名稱)</th>
+                                        <th scope="col">座號</th>
+                                        <th scope="col">姓名</th>
+                                        <th scope="col">學號</th>
+                                        <th scope="col">IEP填寫狀態</th>
+                                        <th scope="col">功能</th>
+                                    </tr>
+                                </thead>
+                                <!-- 後端：以下列表資料為動態產生，示意 10 筆；data-iep-status 供狀態頁籤篩選 -->
+                                <tbody id="eduGoalStudentRows">
+                                    <tr data-iep-status="done">
+                                        <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取學號 1031001 尤OO"></span></td>
+                                        <td data-label="序號"><span class="cell-value">1</span></td>
+                                        <td data-label="部別"><span class="cell-value">國民小學</span></td>
+                                        <td data-label="班級 (代碼/名稱)"><span class="cell-value">101 國小低年級</span></td>
+                                        <td data-label="座號"><span class="cell-value">1</span></td>
+                                        <td data-label="姓名"><span class="cell-value">尤OO</span></td>
+                                        <td data-label="學號"><span class="cell-value">1031001</span></td>
+                                        <td data-label="IEP填寫狀態">
+                                            <span class="cell-value">
+                                                <span class="iep-status iep-status--done"><i class="bi bi-check-circle-fill" aria-hidden="true"></i>已完成</span>
+                                            </span>
+                                        </td>
+                                        <td data-label="功能">
+                                            <span class="cell-value">
+                                                <a class="btn btn-primary btn-edit" href="iepEduGoal_form.html" aria-label="進入學號 1031001 尤OO 的IEP教育目標">
+                                                    <i class="bi bi-pencil" aria-hidden="true"></i>進入IEP
+                                                </a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr data-iep-status="undone">
+                                        <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取學號 1311001 利OO"></span></td>
+                                        <td data-label="序號"><span class="cell-value">2</span></td>
+                                        <td data-label="部別"><span class="cell-value">國民小學</span></td>
+                                        <td data-label="班級 (代碼/名稱)"><span class="cell-value">101 國小低年級</span></td>
+                                        <td data-label="座號"><span class="cell-value">2</span></td>
+                                        <td data-label="姓名"><span class="cell-value">利OO</span></td>
+                                        <td data-label="學號"><span class="cell-value">1311001</span></td>
+                                        <td data-label="IEP填寫狀態">
+                                            <span class="cell-value">
+                                                <span class="iep-status iep-status--undone"><i class="bi bi-exclamation-circle-fill" aria-hidden="true"></i>未完成 (5)</span>
+                                            </span>
+                                        </td>
+                                        <td data-label="功能">
+                                            <span class="cell-value">
+                                                <a class="btn btn-primary btn-edit" href="iepEduGoal_form.html" aria-label="進入學號 1311001 利OO 的IEP教育目標">
+                                                    <i class="bi bi-pencil" aria-hidden="true"></i>進入IEP
+                                                </a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr data-iep-status="evalmissing">
+                                        <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取學號 1311002 潘OO"></span></td>
+                                        <td data-label="序號"><span class="cell-value">3</span></td>
+                                        <td data-label="部別"><span class="cell-value">國民小學</span></td>
+                                        <td data-label="班級 (代碼/名稱)"><span class="cell-value">101 國小低年級</span></td>
+                                        <td data-label="座號"><span class="cell-value">3</span></td>
+                                        <td data-label="姓名"><span class="cell-value">潘OO</span></td>
+                                        <td data-label="學號"><span class="cell-value">1311002</span></td>
+                                        <td data-label="IEP填寫狀態">
+                                            <span class="cell-value">
+                                                <span class="iep-status iep-status--evalmissing"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>評量資料未填 (3)</span>
+                                            </span>
+                                        </td>
+                                        <td data-label="功能">
+                                            <span class="cell-value">
+                                                <a class="btn btn-primary btn-edit" href="iepEduGoal_form.html" aria-label="進入學號 1311002 潘OO 的IEP教育目標">
+                                                    <i class="bi bi-pencil" aria-hidden="true"></i>進入IEP
+                                                </a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr data-iep-status="done">
+                                        <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取學號 1311003 吳OO"></span></td>
+                                        <td data-label="序號"><span class="cell-value">4</span></td>
+                                        <td data-label="部別"><span class="cell-value">國民小學</span></td>
+                                        <td data-label="班級 (代碼/名稱)"><span class="cell-value">101 國小低年級</span></td>
+                                        <td data-label="座號"><span class="cell-value">4</span></td>
+                                        <td data-label="姓名"><span class="cell-value">吳OO</span></td>
+                                        <td data-label="學號"><span class="cell-value">1311003</span></td>
+                                        <td data-label="IEP填寫狀態">
+                                            <span class="cell-value">
+                                                <span class="iep-status iep-status--done"><i class="bi bi-check-circle-fill" aria-hidden="true"></i>已完成</span>
+                                            </span>
+                                        </td>
+                                        <td data-label="功能">
+                                            <span class="cell-value">
+                                                <a class="btn btn-primary btn-edit" href="iepEduGoal_form.html" aria-label="進入學號 1311003 吳OO 的IEP教育目標">
+                                                    <i class="bi bi-pencil" aria-hidden="true"></i>進入IEP
+                                                </a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr data-iep-status="done">
+                                        <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取學號 1021002 陽OO"></span></td>
+                                        <td data-label="序號"><span class="cell-value">5</span></td>
+                                        <td data-label="部別"><span class="cell-value">國民小學</span></td>
+                                        <td data-label="班級 (代碼/名稱)"><span class="cell-value">102 國小低年級</span></td>
+                                        <td data-label="座號"><span class="cell-value">1</span></td>
+                                        <td data-label="姓名"><span class="cell-value">陽OO</span></td>
+                                        <td data-label="學號"><span class="cell-value">1021002</span></td>
+                                        <td data-label="IEP填寫狀態">
+                                            <span class="cell-value">
+                                                <span class="iep-status iep-status--done"><i class="bi bi-check-circle-fill" aria-hidden="true"></i>已完成</span>
+                                            </span>
+                                        </td>
+                                        <td data-label="功能">
+                                            <span class="cell-value">
+                                                <a class="btn btn-primary btn-edit" href="iepEduGoal_form.html" aria-label="進入學號 1021002 陽OO 的IEP教育目標">
+                                                    <i class="bi bi-pencil" aria-hidden="true"></i>進入IEP
+                                                </a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr data-iep-status="undone">
+                                        <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取學號 1021003 洪OO"></span></td>
+                                        <td data-label="序號"><span class="cell-value">6</span></td>
+                                        <td data-label="部別"><span class="cell-value">國民小學</span></td>
+                                        <td data-label="班級 (代碼/名稱)"><span class="cell-value">102 國小低年級</span></td>
+                                        <td data-label="座號"><span class="cell-value">2</span></td>
+                                        <td data-label="姓名"><span class="cell-value">洪OO</span></td>
+                                        <td data-label="學號"><span class="cell-value">1021003</span></td>
+                                        <td data-label="IEP填寫狀態">
+                                            <span class="cell-value">
+                                                <span class="iep-status iep-status--undone"><i class="bi bi-exclamation-circle-fill" aria-hidden="true"></i>未完成 (2)</span>
+                                            </span>
+                                        </td>
+                                        <td data-label="功能">
+                                            <span class="cell-value">
+                                                <a class="btn btn-primary btn-edit" href="iepEduGoal_form.html" aria-label="進入學號 1021003 洪OO 的IEP教育目標">
+                                                    <i class="bi bi-pencil" aria-hidden="true"></i>進入IEP
+                                                </a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr data-iep-status="evalmissing">
+                                        <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取學號 1021004 林OO"></span></td>
+                                        <td data-label="序號"><span class="cell-value">7</span></td>
+                                        <td data-label="部別"><span class="cell-value">國民小學</span></td>
+                                        <td data-label="班級 (代碼/名稱)"><span class="cell-value">102 國小低年級</span></td>
+                                        <td data-label="座號"><span class="cell-value">3</span></td>
+                                        <td data-label="姓名"><span class="cell-value">林OO</span></td>
+                                        <td data-label="學號"><span class="cell-value">1021004</span></td>
+                                        <td data-label="IEP填寫狀態">
+                                            <span class="cell-value">
+                                                <span class="iep-status iep-status--evalmissing"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>評量資料未填 (1)</span>
+                                            </span>
+                                        </td>
+                                        <td data-label="功能">
+                                            <span class="cell-value">
+                                                <a class="btn btn-primary btn-edit" href="iepEduGoal_form.html" aria-label="進入學號 1021004 林OO 的IEP教育目標">
+                                                    <i class="bi bi-pencil" aria-hidden="true"></i>進入IEP
+                                                </a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr data-iep-status="done">
+                                        <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取學號 1021005 周OO"></span></td>
+                                        <td data-label="序號"><span class="cell-value">8</span></td>
+                                        <td data-label="部別"><span class="cell-value">國民小學</span></td>
+                                        <td data-label="班級 (代碼/名稱)"><span class="cell-value">102 國小低年級</span></td>
+                                        <td data-label="座號"><span class="cell-value">4</span></td>
+                                        <td data-label="姓名"><span class="cell-value">周OO</span></td>
+                                        <td data-label="學號"><span class="cell-value">1021005</span></td>
+                                        <td data-label="IEP填寫狀態">
+                                            <span class="cell-value">
+                                                <span class="iep-status iep-status--done"><i class="bi bi-check-circle-fill" aria-hidden="true"></i>已完成</span>
+                                            </span>
+                                        </td>
+                                        <td data-label="功能">
+                                            <span class="cell-value">
+                                                <a class="btn btn-primary btn-edit" href="iepEduGoal_form.html" aria-label="進入學號 1021005 周OO 的IEP教育目標">
+                                                    <i class="bi bi-pencil" aria-hidden="true"></i>進入IEP
+                                                </a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr data-iep-status="undone">
+                                        <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取學號 811001 蔡OO"></span></td>
+                                        <td data-label="序號"><span class="cell-value">9</span></td>
+                                        <td data-label="部別"><span class="cell-value">國民小學</span></td>
+                                        <td data-label="班級 (代碼/名稱)"><span class="cell-value">103 國小低年級</span></td>
+                                        <td data-label="座號"><span class="cell-value">1</span></td>
+                                        <td data-label="姓名"><span class="cell-value">蔡OO</span></td>
+                                        <td data-label="學號"><span class="cell-value">811001</span></td>
+                                        <td data-label="IEP填寫狀態">
+                                            <span class="cell-value">
+                                                <span class="iep-status iep-status--undone"><i class="bi bi-exclamation-circle-fill" aria-hidden="true"></i>未完成 (4)</span>
+                                            </span>
+                                        </td>
+                                        <td data-label="功能">
+                                            <span class="cell-value">
+                                                <a class="btn btn-primary btn-edit" href="iepEduGoal_form.html" aria-label="進入學號 811001 蔡OO 的IEP教育目標">
+                                                    <i class="bi bi-pencil" aria-hidden="true"></i>進入IEP
+                                                </a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr data-iep-status="done">
+                                        <td data-label="勾選"><span class="cell-value"><input class="form-check-input" type="checkbox" data-check-row aria-label="選取學號 1312004 鄭OO"></span></td>
+                                        <td data-label="序號"><span class="cell-value">10</span></td>
+                                        <td data-label="部別"><span class="cell-value">國民中學</span></td>
+                                        <td data-label="班級 (代碼/名稱)"><span class="cell-value">201 國中一年級</span></td>
+                                        <td data-label="座號"><span class="cell-value">1</span></td>
+                                        <td data-label="姓名"><span class="cell-value">鄭OO</span></td>
+                                        <td data-label="學號"><span class="cell-value">1312004</span></td>
+                                        <td data-label="IEP填寫狀態">
+                                            <span class="cell-value">
+                                                <span class="iep-status iep-status--done"><i class="bi bi-check-circle-fill" aria-hidden="true"></i>已完成</span>
+                                            </span>
+                                        </td>
+                                        <td data-label="功能">
+                                            <span class="cell-value">
+                                                <a class="btn btn-primary btn-edit" href="iepEduGoal_form.html" aria-label="進入學號 1312004 鄭OO 的IEP教育目標">
+                                                    <i class="bi bi-pencil" aria-hidden="true"></i>進入IEP
+                                                </a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- 後端：分頁為動態產生 -->
+                        <nav class="data-pagination" aria-label="分頁導覽">
+                            <ul class="pagination">
+                                <li class="page-item page-item--nav">
+                                    <a class="page-link" href="#" aria-label="上一頁">
+                                        <i class="bi bi-chevron-double-left" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item active" aria-current="page"><span class="page-link">2</span></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                <li class="page-item"><a class="page-link" href="#">6</a></li>
+                                <li class="page-item page-item--nav">
+                                    <a class="page-link" href="#" aria-label="下一頁">
+                                        <i class="bi bi-chevron-double-right" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/iep.js"></script>
+</body>
+</html>

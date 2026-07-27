@@ -1,0 +1,219 @@
+// ==========================================================================
+// 增強物調查表（IEP 行為介入計畫方案）
+// 左側垂直頁籤 + 右側評估表格
+// ==========================================================================
+
+.iep-reinforcer-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+
+  @include media-breakpoint-down(lg) {
+    flex-direction: column;
+  }
+}
+
+// ---- 垂直頁籤（延伸 .tabs-nav / .tabs-nav-btn 基礎樣式） ----
+.tabs-nav--vertical {
+  flex: 0 0 220px;
+  flex-direction: column;
+  margin-bottom: 0;
+
+  @include media-breakpoint-down(lg) {
+    flex: 1 1 auto;
+    flex-direction: row;
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .tabs-nav-btn {
+    justify-content: flex-start;
+    flex: 0 0 auto;
+    width: 100%;
+    text-align: left;
+
+    @include media-breakpoint-down(lg) {
+      width: auto;
+      white-space: nowrap;
+    }
+  }
+}
+
+.iep-reinforcer-panels {
+  flex: 1;
+  min-width: 0;
+}
+
+.iep-reinforcer-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: $grey-600;
+  font-size: 1.125rem;
+  font-weight: $font-weight-medium;
+  margin-bottom: 16px;
+}
+
+// ---- 增強物評估表格 ----
+.iep-reinforcer-table-wrap {
+  border: 1px solid $grey-300;
+  border-radius: $border-radius-lg;
+  overflow: hidden;
+  margin-bottom: 24px;
+  @include media-breakpoint-down(md) {
+      border: 0;
+    }
+}
+
+.iep-reinforcer-table {
+  margin-bottom: 0;
+
+  th,
+  td {
+    padding: 12px 16px;
+    vertical-align: middle;
+    border-color: $grey-300;
+  }
+
+  thead th {
+    background-color: $grey-200;
+    color: $grey-600;
+    font-weight: $font-weight-medium;
+    white-space: nowrap;
+  }
+
+  .iep-reinforcer-th-check {
+    width: 48px;
+    text-align: center;
+  }
+  .cell-value {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 12px;
+  }
+  @include media-breakpoint-up(md) {
+    td:first-child {
+      text-align: center;
+    }
+    .cell-value {
+     align-items:flex-start;
+    }
+
+  }
+}
+
+// --------------------------------------------------------------------------
+// RWD：< md 轉直式區塊（同 .data-table 手法，參考 stylesheets/components/_dataTable.scss）
+// --------------------------------------------------------------------------
+@include media-breakpoint-down(md) {
+  .iep-reinforcer-table {
+    display: block;
+
+    thead {
+      display: none; // 欄名改由各格 data-label 呈現
+    }
+
+    tbody,
+    tr,
+    td {
+      display: block;
+      width: 100%;
+    }
+
+    tbody tr {
+      margin-bottom: 16px;
+      border: 1px solid $grey-300;
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: $white;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      // 偶數列欄名色塊加深，方便使用者辨別列與列的分界（同 .data-table 手法）
+      &:nth-child(even) td::before {
+        background-color: $grey-300;
+      }
+    }
+
+    // 每格改為「左側欄名色塊＋右側內容」同列呈現，與 .data-table 手機版一致，
+    // 不論內容為文字、輸入框或評分 fieldset 皆自動成為右側 flex 內容項
+    tbody td {
+      display: flex;
+      align-items: flex-start;
+      padding: 10px 12px;
+      border-bottom: 1px solid $grey-300;
+      text-align: left;
+
+      &:last-child {
+        border-bottom: 0;
+      }
+
+      &::before {
+        content: attr(data-label);
+        flex: 0 0 35%;
+        align-self: stretch;
+        display: flex;
+        align-items: center;
+        margin: -10px 12px -10px -12px;
+        padding: 10px 12px;
+        background-color: $grey-200;
+        color: $grey-600;
+        font-weight: $font-weight-medium;
+        font-size: 0.9375rem;
+        word-break: break-word;
+      }
+
+      // 右側內容項填滿剩餘寬度
+      > input,
+      > .form-check,
+      > .iep-rating-group {
+        flex: 1 1 0%;
+        min-width: 0;
+      }
+    }
+
+    .form-check {
+      margin: 0;
+    }
+
+    .iep-rating-group {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+}
+
+// ---- 5 選項評分群組（很喜歡／有點喜歡／可有可無／不喜歡／不知道） ----
+.iep-rating-group {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+
+  .form-check {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  .form-check-input {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  .form-check-label {
+    color: $grey-500;
+    font-size: 0.9375rem;
+  }
+}

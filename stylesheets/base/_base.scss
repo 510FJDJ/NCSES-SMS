@@ -1,0 +1,145 @@
+// ==========================================================================
+// 全站基礎樣式與無障礙基石（WCAG 2.1 AA）
+// ==========================================================================
+
+// DESIGN.md 設計 Token 以 CSS 自訂屬性輸出，供元件與後端頁面直接取用
+:root {
+  --color-primary: #{$primary};
+  --color-primary-light: #{$color-primary-light};
+  --color-success: #{$success};
+  --color-warning: #{$warning};
+  --color-danger: #{$danger};
+  --color-focus: #{$color-focus};
+  --grey-100: #{$grey-100};
+  --grey-200: #{$grey-200};
+  --grey-300: #{$grey-300};
+  --grey-400: #{$grey-400};
+  --grey-500: #{$grey-500};
+  --grey-600: #{$grey-600};
+}
+
+body {
+  line-height: $line-height-base;
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+ul li {
+  list-style: none;
+  padding-left: 0;
+}
+
+ol {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  display: inline-block;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: 0.1em;
+  line-height: $line-height-base;
+}
+
+p,span {
+  letter-spacing: 0.1em;
+}
+
+// --------------------------------------------------------------------------
+// 鍵盤焦點可見狀態（DESIGN.md 5.1：高對比焦點框）
+// --------------------------------------------------------------------------
+:focus-visible {
+  outline: 0.15rem solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+// 滑鼠點擊不顯示外框；鍵盤導覽一律由 :focus-visible 接手
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+// --------------------------------------------------------------------------
+// 螢幕閱讀器專用元素（DESIGN.md 5.2）
+// --------------------------------------------------------------------------
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+// 跳過導覽連結：鍵盤聚焦時浮現於視窗左上
+.sr-only.focusable:focus,
+.sr-only.focusable:focus-visible {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 2000;
+  width: auto;
+  height: auto;
+  padding: 12px 24px;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  background-color: $white;
+  color: $primary;
+  font-weight: $font-weight-medium;
+  border-radius: 8px;
+  box-shadow: $box-shadow;
+}
+
+// 減少動態效果（尊重使用者系統設定）
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+// 通用flex
+.flex-row-center {
+  display: flex;
+  align-items:center;
+}
+.flex-row-stretch {
+  display: flex;
+  align-items:stretch;
+}
+.flex-center-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flex-center-start{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.flex-center-end{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+@include media-breakpoint-up(lg) {
+   .flex-center-lg-end{
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+  }

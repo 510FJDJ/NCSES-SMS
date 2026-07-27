@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>群組權限設定 - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="設定指定群組在系統各功能模組的操作權限。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body class="has-permission-action-bar">
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1">
+        <!-- 內頁 Banner：麵包屑＋標題＋CSS 裝飾＋插圖 -->
+        <section class="page-banner">
+            <!-- 裝飾層（純 CSS 繪製） -->
+            <div class="page-banner-deco" aria-hidden="true">
+                <span class="page-banner-halfcircle"></span>
+                <span class="page-banner-circle"></span>
+                <span class="page-banner-dots"></span>
+            </div>
+
+            <div class="container">
+                <nav class="page-banner-breadcrumb" aria-label="麵包屑導覽">
+                    <ol>
+                        <li>
+                            <a class="breadcrumb-home" href="index_AdminLogged.html" aria-label="首頁">
+                                <i class="bi bi-house-door" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">帳號管理</a></li>
+                        <li><a href="permissionManagement.html">權限管理</a></li>
+                        <li aria-current="page">群組權限設定</li>
+                    </ol>
+                </nav>
+
+                <div class="page-banner-main">
+                    <div class="page-banner-text">
+                        <h1 class="page-banner-title">群組權限設定</h1>
+                        <!-- 後端：群組名稱依網址參數 groupCode 動態帶入 -->
+                        <p class="page-banner-desc">設定「系統管理群組」在系統各功能模組的操作權限。</p>
+                    </div>
+                    <!-- 右側人物插圖（純裝飾） -->
+                    <div class="page-banner-visual page-banner-visual--composed page-banner-visual--pointPerson" aria-hidden="true">
+                        <span class="banner-visual-blob"></span>
+                        <span class="banner-visual-window"></span>
+                        <img class="banner-visual-person" src="img/hero/characters/people-front-point.png" alt="">
+                    </div>
+                    <a class="btn-back" href="permissionManagement.html">
+                        <i class="bi bi-chevron-left" aria-hidden="true"></i>返回列表
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="data-section">
+            <div class="container">
+                <div class="data-card">
+                    <!-- 頂部工具列：群組名稱／搜尋功能項目（固定於卡片內，非 sticky）。取消／存檔／統計移至底部固定操作列，避免清單過長時操作按鈕捲動不易觸及 -->
+                    <div class="permission-toolbar">
+                        <p class="permission-toolbar-group">群組：<strong id="permissionGroupName">系統管理群組</strong></p>
+
+                        <div class="permission-toolbar-search">
+                            <label class="sr-only" for="permissionSearch">搜尋功能項目</label>
+                            <input type="search" class="form-control" id="permissionSearch" placeholder="搜尋功能項目名稱，自動定位並標示">
+                        </div>
+                    </div>
+
+                    <!-- 權限項目樹狀結構：比照首頁 index_AdminLogged.html 服務項目六大模組 -->
+                    <div class="row g-4 permission-grid" id="permissionGrid">
+                        <!-- 基本資料維護 -->
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <div class="permission-card permission-card--basic" data-permission-card>
+                                <div class="permission-card-head">
+                                    <span class="permission-card-icon"><i class="bi bi-person-vcard" aria-hidden="true"></i></span>
+                                    <h2 class="permission-card-title">基本資料維護</h2>
+                                    <span class="permission-card-select">
+                                        <input class="form-check-input" type="checkbox" id="moduleBasic" data-module-toggle aria-label="全選 基本資料維護">
+                                        <span class="permission-card-count" data-module-count>0/8</span>
+                                    </span>
+                                </div>
+                                <ul class="permission-list">
+                                    <li class="permission-item"><input class="form-check-input" type="checkbox" id="permBasic1" data-permission-item checked><label for="permBasic1">學生學籍基本資料</label></li>
+                                    <li class="permission-item"><input class="form-check-input" type="checkbox" id="permBasic2" data-permission-item checked><label for="permBasic2">科目基本資料</label></li>
+                                    <li class="permission-item"><input class="form-check-input" type="checkbox" id="permBasic3" data-permission-item checked><label for="permBasic3">教師基本資料</label></li>
+                                    <li class="permission-item"><input class="form-check-input" type="checkbox" id="permBasic4" data-permission-item checked><label for="permBasic4">教師可授課科目設定</label></li>
+                                    <li class="permission-item"><input class="form-check-input" type="checkbox" id="permBasic5" data-permission-item checked><label for="permBasic5">班級基本資料</label></li>
+                                    <li class="permission-item"><input class="form-check-input" type="checkbox" id="permBasic6" data-permission-item checked><label for="permBasic6">教室/場地基本資料</label></li>
+                                    <li class="permission-item"><input class="form-check-input" type="checkbox" id="permBasic7" data-permission-item checked><label for="permBasic7">編班作業</label></li>
+                                    <li class="permission-item"><input class="form-check-input" type="checkbox" id="permBasic8" data-permission-item checked><label for="permBasic8">班級座號維護</label></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- 課務管理 -->
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <div class="permission-card permission-card--course" data-permission-card>
+                                <div class="permission-card-head">
+                                    <span class="permission-card-icon"><i class="bi bi-book" aria-hidden="true"></i></span>
+                                    <h2 class="permission-card-title">課務管理</h2>
+                                    <span class="permission-card-select">
+                                        <input class="form-check-input" type="checkbox" id="moduleCourse" data-module-toggle aria-label="全選 課務管理">
+                                        <span class="permission-card-count" data-module-count>0/4</span>
+                                    </span>
+                                </div>
+
+                                <div class="permission-subgroup" data-permission-subgroup>
+                                    <p class="permission-subgroup-head">
+                                        <input class="form-check-input" type="checkbox" id="subCourseOffering" data-subgroup-toggle aria-label="全選 開排課作業">
+                                        <label for="subCourseOffering">開排課作業</label>
+                                        <span class="permission-subgroup-count" data-subgroup-count>(0/3)</span>
+                                    </p>
+                                    <ul class="permission-subgroup-list">
+                                        <li class="permission-item"><input class="form-check-input" type="checkbox" id="permCourse1" data-permission-item checked><label for="permCourse1">開課作業</label></li>
+                                        <li class="permission-item"><input class="form-check-input" type="checkbox" id="permCourse2" data-permission-item checked><label for="permCourse2">指定修課學生</label></li>
+                                        <li class="permission-item"><input class="form-check-input" type="checkbox" id="permCourse3" data-permission-item><label for="permCourse3">教師授課時數查詢</label></li>
+                                    </ul>
+                                </div>
+
+                                <div class="permission-subgroup" data-permission-subgroup>
+                                    <p class="permission-subgroup-head">
+                                        <input class="form-check-input" type="checkbox" id="subCourseSub" data-subgroup-toggle aria-label="全選 調代(兼)課作業">
+                                        <label for="subCourseSub">調代(兼)課作業</label>
+                                        <span class="permission-subgroup-count" data-subgroup-count>(0/1)</span>
+                                    </p>
+                                    <ul class="permission-subgroup-list">
+                                        <li class="permission-item"><input class="form-check-input" type="checkbox" id="permCourse4" data-permission-item checked><label for="permCourse4">教師代課管理</label></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 學務管理 -->
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <div class="permission-card permission-card--affairs" data-permission-card>
+                                <div class="permission-card-head">
+                                    <span class="permission-card-icon"><i class="bi bi-mortarboard-fill" aria-hidden="true"></i></span>
+                                    <h2 class="permission-card-title">學務管理</h2>
+                                    <span class="permission-card-select">
+                                        <input class="form-check-input" type="checkbox" id="moduleAffairs" data-module-toggle aria-label="全選 學務管理">
+                                        <span class="permission-card-count" data-module-count>0/6</span>
+                                    </span>
+                                </div>
+                                <ul class="permission-list">
+                                    <li class="permission-item"><input class="form-check-input" type="checkbox" id="permAffairs1" data-permission-item checked><label for="permAffairs1">學生出缺勤管理</label></li>
+                                    <li class="permission-item"><input class="form-check-input" type="checkbox" id="permAffairs2" data-permission-item checked><label for="permAffairs2">學生獎懲管理</label></li>
+                                    <li class="permission-item"><input class="form-check-input" type="checkbox" id="permAffairs3" data-permission-item><label for="permAffairs3">缺曠獎懲配分設定</label></li>
+                                    <li class="permission-item"><input class="form-check-input" type="checkbox" id="permAffairs4" data-permission-item checked><label for="permAffairs4">學生連續缺席統計</label></li>
+                                </ul>
+
+                                <div class="permission-subgroup" data-permission-subgroup>
+                                    <p class="permission-subgroup-head">
+                                        <input class="form-check-input" type="checkbox" id="subAffairsMoral" data-subgroup-toggle aria-label="全選 德育成績管理">
+                                        <label for="subAffairsMoral">德育成績管理</label>
+                                        <span class="permission-subgroup-count" data-subgroup-count>(0/2)</span>
+                                    </p>
+                                    <ul class="permission-subgroup-list">
+                                        <li class="permission-item"><input class="form-check-input" type="checkbox" id="permAffairs5" data-permission-item checked><label for="permAffairs5">德育成績加減分輸入</label></li>
+                                        <li class="permission-item"><input class="form-check-input" type="checkbox" id="permAffairs6" data-permission-item><label for="permAffairs6">德育成績計算作業</label></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 成績管理 -->
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <div class="permission-card permission-card--score" data-permission-card>
+                                <div class="permission-card-head">
+                                    <span class="permission-card-icon"><i class="bi bi-bar-chart-fill" aria-hidden="true"></i></span>
+                                    <h2 class="permission-card-title">成績管理</h2>
+                                    <span class="permission-card-select">
+                                        <input class="form-check-input" type="checkbox" id="moduleScore" data-module-toggle aria-label="全選 成績管理">
+                                        <span class="permission-card-count" data-module-count>0/2</span>
+                                    </span>
+                                </div>
+                                <ul class="permission-list">
+                                    <li class="permission-item"><input class="form-check-input" type="checkbox" id="permScore1" data-permission-item checked><label for="permScore1">成績輸入</label></li>
+                                    <li class="permission-item"><input class="form-check-input" type="checkbox" id="permScore2" data-permission-item checked><label for="permScore2">成績計算作業</label></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- IEP管理 -->
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <div class="permission-card permission-card--iep" data-permission-card>
+                                <div class="permission-card-head">
+                                    <span class="permission-card-icon"><i class="bi bi-clipboard2-check" aria-hidden="true"></i></span>
+                                    <h2 class="permission-card-title">IEP管理</h2>
+                                    <span class="permission-card-select">
+                                        <input class="form-check-input" type="checkbox" id="moduleIep" data-module-toggle aria-label="全選 IEP管理">
+                                        <span class="permission-card-count" data-module-count>0/16</span>
+                                    </span>
+                                </div>
+                                <ul class="permission-list">
+                                    <li class="permission-item"><input class="form-check-input" type="checkbox" id="permIep1" data-permission-item checked><label for="permIep1">IEP基本資料管理</label></li>
+                                    <li class="permission-item"><input class="form-check-input" type="checkbox" id="permIep2" data-permission-item checked><label for="permIep2">IEP報表列印</label></li>
+                                    <li class="permission-item"><input class="form-check-input" type="checkbox" id="permIep3" data-permission-item><label for="permIep3">學生/班級/教師課表</label></li>
+                                    <li class="permission-item"><input class="form-check-input" type="checkbox" id="permIep4" data-permission-item checked><label for="permIep4">IEP資料家長申請表</label></li>
+                                </ul>
+
+                                <div class="permission-subgroup" data-permission-subgroup>
+                                    <p class="permission-subgroup-head">
+                                        <input class="form-check-input" type="checkbox" id="subIepGoal" data-subgroup-toggle aria-label="全選 IEP學年與學期教育目標">
+                                        <label for="subIepGoal">IEP學年與學期教育目標</label>
+                                        <span class="permission-subgroup-count" data-subgroup-count>(0/3)</span>
+                                    </p>
+                                    <ul class="permission-subgroup-list">
+                                        <li class="permission-item"><input class="form-check-input" type="checkbox" id="permIep5" data-permission-item checked><label for="permIep5">教育目標範本(個人)</label></li>
+                                        <li class="permission-item"><input class="form-check-input" type="checkbox" id="permIep6" data-permission-item><label for="permIep6">教育目標範本(共享)</label></li>
+                                        <li class="permission-item"><input class="form-check-input" type="checkbox" id="permIep7" data-permission-item checked><label for="permIep7">教育目標資料管理</label></li>
+                                    </ul>
+                                </div>
+
+                                <div class="permission-subgroup" data-permission-subgroup>
+                                    <p class="permission-subgroup-head">
+                                        <input class="form-check-input" type="checkbox" id="subIepBehavior" data-subgroup-toggle aria-label="全選 IEP行為介入計畫方案">
+                                        <label for="subIepBehavior">IEP行為介入計畫方案</label>
+                                        <span class="permission-subgroup-count" data-subgroup-count>(0/4)</span>
+                                    </p>
+                                    <ul class="permission-subgroup-list">
+                                        <li class="permission-item"><input class="form-check-input" type="checkbox" id="permIep8" data-permission-item checked><label for="permIep8">IEP行為功能介入方案</label></li>
+                                        <li class="permission-item"><input class="form-check-input" type="checkbox" id="permIep9" data-permission-item checked><label for="permIep9">行為與策略對照勾選表</label></li>
+                                        <li class="permission-item"><input class="form-check-input" type="checkbox" id="permIep10" data-permission-item checked><label for="permIep10">增強物調查表</label></li>
+                                        <li class="permission-item"><input class="form-check-input" type="checkbox" id="permIep11" data-permission-item checked><label for="permIep11">IEP檢討會議</label></li>
+                                    </ul>
+                                </div>
+
+                                <div class="permission-subgroup" data-permission-subgroup>
+                                    <p class="permission-subgroup-head">
+                                        <input class="form-check-input" type="checkbox" id="subIepRecord" data-subgroup-toggle aria-label="全選 IEP紀錄表">
+                                        <label for="subIepRecord">IEP紀錄表</label>
+                                        <span class="permission-subgroup-count" data-subgroup-count>(0/5)</span>
+                                    </p>
+                                    <ul class="permission-subgroup-list">
+                                        <li class="permission-item"><input class="form-check-input" type="checkbox" id="permIep12" data-permission-item checked><label for="permIep12">IEP會議記錄</label></li>
+                                        <li class="permission-item"><input class="form-check-input" type="checkbox" id="permIep13" data-permission-item checked><label for="permIep13">IEP轉銜會議記錄</label></li>
+                                        <li class="permission-item"><input class="form-check-input" type="checkbox" id="permIep14" data-permission-item><label for="permIep14">IEP家庭訪問紀錄表</label></li>
+                                        <li class="permission-item"><input class="form-check-input" type="checkbox" id="permIep15" data-permission-item><label for="permIep15">IEP學生輔導紀錄表</label></li>
+                                        <li class="permission-item"><input class="form-check-input" type="checkbox" id="permIep16" data-permission-item checked><label for="permIep16">IEP相關服務建議(專團服務)</label></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 各式報表列印 -->
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <div class="permission-card permission-card--report" data-permission-card>
+                                <div class="permission-card-head">
+                                    <span class="permission-card-icon"><i class="bi bi-printer-fill" aria-hidden="true"></i></span>
+                                    <h2 class="permission-card-title">各式報表列印</h2>
+                                    <span class="permission-card-select">
+                                        <input class="form-check-input" type="checkbox" id="moduleReport" data-module-toggle aria-label="全選 各式報表列印">
+                                        <span class="permission-card-count" data-module-count>0/13</span>
+                                    </span>
+                                </div>
+
+                                <div class="permission-subgroup" data-permission-subgroup>
+                                    <p class="permission-subgroup-head">
+                                        <input class="form-check-input" type="checkbox" id="subReportRoster" data-subgroup-toggle aria-label="全選 學籍資料">
+                                        <label for="subReportRoster">學籍資料</label>
+                                        <span class="permission-subgroup-count" data-subgroup-count>(0/4)</span>
+                                    </p>
+                                    <ul class="permission-subgroup-list">
+                                        <li class="permission-item"><input class="form-check-input" type="checkbox" id="permReport1" data-permission-item checked><label for="permReport1">學生基本資料表</label></li>
+                                        <li class="permission-item"><input class="form-check-input" type="checkbox" id="permReport2" data-permission-item checked><label for="permReport2">學籍表</label></li>
+                                        <li class="permission-item"><input class="form-check-input" type="checkbox" id="permReport3" data-permission-item checked><label for="permReport3">學生基本資料匯出(Excel)</label></li>
+                                        <li class="permission-item"><input class="form-check-input" type="checkbox" id="permReport4" data-permission-item checked><label for="permReport4">學生點名表匯出(Excel)</label></li>
+                                    </ul>
+                                </div>
+
+                                <div class="permission-subgroup" data-permission-subgroup>
+                                    <p class="permission-subgroup-head">
+                                        <input class="form-check-input" type="checkbox" id="subReportScore" data-subgroup-toggle aria-label="全選 成績單">
+                                        <label for="subReportScore">成績單</label>
+                                        <span class="permission-subgroup-count" data-subgroup-count>(0/3)</span>
+                                    </p>
+                                    <ul class="permission-subgroup-list">
+                                        <li class="permission-item"><input class="form-check-input" type="checkbox" id="permReport5" data-permission-item checked><label for="permReport5">操行成績單(A表)</label></li>
+                                        <li class="permission-item"><input class="form-check-input" type="checkbox" id="permReport6" data-permission-item checked><label for="permReport6">操行成績單(B表)(獎學金用)</label></li>
+                                        <li class="permission-item"><input class="form-check-input" type="checkbox" id="permReport7" data-permission-item checked><label for="permReport7">學生成績單</label></li>
+                                    </ul>
+                                </div>
+
+                                <div class="permission-subgroup" data-permission-subgroup>
+                                    <p class="permission-subgroup-head">
+                                        <input class="form-check-input" type="checkbox" id="subReportAffairs" data-subgroup-toggle aria-label="全選 學務報表">
+                                        <label for="subReportAffairs">學務報表</label>
+                                        <span class="permission-subgroup-count" data-subgroup-count>(0/2)</span>
+                                    </p>
+                                    <ul class="permission-subgroup-list">
+                                        <li class="permission-item"><input class="form-check-input" type="checkbox" id="permReport8" data-permission-item checked><label for="permReport8">學生出缺勤表</label></li>
+                                        <li class="permission-item"><input class="form-check-input" type="checkbox" id="permReport9" data-permission-item><label for="permReport9">獎懲紀錄統計表</label></li>
+                                    </ul>
+                                </div>
+
+                                <div class="permission-subgroup" data-permission-subgroup>
+                                    <p class="permission-subgroup-head">
+                                        <input class="form-check-input" type="checkbox" id="subReportGraduate" data-subgroup-toggle aria-label="全選 新生/畢(結)業生報表">
+                                        <label for="subReportGraduate">新生/畢(結)業生報表</label>
+                                        <span class="permission-subgroup-count" data-subgroup-count>(0/2)</span>
+                                    </p>
+                                    <ul class="permission-subgroup-list">
+                                        <li class="permission-item"><input class="form-check-input" type="checkbox" id="permReport10" data-permission-item><label for="permReport10">畢(結)業名冊</label></li>
+                                        <li class="permission-item"><input class="form-check-input" type="checkbox" id="permReport11" data-permission-item><label for="permReport11">新生(畢業)報局用表</label></li>
+                                    </ul>
+                                </div>
+
+                                <div class="permission-subgroup" data-permission-subgroup>
+                                    <p class="permission-subgroup-head">
+                                        <input class="form-check-input" type="checkbox" id="subReportSubstitute" data-subgroup-toggle aria-label="全選 代(兼)課相關報表">
+                                        <label for="subReportSubstitute">代(兼)課相關報表</label>
+                                        <span class="permission-subgroup-count" data-subgroup-count>(0/2)</span>
+                                    </p>
+                                    <ul class="permission-subgroup-list">
+                                        <li class="permission-item"><input class="form-check-input" type="checkbox" id="permReport12" data-permission-item checked><label for="permReport12">代(兼)課通知單</label></li>
+                                        <li class="permission-item"><input class="form-check-input" type="checkbox" id="permReport13" data-permission-item checked><label for="permReport13">教師代(兼)課時數統計表</label></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 固定於視窗底部的操作列：統計／取消／存檔，清單過長時仍可隨時操作 -->
+    <div class="permission-action-bar" role="region" aria-label="群組權限設定操作列">
+        <p class="permission-action-stats" id="permissionStats" role="status">
+            <i class="bi bi-check2-square" aria-hidden="true"></i>已授權 <span id="permissionStatsChecked">0</span>/<span id="permissionStatsTotal">0</span>
+        </p>
+        <div class="permission-action-buttons">
+            <button type="button" class="btn permission-action-cancel" id="permissionCancelBtn">取消</button>
+            <button type="button" class="btn btn-primary" id="permissionSaveBtn">
+                <i class="bi bi-save" aria-hidden="true"></i>存檔
+            </button>
+        </div>
+    </div>
+
+    <!-- 存檔成功回饋 Modal -->
+    <div class="modal fade" id="permissionSaveModal" tabindex="-1" aria-labelledby="permissionSaveModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center py-5">
+                    <i class="bi bi-check-circle-fill text-success" style="font-size: 3rem;" aria-hidden="true"></i>
+                    <h2 class="h5 mt-3 mb-0" id="permissionSaveModalLabel">權限設定已儲存</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/groupPermission.js"></script>
+</body>
+</html>

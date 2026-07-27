@@ -1,0 +1,60 @@
+// ==========================================================================
+// 無障礙頁籤（.tabs-nav / role="tablist"）
+// 分段式（segmented control）頁籤，搭配 js/tabs.js 進行 roving tabindex 與方向鍵切換
+// ==========================================================================
+
+.tabs-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  background-color: $grey-200;
+  border-radius: $border-radius-lg;
+  padding: 6px;
+  margin-bottom: 24px;
+}
+
+.tabs-nav-btn {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  appearance: none;
+  background: none;
+  border: 0;
+  border-radius: $border-radius;
+  flex: 1 1 160px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: $font-weight-bold;
+  color: $grey-500;
+  cursor: pointer;
+  transition: color .15s ease, background-color .15s ease, box-shadow .15s ease;
+
+  &:hover {
+    color: $primary;
+  }
+
+  &.is-active {
+    color: $white;
+    background-color: $primary;
+    box-shadow: $box-shadow-sm;
+  }
+  &.is-active .iep-tab-icon--done,
+  &.is-active .iep-tab-icon--undone,
+  &.is-active .iep-tab-icon--all,
+  &.is-active .iep-tab-icon--warn {
+    color: $white;
+  }
+}
+
+.tabs-panel {
+  &:focus-visible {
+    outline-offset: 4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tabs-nav-btn {
+    transition: none;
+  }
+}

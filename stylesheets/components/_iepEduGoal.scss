@@ -1,0 +1,238 @@
+// ==========================================================================
+// IEP 學年與學期教育目標管理明細（iepEduGoal_form.html）
+// 頁籤鎖定圖示、快速引用詞句列、評量明細表欄位、評量代碼文字圖例
+// ==========================================================================
+
+// --------------------------------------------------------------------------
+// 頁籤鎖定狀態（階段二需先完成階段一並儲存才會解鎖）
+// --------------------------------------------------------------------------
+.tabs-nav--steps .tabs-nav-btn:disabled {
+  background-color: $grey-300;
+  border-color: $grey-300;
+  color: $grey-500;
+  cursor: not-allowed;
+
+  &:hover {
+    background-color: $grey-300;
+    border-color: $grey-300;
+    color: $grey-500;
+  }
+}
+
+.iep-tab-lock {
+  font-size: .875rem;
+}
+
+// --------------------------------------------------------------------------
+// 快速引用詞句：下拉選單＋寫入按鈕
+// --------------------------------------------------------------------------
+.iep-quickref {
+  margin-bottom: 12px;
+}
+
+.iep-quickref-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+
+  .form-select {
+    flex: 1 1 320px;
+    min-width: 0;
+  }
+}
+
+.iep-quickref-btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+// --------------------------------------------------------------------------
+// 評量明細表：標題列（新增／刪除按鈕靠右）
+// --------------------------------------------------------------------------
+.iep-eval-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid $primary-100;
+
+  .form-section-title {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-bottom: 0;
+  }
+}
+
+.iep-eval-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    font-weight: $font-weight-medium;
+  }
+}
+
+// 評量項目設定欄（選擇日期／評量方式／評量標準堆疊）
+.iep-eval-item-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 220px;
+}
+.iep-eval-item{
+  min-width: 150px;
+}
+// 評量結果欄（＋已通過／－未通過單選）
+.iep-eval-result {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  .form-check {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+  }
+
+  .form-check-input {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    flex-shrink: 0;
+  }
+}
+
+// 功能欄（編輯／儲存／取消／刪除按鈕堆疊）
+.iep-eval-row-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 120px;
+    padding: 8px 16px;
+    font-weight: $font-weight-medium;
+    white-space: nowrap;
+  }
+}
+
+.iep-eval-cancel-btn {
+  background-color: $white;
+  border: 1px solid $danger;
+  color: $danger;
+
+  &:hover,
+  &:focus-visible {
+    background-color: rgba($danger, .08);
+    color: $danger;
+  }
+}
+
+// 教學日期區間欄：垂直排列的開始／結束日期
+.date-range--stack {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+}
+
+.date-range-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+// 學期目標欄：textarea 保留可讀寬度，允許使用者手動拖曳加寬
+// （表格擠不下時交由 .data-table-wrap 出現 x 軸捲軸，md 以下維持直式堆疊不受影響）
+.iep-assess-table textarea.form-control {
+  @include media-breakpoint-up(md) {
+    min-width: 220px;
+  }
+}
+
+// 功能欄：md 以上固定於表格最右側，其餘欄位可 x 軸捲動查看
+.iep-assess-table {
+  @include media-breakpoint-up(md) {
+    // 覆寫 .data-table 的 overflow: hidden，
+    // 否則 sticky 會以 <table> 自身（不會捲動）為裁切基準而失效，
+    // 必須讓 sticky 以真正會 x 軸捲動的 .data-table-wrap 為基準
+    overflow: visible;
+    th:last-child,
+    td:last-child {
+      position: sticky;
+      right: 0;
+      z-index: 1;
+      border-left: 1px solid $grey-300;
+    }
+
+    thead th:last-child {
+      background-color: $grey-200;
+    }
+
+    tbody td:last-child {
+      background-color: $white;
+    }
+
+    tbody tr:nth-child(even) td:last-child {
+      background-color: $grey-100;
+    }
+  }
+}
+
+// --------------------------------------------------------------------------
+// 評量代碼文字圖例（無障礙：代碼意義不可僅以顏色表達）
+// --------------------------------------------------------------------------
+.iep-eval-legend {
+  margin: 16px 0 0;
+  padding: 16px;
+  background-color: $grey-100;
+  border: 1px solid $grey-300;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.iep-eval-legend-item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  margin: 0;
+
+  dt {
+    flex: 0 0 auto;
+    font-weight: $font-weight-bold;
+    color: $grey-600;
+
+    &::after {
+      content: "：";
+    }
+  }
+
+  dd {
+    margin: 0;
+    color: $grey-500;
+    flex: 1 1 240px;
+    min-width: 0;
+  }
+}

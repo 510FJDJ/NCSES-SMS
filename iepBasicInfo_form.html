@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo/logo-uni.png" type="image/png">
+    <title>IEP基本資料管理明細 - 國立彰化特殊教育學校 雲端校務管理系統</title>
+    <meta name="description" content="依據特教法規編製個別化教育計畫，分階段維護學生基本狀況、能力現況與支持策略。">
+    <meta name="robots" content="noindex">
+
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body class="has-iep-action-bar">
+    <!-- 無障礙：跳過導覽列，進入主要內容區 -->
+    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+
+    <!-- 總管理者登入 Header -->
+    <div id="header" data-layout="layout/header_AdminLogged.html"></div>
+
+    <main id="goCenter" tabindex="-1">
+        <!-- 內頁 Banner：麵包屑＋標題＋返回列表按鈕 -->
+        <section class="page-banner">
+            <!-- 裝飾層（純 CSS 繪製） -->
+            <div class="page-banner-deco" aria-hidden="true">
+                <span class="page-banner-halfcircle"></span>
+                <span class="page-banner-circle"></span>
+                <span class="page-banner-dots"></span>
+            </div>
+
+            <div class="container">
+                <nav class="page-banner-breadcrumb" aria-label="麵包屑導覽">
+                    <ol>
+                        <li>
+                            <a class="breadcrumb-home" href="index_AdminLogged.html" aria-label="首頁">
+                                <i class="bi bi-house-door" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li><a href="#">IEP管理</a></li>
+                        <li><a href="iepBasicInfo.html">IEP基本資料管理</a></li>
+                        <li aria-current="page">進入IEP</li>
+                    </ol>
+                </nav>
+
+                <div class="page-banner-main">
+                    <div class="page-banner-text">
+                        <h1 class="page-banner-title">IEP基本資料管理明細</h1>
+                        <p class="page-banner-desc">依據特教法規編製個別化教育計畫，分階段維護學生基本狀況、能力現況與支持策略。</p>
+                    </div>
+                    <!-- 右側人物插圖（純裝飾；背景以 CSS 繪製，角色圖可互換） -->
+                    <div class="page-banner-visual page-banner-visual--composed page-banner-visual--pointPerson" aria-hidden="true">
+                        <span class="banner-visual-blob"></span>
+                        <span class="banner-visual-window"></span>
+                        <img class="banner-visual-person" src="img/hero/characters/people-front-point.png" alt="">
+                    </div>
+                    <a class="btn-back" href="iepBasicInfo.html">
+                        <i class="bi bi-chevron-left" aria-hidden="true"></i>返回列表
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- IEP 明細表單 -->
+        <section class="form-section-wrap">
+            <div class="container">
+                <!-- 學生資訊摘要列（後端：由學生資料帶入） -->
+                <div class="iep-student-bar">
+                    <div class="iep-student-name">
+                        <span>王小明</span>
+                        <span class="iep-student-dept-badge">國小部</span>
+                    </div>
+                    <dl class="iep-student-metas">
+                        <div class="iep-student-meta">
+                            <dt>學號：</dt>
+                            <dd>1131001</dd>
+                        </div>
+                        <div class="iep-student-meta">
+                            <dt>班級：</dt>
+                            <dd>101國小低年級</dd>
+                        </div>
+                        <div class="iep-student-meta">
+                            <dt>填表學期：</dt>
+                            <dd>113學年度第2學期</dd>
+                        </div>
+                        <div class="iep-student-meta">
+                            <dt>填表日期：</dt>
+                            <dd>2026/12/18</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <!-- 後端：表單送出目標與驗證由後端接手 -->
+                <form class="form-card" id="iepForm" action="#" method="post" novalidate>
+                    <!-- 三階段填寫頁籤（js/tabs.js 無障礙頁籤控制） -->
+                    <div class="tabs-nav tabs-nav--steps" role="tablist" aria-label="IEP 表單填寫階段">
+                        <button type="button" class="tabs-nav-btn is-active" role="tab" id="tab-iepStep1" aria-selected="true" aria-controls="panel-iepStep1" tabindex="0">
+                            <span class="iep-step-num" aria-hidden="true">1</span>學生基本資料與家庭狀況
+                        </button>
+                        <button type="button" class="tabs-nav-btn" role="tab" id="tab-iepStep2" aria-selected="false" aria-controls="panel-iepStep2" tabindex="-1">
+                            <span class="iep-step-num" aria-hidden="true">2</span>能力現況描述
+                        </button>
+                        <button type="button" class="tabs-nav-btn" role="tab" id="tab-iepStep3" aria-selected="false" aria-controls="panel-iepStep3" tabindex="-1">
+                            <span class="iep-step-num" aria-hidden="true">3</span>學生學習需求、相關服務及支持策略
+                        </button>
+                    </div>
+
+                    <div class="iep-step-panels">
+                        <!-- ============================================================
+                             階段一：學生基本資料與家庭狀況
+                        ============================================================ -->
+                        <div class="tabs-panel" role="tabpanel" id="panel-iepStep1" aria-labelledby="tab-iepStep1">
+                            <p class="iep-tab-lead">維護個案基本資料、家庭結構與主要聯繫人，建立完整個案背景脈絡。</p>
+
+                            <section class="form-section" aria-labelledby="iepSecBasic">
+                                <h2 class="form-section-title" id="iepSecBasic">
+                                    <i class="bi bi-person" aria-hidden="true"></i>基本資料
+                                </h2>
+                                <!-- 後端：以下唯讀資料由學籍系統帶入 -->
+                                <div class="iep-info-grid">
+                                    <div class="iep-info-row">
+                                        <div class="iep-info-row-label">學籍資訊</div>
+                                        <dl class="iep-info-fields">
+                                            <div class="iep-info-item"><dt>部別</dt><dd>國民小學</dd></div>
+                                            <div class="iep-info-item"><dt>班級</dt><dd>101國小低年級</dd></div>
+                                            <div class="iep-info-item"><dt>座號</dt><dd>2</dd></div>
+                                            <div class="iep-info-item"><dt>學號</dt><dd>1131001</dd></div>
+                                        </dl>
+                                    </div>
+                                    <div class="iep-info-row">
+                                        <div class="iep-info-row-label">學生資訊</div>
+                                        <dl class="iep-info-fields iep-info-fields--cols3">
+                                            <div class="iep-info-item"><dt>學生姓名</dt><dd>王小明</dd></div>
+                                            <div class="iep-info-item"><dt>通訊地址</dt><dd>(511)彰化縣社頭鄉*****</dd></div>
+                                            <div class="iep-info-item"><dt>身心障礙類別(等級)</dt><dd>第１類(極重度)</dd></div>
+                                        </dl>
+                                    </div>
+                                    <div class="iep-info-row">
+                                        <div class="iep-info-row-label">家長聯絡人</div>
+                                        <dl class="iep-info-fields iep-info-fields--cols3">
+                                            <div class="iep-info-item"><dt>家長</dt><dd>王OO</dd></div>
+                                            <div class="iep-info-item"><dt>家長電話</dt><dd>04-12345678</dd></div>
+                                            <div class="iep-info-item"><dt>家長手機</dt><dd>0912345678</dd></div>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section class="form-section" aria-labelledby="iepSecFamily">
+                                <h2 class="form-section-title" id="iepSecFamily">
+                                    <i class="bi bi-house-heart" aria-hidden="true"></i>家庭結構敘述
+                                </h2>
+                                <label class="sr-only" for="familyStructure">家庭結構敘述</label>
+                                <div class="textarea-counter-wrap">
+                                    <textarea class="form-control" id="familyStructure" name="familyStructure" rows="4" maxlength="200" placeholder="請輸入家庭結構敘述" aria-describedby="familyStructureCount"></textarea>
+                                    <span class="textarea-counter" id="familyStructureCount" aria-live="polite">0 / 200</span>
+                                </div>
+                            </section>
+                        </div>
+
+                        <!-- ============================================================
+                             階段二：能力現況描述
+                        ============================================================ -->
+                        <div class="tabs-panel" role="tabpanel" id="panel-iepStep2" aria-labelledby="tab-iepStep2" hidden>
+                            <p class="iep-tab-lead">評估學生目前之認知、溝通、生活自理、社會情緒與各學科之優劣勢現況。</p>
+
+                            <!-- 健康狀況 -->
+                            <section class="form-section" aria-labelledby="iepSecHealth">
+                                <h2 class="form-section-title" id="iepSecHealth">
+                                    <i class="bi bi-heart-pulse" aria-hidden="true"></i>健康狀況
+                                </h2>
+                                <div class="row g-4">
+                                    <div class="col-12">
+                                        <fieldset>
+                                            <legend class="form-legend">現況描述<span class="badge-required">必填</span></legend>
+                                            <div class="iep-radio-inline">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="healthDesc" id="healthGood" value="good" checked>
+                                                    <label class="form-check-label" for="healthGood">健康，很少生病</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="healthDesc" id="healthFew" value="few">
+                                                    <label class="form-check-label" for="healthFew">偶生病</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="healthDesc" id="healthWeak" value="weak">
+                                                    <label class="form-check-label" for="healthWeak">體弱多病（常缺席）</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="healthDesc" id="healthOther" value="other">
+                                                    <label class="form-check-label" for="healthOther">其他</label>
+                                                </div>
+                                                <label class="sr-only" for="healthOtherNote">其他請說明</label>
+                                                <input type="text" class="form-control" id="healthOtherNote" name="healthOtherNote" maxlength="50" placeholder="其他請說明，限中文50字以內。">
+                                            </div>
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="col-12 col-lg-6">
+                                        <label class="form-label" for="diagDisease">目前醫生診斷疾病</label>
+                                        <input type="text" class="form-control" id="diagDisease" name="diagDisease" maxlength="50" placeholder="請輸入疾病名稱，限中文50字以內。">
+                                    </div>
+                                    <div class="col-12 col-lg-6">
+                                        <fieldset>
+                                            <legend class="form-legend">長期服用藥物<span class="badge-required">必填</span></legend>
+                                            <div class="iep-radio-inline">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="medUse" id="medNo" value="no" checked>
+                                                    <label class="form-check-label" for="medNo">無</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="medUse" id="medYes" value="yes">
+                                                    <label class="form-check-label" for="medYes">有</label>
+                                                </div>
+                                                <label class="sr-only" for="medName">長期服用藥物內容</label>
+                                                <input type="text" class="form-control" id="medName" name="medName" maxlength="50" placeholder="請輸入長期服用藥物，限中文50字以內。">
+                                            </div>
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="col-12 col-lg-6">
+                                        <label class="form-label" for="medTime">服藥時間</label>
+                                        <input type="text" class="form-control" id="medTime" name="medTime" maxlength="50" placeholder="請輸入服藥時間，限中文50字以內。">
+                                    </div>
+                                    <div class="col-12 col-lg-6">
+                                        <label class="form-label" for="medResult">服藥結果</label>
+                                        <div class="textarea-counter-wrap">
+                                            <textarea class="form-control" id="medResult" name="medResult" rows="2" maxlength="50" placeholder="請輸入服藥結果，限中文50字以內。" aria-describedby="medResultCount"></textarea>
+                                            <span class="textarea-counter" id="medResultCount" aria-live="polite">0 / 50</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-6">
+                                        <label class="form-label" for="lifeImpact">對學習與生活的影響</label>
+                                        <input type="text" class="form-control" id="lifeImpact" name="lifeImpact" maxlength="50" placeholder="請輸入對學習與生活的影響，限中文50字以內。">
+                                    </div>
+                                    <div class="col-12 col-lg-6">
+                                        <label class="form-label" for="otherHistory">其他特殊病史</label>
+                                        <input type="text" class="form-control" id="otherHistory" name="otherHistory" maxlength="50" placeholder="請輸入其他特殊病史，限中文50字以內。">
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label class="form-label" for="allergy">食物，藥物過敏</label>
+                                        <input type="text" class="form-control" id="allergy" name="allergy" maxlength="50" placeholder="請輸入食物，藥物過敏，限中文50字以內。">
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label class="form-label" for="abilitySupplement">能力現狀補充<span class="iep-label-note">(限中文500字以內)</span></label>
+                                        <div class="textarea-counter-wrap">
+                                            <textarea class="form-control" id="abilitySupplement" name="abilitySupplement" rows="4" maxlength="500" placeholder="請輸入能力現狀補充，限中文500字以內。" aria-describedby="abilitySupplementCount"></textarea>
+                                            <span class="textarea-counter" id="abilitySupplementCount" aria-live="polite">0 / 500</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- 生理感官 -->
+                            <section class="form-section" aria-labelledby="iepSecSense">
+                                <h2 class="form-section-title" id="iepSecSense">
+                                    <i class="bi bi-journal-medical" aria-hidden="true"></i>生理感官
+                                </h2>
+                                <div class="row g-4">
+                                    <div class="col-12 col-lg-6">
+                                        <label class="form-label" for="visionStatus">視覺狀況(說明視力值及功能性視覺評估結果)<span class="badge-required">必填</span></label>
+                                        <div class="textarea-counter-wrap">
+                                            <textarea class="form-control" id="visionStatus" name="visionStatus" rows="3" maxlength="500" placeholder="請輸入視覺狀況，限中文500字以內。" aria-describedby="visionStatusCount"></textarea>
+                                            <span class="textarea-counter" id="visionStatusCount" aria-live="polite">0 / 500</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-6">
+                                        <label class="form-label" for="hearingStatus">聽覺狀況(裸耳和配戴助聽器之聽力及聽覺功能現況)<span class="badge-required">必填</span></label>
+                                        <div class="textarea-counter-wrap">
+                                            <textarea class="form-control" id="hearingStatus" name="hearingStatus" rows="3" maxlength="500" placeholder="請輸入聽覺狀況，限中文500字以內。" aria-describedby="hearingStatusCount"></textarea>
+                                            <span class="textarea-counter" id="hearingStatusCount" aria-live="polite">0 / 500</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-6">
+                                        <label class="form-label" for="physicalStatus">肢體狀況<span class="badge-required">必填</span></label>
+                                        <div class="textarea-counter-wrap">
+                                            <textarea class="form-control" id="physicalStatus" name="physicalStatus" rows="3" maxlength="500" placeholder="請輸入肢體狀況，限中文500字以內。" aria-describedby="physicalStatusCount"></textarea>
+                                            <span class="textarea-counter" id="physicalStatusCount" aria-live="polite">0 / 500</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-6">
+                                        <label class="form-label" for="neuroStatus">神經精神方面<span class="badge-required">必填</span></label>
+                                        <div class="textarea-counter-wrap">
+                                            <textarea class="form-control" id="neuroStatus" name="neuroStatus" rows="3" maxlength="500" placeholder="請輸入神經精神方面，限中文500字以內。" aria-describedby="neuroStatusCount"></textarea>
+                                            <span class="textarea-counter" id="neuroStatusCount" aria-live="polite">0 / 500</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- 優弱勢分析 -->
+                            <section class="form-section" aria-labelledby="iepSecSw">
+                                <h2 class="form-section-title" id="iepSecSw">
+                                    <i class="bi bi-clipboard-data" aria-hidden="true"></i>優弱勢分析
+                                </h2>
+
+                                <fieldset class="iep-sw-group">
+                                    <legend class="form-legend">認知能力<span class="badge-required">必填</span></legend>
+                                    <div class="row g-4">
+                                        <div class="col-12 col-lg-6">
+                                            <label class="form-label" for="cognitionStrength">優勢</label>
+                                            <div class="textarea-counter-wrap">
+                                                <textarea class="form-control" id="cognitionStrength" name="cognitionStrength" rows="3" maxlength="250" placeholder="請輸入認知能力(優勢)，限中文250字以內。" aria-describedby="cognitionStrengthCount"></textarea>
+                                                <span class="textarea-counter" id="cognitionStrengthCount" aria-live="polite">0 / 250</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <label class="form-label" for="cognitionWeakness">弱勢</label>
+                                            <div class="textarea-counter-wrap">
+                                                <textarea class="form-control" id="cognitionWeakness" name="cognitionWeakness" rows="3" maxlength="250" placeholder="請輸入認知能力(弱勢)，限中文250字以內。" aria-describedby="cognitionWeaknessCount"></textarea>
+                                                <span class="textarea-counter" id="cognitionWeaknessCount" aria-live="polite">0 / 250</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset class="iep-sw-group">
+                                    <legend class="form-legend">溝通能力<span class="badge-required">必填</span></legend>
+                                    <div class="row g-4">
+                                        <div class="col-12 col-lg-6">
+                                            <label class="form-label" for="communicationStrength">優勢</label>
+                                            <div class="textarea-counter-wrap">
+                                                <textarea class="form-control" id="communicationStrength" name="communicationStrength" rows="3" maxlength="250" placeholder="請輸入溝通能力(優勢)，限中文250字以內。" aria-describedby="communicationStrengthCount"></textarea>
+                                                <span class="textarea-counter" id="communicationStrengthCount" aria-live="polite">0 / 250</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <label class="form-label" for="communicationWeakness">弱勢</label>
+                                            <div class="textarea-counter-wrap">
+                                                <textarea class="form-control" id="communicationWeakness" name="communicationWeakness" rows="3" maxlength="250" placeholder="請輸入溝通能力(弱勢)，限中文250字以內。" aria-describedby="communicationWeaknessCount"></textarea>
+                                                <span class="textarea-counter" id="communicationWeaknessCount" aria-live="polite">0 / 250</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset class="iep-sw-group">
+                                    <legend class="form-legend">學業能力<span class="badge-required">必填</span></legend>
+                                    <div class="row g-4">
+                                        <div class="col-12 col-lg-6">
+                                            <label class="form-label" for="academicStrength">優勢</label>
+                                            <div class="textarea-counter-wrap">
+                                                <textarea class="form-control" id="academicStrength" name="academicStrength" rows="3" maxlength="250" placeholder="請輸入學業能力(優勢)，限中文250字以內。" aria-describedby="academicStrengthCount"></textarea>
+                                                <span class="textarea-counter" id="academicStrengthCount" aria-live="polite">0 / 250</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <label class="form-label" for="academicWeakness">弱勢</label>
+                                            <div class="textarea-counter-wrap">
+                                                <textarea class="form-control" id="academicWeakness" name="academicWeakness" rows="3" maxlength="250" placeholder="請輸入學業能力(弱勢)，限中文250字以內。" aria-describedby="academicWeaknessCount"></textarea>
+                                                <span class="textarea-counter" id="academicWeaknessCount" aria-live="polite">0 / 250</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset class="iep-sw-group">
+                                    <legend class="form-legend">生活能力<span class="badge-required">必填</span></legend>
+                                    <div class="row g-4">
+                                        <div class="col-12 col-lg-6">
+                                            <label class="form-label" for="dailyLifeStrength">優勢</label>
+                                            <div class="textarea-counter-wrap">
+                                                <textarea class="form-control" id="dailyLifeStrength" name="dailyLifeStrength" rows="3" maxlength="250" placeholder="請輸入生活能力(優勢)，限中文250字以內。" aria-describedby="dailyLifeStrengthCount"></textarea>
+                                                <span class="textarea-counter" id="dailyLifeStrengthCount" aria-live="polite">0 / 250</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <label class="form-label" for="dailyLifeWeakness">弱勢</label>
+                                            <div class="textarea-counter-wrap">
+                                                <textarea class="form-control" id="dailyLifeWeakness" name="dailyLifeWeakness" rows="3" maxlength="250" placeholder="請輸入生活能力(弱勢)，限中文250字以內。" aria-describedby="dailyLifeWeaknessCount"></textarea>
+                                                <span class="textarea-counter" id="dailyLifeWeaknessCount" aria-live="polite">0 / 250</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset class="iep-sw-group">
+                                    <legend class="form-legend">知覺/動作/行動能力<span class="badge-required">必填</span></legend>
+                                    <div class="row g-4">
+                                        <div class="col-12 col-lg-6">
+                                            <label class="form-label" for="motorStrength">優勢</label>
+                                            <div class="textarea-counter-wrap">
+                                                <textarea class="form-control" id="motorStrength" name="motorStrength" rows="3" maxlength="250" placeholder="請輸入知覺/動作/行動能力(優勢)，限中文250字以內。" aria-describedby="motorStrengthCount"></textarea>
+                                                <span class="textarea-counter" id="motorStrengthCount" aria-live="polite">0 / 250</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <label class="form-label" for="motorWeakness">弱勢</label>
+                                            <div class="textarea-counter-wrap">
+                                                <textarea class="form-control" id="motorWeakness" name="motorWeakness" rows="3" maxlength="250" placeholder="請輸入知覺/動作/行動能力(弱勢)，限中文250字以內。" aria-describedby="motorWeaknessCount"></textarea>
+                                                <span class="textarea-counter" id="motorWeaknessCount" aria-live="polite">0 / 250</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset class="iep-sw-group">
+                                    <legend class="form-legend">社會人際<span class="badge-required">必填</span></legend>
+                                    <div class="row g-4">
+                                        <div class="col-12 col-lg-6">
+                                            <label class="form-label" for="socialStrength">優勢</label>
+                                            <div class="textarea-counter-wrap">
+                                                <textarea class="form-control" id="socialStrength" name="socialStrength" rows="3" maxlength="250" placeholder="請輸入社會人際(優勢)，限中文250字以內。" aria-describedby="socialStrengthCount"></textarea>
+                                                <span class="textarea-counter" id="socialStrengthCount" aria-live="polite">0 / 250</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <label class="form-label" for="socialWeakness">弱勢</label>
+                                            <div class="textarea-counter-wrap">
+                                                <textarea class="form-control" id="socialWeakness" name="socialWeakness" rows="3" maxlength="250" placeholder="請輸入社會人際(弱勢)，限中文250字以內。" aria-describedby="socialWeaknessCount"></textarea>
+                                                <span class="textarea-counter" id="socialWeaknessCount" aria-live="polite">0 / 250</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset class="iep-sw-group">
+                                    <legend class="form-legend">情緒行為<span class="badge-required">必填</span></legend>
+                                    <div class="row g-4">
+                                        <div class="col-12 col-lg-6">
+                                            <label class="form-label" for="emotionStrength">優勢</label>
+                                            <div class="textarea-counter-wrap">
+                                                <textarea class="form-control" id="emotionStrength" name="emotionStrength" rows="3" maxlength="250" placeholder="請輸入情緒行為(優勢)，限中文250字以內。" aria-describedby="emotionStrengthCount"></textarea>
+                                                <span class="textarea-counter" id="emotionStrengthCount" aria-live="polite">0 / 250</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <label class="form-label" for="emotionWeakness">弱勢</label>
+                                            <div class="textarea-counter-wrap">
+                                                <textarea class="form-control" id="emotionWeakness" name="emotionWeakness" rows="3" maxlength="250" placeholder="請輸入情緒行為(弱勢)，限中文250字以內。" aria-describedby="emotionWeaknessCount"></textarea>
+                                                <span class="textarea-counter" id="emotionWeaknessCount" aria-live="polite">0 / 250</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </section>
+                        </div>
+
+                        <!-- ============================================================
+                             階段三：學生學習需求、相關服務及支持策略
+                        ============================================================ -->
+                        <div class="tabs-panel" role="tabpanel" id="panel-iepStep3" aria-labelledby="tab-iepStep3" hidden>
+                            <p class="iep-tab-lead">針對評估結果擬定個別化教學、學習調整、輔助科技與專業團隊支持策略。</p>
+
+                            <!-- 需求分析與學習需求 -->
+                            <section class="form-section" aria-labelledby="iepSecNeeds">
+                                <h2 class="form-section-title" id="iepSecNeeds">
+                                    <i class="bi bi-person-lines-fill" aria-hidden="true"></i>需求分析與學習需求
+                                </h2>
+
+                                <div class="iep-choice-grid">
+                                    <fieldset class="iep-choice-box">
+                                        <legend class="form-legend">學習內容 (可複選)<span class="badge-required">必填</span></legend>
+                                        <div class="iep-check-list">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="learnContent1" name="learnContent[]" value="1" checked>
+                                                <label class="form-check-label" for="learnContent1">分組教學</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="learnContent2" name="learnContent[]" value="2">
+                                                <label class="form-check-label" for="learnContent2">功能性動作訓練</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="learnContent3" name="learnContent[]" value="3">
+                                                <label class="form-check-label" for="learnContent3">社會技巧</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="learnContent4" name="learnContent[]" value="4">
+                                                <label class="form-check-label" for="learnContent4">輔助科技應用</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="learnContent5" name="learnContent[]" value="5">
+                                                <label class="form-check-label" for="learnContent5">生活管理</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="learnContent6" name="learnContent[]" value="6" checked>
+                                                <label class="form-check-label" for="learnContent6">溝通訓練</label>
+                                            </div>
+                                            <div class="iep-check-other">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="learnContentSpecial" name="learnContent[]" value="special">
+                                                    <label class="form-check-label" for="learnContentSpecial">特殊需求</label>
+                                                </div>
+                                                <label class="sr-only" for="learnContentSpecialNote">特殊需求說明</label>
+                                                <input type="text" class="form-control" id="learnContentSpecialNote" name="learnContentSpecialNote" maxlength="100" placeholder="請說明，限中文100字以內。">
+                                            </div>
+                                            <div class="iep-check-other">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="learnContentOther" name="learnContent[]" value="other">
+                                                    <label class="form-check-label" for="learnContentOther">其他，請說明：</label>
+                                                </div>
+                                                <label class="sr-only" for="learnContentOtherNote">其他說明</label>
+                                                <input type="text" class="form-control" id="learnContentOtherNote" name="learnContentOtherNote" maxlength="100" placeholder="請說明，限中文100字以內。">
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="learnContentNone" name="learnContent[]" value="none">
+                                                <label class="form-check-label" for="learnContentNone">無</label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset class="iep-choice-box">
+                                        <legend class="form-legend">學習歷程調整 (可複選)<span class="badge-required">必填</span></legend>
+                                        <div class="iep-check-list">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="learnProcess1" name="learnProcess[]" value="1" checked>
+                                                <label class="form-check-label" for="learnProcess1">座位調整</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="learnProcess2" name="learnProcess[]" value="2">
+                                                <label class="form-check-label" for="learnProcess2">教室位置調整</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="learnProcess3" name="learnProcess[]" value="3">
+                                                <label class="form-check-label" for="learnProcess3">放大字體</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="learnProcess4" name="learnProcess[]" value="4">
+                                                <label class="form-check-label" for="learnProcess4">課業輔導</label>
+                                            </div>
+                                            <div class="iep-check-other">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="learnProcessOther" name="learnProcess[]" value="other">
+                                                    <label class="form-check-label" for="learnProcessOther">其他，請說明：</label>
+                                                </div>
+                                                <label class="sr-only" for="learnProcessOtherNote">其他說明</label>
+                                                <input type="text" class="form-control" id="learnProcessOtherNote" name="learnProcessOtherNote" maxlength="100" placeholder="請說明，限中文100字以內。">
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="learnProcessNone" name="learnProcess[]" value="none">
+                                                <label class="form-check-label" for="learnProcessNone">無</label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset class="iep-choice-box">
+                                        <legend class="form-legend">學習教學策略 (可複選)<span class="badge-required">必填</span></legend>
+                                        <div class="iep-check-list">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="learnStrategy1" name="learnStrategy[]" value="1" checked>
+                                                <label class="form-check-label" for="learnStrategy1">課程難易度調整</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="learnStrategy2" name="learnStrategy[]" value="2">
+                                                <label class="form-check-label" for="learnStrategy2">減少作業份量</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="learnStrategy3" name="learnStrategy[]" value="3">
+                                                <label class="form-check-label" for="learnStrategy3">輔具提供</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="learnStrategy4" name="learnStrategy[]" value="4">
+                                                <label class="form-check-label" for="learnStrategy4">報讀</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="learnStrategy5" name="learnStrategy[]" value="5">
+                                                <label class="form-check-label" for="learnStrategy5">代抄筆記</label>
+                                            </div>
+                                            <div class="iep-check-other">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="learnStrategyOther" name="learnStrategy[]" value="other">
+                                                    <label class="form-check-label" for="learnStrategyOther">其他，請說明：</label>
+                                                </div>
+                                                <label class="sr-only" for="learnStrategyOtherNote">其他說明</label>
+                                                <input type="text" class="form-control" id="learnStrategyOtherNote" name="learnStrategyOtherNote" maxlength="100" placeholder="請說明，限中文100字以內。">
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="learnStrategyNone" name="learnStrategy[]" value="none">
+                                                <label class="form-check-label" for="learnStrategyNone">無</label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset class="iep-choice-box iep-choice-box--span2">
+                                        <legend class="form-legend">學習環境輔具提供</legend>
+                                        <div class="row g-4">
+                                            <div class="col-12 col-lg-5">
+                                                <fieldset>
+                                                    <legend class="form-legend">來源 (可複選)<span class="badge-required">必填</span></legend>
+                                                    <div class="iep-check-list">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="aidSource1" name="aidSource[]" value="1" checked>
+                                                            <label class="form-check-label" for="aidSource1">自備</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="aidSource2" name="aidSource[]" value="2">
+                                                            <label class="form-check-label" for="aidSource2">學校借用</label>
+                                                        </div>
+                                                        <div class="iep-check-other">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="aidSourceOther" name="aidSource[]" value="other">
+                                                                <label class="form-check-label" for="aidSourceOther">其他，請說明：</label>
+                                                            </div>
+                                                            <label class="sr-only" for="aidSourceOtherNote">其他說明</label>
+                                                            <input type="text" class="form-control" id="aidSourceOtherNote" name="aidSourceOtherNote" maxlength="100" placeholder="請說明，限中文100字以內。">
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="aidSourceNone" name="aidSource[]" value="none">
+                                                            <label class="form-check-label" for="aidSourceNone">無</label>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                            <div class="col-12 col-lg-7">
+                                                <fieldset>
+                                                    <legend class="form-legend">項目 (可複選)<span class="badge-required">必填</span></legend>
+                                                    <div class="iep-check-list">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="aidItem1" name="aidItem[]" value="1" checked>
+                                                            <label class="form-check-label" for="aidItem1">助聽器(自備)</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="aidItem2" name="aidItem[]" value="2">
+                                                            <label class="form-check-label" for="aidItem2">放大鏡</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="aidItem3" name="aidItem[]" value="3" checked>
+                                                            <label class="form-check-label" for="aidItem3">大字體課本</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="aidItem4" name="aidItem[]" value="4">
+                                                            <label class="form-check-label" for="aidItem4">輪椅</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="aidItem5" name="aidItem[]" value="5">
+                                                            <label class="form-check-label" for="aidItem5">溝通板</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="aidItem6" name="aidItem[]" value="6">
+                                                            <label class="form-check-label" for="aidItem6">電腦</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="aidItem7" name="aidItem[]" value="7">
+                                                            <label class="form-check-label" for="aidItem7">站立架</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="aidItem8" name="aidItem[]" value="8">
+                                                            <label class="form-check-label" for="aidItem8">助行器</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="aidItem9" name="aidItem[]" value="9">
+                                                            <label class="form-check-label" for="aidItem9">調整式課桌椅</label>
+                                                        </div>
+                                                        <div class="iep-check-other">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="aidItemOther" name="aidItem[]" value="other">
+                                                                <label class="form-check-label" for="aidItemOther">其他，請說明：</label>
+                                                            </div>
+                                                            <label class="sr-only" for="aidItemOtherNote">其他說明</label>
+                                                            <input type="text" class="form-control" id="aidItemOtherNote" name="aidItemOtherNote" maxlength="100" placeholder="請說明，限中文100字以內。">
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="aidItemNone" name="aidItem[]" value="none">
+                                                            <label class="form-check-label" for="aidItemNone">無</label>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset class="iep-choice-box">
+                                        <legend class="form-legend">支持環境<span class="badge-required">必填</span></legend>
+                                        <div class="iep-check-list iep-check-list--single">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="supportEnv1" name="supportEnv[]" value="1" checked>
+                                                <label class="form-check-label" for="supportEnv1">教師助理員或特殊教育學生助理人員</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="supportEnv2" name="supportEnv[]" value="2">
+                                                <label class="form-check-label" for="supportEnv2">認輔教師</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="supportEnv3" name="supportEnv[]" value="3">
+                                                <label class="form-check-label" for="supportEnv3">社區志工輔導</label>
+                                            </div>
+                                            <div class="iep-check-other">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="supportEnvOther" name="supportEnv[]" value="other">
+                                                    <label class="form-check-label" for="supportEnvOther">其他，請說明：</label>
+                                                </div>
+                                                <label class="sr-only" for="supportEnvOtherNote">其他說明</label>
+                                                <input type="text" class="form-control" id="supportEnvOtherNote" name="supportEnvOtherNote" maxlength="100" placeholder="請說明，限中文100字以內。">
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="supportEnvNone" name="supportEnv[]" value="none">
+                                                <label class="form-check-label" for="supportEnvNone">無</label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset class="iep-choice-box iep-choice-box--full">
+                                        <legend class="form-legend">學習評量</legend>
+                                        <div class="row g-4">
+                                            <div class="col-12 col-lg-6">
+                                                <fieldset>
+                                                    <legend class="form-legend">評量標準 (可複選)<span class="badge-required">必填</span></legend>
+                                                    <div class="iep-check-list">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="evalStd1" name="evalStd[]" value="1" checked>
+                                                            <label class="form-check-label" for="evalStd1">能獨立完成</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="evalStd2" name="evalStd[]" value="2">
+                                                            <label class="form-check-label" for="evalStd2">能在直接口語提示下完成</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="evalStd3" name="evalStd[]" value="3" checked>
+                                                            <label class="form-check-label" for="evalStd3">能在間接口語提示下完成</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="evalStd4" name="evalStd[]" value="4">
+                                                            <label class="form-check-label" for="evalStd4">能在手勢提示下完成</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="evalStd5" name="evalStd[]" value="5">
+                                                            <label class="form-check-label" for="evalStd5">能在視覺提示下完成</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="evalStd6" name="evalStd[]" value="6">
+                                                            <label class="form-check-label" for="evalStd6">能在示範動作下完成</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="evalStd7" name="evalStd[]" value="7">
+                                                            <label class="form-check-label" for="evalStd7">能在部分身體提示下完成</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="evalStd8" name="evalStd[]" value="8">
+                                                            <label class="form-check-label" for="evalStd8">能在完全身體提示下完成</label>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                            <div class="col-12 col-lg-6">
+                                                <fieldset>
+                                                    <legend class="form-legend">評量方式 (可複選)<span class="badge-required">必填</span></legend>
+                                                    <div class="iep-check-list">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="evalWay1" name="evalWay[]" value="1" checked>
+                                                            <label class="form-check-label" for="evalWay1">觀察</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="evalWay2" name="evalWay[]" value="2">
+                                                            <label class="form-check-label" for="evalWay2">口頭</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="evalWay3" name="evalWay[]" value="3" checked>
+                                                            <label class="form-check-label" for="evalWay3">指認</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="evalWay4" name="evalWay[]" value="4">
+                                                            <label class="form-check-label" for="evalWay4">實作</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="evalWay5" name="evalWay[]" value="5">
+                                                            <label class="form-check-label" for="evalWay5">書寫</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="evalWayNone" name="evalWay[]" value="none">
+                                                            <label class="form-check-label" for="evalWayNone">無</label>
+                                                        </div>
+                                                        <div class="iep-check-other">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="evalWayOther" name="evalWay[]" value="other">
+                                                                <label class="form-check-label" for="evalWayOther">其他，請說明：</label>
+                                                            </div>
+                                                            <label class="sr-only" for="evalWayOtherNote">其他說明</label>
+                                                            <input type="text" class="form-control" id="evalWayOtherNote" name="evalWayOtherNote" maxlength="100" placeholder="請說明，限中文100字以內。">
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </section>
+
+                            <!-- 相關服務與支持策略需求 -->
+                            <section class="form-section" aria-labelledby="iepSecServices">
+                                <h2 class="form-section-title" id="iepSecServices">
+                                    <i class="bi bi-journal-text" aria-hidden="true"></i>相關服務與支持策略需求
+                                </h2>
+
+                                <div class="iep-choice-grid">
+                                    <fieldset class="iep-choice-box iep-choice-box--span2">
+                                        <legend class="form-legend">輔具與生活</legend>
+                                        <div class="row g-4">
+                                            <div class="col-12 col-lg-7">
+                                                <fieldset>
+                                                    <legend class="form-legend">輔導介入 (可複選)<span class="badge-required">必填</span></legend>
+                                                    <div class="iep-check-list">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="counsel1" name="counsel[]" value="1" checked>
+                                                            <label class="form-check-label" for="counsel1">個別輔導</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="counsel2" name="counsel[]" value="2">
+                                                            <label class="form-check-label" for="counsel2">團體輔導</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="counsel3" name="counsel[]" value="3" checked>
+                                                            <label class="form-check-label" for="counsel3">轉校內臨床心理師</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="counsel4" name="counsel[]" value="4">
+                                                            <label class="form-check-label" for="counsel4">轉介精神科醫師諮詢</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="counsel5" name="counsel[]" value="5" checked>
+                                                            <label class="form-check-label" for="counsel5">各類通報</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="counsel6" name="counsel[]" value="6">
+                                                            <label class="form-check-label" for="counsel6">問題行為危機處理(請填具表六行為功能介入方案表)</label>
+                                                        </div>
+                                                        <div class="iep-check-other">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="counselOther" name="counsel[]" value="other">
+                                                                <label class="form-check-label" for="counselOther">其他，請說明：</label>
+                                                            </div>
+                                                            <label class="sr-only" for="counselOtherNote">其他說明</label>
+                                                            <input type="text" class="form-control" id="counselOtherNote" name="counselOtherNote" maxlength="100" placeholder="請說明，限中文100字以內。">
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="counselNone" name="counsel[]" value="none">
+                                                            <label class="form-check-label" for="counselNone">無</label>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                            <div class="col-12 col-lg-5">
+                                                <fieldset>
+                                                    <legend class="form-legend">生活輔導 (可複選)<span class="badge-required">必填</span></legend>
+                                                    <div class="iep-check-list">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="lifeSupport1" name="lifeSupport[]" value="1" checked>
+                                                            <label class="form-check-label" for="lifeSupport1">獎助學金申請</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="lifeSupport2" name="lifeSupport[]" value="2">
+                                                            <label class="form-check-label" for="lifeSupport2">行動協助</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="lifeSupport3" name="lifeSupport[]" value="3" checked>
+                                                            <label class="form-check-label" for="lifeSupport3">服藥提醒</label>
+                                                        </div>
+                                                        <div class="iep-check-other">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="lifeSupportOther" name="lifeSupport[]" value="other">
+                                                                <label class="form-check-label" for="lifeSupportOther">其他，請說明：</label>
+                                                            </div>
+                                                            <label class="sr-only" for="lifeSupportOtherNote">其他說明</label>
+                                                            <input type="text" class="form-control" id="lifeSupportOtherNote" name="lifeSupportOtherNote" maxlength="100" placeholder="請說明，限中文100字以內。">
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="lifeSupportNone" name="lifeSupport[]" value="none">
+                                                            <label class="form-check-label" for="lifeSupportNone">無</label>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset class="iep-choice-box">
+                                        <legend class="form-legend">交通服務<span class="badge-required">必填</span></legend>
+                                        <div class="iep-check-list">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="traffic1" name="traffic[]" value="1" checked>
+                                                <label class="form-check-label" for="traffic1">搭乘交通車</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="traffic2" name="traffic[]" value="2">
+                                                <label class="form-check-label" for="traffic2">家長接送</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="traffic3" name="traffic[]" value="3">
+                                                <label class="form-check-label" for="traffic3">復康巴士</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="traffic4" name="traffic[]" value="4">
+                                                <label class="form-check-label" for="traffic4">自行上下學</label>
+                                            </div>
+                                            <div class="iep-check-other">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="trafficOther" name="traffic[]" value="other">
+                                                    <label class="form-check-label" for="trafficOther">其他，請說明：</label>
+                                                </div>
+                                                <label class="sr-only" for="trafficOtherNote">其他說明</label>
+                                                <input type="text" class="form-control" id="trafficOtherNote" name="trafficOtherNote" maxlength="100" placeholder="請說明，限中文100字以內。">
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset class="iep-choice-box">
+                                        <legend class="form-legend">醫療需求 (可複選)<span class="badge-required">必填</span></legend>
+                                        <div class="iep-check-list">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="medical1" name="medical[]" value="1" checked>
+                                                <label class="form-check-label" for="medical1">健康檢查</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="medical2" name="medical[]" value="2">
+                                                <label class="form-check-label" for="medical2">校醫駐診</label>
+                                            </div>
+                                            <div class="iep-check-other">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="medicalCare" name="medical[]" value="care">
+                                                    <label class="form-check-label" for="medicalCare">疾病護理：</label>
+                                                </div>
+                                                <label class="sr-only" for="medicalCareNote">疾病護理說明</label>
+                                                <input type="text" class="form-control" id="medicalCareNote" name="medicalCareNote" maxlength="50" placeholder="請說明，限中文50字以內。">
+                                            </div>
+                                            <div class="iep-check-other">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="medicalOther" name="medical[]" value="other">
+                                                    <label class="form-check-label" for="medicalOther">其他，請說明：</label>
+                                                </div>
+                                                <label class="sr-only" for="medicalOtherNote">其他說明</label>
+                                                <input type="text" class="form-control" id="medicalOtherNote" name="medicalOtherNote" maxlength="50" placeholder="請說明，限中文50字以內。">
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="medicalNone" name="medical[]" value="none">
+                                                <label class="form-check-label" for="medicalNone">無</label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset class="iep-choice-box">
+                                        <legend class="form-legend">巡迴服務 (可複選)<span class="badge-required">必填</span></legend>
+                                        <div class="iep-check-list">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="itinerant1" name="itinerant[]" value="1" checked>
+                                                <label class="form-check-label" for="itinerant1">在家教育巡迴輔導</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="itinerant2" name="itinerant[]" value="2">
+                                                <label class="form-check-label" for="itinerant2">視障巡迴輔導</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="itinerant3" name="itinerant[]" value="3">
+                                                <label class="form-check-label" for="itinerant3">聽障巡迴輔導</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="itinerant4" name="itinerant[]" value="4">
+                                                <label class="form-check-label" for="itinerant4">情障巡迴輔導</label>
+                                            </div>
+                                            <div class="iep-check-other">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="itinerantOther" name="itinerant[]" value="other">
+                                                    <label class="form-check-label" for="itinerantOther">其他，請說明：</label>
+                                                </div>
+                                                <label class="sr-only" for="itinerantOtherNote">其他說明</label>
+                                                <input type="text" class="form-control" id="itinerantOtherNote" name="itinerantOtherNote" maxlength="100" placeholder="請說明，限中文100字以內。">
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="itinerantNone" name="itinerant[]" value="none">
+                                                <label class="form-check-label" for="itinerantNone">無</label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset class="iep-choice-box">
+                                        <legend class="form-legend">身障福利 (可複選)<span class="badge-required">必填</span></legend>
+                                        <div class="iep-check-list">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="welfare1" name="welfare[]" value="1" checked>
+                                                <label class="form-check-label" for="welfare1">中低/低收入戶生活補助</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="welfare2" name="welfare[]" value="2">
+                                                <label class="form-check-label" for="welfare2">身心障礙者生活補助</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="welfare3" name="welfare[]" value="3">
+                                                <label class="form-check-label" for="welfare3">養護補助</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="welfare4" name="welfare[]" value="4">
+                                                <label class="form-check-label" for="welfare4">急難救助</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="welfare5" name="welfare[]" value="5">
+                                                <label class="form-check-label" for="welfare5">身心障礙者津貼</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="welfare6" name="welfare[]" value="6">
+                                                <label class="form-check-label" for="welfare6">生活及復建輔助器具補助</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="welfare7" name="welfare[]" value="7">
+                                                <label class="form-check-label" for="welfare7">醫療補助</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="welfare8" name="welfare[]" value="8">
+                                                <label class="form-check-label" for="welfare8">特教諮詢</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="welfare9" name="welfare[]" value="9">
+                                                <label class="form-check-label" for="welfare9">親職教育</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="welfare10" name="welfare[]" value="10">
+                                                <label class="form-check-label" for="welfare10">校園停車通行證申請</label>
+                                            </div>
+                                            <div class="iep-check-other">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="welfareOther" name="welfare[]" value="other">
+                                                    <label class="form-check-label" for="welfareOther">其他，請說明：</label>
+                                                </div>
+                                                <label class="sr-only" for="welfareOtherNote">其他說明</label>
+                                                <input type="text" class="form-control" id="welfareOtherNote" name="welfareOtherNote" maxlength="100" placeholder="請說明，限中文100字以內。">
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="welfareNone" name="welfare[]" value="none">
+                                                <label class="form-check-label" for="welfareNone">無</label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset class="iep-choice-box">
+                                        <legend class="form-legend">鑑定安置 (可複選)</legend>
+                                        <div class="iep-check-list iep-check-list--single">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="placement1" name="placement[]" value="1" checked>
+                                                <label class="form-check-label" for="placement1">重新評估(跨教育階段鑑定)</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="placement2" name="placement[]" value="2">
+                                                <label class="form-check-label" for="placement2">放棄特教身份</label>
+                                            </div>
+                                            <div class="iep-check-other">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="placementReset" name="placement[]" value="reset">
+                                                    <label class="form-check-label" for="placementReset">重新安置，請說明：</label>
+                                                </div>
+                                                <label class="sr-only" for="placementResetNote">重新安置說明</label>
+                                                <input type="text" class="form-control" id="placementResetNote" name="placementResetNote" maxlength="100" placeholder="請說明鑑定安置，限中文100字以內。">
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset class="iep-choice-box iep-choice-box--span2">
+                                        <legend class="form-legend">相關專業團隊服務 (可複選)<span class="badge-required">必填</span></legend>
+                                        <p class="iep-choice-note">經評估後，確定實施服務項目：</p>
+                                        <div class="iep-check-list iep-check-list--cols3">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="proTeam1" name="proTeam[]" value="1" checked>
+                                                <label class="form-check-label" for="proTeam1">物理治療</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="proTeam2" name="proTeam[]" value="2">
+                                                <label class="form-check-label" for="proTeam2">職能治療</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="proTeam3" name="proTeam[]" value="3">
+                                                <label class="form-check-label" for="proTeam3">語言治療</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="proTeam4" name="proTeam[]" value="4">
+                                                <label class="form-check-label" for="proTeam4">水療</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="proTeam5" name="proTeam[]" value="5">
+                                                <label class="form-check-label" for="proTeam5">臨床心理諮商服務</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="proTeam6" name="proTeam[]" value="6">
+                                                <label class="form-check-label" for="proTeam6">社工服務</label>
+                                            </div>
+                                            <div class="iep-check-other">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="proTeamOther" name="proTeam[]" value="other">
+                                                    <label class="form-check-label" for="proTeamOther">其他，請說明：</label>
+                                                </div>
+                                                <label class="sr-only" for="proTeamOtherNote">其他說明</label>
+                                                <input type="text" class="form-control" id="proTeamOtherNote" name="proTeamOtherNote" maxlength="100" placeholder="請說明，限中文100字以內。">
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- 固定於視窗底部的表單操作列（後端：暫存/送審/報表產出由後端接手） -->
+    <div class="iep-action-bar" role="region" aria-label="IEP 表單操作列">
+        <div class="iep-action-hint">
+            <img src="img/icon/小提醒.svg" alt="" class="iep-action-hint-icon">
+            <p><strong>小提醒</strong><br>表單完成後請記得儲存並送出審核歐!</p>
+        </div>
+        <div class="iep-action-buttons">
+            <button type="button" class="btn btn-draft" id="iepDraftBtn">
+                <i class="bi bi-floppy" aria-hidden="true"></i>暫存草稿
+            </button>
+            <button type="button" class="btn btn-success" id="iepSubmitBtn">
+                <i class="bi bi-send-check" aria-hidden="true"></i>儲存並送出審核
+            </button>
+            <button type="button" class="btn btn-primary" id="iepExportBtn">
+                <i class="bi bi-download" aria-hidden="true"></i>產生並匯出IEP報表
+            </button>
+        </div>
+        <a class="btn iep-action-cancel" href="iepBasicInfo.html">取消</a>
+    </div>
+
+    <!-- 回饋 Modal（3 秒倒數自動關閉；圖示/色彩由 JS 依情境切換） -->
+    <div class="modal fade feedback-modal" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body feedback-body" role="status">
+                    <span class="feedback-icon" aria-hidden="true">
+                        <i class="bi bi-file-earmark-check"></i>
+                    </span>
+                    <h2 class="feedback-title" id="feedbackModalTitle">儲存成功</h2>
+                    <p class="feedback-desc">您的 IEP 表單內容已儲存。</p>
+                    <p class="feedback-countdown"><span class="feedback-countdown-num">3</span>秒後 自動關閉</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回到頂部 -->
+    <button type="button" class="scroll-top-btn" aria-label="回到頁面頂端">
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+        <span class="scroll-top-text">回頂端</span>
+    </button>
+
+    <!-- 共用 Footer -->
+    <div id="footer" data-layout="layout/footer.html"></div>
+
+    <!-- 全站腳本（本地端，禁止 CDN） -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/tabs.js"></script>
+    <script src="js/iep.js"></script>
+</body>
+</html>
