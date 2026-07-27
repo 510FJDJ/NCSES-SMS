@@ -17,7 +17,7 @@
 // Layout & components
 @import "../node_modules/bootstrap/scss/root";
 
-@import "../node_modules/bootstrap-icons/font/bootstrap-icons.css";
+// @import "../node_modules/bootstrap-icons/font/bootstrap-icons.css";
 
 @import "../node_modules/bootstrap/scss/reboot";
 @import "../node_modules/bootstrap/scss/type";
@@ -58,6 +58,7 @@
 
 // base
 @import "./base/base";
+@import "./base/bootstrap-icons/font/bootstrap-icons.min.css";
 
 // components
 @import "./components/header";

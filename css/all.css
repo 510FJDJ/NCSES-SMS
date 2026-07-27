@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import "../node_modules/bootstrap-icons/font/bootstrap-icons.css";
+@import "./base/bootstrap-icons/font/bootstrap-icons.min.css";
 :root,
 [data-bs-theme=light] {
   --bs-blue: #0d6efd;
