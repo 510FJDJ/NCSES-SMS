@@ -1,0 +1,214 @@
+// ==========================================================================
+// 網站導覽頁（siteNavigation.html）：鍵盤操作說明徽章、提示框、站內導覽清單
+// ==========================================================================
+
+.sitenav-card {
+  p {
+    color: $grey-600;
+  }
+}
+
+.sitenav-intro-list {
+  margin-bottom: 16px;
+  padding-left: 1.5rem;
+}
+
+// --------------------------------------------------------------------------
+// 區塊小標題（鍵盤操作說明／網站導覽）
+// --------------------------------------------------------------------------
+.sitenav-section-title {
+  margin-top: 32px;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid $grey-300;
+  color: $primary-300;
+  font-size: 1.125rem;
+  font-weight: $font-weight-bold;
+}
+
+// --------------------------------------------------------------------------
+// 鍵盤按鍵徽章
+// --------------------------------------------------------------------------
+.kbd-combo {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.kbd-key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background-color: $primary;
+  color: $white;
+  font-weight: $font-weight-medium;
+  line-height: 1.2;
+}
+
+.kbd-plus {
+  color: $grey-500;
+}
+
+.kbd-hint {
+  color: $grey-500;
+  margin-right: 4px;
+}
+
+.kbd-note {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  border: 1px solid rgba($warning, .5);
+  border-radius: 8px;
+  background-color: rgba($warning, .12);
+  color: $grey-600;
+}
+
+// --------------------------------------------------------------------------
+// 網站導覽清單（藍色標題列＋多欄卡片式項目）
+// 主題區塊改為橫向並排卡片：手機 1 欄／md 2 欄／lg 3 欄／xxl 4 欄（見 siteNavigation.html 的 col-* 設定）
+// 內容過長的主題（如 IEP管理、各式報表列印）會拆成多張卡片，讓單一卡片不會被拉得太長
+// --------------------------------------------------------------------------
+.sitenav-list {
+  border: 1px solid $grey-300;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.sitenav-list-heading {
+  margin: 0;
+  padding: 14px 20px;
+  background-color: $primary;
+  color: $white;
+  font-size: 1rem;
+  font-weight: $font-weight-bold;
+  text-align: center;
+}
+
+.sitenav-body {
+  padding: 20px;
+}
+
+// 登入狀態頁面（1.未登入首頁／2.已登入首頁）：獨立於下方功能模組的分類區塊
+// 沿用既有的淺藍灰底（$grey-200），與下方改為白底的功能模組卡片形成對比
+.sitenav-login-group {
+  max-width: 320px;
+  margin-bottom: 20px;
+  padding: 16px 20px;
+  background-color: $grey-200;
+  border: 1px solid $grey-300;
+  border-radius: 8px;
+}
+
+.sitenav-group-title {
+  margin: 0 0 10px;
+  color: $grey-600;
+  font-size: 1rem;
+  font-weight: $font-weight-bold;
+}
+
+.sitenav-login-group-item {
+  > a {
+    display: inline-block;
+    color: $primary;
+    font-weight: $font-weight-medium;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  & + & {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid $grey-300;
+  }
+}
+
+.sitenav-divider {
+  margin: 0 0 20px;
+  border: none;
+  border-top: 1px solid $grey-300;
+}
+
+.sitenav-items {
+  margin-bottom: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sitenav-item-card {
+  height: 100%;
+  padding: 16px 20px;
+  background-color: $white;
+  border: 1px solid $grey-300;
+  border-radius: 8px;
+
+  > a,
+  > .sitenav-cat {
+    display: inline-block;
+    color: $primary;
+    font-weight: $font-weight-medium;
+  }
+
+  > a {
+    color: $primary;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// 拆成多張卡片的主題，第二張（含）之後標題附加的「續」標示
+.sitenav-cat-note {
+  margin-left: 4px;
+  color: $grey-500;
+  font-weight: $font-weight-medium;
+}
+
+.sitenav-subitems {
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    padding: 6px 0 6px 20px;
+  }
+
+  a {
+    color: $grey-600;
+
+    &:hover {
+      color: $primary;
+      text-decoration: underline;
+    }
+  }
+
+  .sitenav-cat {
+    color: $grey-600;
+    font-weight: $font-weight-medium;
+  }
+}
+
+.sitenav-subitems--lv3 {
+  margin-top: 6px;
+
+  li {
+    padding-left: 20px;
+  }
+}
+
+.sitenav-back {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}

@@ -2,7 +2,7 @@
   訪客狀態共用 Header
   依設計稿：僅於手機／平板顯示（d-lg-none），桌面板未登入首頁無頂欄
 ============================================================ -->
-<nav class="header-guest d-lg-none" aria-label="網站主導覽">
+<nav class="header-guest d-lg-none" id="headerNav" tabindex="-1" aria-label="網站主導覽">
     <div class="site-header-bar">
         <a class="site-brand" href="index.html">
             <img src="img/logo/logo-uni.png" alt="" width="32" height="32">
@@ -30,8 +30,7 @@
                     <a class="guest-menu-link" href="index.html">首頁</a>
                 </li>
                 <li>
-                    <!-- 後端：網站導覽頁連結 -->
-                    <a class="guest-menu-cta" href="#">
+                    <a class="guest-menu-cta" href="siteNavigation.html">
                         網站導覽
                         <i class="bi bi-chevron-right" aria-hidden="true"></i>
                     </a>

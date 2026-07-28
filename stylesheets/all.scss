@@ -57,6 +57,7 @@
 @import "../node_modules/bootstrap/scss/utilities/api";
 
 // base
+@import "./base/font";
 @import "./base/base";
 @import "vendor/bootstrap-icons/bootstrap-icons.min.css";
 
@@ -94,3 +95,4 @@
 @import "./components/editableRow";
 @import "./components/semesterDataTransfer";
 @import "./components/groupPermission";
+@import "./components/siteNavigation";

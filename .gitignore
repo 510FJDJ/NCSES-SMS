@@ -1,6 +1,7 @@
 # Claude 專案內部文件,不對外公開
 CLAUDE.md
 design.md
+ACCESSIBILITY.md
 .claude/
 
 # MCP 設定(可能含金鑰,先檢查內容再決定)

@@ -17,7 +17,9 @@
 </head>
 <body>
     <!-- 無障礙：跳過導覽列，進入主要內容區 -->
-    <a href="#goCenter" class="sr-only focusable" title="跳過導覽列，進入主要內容區">主要內容區</a>
+    <a href="#goCenter" class="sr-only focusable" accesskey="C" title="跳過導覽列，進入主要內容區">主要內容區</a>
+    <!-- 無障礙：跳至上方導覽列 -->
+    <a href="#headerNav" class="sr-only focusable" accesskey="U" title="跳至上方導覽列">上方導覽列</a>
 
     <!-- 訪客 Header（依設計稿僅手機板顯示） -->
     <div id="header" data-layout="layout/header.html"></div>
@@ -65,7 +67,7 @@
                         <form class="login-card" action="#" method="post" novalidate>
                             <div class="login-card-head">
                                 <h2 class="login-card-title">系統登入</h2>
-                                <a class="login-card-grip" href="#" id="c" accesskey="c" title="主要網站資訊區塊" aria-hidden="true">:::</a>
+                                <a class="login-card-grip" href="#" aria-hidden="true">:::</a>
                             </div>
 
                             <div class="login-field">
@@ -111,7 +113,9 @@
                                 <p class="field-error" id="captchaError" hidden>驗證碼輸入錯誤，請重新輸入</p>
                             </div>
 
-                            <button type="submit" class="btn-login">立即登入</button>
+                            <!-- <button type="submit" class="btn-login">立即登入</button> -->
+                             <button type="button" class="btn-login" onclick="location.href='index_AdminLogged.html'">立即登入</button>
+
                         </form>
 
                     </div>
@@ -142,7 +146,7 @@
                         <a class="circle-link" href="http://211.20.19.15:8037/" target="_blank" rel="noopener" title="雲端空間預約管理（另開新視窗）">雲端空間<br>預約管理</a>
                     </li>
                     <li>
-                        <a class="circle-link" href="#" target="_blank" rel="noopener" title="學校營養午餐系統（另開新視窗）">學校營養<br>午餐系統</a>
+                        <a class="circle-link" href="http://211.20.19.15:8096/" target="_blank" rel="noopener" title="校園訂餐管理系統（另開新視窗）">校園訂餐<br>管理系統</a>
                     </li>
                     <li>
                         <a class="circle-link" href="https://pk12.cloudhr.tw/" target="_blank" rel="noopener" title="國教署雲端差勤系統（另開新視窗）">國教署雲端<br>差勤系統</a>
