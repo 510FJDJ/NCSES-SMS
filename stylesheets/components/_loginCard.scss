@@ -6,11 +6,16 @@
   background-color: $white;
   border-radius: 16px;
   box-shadow: $box-shadow-lg;
-  padding: 20px;
+  padding: 16px 20px;
   max-width: 650px;
 
   @include media-breakpoint-up(lg) {
     // padding: 32px;
+  }
+
+  // 卡片內部欄位統一縮減內距，讓整體觀感更精簡（不動卡片外層寬高）
+  .form-control {
+    padding: 8px 12px;
   }
 }
 
@@ -18,14 +23,14 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 24px;
+  margin-bottom: 12px;
 }
 
 .login-card-title {
   color: $primary-100;
-  font-size: 2rem;
+  font-size: 1.625rem;
   font-weight: $font-weight-medium;
-  padding-bottom: 8px;
+  padding-bottom: 6px;
   border-bottom: 1px solid $gray-300;
   width:100%;
   position: relative;
@@ -50,7 +55,7 @@
 }
 
 .login-field {
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 
   label {
     display: block;
@@ -134,8 +139,8 @@
 }
 
 .captcha-img {
-  width: 120px;
-  height: 48px;
+  width: 108px;
+  height: 40px;
   border: 1px solid $grey-300;
   border-radius: 8px;
   background-color: $grey-200;
@@ -152,7 +157,7 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 8px 14px;
+  padding: 6px 12px;
   border: 1px solid $grey-300;
   border-radius: 8px;
   background-color: $white;
@@ -168,20 +173,133 @@
 
 // 登入送出鈕
 .btn-login {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   width: 100%;
-  margin-top: 24px;
+  margin-top: 12px;
   padding: 10px;
   border: 0;
   border-radius: 8px;
   background-color: $primary-100;
   color: $white;
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: $font-weight-medium;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.1em;
   transition: background-color .2s ease-in-out;
 
   &:hover {
     background-color: shade-color($primary-100, 12%);
   }
+}
+
+// 分隔線：或點選下方使用 SSO 登入
+.login-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 0;
+  color: $grey-500;
+  font-size: 0.875rem;
+
+  &::before,
+  &::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background-color: $grey-300;
+  }
+}
+
+// SSO 登入按鈕：教育體系身分認證服務（次要按鈕樣式，與實心深藍的立即登入鈕做出區隔）
+.btn-sso {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 14px;
+  border: 1.5px solid $primary-100;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: $color-primary-light;
+  text-decoration: none;
+  transition: background-color .2s ease-in-out;
+
+  // 明確覆寫全站連結 hover 底線／變色規則，改用背景色變化表達互動狀態
+  &:hover,
+  &:focus {
+    background-color: tint-color($primary-100, 88%);
+    text-decoration: none;
+  }
+
+  // 徽章旁活潑黃色裝飾點（延伸站內既有配色語彙）
+  &::after {
+    content: "";
+    position: absolute;
+    top: 6px;
+    left: 34px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 32% 28%, #F9E48E 0%, #F2D24C 70%);
+    z-index: 1;
+  }
+}
+
+// 右上角「Changhua」色塊：深底白字＋淡白色陰影，做出局部彩色標記
+.btn-sso-watermark {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  padding: 2px 7px 2px 9px;
+  border-radius: 0 6px 0 8px;
+  background-color: $primary-100;
+  color: rgba($white, .95);
+  font-size: 0.6875rem;
+  font-weight: $font-weight-bold;
+  font-style: italic;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 6px rgba($white, .7);
+}
+
+.btn-sso-badge {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: $white;
+  border: 1px solid $grey-300;
+  flex-shrink: 0;
+
+  img {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+  }
+}
+
+.btn-sso-text {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.btn-sso-title {
+  color: $primary-100;
+  font-weight: $font-weight-medium;
+  font-size: 1rem;
+}
+
+.btn-sso-desc {
+  color: $grey-500;
+  font-size: 0.75rem;
 }
